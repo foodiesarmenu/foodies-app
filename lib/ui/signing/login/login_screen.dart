@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
+import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 
-import '../custom_button_widget.dart';
-import '../custom_textfield_widget.dart';
-import '../social_connect_widget.dart';
+import '../../common/custom_button_widget.dart';
+import '../common/custom_textfield_widget.dart';
+import '../common/social_connect_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = "LoginSc";
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   //Welcome
                   const Text(
-                    'Welcome',
+                    'Login',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //Login Button
                   CustomButtonWidget(
                     text: 'Login',
-                    onPressed: navigateToHomeScreen,
+                    onPressed: navigateToWelcomeScreen,
                   ),
 
                   //Do not have account ?
@@ -107,7 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void navigateToHomeScreen() {
-    Navigator.of(context).pushNamed(HomeScreen.routeName);
+  void navigateToWelcomeScreen() {
+    Navigator.of(context).pushNamed(WelcomeScreen.routeName);
   }
 }
