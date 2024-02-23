@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../custom_button_widget.dart';
-import '../custom_textfield_widget.dart';
+import '../../common/custom_button_widget.dart';
+import '../common/custom_textfield_widget.dart';
+import '../common/social_connect_widget.dart';
 import '../login/login_screen.dart';
-import '../social_connect_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = "RegisterSc";
