@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
-                    height: 33,
+                    height: 32,
                   ),
                   const Text(
                       'How would you like to order \n your favorite meals today ?',
@@ -44,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(18),
                           ),
                           padding: const EdgeInsets.symmetric(
-                              vertical: 27, horizontal: 40),
+                              vertical: 24, horizontal: 24),
                           child: Row(
                             children: [
                               const Icon(Icons.store, size: 40),
@@ -70,7 +70,7 @@ class WelcomeScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(18),
                           ),
                           padding: const EdgeInsets.symmetric(
-                              vertical: 27, horizontal: 40),
+                              vertical: 24, horizontal: 24),
                           child: Row(
                             children: [
                               const Icon(Icons.book_online, size: 40),

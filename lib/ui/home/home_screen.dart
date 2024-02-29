@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/model/restaurant.dart';
 import 'package:foodies_app/ui/home/filter/filter_bottom_sheet_widget.dart';
 import 'package:foodies_app/ui/home/restaurants_widget.dart';
-import '../common/custom_navigation_bar.dart';
+import '../common/main_bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'HomeSc';
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             )
           ],
         ),
-        bottomNavigationBar: const CustomNavigationBar());
+        bottomNavigationBar: const MainBottomNavBar());
   }
 
   void showFilterBottomSheet() {
