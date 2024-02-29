@@ -1,111 +1,194 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/validation_utils.dart';
 
-import '../../common/custom_button_widget.dart';
-import '../common/custom_textfield_widget.dart';
-import '../common/social_connect_widget.dart';
+import '../../common/form_input_field.dart';
+import '../../common/primary_button.dart';
+import '../../common/social_sign_in_options.dart';
 import '../login/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = "RegisterSc";
-
-  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  TextEditingController fullNameController = TextEditingController();
+
+  TextEditingController emailController = TextEditingController();
+
+  TextEditingController phoneController = TextEditingController();
+
+  TextEditingController passwordController = TextEditingController();
+
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
+
+  var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Image.asset(
-              'assets/images/app_logo.png',
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                children: [
-                  const Text(
-                    'Register',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //Logo
+                Image.asset(
+                  'assets/images/app_logo.png',
+                ),
+
+                const SizedBox(
+                  height: 8,
+                ),
+
+                //Register
+                const Text(
+                  'Register',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                //Form
+                Form(
+                  key: formKey,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        //Form
+                        FormInputField(
+                          controller: fullNameController,
+                          hint: 'Full Name',
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter full name';
+                            }
+                            return null;
+                          },
+                        ),
+
+                        FormInputField(
+                            controller: emailController,
+                            hint: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (text) {
+                              if (text == null || text.trim().isEmpty) {
+                                return 'Please enter full name';
+                              }
+                              if (!ValidationUtils.isValidEmail(text)) {
+                                return 'Please enter valid email';
+                              }
+                              return null;
+                            }),
+
+                        FormInputField(
+                          controller: phoneController,
+                          hint: 'Phone Number',
+                          keyboardType: TextInputType.number,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter full name';
+                            }
+                            if (text.length < 9) {
+                              return 'Please enter valid phone number';
+                            }
+                            return null;
+                          },
+                        ),
+
+                        FormInputField(
+                          controller: passwordController,
+                          hint: 'Password',
+                          isSecured: true,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter password';
+                            }
+                            if (text.length <= 6) {
+                              return 'Password should at least 6 chars';
+                            }
+                            return null;
+                          },
+                        ),
+
+                        FormInputField(
+                          controller: passwordConfirmationController,
+                          hint: 'Confirm Password',
+                          isSecured: true,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter password';
+                            }
+                            if (text.length <= 6) {
+                              return 'Password should at least 6 chars';
+                            }
+                            if (text != passwordController.text) {
+                              return 'Password does not match';
+                            }
+                            return null;
+                          },
+                        ),
+
+                        const SizedBox(
+                          height: 16,
+                        ),
+
+                        //Register Button
+                        PrimaryButton(
+                          text: 'Create Account',
+                          onPressed: createAccount,
+                        ),
+
+                        const SizedBox(
+                          height: 8,
+                        ),
+
+                        //Already have Account
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Already have an account ?',
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .secondary)),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, LoginScreen.routeName);
+                                },
+                                child: Text(
+                                  ' Sign in',
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
+                                )),
+                          ],
+                        ),
+
+                        const SocialSignInOptions(),
+                      ],
                     ),
                   ),
-
-                  //Form
-                  CustomTextFieldWidget(text: 'Full Name'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  CustomTextFieldWidget(text: 'Email'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  CustomTextFieldWidget(text: 'Number'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  CustomTextFieldWidget(text: 'Password'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  CustomTextFieldWidget(text: 'Confirm Password'),
-                  const SizedBox(
-                    height: 10,
-                  ),
-
-                  //Register Button
-                  CustomButtonWidget(
-                    text: 'Register',
-                    onPressed: navigateToLoginScreen,
-                  ),
-
-                  //Aleardy have
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Already have an account ?',
-                        style: TextStyle(color: Color((0xFFA3A3A3))),
-                      ),
-                      InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, LoginScreen.routeName);
-                          },
-                          child: Text(
-                            ' Sign in',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          )),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const SocialConnectWidget(),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  void navigateToLoginScreen() {
+  void createAccount() {
+    if (formKey.currentState?.validate() == false) {
+      return;
+    }
     Navigator.of(context).pushNamed(LoginScreen.routeName);
   }
 }

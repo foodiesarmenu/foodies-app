@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SocialConnectWidget extends StatelessWidget {
-  const SocialConnectWidget({super.key});
+class SocialSignInOptions extends StatelessWidget {
+  const SocialSignInOptions({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,9 +9,6 @@ class SocialConnectWidget extends StatelessWidget {
       children: [
         Text('Or connect with',
             style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
-        const SizedBox(
-          height: 5,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

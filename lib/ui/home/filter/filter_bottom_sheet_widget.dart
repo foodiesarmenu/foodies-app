@@ -33,7 +33,7 @@ class FilterBottomSheetWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -84,21 +84,21 @@ class FilterBottomSheetWidget extends StatelessWidget {
               ),
 
               //Type Section
-              FilterSection(
+              const FilterSection(
                 title: 'Type',
-                items: const ['Sandwich', 'Meals', 'Drinks'],
+                items: ['Sandwich', 'Meals', 'Drinks'],
               ),
 
               //Food Section
-              FilterSection(
+              const FilterSection(
                 title: 'Food',
-                items: const ['Chicken', 'Beef', 'Fish'],
+                items: ['Chicken', 'Beef', 'Fish'],
               ),
 
               //Cuisine Section
-              FilterSection(
+              const FilterSection(
                 title: 'Cuisine',
-                items: const ['Egyptian', 'Italian', 'Chinese'],
+                items: ['Egyptian', 'Italian', 'Chinese'],
               ),
 
               const SizedBox(

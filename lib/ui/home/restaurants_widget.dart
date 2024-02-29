@@ -9,36 +9,42 @@ class RestaurantsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(30),
-            child: Image.asset(
-              'assets/images/${restaurant.image}',
-              height: 466,
-              width: double.infinity,
-              fit: BoxFit.fill,
-            ),
-          ),
-          Text(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Image.asset(
+          'assets/images/${restaurant.image}',
+          height: 300,
+          width: double.infinity,
+          fit: BoxFit.fill,
+        ),
+
+        //Title
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
             restaurant.name,
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                restaurant.service,
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.secondary),
-              ),
-              Row(
+        ),
+
+        Text(
+          restaurant.service,
+          style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+        ),
+
+        const SizedBox(
+          height: 4,
+        ),
+        //Service ,etc
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Row(
                 children: [
                   Icon(
                     Icons.star,
@@ -47,7 +53,9 @@ class RestaurantsWidget extends StatelessWidget {
                   Text(restaurant.rates, textAlign: TextAlign.center),
                 ],
               ),
-              Row(
+            ),
+            Expanded(
+              child: Row(
                 children: [
                   const Icon(Icons.location_on_outlined),
                   Text(
@@ -57,42 +65,54 @@ class RestaurantsWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                width: 5,
-              ),
-              Row(
+            ),
+          ],
+        ),
+
+        //Delivery Cost-Time
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const SizedBox(
+              width: 5,
+            ),
+            Expanded(
+              child: Row(
                 children: [
                   const Icon(Icons.access_time_outlined),
                   Text(restaurant.deliveryTime),
                 ],
               ),
-              Row(
+            ),
+            Expanded(
+              child: Row(
                 children: [
                   const Icon(Icons.delivery_dining_outlined),
                   Text(restaurant.deliveryCost),
                 ],
               ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.price_change_outlined,
-                    color: Colors.red,
-                  ),
-                  Text(
-                    restaurant.sale,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                ],
-              )
-            ],
-          )
-        ],
-      ),
+            ),
+          ],
+        ),
+
+        //Sale
+        Row(
+          children: [
+            const Icon(
+              Icons.price_change_outlined,
+              color: Colors.red,
+            ),
+            Text(
+              restaurant.sale,
+              style: const TextStyle(color: Colors.red),
+            ),
+          ],
+        ),
+
+        const SizedBox(
+          height: 24,
+        ),
+      ],
     );
   }
 }
