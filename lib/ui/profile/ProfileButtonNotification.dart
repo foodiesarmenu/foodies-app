@@ -44,7 +44,7 @@ class ProfileButtonNotification extends StatelessWidget {
                       // Add a spacer between icon and text
                       Text(
                         buttonText,
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                         textAlign: TextAlign.left, // Align text to the left
                       ),
                     ],
@@ -56,7 +56,7 @@ class ProfileButtonNotification extends StatelessWidget {
                     alignment: Alignment.center,
                     padding: const EdgeInsets.all(6.0),
                     // Add padding for content
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.red, // Set background color to red
                       shape: BoxShape.circle, // Set the shape to circle
                     ),
