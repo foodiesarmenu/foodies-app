@@ -3,6 +3,8 @@ import 'package:foodies_app/providers/selected_index_provider.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/orders/orders_screen.dart';
 import 'package:foodies_app/ui/profile/ProfileScreen.dart';
+import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
@@ -37,8 +39,11 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => const LoginScreen(),
         WelcomeScreen.routeName: (_) => const WelcomeScreen(),
         HomeScreen.routeName: (_) => const HomeScreen(),
-        ProfileScreen.routeName: (_) => const ProfileScreen(),
         OrdersScreen.routeName: (_) => const OrdersScreen(),
+        ProfileScreen.routeName: (_) => ProfileScreen(),
+        SettingsScreen.routeName: (_) => SettingsScreen(),
+        EditProfileScreen.routeName: (_) => EditProfileScreen(),
+
       },
     );
   }
