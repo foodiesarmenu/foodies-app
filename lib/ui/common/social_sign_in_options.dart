@@ -9,11 +9,17 @@ class SocialSignInOptions extends StatelessWidget {
       children: [
         Text('Or connect with',
             style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/images/google_icon.png'),
-            Image.asset('assets/images/facebook_icon.png'),
+            Icon(
+              Icons.facebook_outlined,
+              size: 32,
+            ),
+            Icon(
+              Icons.email_outlined,
+              size: 32,
+            ),
           ],
         ),
       ],

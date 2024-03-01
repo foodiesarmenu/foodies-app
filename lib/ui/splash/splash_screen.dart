@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
 
-import '../signing/register/register_screen.dart';
-
 class SplashScreen extends StatelessWidget {
   static const String routeName = "SplashSc";
 

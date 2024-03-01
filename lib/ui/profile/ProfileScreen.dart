@@ -1,31 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/common/main_bottom_nav_bar.dart';
 import 'package:foodies_app/ui/profile/ProfileButton.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
 import 'editProfile/EditProfileScreen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   static const String routeName = 'profile';
+
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       /*appBar: AppBar(
-        title: Text('Profile'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
-            },
-          ),
-        ],
-      ),*/
+          title: Text('Profile'),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.pushNamed(context, '/settings');
+              },
+            ),
+          ],
+        ),*/
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16),
-          margin: EdgeInsets.symmetric(vertical: 24),
+          margin: const EdgeInsets.symmetric(vertical: 24),
           child: Column(
             children: [
               // Profile picture, name, and country in a row
@@ -34,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         radius: 40.0,
                         backgroundImage: AssetImage('assets/images/7oda.png'),
                       ),
@@ -42,29 +49,32 @@ class ProfileScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Mohamed Hany',
-                            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(height: 10.0),
+                          const SizedBox(height: 10.0),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Egypt',
                                 style: TextStyle(fontSize: 16.0),
                               ),
-                              SizedBox(width: 15.0),
+                              const SizedBox(width: 15.0),
                               Row(
                                 children: [
-                                  Icon(Icons.account_balance_wallet_outlined,
-                                    color:  Theme.of(context).primaryColor,
+                                  Icon(
+                                    Icons.account_balance_wallet_outlined,
+                                    color: Theme.of(context).primaryColor,
                                     size: 18,
                                   ),
-                                  SizedBox(width: 3.0),
+                                  const SizedBox(width: 3.0),
                                   Text(
                                     'EGP 0.0',
-                                    style: TextStyle(fontSize: 14.0, color: Theme.of(context).primaryColor),
-
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Theme.of(context).primaryColor),
                                   ),
                                 ],
                               ),
@@ -74,6 +84,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+
                   /*IconButton(
                       icon: Icon(Icons.notifications_none),
                     onPressed: () {
@@ -176,14 +187,6 @@ class ProfileScreen extends StatelessWidget {
               //SizedBox(height: 24,),
               const Divider(thickness: 1.0,color: Color(0xFFFFA500),),
 
-
-
-
-
-
-
-
-
               // Navigation buttons
               Column(
                 children: [
@@ -202,9 +205,7 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: const MainBottomNavBar(),
     );
   }
-
-
-
 }
