@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/profile/ProfileButton.dart';
-import 'package:foodies_app/ui/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
+
+import 'editProfile/EditProfileScreen.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const String routeName = 'profile';
@@ -72,12 +74,43 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  IconButton(
+                  /*IconButton(
                       icon: Icon(Icons.notifications_none),
                     onPressed: () {
                       Navigator.pushNamed(context, '/notification');
                     },
-                  ),
+                  ),*/
+                  Stack(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.notifications_none),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/notification');
+                        },
+                      ),
+                      Positioned(
+                        bottom: 12, // Place the container at the bottom
+                        right: 12, // Adjust horizontal position from the right
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 13, // Adjusted width for smaller size
+                          height: 13, // Adjusted height for smaller size
+                          padding: const EdgeInsets.all(1.0), // Adjusted padding for smaller size
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '0', // Set your actual additional text here
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 6, // Adjusted font size for smaller size
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
               //SizedBox(height: 0.0),
@@ -103,7 +136,10 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       side: BorderSide(color: Theme.of(context).primaryColor),
                     ),
-                    onPressed: () => print('Edit Profile clicked'),
+
+                    onPressed: () {
+                      Navigator.pushNamed(context, EditProfileScreen.routeName);
+                    },
                     child: Text(
                       'Edit Profile',
                       style: TextStyle(color: Theme.of(context).primaryColor),

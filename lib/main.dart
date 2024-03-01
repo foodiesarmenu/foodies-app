@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/profile/ProfileScreen.dart';
-import 'package:foodies_app/ui/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: Color(0xFFFFFFFF),
       ),
-      initialRoute: ProfileScreen.routeName,
+      initialRoute: EditProfileScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (_) => HomeScreen(),
         ProfileScreen.routeName: (_) => ProfileScreen(),
         SettingsScreen.routeName: (_) => SettingsScreen(),
+        EditProfileScreen.routeName: (_) => EditProfileScreen(),
       },
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/settings/SettingsButton.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsButton.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings';
@@ -9,7 +9,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // title: Text('Settings'),
+         title: Text('Settings'),
       ),
       body: SingleChildScrollView(
         child: Container(
