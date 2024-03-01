@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/profile/ProfileButton.dart';
-import 'package:foodies_app/ui/profile/ProfileButtonNotification.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
+
+import 'editProfile/EditProfileScreen.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const String routeName = 'profile';
@@ -34,9 +36,9 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 40.0,
-                        backgroundImage: AssetImage('assets/images/MahmoudHossam.png'),
+                        backgroundImage: AssetImage('assets/images/7oda.png'),
                       ),
-                      SizedBox(width: 8),
+                      SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -68,31 +70,132 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-
                         ],
                       ),
                     ],
                   ),
-                  IconButton(
-                      icon: Icon(Icons.settings),
+                  /*IconButton(
+                      icon: Icon(Icons.notifications_none),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/settings');
+                      Navigator.pushNamed(context, '/notification');
                     },
-                  ),
+                  ),*/
+                  Stack(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.notifications_none),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/notification');
+                        },
+                      ),
+                      Positioned(
+                        bottom: 12, // Place the container at the bottom
+                        right: 12, // Adjust horizontal position from the right
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 13, // Adjusted width for smaller size
+                          height: 13, // Adjusted height for smaller size
+                          padding: const EdgeInsets.all(1.0), // Adjusted padding for smaller size
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            '0', // Set your actual additional text here
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 6, // Adjusted font size for smaller size
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
-              SizedBox(height: 20.0),
+              //SizedBox(height: 0.0),
+
+              //
+            /*
+            work here to make the
+                           notification
+              Account into + settings
+              edit profile
+            */
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Space buttons evenly
+            children: [
+              // Edit Profile button
+              SizedBox(width: 52,),
+              Container(
+                child: Expanded(
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      side: BorderSide(color: Theme.of(context).primaryColor),
+                    ),
+
+                    onPressed: () {
+                      Navigator.pushNamed(context, EditProfileScreen.routeName);
+                    },
+                    child: Text(
+                      'Edit Profile',
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                ),
+              ),
+
+              // Settings icon button
+              Container(
+                margin: EdgeInsets.all(16),
+                child: Expanded(
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      side: BorderSide(color: Theme.of(context).primaryColor),
+                      padding: EdgeInsets.zero, // Remove padding for compact icon
+                    ),
+                    onPressed: () {
+                      Navigator.pushNamed(context, SettingsScreen.routeName);
+                    },
+                    child: Icon(
+                      Icons.settings_outlined,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 16,),
+            ],
+          ),
+              //SizedBox(height: 24,),
+              const Divider(thickness: 1.0,color: Color(0xFFFFA500),),
+
+
+
+
+
+
+
+
+
               // Navigation buttons
               Column(
                 children: [
                   //ProfileButton(buttonText: 'Rewards', routeName: '/Rewards' ,iconData: Icons.card_giftcard),
-                  ProfileButton(buttonText: 'Rewards', routeName: '/Rewards', iconData: Icons.card_giftcard,additionalText: '1',),
-                  ProfileButton(buttonText: 'Your Orders', routeName: '/Your Orders' ,iconData: Icons.receipt_long),
+                  ProfileButton(buttonText: 'Favourite', routeName: '/Favourite', iconData: Icons.favorite_outline_outlined,additionalText: '5',),
+                  ProfileButton(buttonText: 'Rewards', routeName: '/Rewards', iconData: Icons.wallet_giftcard_outlined,additionalText: '1',),
+                  ProfileButton(buttonText: 'Your Orders', routeName: '/Your Orders' ,iconData: Icons.receipt_long), //assignment_rounded //event_note_outlined
                   ProfileButton(buttonText: 'Offers', routeName: '/Offers' ,iconData: Icons.local_offer_outlined),
-                  ProfileButtonNotification(buttonText: 'Notifications', routeName: '/Notifications' ,iconData: Icons.notifications_none, additionalText: '5',),
-                  ProfileButton(buttonText: 'Vouchers', routeName: '/Vouchers' ,iconData: Icons.offline_bolt_outlined, additionalText: '2',),
-                  ProfileButton(buttonText: 'Get Help', routeName: '/Get Help' ,iconData: Icons.help_outline_outlined),
-                  ProfileButton(buttonText: 'About App', routeName: '/About App' ,iconData: Icons.info_outline),
+                  //ProfileButtonNotification(buttonText: 'Notifications', routeName: '/Notifications' ,iconData: Icons.notifications_none, additionalText: '5',),
+                  ProfileButton(buttonText: 'Vouchers', routeName: '/Vouchers' ,iconData: Icons.confirmation_num_outlined, additionalText: '2',),
+                  //ProfileButton(buttonText: 'Get Help', routeName: '/Get Help' ,iconData: Icons.help_outline_outlined),
+                  //ProfileButton(buttonText: 'About App', routeName: '/About App' ,iconData: Icons.info_outline),
                 ],
               ),
             ],
