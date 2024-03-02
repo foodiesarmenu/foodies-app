@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsButton.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/ChangeEmailScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings';
@@ -42,14 +44,14 @@ class SettingsScreen extends StatelessWidget {
                   SettingsButton(
                     itemColor: Colors.black,
                     buttonText: 'Change password',
-                    routeName: '/Change password',
+                    routeName: ChangePasswordScreen.routeName,
                     iconData: Icons.password_outlined,
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
                   SettingsButton(
                     itemColor: Colors.black,
                     buttonText: 'Change email',
-                    routeName: '/Change email',
+                    routeName: ChangeEmailScreen.routeName,
                     iconData: Icons.attach_email_outlined,
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
