@@ -5,11 +5,14 @@ import 'package:foodies_app/ui/orders/orders_screen.dart';
 import 'package:foodies_app/ui/profile/ProfileScreen.dart';
 import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'ui/profile/settings/myAccount/ChangeEmailScreen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
       ),
-      initialRoute: HomeScreen.routeName,
+      initialRoute: ProfileScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
@@ -43,6 +46,9 @@ class MyApp extends StatelessWidget {
         ProfileScreen.routeName: (_) => ProfileScreen(),
         SettingsScreen.routeName: (_) => SettingsScreen(),
         EditProfileScreen.routeName: (_) => EditProfileScreen(),
+        ChangePasswordScreen.routeName: (_) => ChangePasswordScreen(),
+        ChangeEmailScreen.routeName: (_) => ChangeEmailScreen(),
+
 
       },
     );

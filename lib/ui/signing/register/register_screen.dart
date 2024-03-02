@@ -24,8 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   TextEditingController passwordController = TextEditingController();
 
-  TextEditingController passwordConfirmationController =
-      TextEditingController();
+  TextEditingController passwordConfirmationController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
