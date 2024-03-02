@@ -11,7 +11,7 @@ class ProfileButton extends StatelessWidget {
     required this.buttonText,
     required this.routeName,
     required this.iconData,
-    this.additionalText,// Pass the icon data in the constructor
+    this.additionalText, // Pass the icon data in the constructor
   });
 
   @override
@@ -25,28 +25,34 @@ class ProfileButton extends StatelessWidget {
             child: ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                elevation: MaterialStateProperty.all<double>(0.0), // Set elevation to 0
-                shadowColor: MaterialStateProperty.all<Color>(Colors.transparent), // Remove shadow
+                elevation: MaterialStateProperty.all<double>(0.0),
+                // Set elevation to 0
+                shadowColor: MaterialStateProperty.all<Color>(
+                    Colors.transparent), // Remove shadow
               ),
               onPressed: () => Navigator.pushNamed(context, routeName),
-              child: Row(// Use a Row as the child
+              child: Row(
+                // Use a Row as the child
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Icon(iconData,
-                      color: Colors.black,
+                      Icon(
+                        iconData,
+                        color: Colors.black,
                       ),
-                      const SizedBox(width: 15.0), // Add a spacer between icon and text
-                      Text(buttonText,
-                        style: TextStyle(color: Colors.black),
+                      const SizedBox(width: 15.0),
+                      // Add a spacer between icon and text
+                      Text(
+                        buttonText,
+                        style: const TextStyle(color: Colors.black),
                         textAlign: TextAlign.left, // Align text to the left
                       ),
                     ],
                   ), // Add the icon
                   Text(
-                    additionalText ??"",
-                    style: TextStyle(color: Colors.black),
+                    additionalText ?? "",
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ],
               ),

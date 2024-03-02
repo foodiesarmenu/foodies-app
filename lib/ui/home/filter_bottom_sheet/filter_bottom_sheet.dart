@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'filter_section.dart';
 
-class FilterBottomSheetWidget extends StatelessWidget {
-  const FilterBottomSheetWidget({super.key});
+class FilterBottomSheet extends StatelessWidget {
+  const FilterBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
