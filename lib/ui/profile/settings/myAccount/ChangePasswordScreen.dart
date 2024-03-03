@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/common/form_input_field.dart';
+import 'package:foodies_app/ui/common/ButtonInProfile.dart';
+import 'package:foodies_app/ui/common/EditTextInProfile.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   static const String routeName = 'change-password';
-   ChangePasswordScreen({super.key});
+   const ChangePasswordScreen({super.key});
 
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
@@ -23,19 +24,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change Password'),
+        title: const Text('Change Password'),
       ),
-      body: Form(
-
-        key: formKey,
-        child: Container(
-          padding: EdgeInsets.all(12),
+      body: Container(
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: [
-              FormInputField(
+              EditTextInProfile(
                 controller: passwordNewController,
                 label: 'Current Password',
-                hint: 'Current Password',
+               // hint: 'Current Password',
                 isSecured: true,
                 validator: (text) {
                   if (text == null || text.trim().isEmpty) {
@@ -47,10 +45,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   return null;
                 },
               ),
-              FormInputField(
+              EditTextInProfile(
                 controller: passwordController,
                 label: 'New Password',
-                hint: 'New Password',
+                //hint: 'New Password',
                 isSecured: true,
                 validator: (text) {
                     if (text == null || text.trim().isEmpty) {
@@ -62,10 +60,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     return null;
                   },
               ),
-              FormInputField(
+              EditTextInProfile(
                 controller: passwordConfirmationController,
                 label: 'Retype Password',
-                hint: 'Retype password',
+               // hint: 'Retype password',
                 isSecured: true,
                 validator: (text) {
                   if (text == null || text.trim().isEmpty) {
@@ -77,24 +75,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 10.0), // Space before the button
-              ElevatedButton(
-                onPressed: checkPass,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50.0), // Full-width button
-                ),
-                child:const Text('Change Password'),
+              const SizedBox(height: 10.0), // Space before the button
+              ButtonInProfile(
+                backgroundColor: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                text: 'Change Password',
+                onPressed: () {
+                  Navigator.of(context).pushNamed(SettingsScreen.routeName);
+                },
               ),
             ],
           ),
         ),
-      ),
+
     );
   }
-  void checkPass() {
+  /*void checkPass() {
     if (formKey.currentState?.validate() == false) {
       return;
     }
     Navigator.of(context).pushNamed(SettingsScreen.routeName);
-  }
+  }*/
 }

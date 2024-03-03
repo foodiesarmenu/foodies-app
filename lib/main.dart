@@ -6,6 +6,8 @@ import 'package:foodies_app/ui/profile/ProfileScreen.dart';
 import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
@@ -48,6 +50,12 @@ class MyApp extends StatelessWidget {
         EditProfileScreen.routeName: (_) => EditProfileScreen(),
         ChangePasswordScreen.routeName: (_) => ChangePasswordScreen(),
         ChangeEmailScreen.routeName: (_) => ChangeEmailScreen(),
+        MyAddressScreen.routeName: (_) => MyAddressScreen(),
+        MyCardScreen.routeName: (_) => MyCardScreen(),
+
+
+
+
 
 
       },
