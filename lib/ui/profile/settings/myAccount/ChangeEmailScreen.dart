@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/common/form_input_field.dart';
+import 'package:foodies_app/ui/common/ButtonInProfile.dart';
+import 'package:foodies_app/ui/common/EditTextInProfile.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/validation_utils.dart';
 
 class ChangeEmailScreen extends StatefulWidget {
   static const String routeName = 'change-email';
-  ChangeEmailScreen({super.key});
+  const ChangeEmailScreen({super.key});
 
   @override
   State<ChangeEmailScreen> createState() => _ChangeEmailScreenState();
@@ -21,17 +22,19 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change Email'),
+        title: const Text('Change Email'),
       ),
       body: Form(
 
         key: formKey,
         child: Container(
-          padding: EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
           child: Column(
             children: [
               //I want here to do a text view not
-              FormInputField(
+              EditTextInProfile(
+                keyboardType: TextInputType.emailAddress,
+                isTextFieldEnabled: false,
                 controller: emailController,
                 label: 'Current Email',
                 hint: 'mahmoud77mezo@gmail.com',
@@ -46,7 +49,9 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   return null;
                 },
               ),
-              FormInputField(
+              EditTextInProfile(
+                keyboardType: TextInputType.emailAddress,
+                isTextFieldEnabled: true,
                 controller: email2Controller,
                 label: 'New Email',
                 hint: '',
@@ -61,13 +66,14 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 10.0), // Space before the button
-              ElevatedButton(
-                onPressed: checkPass,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50.0), // Full-width button
-                ),
-                child:const Text('Change Email'),
+              const SizedBox(height: 10.0), // Space before the button
+              ButtonInProfile(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                  text: 'Change Email',
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(SettingsScreen.routeName);
+                  },
               ),
             ],
           ),
@@ -75,10 +81,10 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
       ),
     );
   }
-  void checkPass() {
+  /*void checkPass() {
     if (formKey.currentState?.validate() == false) {
       return;
     }
     Navigator.of(context).pushNamed(SettingsScreen.routeName);
-  }
+  }*/
 }

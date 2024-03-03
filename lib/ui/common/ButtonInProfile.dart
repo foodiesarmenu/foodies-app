@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+
+class ButtonInProfile extends StatelessWidget {
+  final String text; // Variable for button text
+  final Color textColor; // Variable for text color
+  final Color backgroundColor; // Variable for background color
+  Color? borderColor; // Variable for background color
+  final Function() onPressed; // Function to execute on button press
+
+  ButtonInProfile({
+    required this.text,
+    required this.textColor,
+    required this.backgroundColor,
+    this.borderColor,
+    required this.onPressed,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          minimumSize: const Size(double.infinity, 50.0), // Full-width button
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor, //text color
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+            side: borderColor != null ? // Check if borderColor is not null
+            BorderSide(color: borderColor!) : // Use null-safe operator
+            BorderSide.none, // Set to no border if borderColor is null // Adjust radius as desired
+          ),
+        ),
+        child: Text(text), // Set button text
+      ),
+    );
+  }
+}
