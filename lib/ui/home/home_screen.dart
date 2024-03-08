@@ -4,7 +4,6 @@ import 'package:foodies_app/ui/home/promotions/promotion_list.dart';
 import 'package:foodies_app/ui/home/restaurants/restaurant_list.dart';
 import 'package:foodies_app/ui/home/section_title.dart';
 
-import '../common/main_bottom_nav_bar.dart';
 import 'app_search_bar/app_search_bar.dart';
 import 'delivery_address/delivery_address.dart';
 
@@ -75,7 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const MainBottomNavBar(),
     );
   }
 }

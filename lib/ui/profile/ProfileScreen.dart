@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/common/main_bottom_nav_bar.dart';
 import 'package:foodies_app/ui/profile/ProfileButton.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
@@ -244,7 +243,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const MainBottomNavBar(),
     );
   }
 }
