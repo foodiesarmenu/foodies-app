@@ -24,7 +24,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   TextEditingController passwordController = TextEditingController();
 
-  TextEditingController passwordConfirmationController = TextEditingController();
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
@@ -36,35 +37,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //Logo
-                Image.asset(
-                  'assets/images/app_logo.png',
-                ),
+                Image.asset('assets/images/app_logo.png'),
 
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
 
                 //Register
                 const Text(
                   'Register',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
 
                 //Form
                 Form(
                   key: formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        //Form
-                        FormInputField(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //Form
+                      FormInputField(
                           controller: fullNameController,
                           hint: 'Full Name',
                           validator: (text) {
@@ -72,110 +64,101 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return 'Please enter full name';
                             }
                             return null;
-                          },
-                        ),
+                          }),
 
-                        FormInputField(
-                            controller: emailController,
-                            hint: 'Email',
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (text) {
-                              if (text == null || text.trim().isEmpty) {
-                                return 'Please enter full name';
-                              }
-                              if (!ValidationUtils.isValidEmail(text)) {
-                                return 'Please enter valid email';
-                              }
-                              return null;
-                            }),
-
-                        FormInputField(
-                          controller: phoneController,
-                          hint: 'Phone Number',
-                          keyboardType: TextInputType.number,
+                      FormInputField(
+                          controller: emailController,
+                          hint: 'Email',
+                          keyboardType: TextInputType.emailAddress,
                           validator: (text) {
                             if (text == null || text.trim().isEmpty) {
                               return 'Please enter full name';
                             }
-                            if (text.length < 9) {
-                              return 'Please enter valid phone number';
+                            if (!ValidationUtils.isValidEmail(text)) {
+                              return 'Please enter valid email';
                             }
                             return null;
-                          },
-                        ),
+                          }),
 
-                        FormInputField(
-                          controller: passwordController,
-                          hint: 'Password',
-                          isSecured: true,
-                          validator: (text) {
-                            if (text == null || text.trim().isEmpty) {
-                              return 'Please enter password';
-                            }
-                            if (text.length <= 6) {
-                              return 'Password should at least 6 chars';
-                            }
-                            return null;
-                          },
-                        ),
+                      FormInputField(
+                        controller: phoneController,
+                        hint: 'Phone Number',
+                        keyboardType: TextInputType.number,
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            return 'Please enter full name';
+                          }
+                          if (text.length < 9) {
+                            return 'Please enter valid phone number';
+                          }
+                          return null;
+                        },
+                      ),
 
-                        FormInputField(
-                          controller: passwordConfirmationController,
-                          hint: 'Confirm Password',
-                          isSecured: true,
-                          validator: (text) {
-                            if (text == null || text.trim().isEmpty) {
-                              return 'Please enter password';
-                            }
-                            if (text.length <= 6) {
-                              return 'Password should at least 6 chars';
-                            }
-                            if (text != passwordController.text) {
-                              return 'Password does not match';
-                            }
-                            return null;
-                          },
-                        ),
+                      FormInputField(
+                        controller: passwordController,
+                        hint: 'Password',
+                        isSecured: true,
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            return 'Please enter password';
+                          }
+                          if (text.length <= 6) {
+                            return 'Password should at least 6 chars';
+                          }
+                          return null;
+                        },
+                      ),
 
-                        const SizedBox(
-                          height: 16,
-                        ),
+                      FormInputField(
+                        controller: passwordConfirmationController,
+                        hint: 'Confirm Password',
+                        isSecured: true,
+                        validator: (text) {
+                          if (text == null || text.trim().isEmpty) {
+                            return 'Please enter password';
+                          }
+                          if (text.length <= 6) {
+                            return 'Password should at least 6 chars';
+                          }
+                          if (text != passwordController.text) {
+                            return 'Password does not match';
+                          }
+                          return null;
+                        },
+                      ),
 
-                        //Register Button
-                        PrimaryButton(
-                          text: 'Create Account',
-                          onPressed: createAccount,
-                        ),
+                      const SizedBox(height: 16),
 
-                        const SizedBox(
-                          height: 8,
-                        ),
+                      //Register Button
+                      PrimaryButton(
+                          text: 'Create Account', onPressed: createAccount),
 
-                        //Already have Account
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Already have an account ?',
+                      const SizedBox(height: 8),
+
+                      //Already have Account
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Already have an account ?',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary)),
+                          InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, LoginScreen.routeName);
+                              },
+                              child: Text(
+                                ' Sign in',
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary)),
-                            InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, LoginScreen.routeName);
-                                },
-                                child: Text(
-                                  ' Sign in',
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                )),
-                          ],
-                        ),
+                                    color: Theme.of(context).primaryColor),
+                              )),
+                        ],
+                      ),
 
-                        const SocialSignInOptions(),
-                      ],
-                    ),
+                      const SocialSignInOptions(),
+                    ],
                   ),
                 ),
               ],

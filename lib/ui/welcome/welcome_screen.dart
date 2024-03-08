@@ -17,7 +17,7 @@ class WelcomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Text(
-                    'Welcome Back , Mohamed Hany',
+                    'Welcome Back , Yehya Gamal',
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
@@ -32,56 +32,60 @@ class WelcomeScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      InkWell(
-                        onTap: () {
+                      ElevatedButton(
+                        onPressed: () {
                           Navigator.pushNamed(context, HomeScreen.routeName);
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                width: 2),
-                            borderRadius: BorderRadius.circular(18),
+                        style: ButtonStyle(
+                          side: MaterialStateProperty.all(BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2.0)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0)),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 24, horizontal: 24),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.store, size: 40),
-                              Text(
-                                'Onsite',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ],
-                          ),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 16.0)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.store, size: 40),
+                            Text(
+                              'Onsite',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ],
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
+                      ElevatedButton(
+                        onPressed: () {
                           Navigator.pushNamed(context, HomeScreen.routeName);
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Theme.of(context).primaryColor,
-                                width: 2),
-                            borderRadius: BorderRadius.circular(18),
+                        style: ButtonStyle(
+                          side: MaterialStateProperty.all(BorderSide(
+                              color: Theme.of(context).primaryColor,
+                              width: 2.0)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0)),
                           ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 24, horizontal: 24),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.book_online, size: 40),
-                              Text(
-                                'Online',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
-                              ),
-                            ],
-                          ),
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 16.0, vertical: 16.0)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.book_online, size: 40),
+                            Text(
+                              'Online',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                          ],
                         ),
                       ),
                     ],
