@@ -17,7 +17,6 @@ class _RestaurantListState extends State<RestaurantList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     viewModel.getRestaurants();
   }
