@@ -37,8 +37,11 @@ dependencies:
   http: ^1.1.0
   another_carousel_pro: ^1.0.2
   provider: ^6.1.2
+  cached_network_image: ^3.3.1
+  path_provider: ^2.1.2
   location: ^5.0.3
   google_maps_flutter: ^2.5.3
+  flutter_bloc: ^8.1.4
 
 dev_dependencies:
   flutter_test:

@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../orders/orders_screen.dart';
 
 class MainBottomNavBar extends StatelessWidget {
+  static const String routeName = '/main-bottom-nav-bar';
+
   const MainBottomNavBar({super.key});
 
   final List<String> tabs = const [

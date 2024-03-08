@@ -30,7 +30,8 @@ class SettingsButton extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 elevation: MaterialStateProperty.all<double>(0.0),
-                shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
+                shadowColor:
+                    MaterialStateProperty.all<Color>(Colors.transparent),
               ),
               onPressed: () => Navigator.pushNamed(context, routeName),
               child: Row(
@@ -38,21 +39,24 @@ class SettingsButton extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(iconData, color: itemColor), // Use the itemColor for icon
+                      Icon(iconData, color: itemColor),
+                      // Use the itemColor for icon
                       const SizedBox(width: 15.0),
                       Text(
                         buttonText,
-                        style: TextStyle(color: itemColor), // Use itemColor for text
+                        style: TextStyle(color: itemColor),
+                        // Use itemColor for text
                         textAlign: TextAlign.left,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         additionalText ?? "",
                         style: TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
-                  Icon(righticon, color: Colors.black, size: 24), // Use itemColor for right icon
+                  Icon(righticon, color: Colors.black, size: 24),
+                  // Use itemColor for right icon
                 ],
               ),
             ),
