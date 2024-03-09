@@ -34,12 +34,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             left: 0,
             child: Container(
               height: 300,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/ar3.jpg"),
                       fit: BoxFit.cover)),
               child: Container(
-                padding: EdgeInsets.only(top: 90, left: 20),
+                padding: const EdgeInsets.only(top: 90, left: 20),
                 color: Theme.of(context).primaryColor.withOpacity(.55),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
