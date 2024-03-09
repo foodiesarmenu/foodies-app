@@ -55,64 +55,62 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                Center(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          boxShadow: [BoxShadow(
-                            spreadRadius: 2,
-                              blurRadius: 10,
-                            color: Colors.black.withOpacity(0.1),
-                            offset: Offset(0, 10),
-
-                          ),],
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                              image: AssetImage('assets/images/7oda.png')
-                          ),
-
+                Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 3,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                         ),
+                        boxShadow: [BoxShadow(
+                          spreadRadius: 2,
+                            blurRadius: 10,
+                          color: Colors.black.withOpacity(0.1),
+                          offset: Offset(0, 10),
+
+                        ),],
+                        shape: BoxShape.circle,
+                        image: const DecorationImage(
+                          fit: BoxFit.cover,
+                            image: AssetImage('assets/images/7oda.png')
+                        ),
+
                       ),
-                      Positioned(
-                        height: 40,
-                        width: 40,
-                        bottom: 0,
-                        right: 0,
+                    ),
+                    Positioned(
+                      height: 40,
+                      width: 40,
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor, // Light grey background
+                          shape: BoxShape.circle,
+                        ),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor, // Light grey background
                             shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 3,
+                              color: Colors.white,
+                            ),
+
                           ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 3,
-                                color: Colors.white,
-                              ),
+                          child: IconButton(
+                            icon: const Icon(Icons.edit,
+                            color: Colors.white,), // Edit icon
+                            onPressed: () {
 
-                            ),
-                            child: IconButton(
-                              icon: const Icon(Icons.edit,
-                              color: Colors.white,), // Edit icon
-                              onPressed: () {
-
-                              },
-                              iconSize: 18.0,
-                            ),
+                            },
+                            iconSize: 18.0,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),//profile photo
                 const SizedBox(height: 20.0), // Space between sections
                 FormInputField(
@@ -211,7 +209,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         },
                       ),
                     ),
-                    const SizedBox(width: 10.0),
+                    //const SizedBox(width: 10.0),
                     IconButton(
                       icon: const Icon(Icons.calendar_today, color: Color(0xFFFFA500),),
                       onPressed: () => selectedTimePicker(context),

@@ -36,17 +36,6 @@ class MyApp extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
           foregroundColor: Color(0xFF000000),
-        ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFFA500),
-          primary: const Color(0xFFFFA500),
-          secondary: const Color(0xFF005959),
-        ),
-        useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFFFFFFF),
-          centerTitle: true,
           titleTextStyle: TextStyle(
             color: Color(0xFF000000),
             fontSize: 24,
@@ -57,8 +46,15 @@ class MyApp extends StatelessWidget {
             size: 32,
           ),
         ),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFFFA500),
+          primary: const Color(0xFFFFA500),
+          secondary: const Color(0xFF005959),
+        ),
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
       ),
-      initialRoute: LoginSignupScreen.routeName,
+      initialRoute: MainNavigationScaffold.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
