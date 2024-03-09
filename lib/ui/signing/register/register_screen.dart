@@ -65,6 +65,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: [
                         //Form
                         FormInputField(
+                          isPassword: false, isEmail: false,
+
                           controller: fullNameController,
                           hint: 'Full Name',
                           validator: (text) {
@@ -76,6 +78,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
 
                         FormInputField(
+                            isPassword: false, isEmail: true,
+
                             controller: emailController,
                             hint: 'Email',
                             keyboardType: TextInputType.emailAddress,
@@ -90,6 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }),
 
                         FormInputField(
+                          isPassword: false, isEmail: false,
+
                           controller: phoneController,
                           hint: 'Phone Number',
                           keyboardType: TextInputType.number,
@@ -105,6 +111,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
 
                         FormInputField(
+                          isPassword: true, isEmail: false,
+
                           controller: passwordController,
                           hint: 'Password',
                           isSecured: true,
@@ -120,6 +128,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
 
                         FormInputField(
+                          isPassword: true, isEmail: false,
+
                           controller: passwordConfirmationController,
                           hint: 'Confirm Password',
                           isSecured: true,

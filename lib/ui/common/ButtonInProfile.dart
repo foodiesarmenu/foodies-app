@@ -6,6 +6,7 @@ class ButtonInProfile extends StatelessWidget {
   final Color backgroundColor; // Variable for background color
   Color? borderColor; // Variable for background color
   final Function() onPressed; // Function to execute on button press
+  final double? width; // Optional variable for button width
 
   ButtonInProfile({
     required this.text,
@@ -13,6 +14,7 @@ class ButtonInProfile extends StatelessWidget {
     required this.backgroundColor,
     this.borderColor,
     required this.onPressed,
+    this.width, // Optional width parameter
     super.key,
   });
 
@@ -23,14 +25,12 @@ class ButtonInProfile extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          minimumSize: const Size(double.infinity, 50.0), // Full-width button
+          minimumSize: width != null ? Size(width!, 50.0) : const Size(double.infinity, 50.0), // Full-width button if width is null
           backgroundColor: backgroundColor,
           foregroundColor: textColor, //text color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
-            side: borderColor != null ? // Check if borderColor is not null
-            BorderSide(color: borderColor!) : // Use null-safe operator
-            BorderSide.none, // Set to no border if borderColor is null // Adjust radius as desired
+            side: borderColor != null ? BorderSide(color: borderColor!) : BorderSide.none, // Set to no border if borderColor is null
           ),
         ),
         child: Text(text), // Set button text

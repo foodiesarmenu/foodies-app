@@ -9,6 +9,7 @@ import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.d
 import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
+import 'package:foodies_app/ui/signing/login_signup.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
@@ -29,6 +30,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme:  const AppBarTheme(
+          backgroundColor: Color(0xFFFFFFFF),
+          elevation: 0,
+          centerTitle: true,
+          foregroundColor: Color(0xFF000000),
+        ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFFFFA500),
           primary: const Color(0xFFFFA500),
@@ -37,7 +44,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
       ),
-      initialRoute: ProfileScreen.routeName,
+      initialRoute: LoginSignupScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
@@ -52,10 +59,7 @@ class MyApp extends StatelessWidget {
         ChangeEmailScreen.routeName: (_) => ChangeEmailScreen(),
         MyAddressScreen.routeName: (_) => MyAddressScreen(),
         MyCardScreen.routeName: (_) => MyCardScreen(),
-
-
-
-
+        LoginSignupScreen.routeName: (_) => LoginSignupScreen(),
 
 
       },

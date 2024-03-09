@@ -18,17 +18,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-          title: Text('Profile'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: () {
-                Navigator.pushNamed(context, '/settings');
-              },
-            ),
-          ],
-        ),*/
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -41,11 +30,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
-                        radius: 40.0,
-                        backgroundImage: AssetImage('assets/images/7oda.png'),
+                      //profile image
+                      Container(
+                        width: 80,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 3,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          boxShadow: [BoxShadow(
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10),
+
+                          ),],
+                          shape: BoxShape.circle,
+                          image: const DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage('assets/images/7oda.png')
+                          ),
+
+                        ),
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -94,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Stack(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.notifications_none),
+                        icon: const Icon(Icons.notifications_none),
                         onPressed: () {
                           Navigator.pushNamed(context, '/notification');
                         },
@@ -107,13 +116,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           width: 13, // Adjusted width for smaller size
                           height: 13, // Adjusted height for smaller size
                           padding: const EdgeInsets.all(1.0), // Adjusted padding for smaller size
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.red,
                             shape: BoxShape.circle,
                           ),
-                          child: Text(
+                          child: const Text(
                             '0', // Set your actual additional text here
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 6, // Adjusted font size for smaller size
                             ),
@@ -137,31 +146,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Space buttons evenly
             children: [
               // Edit Profile button
-              SizedBox(width: 52,),
-              Container(
-                child: Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      side: BorderSide(color: Theme.of(context).primaryColor),
+              const SizedBox(width: 52,),
+              Expanded(
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
+                    side: BorderSide(color: Theme.of(context).primaryColor),
+                  ),
 
-                    onPressed: () {
-                      Navigator.pushNamed(context, EditProfileScreen.routeName);
-                    },
-                    child: Text(
-                      'Edit Profile',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, EditProfileScreen.routeName);
+                  },
+                  child: Text(
+                    'Edit Profile',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                 ),
               ),
 
               // Settings icon button
               Container(
-                margin: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(16),
                 child: Expanded(
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
@@ -181,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 16,),
+              const SizedBox(width: 16,),
             ],
           ),
               //SizedBox(height: 24,),
@@ -193,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //ProfileButton(buttonText: 'Rewards', routeName: '/Rewards' ,iconData: Icons.card_giftcard),
                   ProfileButton(buttonText: 'Favourite', routeName: '/Favourite', iconData: Icons.favorite_outline_outlined,additionalText: '5',),
                   ProfileButton(buttonText: 'Rewards', routeName: '/Rewards', iconData: Icons.wallet_giftcard_outlined,additionalText: '1',),
-                  ProfileButton(buttonText: 'Your Orders', routeName: '/Your Orders' ,iconData: Icons.receipt_long), //assignment_rounded //event_note_outlined
+                  //ProfileButton(buttonText: 'Your Orders', routeName: '/Your Orders' ,iconData: Icons.receipt_long), //assignment_rounded //event_note_outlined
                   ProfileButton(buttonText: 'Offers', routeName: '/Offers' ,iconData: Icons.local_offer_outlined),
                   //ProfileButtonNotification(buttonText: 'Notifications', routeName: '/Notifications' ,iconData: Icons.notifications_none, additionalText: '5',),
                   ProfileButton(buttonText: 'Vouchers', routeName: '/Vouchers' ,iconData: Icons.confirmation_num_outlined, additionalText: '2',),

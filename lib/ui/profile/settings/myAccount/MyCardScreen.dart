@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
+import '../../../common/custom_app_bar.dart';
+
 class MyCardScreen extends StatelessWidget {
   static const String routeName = 'card-screen';
   const MyCardScreen({super.key});
@@ -9,9 +11,7 @@ class MyCardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cards'),
-      ),
+      appBar: CustomAppBar.buildAppBar(context, 'Cards'),
       body: Container(
         padding: const EdgeInsets.all(12),
         child: Column(

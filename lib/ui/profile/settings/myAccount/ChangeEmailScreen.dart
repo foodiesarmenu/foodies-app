@@ -4,6 +4,8 @@ import 'package:foodies_app/ui/common/EditTextInProfile.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/validation_utils.dart';
 
+import '../../../common/custom_app_bar.dart';
+
 class ChangeEmailScreen extends StatefulWidget {
   static const String routeName = 'change-email';
   const ChangeEmailScreen({super.key});
@@ -21,9 +23,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Change Email'),
-      ),
+      appBar: CustomAppBar.buildAppBar(context, 'Change Email'),
       body: Form(
 
         key: formKey,

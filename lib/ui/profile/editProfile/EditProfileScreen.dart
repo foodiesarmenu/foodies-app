@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/common/ButtonInProfile.dart';
+import 'package:foodies_app/ui/common/custom_app_bar.dart';
 import 'package:foodies_app/ui/profile/ProfileScreen.dart';
 
 import '../../../validation_utils.dart';
@@ -45,56 +47,72 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:const Text('Edit Profile'),
-        centerTitle: true, // Center the title for a balanced look
-      ),
+      appBar: CustomAppBar.buildAppBar(context, 'Edit Profile'),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Align content to the left
               children: [
-                Stack(
-                  //alignment: Alignment.center, // Center the Stack within its parent
-                  children: [
-                    const CircleAvatar(
-                      radius: 50.0,
-                      backgroundImage: AssetImage('assets/images/7oda.png'), // Replace with your asset path
-                    ),
-                    Positioned(
-                      height: 40,
-                      width: 40,
-                      bottom: 0.0,
-                      right: 0.0,
-                      child: Container(
+                Center(
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 130,
+                        height: 130,
                         decoration: BoxDecoration(
-                          color: Colors.grey[200], // Light grey background
+                          border: Border.all(
+                            width: 3,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          boxShadow: [BoxShadow(
+                            spreadRadius: 2,
+                              blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10),
+
+                          ),],
                           shape: BoxShape.circle,
+                          image: const DecorationImage(
+                            fit: BoxFit.cover,
+                              image: AssetImage('assets/images/7oda.png')
+                          ),
+
                         ),
+                      ),
+                      Positioned(
+                        height: 40,
+                        width: 40,
+                        bottom: 0,
+                        right: 0,
                         child: Container(
                           decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor, // Light grey background
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              width: 2,
-                              color: Colors.grey,
-                            ),
-
                           ),
-                          child: IconButton(
-                            icon: const Icon(Icons.edit,
-                            color: Colors.grey,), // Edit icon
-                            onPressed: () {
-                              // Handle image selection or camera functionality
-                            },
-                            iconSize: 18.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                width: 3,
+                                color: Colors.white,
+                              ),
+
+                            ),
+                            child: IconButton(
+                              icon: const Icon(Icons.edit,
+                              color: Colors.white,), // Edit icon
+                              onPressed: () {
+
+                              },
+                              iconSize: 18.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),//profile photo
                 const SizedBox(height: 20.0), // Space between sections
                 FormInputField(
@@ -106,9 +124,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return 'Please enter full name';
                     }
                     return null;
-                  },
+                  }, isPassword: false, isEmail: false,
                 ),
                 FormInputField(
+                    isPassword: false, isEmail: false,
                     controller: emailController,
                     label: 'Email',
                     hint: 'mahmoud77mezo@gmail.com',
@@ -123,6 +142,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return null;
                     }),
                 FormInputField(
+                  isPassword: false, isEmail: false,
+
                   controller: phoneController,
                   label: 'Phone',
                   hint: '+20 1143327364',
@@ -174,6 +195,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   children: [
                     Expanded(
                       child: FormInputField(
+                        isPassword: false, isEmail: false,
+
                         controller: birthDateController,
                         keyboardType: TextInputType.datetime,
                         label: 'Birth-Date',
@@ -196,13 +219,41 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ],
                 ),//Birth date
                const SizedBox(height: 10.0), // Space before the button
-                ElevatedButton(
+                /*ElevatedButton(
                   onPressed: editAccount,
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 50.0), // Full-width button
                   ),
                   child:const Text('Save'),
+                ),*/
+                Row(
+                  children: [
+                    Expanded(
+                      child: ButtonInProfile(
+                        //width: 60,
+                        borderColor: Theme.of(context).primaryColor,
+                        text: 'Cancel',
+                        textColor: Theme.of(context).primaryColor,
+                        backgroundColor: Colors.white,
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(ProfileScreen.routeName);
+                        }
+                        ),
+                    ),
+                    Expanded(
+                      child: ButtonInProfile(
+                         // width: 60,
+                          text: 'Save',
+                          textColor: Colors.white,
+                          backgroundColor: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(ProfileScreen.routeName);
+                          }
+                      ),
+                    ),
+                  ],
                 ),
+
               ],
             ),
           ),
