@@ -70,9 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               return 'Please enter valid email';
                             }
                             return null;
-                          }),
+                          }, isPassword: false, isEmail: true,),
 
                       FormInputField(
+                        isPassword: true, isEmail: false,
                         controller: passwordController,
                         hint: 'Password',
                         isSecured: true,

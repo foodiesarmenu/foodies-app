@@ -6,6 +6,8 @@ import 'package:foodies_app/ui/common/LocationManager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
+import '../../../common/custom_app_bar.dart';
+
 
 class MyAddressScreen extends StatefulWidget {
   static const String routeName = 'add-address';
@@ -45,9 +47,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Addresses'),
-      ),
+      appBar: CustomAppBar.buildAppBar(context, 'Delivery Addresses'),
       body: Container(
         padding: const EdgeInsets.all(12),
         child: Column(

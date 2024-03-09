@@ -57,6 +57,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       //Form
                       FormInputField(
+                          isPassword: false, isEmail: false,
                           controller: fullNameController,
                           hint: 'Full Name',
                           validator: (text) {
@@ -67,66 +68,74 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }),
 
                       FormInputField(
-                          controller: emailController,
-                          hint: 'Email',
-                          keyboardType: TextInputType.emailAddress,
+                          isPassword: false, isEmail: true,
+
+                            controller: emailController,
+                            hint: 'Email',
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (text) {
+                              if (text == null || text.trim().isEmpty) {
+                                return 'Please enter full name';
+                              }
+                              if (!ValidationUtils.isValidEmail(text)) {
+                                return 'Please enter valid email';
+                              }
+                              return null;
+                            }),
+
+                      FormInputField(
+                        isPassword: false, isEmail: false,
+
+                          controller: phoneController,
+                          hint: 'Phone Number',
+                          keyboardType: TextInputType.number,
                           validator: (text) {
                             if (text == null || text.trim().isEmpty) {
                               return 'Please enter full name';
                             }
-                            if (!ValidationUtils.isValidEmail(text)) {
-                              return 'Please enter valid email';
+                            if (text.length < 9) {
+                              return 'Please enter valid phone number';
                             }
                             return null;
-                          }),
+                          },
+                        ),
 
                       FormInputField(
-                        controller: phoneController,
-                        hint: 'Phone Number',
-                        keyboardType: TextInputType.number,
-                        validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
-                            return 'Please enter full name';
-                          }
-                          if (text.length < 9) {
-                            return 'Please enter valid phone number';
-                          }
-                          return null;
-                        },
-                      ),
+                        isPassword: true, isEmail: false,
+
+                          controller: passwordController,
+                          hint: 'Password',
+                          isSecured: true,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter password';
+                            }
+                            if (text.length <= 6) {
+                              return 'Password should at least 6 chars';
+                            }
+                            return null;
+                          },
+                        ),
 
                       FormInputField(
-                        controller: passwordController,
-                        hint: 'Password',
-                        isSecured: true,
-                        validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
-                            return 'Please enter password';
-                          }
-                          if (text.length <= 6) {
-                            return 'Password should at least 6 chars';
-                          }
-                          return null;
-                        },
-                      ),
+                        isPassword: true, isEmail: false,
 
-                      FormInputField(
-                        controller: passwordConfirmationController,
-                        hint: 'Confirm Password',
-                        isSecured: true,
-                        validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
-                            return 'Please enter password';
-                          }
-                          if (text.length <= 6) {
-                            return 'Password should at least 6 chars';
-                          }
-                          if (text != passwordController.text) {
-                            return 'Password does not match';
-                          }
-                          return null;
-                        },
-                      ),
+                          controller: passwordConfirmationController,
+                          hint: 'Confirm Password',
+                          isSecured: true,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter password';
+                            }
+                            if (text.length <= 6) {
+                              return 'Password should at least 6 chars';
+                            }
+                            if (text != passwordController.text) {
+                              return 'Password does not match';
+                            }
+                            return null;
+                          },
+                        ),
 
                       const SizedBox(height: 16),
 

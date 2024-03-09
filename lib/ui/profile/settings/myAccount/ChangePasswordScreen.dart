@@ -3,6 +3,8 @@ import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 import 'package:foodies_app/ui/common/EditTextInProfile.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
+import '../../../common/custom_app_bar.dart';
+
 class ChangePasswordScreen extends StatefulWidget {
   static const String routeName = 'change-password';
    const ChangePasswordScreen({super.key});
@@ -23,9 +25,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Change Password'),
-      ),
+      appBar: CustomAppBar.buildAppBar(context, 'Change Password'),
       body: Container(
           padding: const EdgeInsets.all(12),
           child: Column(

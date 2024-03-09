@@ -5,6 +5,8 @@ import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.d
 import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
 
+import '../../common/custom_app_bar.dart';
+
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings';
 
@@ -13,9 +15,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      appBar: CustomAppBar.buildAppBar(context, 'Settings'),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.only(left: 16),
@@ -61,7 +61,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SettingsButton(
                     itemColor: Colors.black,
-                    buttonText: 'My address',
+                    buttonText: 'Delivery address',
                     routeName: MyAddressScreen.routeName,
                     iconData: Icons.location_on_outlined,
                     righticon: Icons.keyboard_arrow_right_rounded,
