@@ -1,3 +1,5 @@
+import 'package:foodies_app/model/restaurant_response/Category.dart';
+
 /// _id : "65e0e4618e28dce090c547cc"
 /// name : "ehah"
 /// email : "ehab@gmail.com"
@@ -33,6 +35,13 @@ class Data {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.description,
+    this.image,
+    this.address,
+    this.avatar,
+    this.canDeliver,
+    this.city,
+    this.category,
   });
 
   Data.fromJson(dynamic json) {
@@ -52,6 +61,18 @@ class Data {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     v = json['__v'];
+    description = json['description'];
+    image = json['image'];
+    address = json['address'];
+    avatar = json['avatar'];
+    canDeliver = json['canDeliver'];
+    city = json['city'];
+    if (json['category'] != null) {
+      category = [];
+      json['category'].forEach((v) {
+        category?.add(Category.fromJson(v));
+      });
+    }
   }
 
   String? id;
@@ -70,6 +91,13 @@ class Data {
   String? createdAt;
   String? updatedAt;
   int? v;
+  String? description;
+  String? image;
+  String? address;
+  String? avatar;
+  bool? canDeliver;
+  String? city;
+  List<Category>? category;
 
   Data copyWith({
     String? id,
@@ -88,6 +116,13 @@ class Data {
     String? createdAt,
     String? updatedAt,
     int? v,
+    String? description,
+    String? image,
+    String? address,
+    String? avatar,
+    bool? canDeliver,
+    String? city,
+    List<Category>? category,
   }) =>
       Data(
         id: id ?? this.id,
@@ -106,6 +141,13 @@ class Data {
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         v: v ?? this.v,
+        description: description ?? this.description,
+        image: image ?? this.image,
+        address: address ?? this.address,
+        avatar: avatar ?? this.avatar,
+        canDeliver: canDeliver ?? this.canDeliver,
+        city: city ?? this.city,
+        category: category ?? this.category,
       );
 
   Map<String, dynamic> toJson() {
@@ -126,6 +168,15 @@ class Data {
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['__v'] = v;
+    map['description'] = description;
+    map['image'] = image;
+    map['address'] = address;
+    map['avatar'] = avatar;
+    map['canDeliver'] = canDeliver;
+    map['city'] = city;
+    if (category != null) {
+      map['category'] = category?.map((v) => v.toJson()).toList();
+    }
     return map;
   }
 }

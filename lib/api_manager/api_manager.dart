@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:foodies_app/model/category_response/category_response.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/restaurant_response/restaurant_response.dart';
 import '../model/users_response/user_response.dart';
 
 class ApiManager {
@@ -21,5 +23,33 @@ class ApiManager {
     var json = jsonDecode(response.body);
     var sourcesResponses = UserResponse.fromJson(json);
     return sourcesResponses;
+  }
+
+  static Future<CategoryResponse> getCategories() async {
+    Uri uri = Uri.https(
+      baseUrl,
+      '/mobile/category',
+    );
+    var response = await http.get(
+      uri,
+      headers: {'Authorization': authorization},
+    );
+    var json = jsonDecode(response.body);
+    var categoriesResponses = CategoryResponse.fromJson(json);
+    return categoriesResponses;
+  }
+
+  static Future<RestaurantResponse> getRestaurants() async {
+    Uri uri = Uri.https(
+      baseUrl,
+      '/mobile/restaurant',
+    );
+    var response = await http.get(
+      uri,
+      headers: {'Authorization': authorization},
+    );
+    var json = jsonDecode(response.body);
+    var restaurantsResponses = RestaurantResponse.fromJson(json);
+    return restaurantsResponses;
   }
 }

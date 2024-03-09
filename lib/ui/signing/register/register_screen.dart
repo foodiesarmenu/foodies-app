@@ -24,7 +24,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   TextEditingController passwordController = TextEditingController();
 
-  TextEditingController passwordConfirmationController = TextEditingController();
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
 
   var formKey = GlobalKey<FormState>();
 
@@ -36,37 +37,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Center(
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //Logo
-                Image.asset(
-                  'assets/images/app_logo.png',
-                ),
+                Image.asset('assets/images/app_logo.png'),
 
-                const SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
 
                 //Register
                 const Text(
                   'Register',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
 
                 //Form
                 Form(
                   key: formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        //Form
-                        FormInputField(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //Form
+                      FormInputField(
                           isPassword: false, isEmail: false,
-
                           controller: fullNameController,
                           hint: 'Full Name',
                           validator: (text) {
@@ -74,11 +65,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return 'Please enter full name';
                             }
                             return null;
-                          },
-                        ),
+                          }),
 
-                        FormInputField(
-                            isPassword: false, isEmail: true,
+                      FormInputField(
+                          isPassword: false, isEmail: true,
 
                             controller: emailController,
                             hint: 'Email',
@@ -93,8 +83,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               return null;
                             }),
 
-                        FormInputField(
-                          isPassword: false, isEmail: false,
+                      FormInputField(
+                        isPassword: false, isEmail: false,
 
                           controller: phoneController,
                           hint: 'Phone Number',
@@ -110,8 +100,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
 
-                        FormInputField(
-                          isPassword: true, isEmail: false,
+                      FormInputField(
+                        isPassword: true, isEmail: false,
 
                           controller: passwordController,
                           hint: 'Password',
@@ -127,8 +117,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
 
-                        FormInputField(
-                          isPassword: true, isEmail: false,
+                      FormInputField(
+                        isPassword: true, isEmail: false,
 
                           controller: passwordConfirmationController,
                           hint: 'Confirm Password',
@@ -147,45 +137,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
 
-                        const SizedBox(
-                          height: 16,
-                        ),
+                      const SizedBox(height: 16),
 
-                        //Register Button
-                        PrimaryButton(
-                          text: 'Create Account',
-                          onPressed: createAccount,
-                        ),
+                      //Register Button
+                      PrimaryButton(
+                          text: 'Create Account', onPressed: createAccount),
 
-                        const SizedBox(
-                          height: 8,
-                        ),
+                      const SizedBox(height: 8),
 
-                        //Already have Account
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Already have an account ?',
+                      //Already have Account
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Already have an account ?',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary)),
+                          InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, LoginScreen.routeName);
+                              },
+                              child: Text(
+                                ' Sign in',
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary)),
-                            InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, LoginScreen.routeName);
-                                },
-                                child: Text(
-                                  ' Sign in',
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                )),
-                          ],
-                        ),
+                                    color: Theme.of(context).primaryColor),
+                              )),
+                        ],
+                      ),
 
-                        const SocialSignInOptions(),
-                      ],
-                    ),
+                      const SocialSignInOptions(),
+                    ],
                   ),
                 ),
               ],

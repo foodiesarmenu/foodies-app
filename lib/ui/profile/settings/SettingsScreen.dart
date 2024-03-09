@@ -9,6 +9,7 @@ import '../../common/custom_app_bar.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings';
+
   const SettingsScreen({super.key});
 
   @override
@@ -25,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
               // Title section
               Container(
                 padding: const EdgeInsets.only(bottom: 16.0), // Add padding
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       'My Account', // Use larger font size
@@ -39,7 +40,8 @@ class SettingsScreen extends StatelessWidget {
               ),
 
               // Account buttons
-              Wrap( // Use Wrap for adaptive layout
+              Wrap(
+                // Use Wrap for adaptive layout
                 spacing: 16.0, // Add spacing between buttons
                 runSpacing: 16.0, // Add spacing between rows
                 children: [
@@ -77,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
               // Title section for second four buttons
               Container(
                 padding: const EdgeInsets.only(bottom: 16.0), // Add padding
-                child: Row(
+                child: const Row(
                   children: [
                     Text(
                       'Settings',
@@ -106,7 +108,8 @@ class SettingsScreen extends StatelessWidget {
                     itemColor: Colors.black,
                     buttonText: 'Help center',
                     routeName: '/Help center',
-                    iconData: Icons.contact_support_outlined,// announcement_outlined
+                    iconData: Icons.contact_support_outlined,
+                    // announcement_outlined
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
                   SettingsButton(
@@ -120,7 +123,8 @@ class SettingsScreen extends StatelessWidget {
                     itemColor: Colors.black,
                     buttonText: 'Terms of service',
                     routeName: '/Terms of service',
-                    iconData: Icons.festival_outlined,//foundation_outlined
+                    iconData: Icons.festival_outlined,
+                    //foundation_outlined
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
                   SettingsButton(
@@ -131,16 +135,17 @@ class SettingsScreen extends StatelessWidget {
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
                   SettingsButton(
-                      itemColor: Colors.black,
-                      buttonText: 'About App',
-                      routeName: '/About App',
-                      iconData: Icons.info_outline,
-                      righticon: Icons.keyboard_arrow_right_rounded,
+                    itemColor: Colors.black,
+                    buttonText: 'About App',
+                    routeName: '/About App',
+                    iconData: Icons.info_outline,
+                    righticon: Icons.keyboard_arrow_right_rounded,
                   ),
                 ],
               ),
               const Divider(thickness: 1.0),
-              Column( // Use Column for vertical order
+              Column(
+                // Use Column for vertical order
                 children: [
                   SettingsButton(
                     itemColor: Colors.black,

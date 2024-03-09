@@ -26,11 +26,14 @@ class ButtonInProfile extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           minimumSize: width != null ? Size(width!, 50.0) : const Size(double.infinity, 50.0), // Full-width button if width is null
+          //minimumSize: const Size(double.infinity, 50.0), // Full-width button
           backgroundColor: backgroundColor,
           foregroundColor: textColor, //text color
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
-            side: borderColor != null ? BorderSide(color: borderColor!) : BorderSide.none, // Set to no border if borderColor is null
+            side: borderColor != null ? // Check if borderColor is not null
+            BorderSide(color: borderColor!) : // Use null-safe operator
+            BorderSide.none, // Set to no border if borderColor is null // Adjust radius as desired
           ),
         ),
         child: Text(text), // Set button text

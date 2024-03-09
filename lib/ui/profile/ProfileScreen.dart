@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/common/main_bottom_nav_bar.dart';
 import 'package:foodies_app/ui/profile/ProfileButton.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
@@ -113,9 +112,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         right: 12, // Adjust horizontal position from the right
                         child: Container(
                           alignment: Alignment.center,
-                          width: 13, // Adjusted width for smaller size
-                          height: 13, // Adjusted height for smaller size
-                          padding: const EdgeInsets.all(1.0), // Adjusted padding for smaller size
+                          width: 13,
+                          // Adjusted width for smaller size
+                          height: 13,
+                          // Adjusted height for smaller size
+                          padding: const EdgeInsets.all(1.0),
+                          // Adjusted padding for smaller size
                           decoration: const BoxDecoration(
                             color: Colors.red,
                             shape: BoxShape.circle,
@@ -124,7 +126,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             '0', // Set your actual additional text here
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 6, // Adjusted font size for smaller size
+                              fontSize:
+                                  6, // Adjusted font size for smaller size
                             ),
                           ),
                         ),
@@ -136,17 +139,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
               //SizedBox(height: 0.0),
 
               //
-            /*
+              /*
             work here to make the
                            notification
               Account into + settings
               edit profile
             */
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Space buttons evenly
-            children: [
-              // Edit Profile button
-              const SizedBox(width: 52,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                // Space buttons evenly
+                children: [
+                  // Edit Profile button
+                  const SizedBox(width: 52,),
               Expanded(
                 child: OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -166,9 +170,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
 
-              // Settings icon button
-              Container(
-                margin: const EdgeInsets.all(16),
+                  // Settings icon button
+                  Container(
+                    margin: const EdgeInsets.all(16),
                 child: Expanded(
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
@@ -188,11 +192,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              const SizedBox(width: 16,),
-            ],
-          ),
+              const SizedBox(width: 16,
+                  ),
+                ],
+              ),
               //SizedBox(height: 24,),
-              const Divider(thickness: 1.0,color: Color(0xFFFFA500),),
+              const Divider(
+                thickness: 1.0,
+                color: Color(0xFFFFA500),
+              ),
 
               // Navigation buttons
               Column(
@@ -203,7 +211,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //ProfileButton(buttonText: 'Your Orders', routeName: '/Your Orders' ,iconData: Icons.receipt_long), //assignment_rounded //event_note_outlined
                   ProfileButton(buttonText: 'Offers', routeName: '/Offers' ,iconData: Icons.local_offer_outlined),
                   //ProfileButtonNotification(buttonText: 'Notifications', routeName: '/Notifications' ,iconData: Icons.notifications_none, additionalText: '5',),
-                  ProfileButton(buttonText: 'Vouchers', routeName: '/Vouchers' ,iconData: Icons.confirmation_num_outlined, additionalText: '2',),
+                  ProfileButton(
+                    buttonText: 'Vouchers',
+                    routeName: '/Vouchers',
+                    iconData: Icons.confirmation_num_outlined,
+                    additionalText: '2',
+                  ),
                   //ProfileButton(buttonText: 'Get Help', routeName: '/Get Help' ,iconData: Icons.help_outline_outlined),
                   //ProfileButton(buttonText: 'About App', routeName: '/About App' ,iconData: Icons.info_outline),
                 ],
@@ -212,7 +225,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const MainBottomNavBar(),
     );
   }
 }
