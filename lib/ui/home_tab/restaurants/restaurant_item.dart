@@ -1,70 +1,53 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../domain/model/Restaurant.dart';
+import '../../../domain/model/Category.dart';
+import '../../../domain/model/Restaurant.dart';
 
-class RestaurantContainer extends StatelessWidget {
-  const RestaurantContainer({required this.restaurant, super.key});
+class RestaurantItem extends StatelessWidget {
+  const RestaurantItem(
+      {required this.restaurant, super.key, required this.category});
 
-  final Restaurant restaurant;
+  final Restaurant? restaurant;
+  final List<Category>? category;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Positioned(
-              child: CachedNetworkImage(
-                imageUrl: restaurant.image ?? "",
-                width: double.infinity,
-                height: 200,
-                fit: BoxFit.fill,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                  child: CircularProgressIndicator(
-                    value: downloadProgress.progress,
+    return InkWell(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: restaurant?.image ?? "",
+                  height: 300,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                    child: CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                    ),
                   ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-            ),
-            Positioned(
-              left: 20,
-              top: 50,
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32),
-                      color: Colors.white,
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
-                        size: 32,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        //Icon-Title-Category
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+            ],
+          ),
+
+          const SizedBox(height: 8),
+
+          //Title
+          Row(
             children: [
               //Restaurant Icon
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: CachedNetworkImage(
-                  imageUrl: restaurant.image ?? "",
+                  imageUrl: restaurant?.image ?? "",
                   height: 50,
                   width: 50,
                   fit: BoxFit.fill,
@@ -85,13 +68,13 @@ class RestaurantContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    restaurant.name ?? "",
+                    restaurant?.name ?? "",
                     style: const TextStyle(
                         fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    restaurant.category?.map((e) => e.name).join(", ") ?? "",
+                    category?.map((e) => e.name).join(", ") ?? "",
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary),
                   ),
@@ -99,14 +82,11 @@ class RestaurantContainer extends StatelessWidget {
               ),
             ],
           ),
-        ),
 
-        const SizedBox(height: 8),
+          const SizedBox(height: 8),
 
-        //Rate
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
+          //Rate
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
@@ -150,8 +130,8 @@ class RestaurantContainer extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
