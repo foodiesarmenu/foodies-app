@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/ar_widget/ar_widget.dart';
+import 'package:foodies_app/ui/cart_widget/cart_widget.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/home_tab/home_tab.dart';
+import 'package:foodies_app/ui/item_details/item_details.dart';
 import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
 import 'package:foodies_app/ui/orders_tab/orders_tab.dart';
 import 'package:foodies_app/ui/profile_tab/ProfileTab.dart';
@@ -75,6 +78,9 @@ class MyApp extends StatelessWidget {
         RestaurantDetails.routeName: (_) => const RestaurantDetails(),
         MainNavigationScaffold.routeName: (_) => const MainNavigationScaffold(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
+        CartWidget.routeName: (_) => const CartWidget(),
+        ItemDetails.routeName: (_) => const ItemDetails(),
+        ArWidget.routeName: (_) => const ArWidget(),
       },
     );
   }
