@@ -9,69 +9,60 @@ class FormInputField extends StatelessWidget {
   bool isSecured;
   TextInputType keyboardType;
   MyValidator validator;
+
 //new
   IconData? icon;
   String hint;
   bool isPassword;
   bool isEmail;
 
-
   FormInputField(
       {required this.controller,
-        this.isSecured = false,
-        this.label,
-        required this.validator,
-        this.keyboardType = TextInputType.text,
+      this.isSecured = false,
+      this.label,
+      required this.validator,
+      this.keyboardType = TextInputType.text,
 //new
-        required this.hint,
-          this.icon,
-         required this.isPassword,
-         required this.isEmail,
-
-        super.key});
+      required this.hint,
+      this.icon,
+      required this.isPassword,
+      required this.isEmail,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: TextFormField(
-       //new
+        //new
         obscureText: isPassword,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
 
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,
-            color: Color(0xFFB6C7D1),
+            color: const Color(0xFFB6C7D1),
           ),
-
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0XFFA7BCC7)),
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
-
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Color(0XFFA7BCC7)),
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
           ),
-          contentPadding: EdgeInsets.all(10),
-
+          contentPadding: const EdgeInsets.all(10),
           hintText: hint,
-          hintStyle: TextStyle(fontSize: 14, color: Color(0XFFA7BCC7)),
-
-
+          hintStyle: const TextStyle(fontSize: 14, color: Color(0XFFA7BCC7)),
           labelText: label,
-          labelStyle: TextStyle(
-              fontSize: 16,
-              color: Colors.black
-          ),
+          labelStyle: const TextStyle(fontSize: 16, color: Colors.black),
           /*hintText: hint,
           hintStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: Colors.grey
           ),*/
-         floatingLabelBehavior: FloatingLabelBehavior.always,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
           border: InputBorder.none,
         ),
         controller: controller,
@@ -79,7 +70,6 @@ class FormInputField extends StatelessWidget {
         //keyboardType: keyboardType,
         //obscureText: isSecured,
         validator: validator,
-
       ),
     );
   }
