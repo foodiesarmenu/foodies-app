@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/home_tab/promotions/promotion_card.dart';
+import 'package:foodies_app/ui/home/promotions/promotion_card.dart';
 
 class PromotionList extends StatefulWidget {
   const PromotionList({super.key});

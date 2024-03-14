@@ -17,7 +17,7 @@ class CategoryItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: CachedNetworkImage(
               imageUrl: category.image ?? "",
-              width: 80,
+              width: 75,
               fit: BoxFit.fill,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   Center(
@@ -26,9 +26,6 @@ class CategoryItem extends StatelessWidget {
               errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 4,
         ),
         Text(
           category.name ?? "",

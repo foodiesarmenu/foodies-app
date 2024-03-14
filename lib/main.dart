@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/ar_widget/ar_widget.dart';
-import 'package:foodies_app/ui/cart_widget/cart_widget.dart';
+import 'package:foodies_app/ui/ar/ar_widget.dart';
+import 'package:foodies_app/ui/cart/cart_widget.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
-import 'package:foodies_app/ui/home_tab/home_tab.dart';
-import 'package:foodies_app/ui/item_details/item_details.dart';
+import 'package:foodies_app/ui/home/home_tab.dart';
 import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
-import 'package:foodies_app/ui/orders_tab/orders_tab.dart';
-import 'package:foodies_app/ui/profile_tab/ProfileTab.dart';
-import 'package:foodies_app/ui/profile_tab/editProfile/EditProfileScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/SettingsScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/MyAddressScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/MyCardScreen.dart';
-import 'package:foodies_app/ui/restaurant_details/restaurant_details.dart';
+import 'package:foodies_app/ui/meal_details/item_details.dart';
+import 'package:foodies_app/ui/menu/menu_screen.dart';
+import 'package:foodies_app/ui/orders/orders_tab.dart';
+import 'package:foodies_app/ui/profile/ProfileTab.dart';
+import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/ChangeEmailScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/signing/login/login_screen.dart';
 import 'package:foodies_app/ui/signing/login_signup.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
@@ -75,11 +75,11 @@ class MyApp extends StatelessWidget {
         MyAddressScreen.routeName: (_) => const MyAddressScreen(),
         MyCardScreen.routeName: (_) => const MyCardScreen(),
         LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
-        RestaurantDetails.routeName: (_) => const RestaurantDetails(),
+        MenuScreen.routeName: (_) => const MenuScreen(),
         MainNavigationScaffold.routeName: (_) => const MainNavigationScaffold(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
         CartWidget.routeName: (_) => const CartWidget(),
-        ItemDetails.routeName: (_) => const ItemDetails(),
+        MealDetails.routeName: (_) => const MealDetails(),
         ArWidget.routeName: (_) => const ArWidget(),
       },
     );

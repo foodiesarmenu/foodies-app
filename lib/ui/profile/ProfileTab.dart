@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/profile_tab/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
 import 'ProfileButton.dart';
 import 'editProfile/EditProfileScreen.dart';
@@ -43,7 +43,7 @@ class _ProfileTabState extends State<ProfileTab> {
                               spreadRadius: 2,
                               blurRadius: 10,
                               color: Colors.black.withOpacity(0.1),
-                              offset: Offset(0, 10),
+                              offset: const Offset(0, 10),
                             ),
                           ],
                           shape: BoxShape.circle,

@@ -1,5 +1,5 @@
 import '../../domain/model/Restaurant.dart';
 
 abstract class RestaurantsDataSource {
-  Future<List<Restaurant>?> getRestaurants();
+  Future<List<Restaurant>?> getRestaurants({String? categoryId});
 }
