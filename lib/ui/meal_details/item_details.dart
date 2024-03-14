@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ItemDetails extends StatelessWidget {
-  const ItemDetails({super.key});
+class MealDetails extends StatelessWidget {
+  const MealDetails({super.key});
 
-  static const String routeName = 'ItemDetailsSc';
+  static const String routeName = 'MealDetailsSc';
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import '../model/Restaurant.dart';
 
 abstract class RestaurantsRepo {
-  Future<List<Restaurant>?> getRestaurants();
+  Future<List<Restaurant>?> getRestaurants({String? categoryId});
 }

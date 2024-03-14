@@ -12,8 +12,8 @@ class RestaurantsOnlineDataSourceImpl extends RestaurantsDataSource {
   RestaurantsOnlineDataSourceImpl(this.apiManager);
 
   @override
-  Future<List<Restaurant>?> getRestaurants() async {
-    var response = await apiManager.getRestaurants();
+  Future<List<Restaurant>?> getRestaurants({String? categoryId}) async {
+    var response = await apiManager.getRestaurants(categoryId: categoryId);
     return response.data
         ?.map((restaurantDto) => restaurantDto.toRestaurant())
         .toList();

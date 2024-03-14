@@ -12,7 +12,7 @@ class RestaurantsRepoImpl extends RestaurantsRepo {
   RestaurantsRepoImpl(this.restaurantsOnlineDataSource);
 
   @override
-  Future<List<Restaurant>?> getRestaurants() {
-    return restaurantsOnlineDataSource.getRestaurants();
+  Future<List<Restaurant>?> getRestaurants({String? categoryId}) {
+    return restaurantsOnlineDataSource.getRestaurants(categoryId: categoryId);
   }
 }

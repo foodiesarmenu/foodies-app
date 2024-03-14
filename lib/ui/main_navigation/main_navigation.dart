@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../home_tab/home_tab.dart';
-import '../orders_tab/orders_tab.dart';
-import '../profile_tab/ProfileTab.dart';
+import '../home/home_tab.dart';
+import '../orders/orders_tab.dart';
+import '../profile/ProfileTab.dart';
 
 class MainNavigationScaffold extends StatefulWidget {
   static const String routeName = 'MainNavScaffold';

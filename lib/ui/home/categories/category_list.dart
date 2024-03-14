@@ -12,13 +12,18 @@ class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 95,
+      height: 100,
       child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(CategoryDetails.routeName,
-                    arguments: {'category': categories[index]});
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        CategoryDetails(category: categories[index]),
+                  ),
+                );
               },
               child: CategoryItem(category: categories[index])),
           itemCount: categories.length ?? 0,
