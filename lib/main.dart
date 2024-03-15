@@ -6,6 +6,8 @@ import 'package:foodies_app/ui/orders/orders_screen.dart';
 import 'package:foodies_app/ui/profile/ProfileScreen.dart';
 import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/Address/add_address.dart';
+import 'package:foodies_app/ui/profile/settings/myAccount/Address/map_screen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
       ),
-      initialRoute: MainNavigationScaffold.routeName,
+      initialRoute: MapScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
@@ -73,6 +75,10 @@ class MyApp extends StatelessWidget {
         RestaurantDetails.routeName: (_) => const RestaurantDetails(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
         MainNavigationScaffold.routeName: (_) => const MainNavigationScaffold(),
+        MapScreen.routeName: (_) => const MapScreen(),
+        AddAddress.routeName: (_) => const AddAddress(),
+
+
       },
     );
   }
