@@ -1,24 +1,30 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import '../signing/login/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
-  static const String routeName = "SplashSc";
+  static const routeName = '/splash';
 
   const SplashScreen({super.key});
 
+  get splash => null;
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pushNamed(LoginScreen.routeName);
-    });
-    return Scaffold(
-      body: Image.asset(
-        "assets/images/splash_image.png",
-        fit: BoxFit.fill,
-        width: double.infinity,
-        height: double.infinity,
+    return AnimatedSplashScreen(
+      splash: Column(
+        children: [
+          Center(
+            child: LottieBuilder.asset(
+                'assets/Lottie/Animation - 1710501389105.json'),
+          )
+        ],
       ),
+      nextScreen: const LoginScreen(),
+      splashIconSize: 400,
+      backgroundColor: Theme.of(context).primaryColor,
     );
   }
 }
