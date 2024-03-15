@@ -1,63 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../domain/model/Category.dart';
 import '../../category_details/category_details.dart';
 import 'category_item.dart';
-import 'category_list_viewmodel.dart';
 
-class CategoryList extends StatefulWidget {
-  const CategoryList({super.key});
+class CategoryList extends StatelessWidget {
+  const CategoryList(this.categories, {super.key});
 
-  @override
-  State<CategoryList> createState() => _CategoryListState();
-}
-
-class _CategoryListState extends State<CategoryList> {
-  var viewModel = CategoryListViewModel();
-
-  @override
-  void initState() {
-    super.initState();
-    viewModel.getCategories();
-  }
+  final List<Category> categories;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoryListViewModel, CategoryListState>(
-      bloc: viewModel,
-      builder: (context, state) {
-        switch (state) {
-          case LoadingState():
-            return const Center(child: CircularProgressIndicator());
-          case ErrorState():
-            return Column(
-              children: [
-                Text(state.errorMessage),
-                ElevatedButton(onPressed: () {}, child: const Text('Try Again'))
-              ],
+    return SizedBox(
+      height: 100,
+      child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        CategoryDetails(category: categories[index]),
+                  ),
+                );
+              },
+              child: CategoryItem(category: categories[index])),
+          itemCount: categories.length ?? 0,
+          separatorBuilder: (context, index) {
+            return const SizedBox(
+              width: 16,
             );
-          case SuccessState():
-            var categoryList = state.categoryList;
-            return SizedBox(
-              height: 95,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                            CategoryDetails.routeName,
-                            arguments: {'category': categoryList[index]});
-                      },
-                      child: CategoryItem(category: categoryList[index])),
-                  itemCount: categoryList.length,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      width: 16,
-                    );
-                  }),
-            );
-        }
-      },
+          }),
     );
   }
 }

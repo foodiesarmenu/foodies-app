@@ -1,16 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 import 'package:foodies_app/ui/common/custom_app_bar.dart';
-import 'package:foodies_app/ui/profile/ProfileScreen.dart';
 
 import '../../../validation_utils.dart';
 import '../../common/form_input_field.dart';
+import '../ProfileTab.dart';
 
 enum Gender { male, female } // Define the gender options
 
 class EditProfileScreen extends StatefulWidget {
   static const String routeName = 'edit-profile';
+
   const EditProfileScreen({super.key});
 
   @override
@@ -29,8 +29,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   //date
   DateTime? selectedDate;
   DateTime date = DateTime.now();
+
   Future<void> selectedTimePicker(BuildContext context) async {
-    final DateTime? pickedDate  =   await showDatePicker(context: context,
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
       initialDate: selectedDate ?? DateTime.now(),
       firstDate: DateTime(1900, 1),
       lastDate: DateTime.now(),
@@ -38,9 +40,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (pickedDate != null) {
       selectedDate = pickedDate;
       birthDateController.text =
-      "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+          "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
     }
   }
+
   //gender
   Gender selectedGender = Gender.male; // Initially selected gender
 
@@ -65,19 +68,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           width: 3,
                           color: Theme.of(context).scaffoldBackgroundColor,
                         ),
-                        boxShadow: [BoxShadow(
-                          spreadRadius: 2,
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 2,
                             blurRadius: 10,
-                          color: Colors.black.withOpacity(0.1),
-                          offset: Offset(0, 10),
-
-                        ),],
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10),
+                          ),
+                        ],
                         shape: BoxShape.circle,
                         image: const DecorationImage(
-                          fit: BoxFit.cover,
-                            image: AssetImage('assets/images/7oda.png')
-                        ),
-
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/images/7oda.png')),
                       ),
                     ),
                     Positioned(
@@ -87,7 +89,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       right: 0,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor, // Light grey background
+                          color: Theme.of(context)
+                              .primaryColor, // Light grey background
                           shape: BoxShape.circle,
                         ),
                         child: Container(
@@ -97,21 +100,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               width: 3,
                               color: Colors.white,
                             ),
-
                           ),
                           child: IconButton(
-                            icon: const Icon(Icons.edit,
-                            color: Colors.white,), // Edit icon
-                            onPressed: () {
-
-                            },
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            ), // Edit icon
+                            onPressed: () {},
                             iconSize: 18.0,
                           ),
                         ),
                       ),
                     ),
                   ],
-                ),//profile photo
+                ), //profile photo
                 const SizedBox(height: 20.0), // Space between sections
                 FormInputField(
                   controller: fullNameController,
@@ -122,10 +124,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return 'Please enter full name';
                     }
                     return null;
-                  }, isPassword: false, isEmail: false,
+                  },
+                  isPassword: false,
+                  isEmail: false,
                 ),
                 FormInputField(
-                    isPassword: false, isEmail: false,
+                    isPassword: false,
+                    isEmail: false,
                     controller: emailController,
                     label: 'Email',
                     hint: 'mahmoud77mezo@gmail.com',
@@ -140,8 +145,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return null;
                     }),
                 FormInputField(
-                  isPassword: false, isEmail: false,
-
+                  isPassword: false,
+                  isEmail: false,
                   controller: phoneController,
                   label: 'Phone',
                   hint: '+20 1143327364',
@@ -158,10 +163,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
                 Row(
                   children: [
-                    Text('Gender',style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                    Text(
+                      'Gender',
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    ),
                     Radio<Gender>(
                       value: Gender.male,
                       groupValue: selectedGender,
@@ -169,11 +174,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         if (value != null) {
                           setState(() => selectedGender = value);
                         }
-                      },                    ),
-                    Text('Male',style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                      },
+                    ),
+                    Text(
+                      'Male',
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    ),
                     SizedBox(width: 10.0),
                     Radio<Gender>(
                       value: Gender.female,
@@ -182,19 +188,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         if (value != null) {
                           setState(() => selectedGender = value);
                         }
-                      },                    ),
-                    Text('Female',style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black
-                    ),),
+                      },
+                    ),
+                    Text(
+                      'Female',
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    ),
                   ],
-                ),//Gender Selection
+                ), //Gender Selection
                 Row(
                   children: [
                     Expanded(
                       child: FormInputField(
-                        isPassword: false, isEmail: false,
-
+                        isPassword: false,
+                        isEmail: false,
                         controller: birthDateController,
                         keyboardType: TextInputType.datetime,
                         label: 'Birth-Date',
@@ -211,12 +218,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     //const SizedBox(width: 10.0),
                     IconButton(
-                      icon: const Icon(Icons.calendar_today, color: Color(0xFFFFA500),),
+                      icon: const Icon(
+                        Icons.calendar_today,
+                        color: Color(0xFFFFA500),
+                      ),
                       onPressed: () => selectedTimePicker(context),
                     ),
                   ],
-                ),//Birth date
-               const SizedBox(height: 10.0), // Space before the button
+                ), //Birth date
+                const SizedBox(height: 10.0), // Space before the button
                 /*ElevatedButton(
                   onPressed: editAccount,
                   style: ElevatedButton.styleFrom(
@@ -228,30 +238,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   children: [
                     Expanded(
                       child: ButtonInProfile(
-                        //width: 60,
-                        borderColor: Theme.of(context).primaryColor,
-                        text: 'Cancel',
-                        textColor: Theme.of(context).primaryColor,
-                        backgroundColor: Colors.white,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(ProfileScreen.routeName);
-                        }
-                        ),
+                          //width: 60,
+                          borderColor: Theme.of(context).primaryColor,
+                          text: 'Cancel',
+                          textColor: Theme.of(context).primaryColor,
+                          backgroundColor: Colors.white,
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(ProfileTab.routeName);
+                          }),
                     ),
                     Expanded(
                       child: ButtonInProfile(
-                         // width: 60,
+                          // width: 60,
                           text: 'Save',
                           textColor: Colors.white,
                           backgroundColor: Theme.of(context).primaryColor,
                           onPressed: () {
-                            Navigator.of(context).pushNamed(ProfileScreen.routeName);
-                          }
-                      ),
+                            Navigator.of(context)
+                                .pushNamed(ProfileTab.routeName);
+                          }),
                     ),
                   ],
                 ),
-
               ],
             ),
           ),
@@ -264,6 +273,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     if (formKey.currentState?.validate() == false) {
       return;
     }
-    Navigator.of(context).pushNamed(ProfileScreen.routeName);
+    Navigator.of(context).pushNamed(ProfileTab.routeName);
   }
 }

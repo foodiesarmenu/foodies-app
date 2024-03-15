@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/profile/settings/SettingsButton.dart';
-import 'package:foodies_app/ui/profile/settings/myAccount/ChangeEmailScreen.dart';
-import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
-import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
 
 import '../../common/custom_app_bar.dart';
+import 'SettingsButton.dart';
+import 'myAccount/ChangeEmailScreen.dart';
+import 'myAccount/ChangePasswordScreen.dart';
+import 'myAccount/MyAddressScreen.dart';
+import 'myAccount/MyCardScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings';
