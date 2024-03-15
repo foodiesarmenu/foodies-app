@@ -1,6 +1,7 @@
 import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PromotionCard extends StatefulWidget {
   PromotionCard({super.key});
@@ -18,38 +19,54 @@ class PromotionCard extends StatefulWidget {
 }
 
 class _PromotionCardState extends State<PromotionCard> {
+  int activeIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 250,
       width: double.infinity,
       child: Column(
         children: [
           Expanded(
             child: AnotherCarousel(
-              images: widget.imageUrls.map((imageUrl) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl,
-                    placeholder: (context, url) =>
-                        const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                    fit: BoxFit.fill,
-                  ),
-                );
-              }).toList(),
-              dotIncreasedColor: Theme.of(context).primaryColor,
-              dotSize: 10,
-              indicatorBgPadding: 5,
-              dotColor: Colors.grey,
-              dotBgColor: Colors.transparent,
-              borderRadius: true,
-              radius: const Radius.circular(24.0),
-            ),
+                images: widget.imageUrls.map((imageUrl) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      fit: BoxFit.fill,
+                    ),
+                  );
+                }).toList(),
+                showIndicator: false,
+                onImageChange: (prev, next) {
+                  setState(() {
+                    activeIndex = next;
+                  });
+                }),
           ),
+          const SizedBox(height: 12),
+          buildIndicator(),
         ],
+      ),
+    );
+  }
+
+  Widget buildIndicator() {
+    return AnimatedSmoothIndicator(
+      activeIndex: activeIndex,
+      count: widget.imageUrls.length,
+      effect: SlideEffect(
+        activeDotColor: Theme.of(context).primaryColor,
+        dotColor: Colors.grey,
+        dotHeight: 20,
+        dotWidth: 20,
+        spacing: 8,
       ),
     );
   }
