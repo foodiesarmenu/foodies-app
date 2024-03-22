@@ -1,4 +1,4 @@
-import '../../../domain/model/Meal.dart';
+import '../../../../domain/model/Meal.dart';
 
 /// _id : "65f07c75199e09c646a5bf84"
 /// restaurant : "65ee39a0b3eac564b5db7a81"

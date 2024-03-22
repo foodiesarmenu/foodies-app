@@ -48,6 +48,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   animated_splash_screen: ^1.3.0
   lottie: ^2.6.0
+  dartz: ^0.10.1
+  connectivity_plus: ^5.0.2
 
 dev_dependencies:
   flutter_test:

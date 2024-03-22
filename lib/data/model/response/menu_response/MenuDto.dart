@@ -1,4 +1,4 @@
-import '../../../domain/model/Menu.dart';
+import '../../../../domain/model/Menu.dart';
 import 'MealDto.dart';
 
 /// name : "traditional"
