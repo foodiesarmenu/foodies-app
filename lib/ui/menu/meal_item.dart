@@ -63,6 +63,7 @@ class MealItem extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   InkWell(
                     onTap: () {},
@@ -106,10 +107,11 @@ class MealItem extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            'Display AR',
+                            'AR View',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                             ),
+                            maxLines: 2,
                           ),
                           Icon(
                             Icons.all_inclusive,
@@ -127,14 +129,15 @@ class MealItem extends StatelessWidget {
             ],
           ),
         ),
+
         const SizedBox(width: 8),
         // Meal Image
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: CachedNetworkImage(
             imageUrl: menus?[menuIndex].meals?[mealIndex].image ?? "",
-            height: 90,
-            width: 90,
+            height: 120,
+            width: 120,
             fit: BoxFit.fill,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 Center(

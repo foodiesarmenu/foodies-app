@@ -24,7 +24,7 @@ class _PromotionCardState extends State<PromotionCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 225,
       width: double.infinity,
       child: Column(
         children: [
@@ -64,8 +64,8 @@ class _PromotionCardState extends State<PromotionCard> {
       effect: SlideEffect(
         activeDotColor: Theme.of(context).primaryColor,
         dotColor: Colors.grey,
-        dotHeight: 20,
-        dotWidth: 20,
+        dotHeight: 10,
+        dotWidth: 10,
         spacing: 8,
       ),
     );
