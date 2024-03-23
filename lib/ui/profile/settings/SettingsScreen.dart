@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../auth/login/login_screen.dart';
 import '../../common/custom_app_bar.dart';
+import '../../utils/shared_preference_utils.dart';
 import 'SettingsButton.dart';
 import 'myAccount/ChangeEmailScreen.dart';
 import 'myAccount/ChangePasswordScreen.dart';
@@ -156,12 +158,16 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   const Divider(thickness: 1.0),
                   SettingsButton(
-                    itemColor: Colors.red,
-                    buttonText: 'Log out',
-                    routeName: '/Log out',
-                    iconData: Icons.logout_outlined,
-                    righticon: Icons.keyboard_arrow_right_rounded,
-                  ),
+                      itemColor: Colors.red,
+                      buttonText: 'Log out',
+                      routeName: '/Log out',
+                      iconData: Icons.logout_outlined,
+                      righticon: Icons.keyboard_arrow_right_rounded,
+                      onPressed: () {
+                        SharedPreferenceUtils.removeData(key: 'token');
+                        Navigator.pushReplacementNamed(
+                            context, LoginScreen.routeName);
+                      }),
                   const Divider(thickness: 1.0),
                   SettingsButton(
                     itemColor: Colors.red,

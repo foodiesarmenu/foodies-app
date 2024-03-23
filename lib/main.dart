@@ -21,17 +21,31 @@ import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.d
 import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
+import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 
 import 'di/di.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferenceUtils.init();
+  var user = SharedPreferenceUtils.getData(key: 'accessToken');
+  print('accessToken: $user');
+
+  String route;
+  if (user == null) {
+    route = SplashScreen.routeName;
+  } else {
+    route = WelcomeScreen.routeName;
+  }
   configureDependencies();
-  runApp(const MyApp());
+  runApp(MyApp(route: route));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String route;
+
+  const MyApp({required this.route, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +53,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyThemeData.lightMode,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: route,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),

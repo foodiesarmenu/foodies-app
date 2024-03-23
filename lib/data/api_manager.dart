@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+
 import '../domain/failures.dart';
+import '../ui/utils/shared_preference_utils.dart';
 import 'api_constants.dart';
 import 'model/request/LoginRequest.dart';
 import 'model/request/RegisterRequest.dart';
@@ -105,6 +107,8 @@ class ApiManager {
 
       var loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
+        SharedPreferenceUtils.saveData(
+            key: 'accessToken', value: loginResponse.accessToken);
         return Right(loginResponse);
       } else {
         return Left(ServerError(

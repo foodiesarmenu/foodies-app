@@ -76,11 +76,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           FormInputField(
                             controller: viewModel.emailController,
-                            hint: 'Email',
+                            hint: 'yehya404@gmail.com',
                             keyboardType: TextInputType.emailAddress,
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
-                                return 'Please enter full name';
+                                return 'Please enter email';
                               }
                               if (!ValidationUtils.isValidEmail(text)) {
                                 return 'Please enter valid email';
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             isPassword: true,
                             isEmail: false,
                             controller: viewModel.passwordController,
-                            hint: 'Password',
+                            hint: 'Ehab123@',
                             isSecured: true,
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {

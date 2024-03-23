@@ -7,16 +7,18 @@ class SettingsButton extends StatelessWidget {
   final IconData iconData;
   IconData? righticon;
   final Color itemColor; // Add a field to store the item color
+  Function? onPressed;
 
-  SettingsButton({
-    super.key,
-    required this.buttonText,
-    required this.routeName,
-    required this.iconData,
-    this.additionalText,
-    this.righticon,
-    required this.itemColor, // Pass the color in the constructor
-  });
+  SettingsButton(
+      {super.key,
+      required this.buttonText,
+      required this.routeName,
+      required this.iconData,
+      this.additionalText,
+      this.righticon,
+      required this.itemColor,
+      this.onPressed // Pass the color in the constructor
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,11 @@ class SettingsButton extends StatelessWidget {
                 shadowColor:
                     MaterialStateProperty.all<Color>(Colors.transparent),
               ),
-              onPressed: () => Navigator.pushNamed(context, routeName),
+              onPressed: () {
+                onPressed != null
+                    ? onPressed!()
+                    : Navigator.pushNamed(context, routeName);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
