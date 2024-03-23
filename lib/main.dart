@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/ar/ar_widget.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
@@ -9,6 +10,7 @@ import 'package:foodies_app/ui/home/home_tab.dart';
 import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
+import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
 import 'package:foodies_app/ui/orders/orders_tab.dart';
 import 'package:foodies_app/ui/profile/ProfileTab.dart';
@@ -39,6 +41,7 @@ Future<void> main() async {
     route = WelcomeScreen.routeName;
   }
   configureDependencies();
+  Bloc.observer = MyBlocObserver();
   runApp(MyApp(route: route));
 }
 

@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:injectable/injectable.dart';
 
 import '../domain/failures.dart';
 import '../ui/utils/shared_preference_utils.dart';
+import 'LoggingInterceptor.dart';
 import 'api_constants.dart';
 import 'model/request/LoginRequest.dart';
 import 'model/request/RegisterRequest.dart';
@@ -19,12 +21,16 @@ import 'model/response/restaurant_response/RestaurantsResponse.dart';
 @singleton
 @injectable
 class ApiManager {
+  Client client = InterceptedClient.build(interceptors: [
+    LoggingInterceptor(),
+  ]);
+
   Future<CategoriesResponse> getCategories() async {
     Uri uri = Uri.https(
       ApiConstants.baseUrl,
       ApiConstants.categoriesApi,
     );
-    var response = await http.get(
+    var response = await client.get(
       uri,
       headers: {'Authorization': ApiConstants.authorization},
     );
@@ -39,7 +45,7 @@ class ApiManager {
       ApiConstants.baseUrl,
       '${ApiConstants.restaurantsApi}$catId',
     );
-    var response = await http.get(
+    var response = await client.get(
       uri,
       headers: {'Authorization': ApiConstants.authorization},
     );
@@ -53,7 +59,7 @@ class ApiManager {
       ApiConstants.baseUrl,
       '${ApiConstants.menusApi}$restaurantId',
     );
-    var response = await http.get(
+    var response = await client.get(
       uri,
       headers: {'Authorization': ApiConstants.authorization},
     );
@@ -72,7 +78,7 @@ class ApiManager {
       var registerBody = RegisterRequest(
           name: name, email: email, password: password, phoneNumber: phone);
 
-      var response = await http.post(url, body: registerBody.toJson());
+      var response = await client.post(url, body: registerBody.toJson());
 
       var registerResponse =
           RegisterResponse.fromJson(jsonDecode(response.body));
@@ -103,7 +109,7 @@ class ApiManager {
         password: password,
       );
 
-      var response = await http.post(url, body: loginBody.toJson());
+      var response = await client.post(url, body: loginBody.toJson());
 
       var loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
