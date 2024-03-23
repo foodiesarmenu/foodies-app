@@ -86,7 +86,10 @@ class _HomeTabState extends State<HomeTab> {
                       CategoryList(state.categories ?? []),
 
                       const Divider(
-                          height: 30, thickness: 2, color: Colors.grey),
+                        height: 30,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
 
                       //Promotions
                       const SectionTitle(
@@ -97,7 +100,10 @@ class _HomeTabState extends State<HomeTab> {
                       const PromotionList(),
 
                       const Divider(
-                          height: 30, thickness: 2, color: Colors.grey),
+                        height: 30,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
 
                       //Restaurants
                       const SectionTitle(

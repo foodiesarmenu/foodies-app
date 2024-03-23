@@ -21,9 +21,9 @@ class MealTabItem extends StatelessWidget {
           color: isSelected ? Theme.of(context).primaryColor : Colors.white),
       child: Text(
         menu.name ?? "",
-        style: TextStyle(
-          color: isSelected ? Colors.white : Theme.of(context).primaryColor,
-        ),
+        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: isSelected ? Colors.white : Theme.of(context).primaryColor,
+            ),
       ),
     );
   }
