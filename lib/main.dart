@@ -7,8 +7,9 @@ import 'package:foodies_app/ui/cart/cart_widget.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/home/home_tab.dart';
 import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
-import 'package:foodies_app/ui/meal_details/item_details.dart';
+import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
+import 'package:foodies_app/ui/my_theme_data.dart';
 import 'package:foodies_app/ui/orders/orders_tab.dart';
 import 'package:foodies_app/ui/profile/ProfileTab.dart';
 import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
@@ -37,31 +38,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFFFFFFF),
-          elevation: 0,
-          centerTitle: true,
-          foregroundColor: Color(0xFF000000),
-          titleTextStyle: TextStyle(
-            color: Color(0xFF000000),
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          iconTheme: IconThemeData(
-            color: Colors.black,
-            size: 32,
-          ),
-        ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFFFA500),
-          primary: const Color(0xFFFFA500),
-          secondary: const Color(0xFF005959),
-        ),
-        useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-      ),
-      initialRoute: LoginScreen.routeName,
+      theme: MyThemeData.lightMode,
+      initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
@@ -81,8 +59,6 @@ class MyApp extends StatelessWidget {
         MainNavigationScaffold.routeName: (_) => const MainNavigationScaffold(),
         MapScreen.routeName: (_) => const MapScreen(),
         AddAddress.routeName: (_) => const AddAddress(),
-
-
         CategoryDetails.routeName: (_) => const CategoryDetails(),
         CartWidget.routeName: (_) => const CartWidget(),
         MealDetails.routeName: (_) => const MealDetails(),

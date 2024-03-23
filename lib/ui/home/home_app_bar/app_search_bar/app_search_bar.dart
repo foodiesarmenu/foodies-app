@@ -18,6 +18,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
           fillColor: Colors.white,
           filled: true,
           hintText: 'Search for meal or restaurant...',
+          hintStyle: Theme.of(context).textTheme.bodySmall,
           prefixIcon: const Icon(Icons.search, size: 24),
           suffixIcon: IconButton(
             onPressed: () {
