@@ -1,4 +1,4 @@
-import '../../../domain/model/Restaurant.dart';
+import '../../../../domain/model/Restaurant.dart';
 import '../category_response/CategoryDto.dart';
 
 /// _id : "65ee3340ba65d899502a454b"

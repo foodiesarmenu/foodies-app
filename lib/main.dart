@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/ar/ar_widget.dart';
+import 'package:foodies_app/ui/auth/login/login_screen.dart';
+import 'package:foodies_app/ui/auth/login_signup.dart';
+import 'package:foodies_app/ui/auth/register/register_screen.dart';
 import 'package:foodies_app/ui/cart/cart_widget.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/home/home_tab.dart';
@@ -17,9 +20,6 @@ import 'package:foodies_app/ui/profile/settings/myAccount/ChangeEmailScreen.dart
 import 'package:foodies_app/ui/profile/settings/myAccount/ChangePasswordScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/MyCardScreen.dart';
-import 'package:foodies_app/ui/signing/login/login_screen.dart';
-import 'package:foodies_app/ui/signing/login_signup.dart';
-import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 
