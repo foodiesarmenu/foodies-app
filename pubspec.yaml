@@ -50,6 +50,7 @@ dependencies:
   lottie: ^2.6.0
   dartz: ^0.10.1
   connectivity_plus: ^5.0.2
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
