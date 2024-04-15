@@ -4,6 +4,9 @@ import '../common/form_input_field.dart';
 
 class LoginSignupScreen extends StatefulWidget {
   static const String routeName = 'login-sign';
+
+  const LoginSignupScreen({super.key});
+
   @override
   _LoginSignupScreenState createState() => _LoginSignupScreenState();
 }
@@ -17,8 +20,8 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController passwordConfirmationController = TextEditingController();
-
+  TextEditingController passwordConfirmationController =
+      TextEditingController();
 
   //get passwordConfirmationController => null;
 
@@ -47,7 +50,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     RichText(
                       text: TextSpan(
                           text: "Welcome",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 30,
                             letterSpacing: 2,
                             color: Colors.white,
@@ -55,7 +58,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           children: [
                             TextSpan(
                               text: isSignupScreen ? " to Foodies," : " Back,",
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
@@ -63,12 +66,14 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             )
                           ]),
                     ),
-                    SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       isSignupScreen
-                          ? "Signup to Continue"
-                          : "Signin to Continue",
-                      style: TextStyle(
+                          ? "Sign up to Continue"
+                          : "Sign in to Continue",
+                      style: const TextStyle(
                         letterSpacing: 1,
                         color: Colors.white,
                       ),
@@ -80,18 +85,18 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           ),
           // Trick to add the shadow for the submit button
           buildBottomHalfContainer(true),
-          //Main Contianer for Login and Signup
+          //Main Container for Login and Signup
           AnimatedPositioned(
-            duration: Duration(milliseconds: 100),
+            duration: const Duration(milliseconds: 100),
             curve: Curves.easeIn,
             top: isSignupScreen ? 150 : 230,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 100),
               curve: Curves.easeIn,
               height: isSignupScreen ? 480 : 250,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               width: MediaQuery.of(context).size.width - 40,
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
@@ -126,7 +131,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               ),
                               if (!isSignupScreen)
                                 Container(
-                                  margin: EdgeInsets.only(top: 3),
+                                  margin: const EdgeInsets.only(top: 3),
                                   height: 2,
                                   width: 40,
                                   color: Theme.of(context).primaryColor,
@@ -143,7 +148,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           child: Column(
                             children: [
                               Text(
-                                "SIGNUP",
+                                "SIGN UP",
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -153,7 +158,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               ),
                               if (isSignupScreen)
                                 Container(
-                                  margin: EdgeInsets.only(top: 3),
+                                  margin: const EdgeInsets.only(top: 3),
                                   height: 2,
                                   width: 40,
                                   color: Theme.of(context).primaryColor,
@@ -179,19 +184,19 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             left: 0,
             child: Column(
               children: [
-                Text(isSignupScreen ? "Or Signup with" : "Or Signin with"),
+                Text(isSignupScreen ? "Or Signup with" : "Or Sign in with"),
                 Container(
-                  margin: EdgeInsets.only(right: 20, left: 20, top: 15),
+                  margin: const EdgeInsets.only(right: 20, left: 20, top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      buildTextButton(Icons.facebook_outlined,
-                          "Facebook", const Color(0xFF3B5999)),
-                      buildTextButton(Icons.g_mobiledata_outlined,
-                          "Google", const Color(0xFFDE4B39)),
+                      buildTextButton(Icons.facebook_outlined, "Facebook",
+                          const Color(0xFF3B5999)),
+                      buildTextButton(Icons.g_mobiledata_outlined, "Google",
+                          const Color(0xFFDE4B39)),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           )
@@ -200,34 +205,33 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     );
   }
 
-
-
-
-
   //functions
   Container buildSigninSection() {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
           //edit text for sign in
           FormInputField(
-              icon:Icons.mail_outline,
-              hint:"7oda@gmail.com",
+              icon: Icons.mail_outline,
+              hint: "7oda@gmail.com",
               isPassword: false,
               isEmail: true,
               controller: emailController,
               validator: (text) {
-                if (text == null)return 'Please enter email';}
-              ),
+                if (text == null) return 'Please enter email';
+                return null;
+              }),
           FormInputField(
-              icon:Icons.key_outlined,
-              hint:"**********",
+              icon: Icons.key_outlined,
+              hint: "**********",
               isPassword: true,
               isEmail: false,
               controller: passwordController,
               validator: (text) {
-                if (text == null)return 'Please enter password';}),
+                if (text == null) return 'Please enter password';
+                return null;
+              }),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -242,13 +246,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       });
                     },
                   ),
-                  Text("Remember me",
+                  const Text("Remember me",
                       style: TextStyle(fontSize: 12, color: Color(0XFFA7BCC7)))
                 ],
               ),
               TextButton(
                 onPressed: () {},
-                child: Text("Forgot Password?",
+                child: const Text("Forgot Password?",
                     style: TextStyle(fontSize: 12, color: Color(0XFFA7BCC7))),
               )
             ],
@@ -260,55 +264,58 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
 
   Container buildSignupSection() {
     return Container(
-      margin: EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 20),
       child: Column(
         children: [
           //editText for sign up
           FormInputField(
-            icon:Icons.person_outline, 
-           // "User Name",
-            isPassword: false,
-            isEmail: false,
-            hint: 'User Name',
+              icon: Icons.person_outline,
+              // "User Name",
+              isPassword: false,
+              isEmail: false,
+              hint: 'User Name',
               controller: fullNameController,
               validator: (text) {
-              if (text == null)return 'Please enter user name';}
-              ),
+                if (text == null) return 'Please enter user name';
+                return null;
+              }),
           FormInputField(
-              icon:Icons.email_outlined,
+              icon: Icons.email_outlined,
               isPassword: false,
               isEmail: true,
               hint: 'email',
               controller: emailController,
               validator: (text) {
-                if (text == null)return 'Please enter email';}
-          ),
+                if (text == null) return 'Please enter email';
+              }),
           FormInputField(
-              icon:Icons.phone,
+              icon: Icons.phone,
               isPassword: false,
               isEmail: false,
               keyboardType: TextInputType.number,
               hint: '(+20) xxx xxxx xxxx',
               controller: phoneController,
               validator: (text) {
-                if (text == null)return 'Please enter email';}
-          ),
+                if (text == null) return 'Please enter email';
+              }),
           FormInputField(
-              icon:Icons.key_outlined,
+              icon: Icons.key_outlined,
               isPassword: true,
               isEmail: false,
               hint: 'password',
               controller: passwordController,
               validator: (text) {
-                if (text == null)return 'Please enter password';}),
+                if (text == null) return 'Please enter password';
+              }),
           FormInputField(
-              icon:Icons.key_outlined,
+              icon: Icons.key_outlined,
               isPassword: true,
               isEmail: false,
               hint: 'confirm password',
               controller: passwordConfirmationController,
               validator: (text) {
-                if (text == null)return 'Please enter password';}),
+                if (text == null) return 'Please enter password';
+              }),
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 10),
             child: Row(
@@ -325,7 +332,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       Container(
                         width: 30,
                         height: 30,
-                        margin: EdgeInsets.only(right: 8),
+                        margin: const EdgeInsets.only(right: 8),
                         decoration: BoxDecoration(
                             color: isMale
                                 ? Theme.of(context).primaryColor
@@ -334,21 +341,24 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 width: 1,
                                 color: isMale
                                     ? Colors.transparent
-                                    : Color(0XFFA7BCC7)),
+                                    : const Color(0XFFA7BCC7)),
                             borderRadius: BorderRadius.circular(15)),
                         child: Icon(
                           Icons.male_outlined,
-                          color: isMale ? Colors.white : Color(0xFFB6C7D1),
+                          color:
+                              isMale ? Colors.white : const Color(0xFFB6C7D1),
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Male",
                         style: TextStyle(color: Color(0XFFA7BCC7)),
                       )
                     ],
                   ),
                 ),
-                const SizedBox(width: 30,),
+                const SizedBox(
+                  width: 30,
+                ),
                 GestureDetector(
                   onTap: () {
                     setState(() {
@@ -360,7 +370,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       Container(
                         width: 30,
                         height: 30,
-                        margin: EdgeInsets.only(right: 8),
+                        margin: const EdgeInsets.only(right: 8),
                         decoration: BoxDecoration(
                             color: isMale
                                 ? Colors.transparent
@@ -376,7 +386,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           color: isMale ? Color(0xFFB6C7D1) : Colors.white,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "Female",
                         style: TextStyle(color: Color(0XFFA7BCC7)),
                       )
@@ -388,12 +398,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           ),
           Container(
             width: 200,
-            margin: EdgeInsets.only(top: 12),
+            margin: const EdgeInsets.only(top: 12),
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
                   text: "By pressing 'Submit' you agree to our ",
-                  style: TextStyle(color: Color(0XFF9BB3C0)),
+                  style: const TextStyle(color: Color(0XFF9BB3C0)),
                   children: [
                     TextSpan(
                       //recognizer: ,
@@ -408,13 +418,15 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     );
   }
 
-  TextButton buildTextButton(IconData icon, String title, Color backgroundColor) {
+  TextButton buildTextButton(
+      IconData icon, String title, Color backgroundColor) {
     return TextButton(
       onPressed: () {},
       style: TextButton.styleFrom(
-          side: BorderSide(width: 1, color: Colors.white),
-          minimumSize: Size(145, 40),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          side: const BorderSide(width: 1, color: Colors.white),
+          minimumSize: const Size(145, 40),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           primary: Colors.white,
           backgroundColor: backgroundColor),
       child: Row(
@@ -422,7 +434,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           Icon(
             icon,
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Text(
@@ -435,7 +447,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
 
   Widget buildBottomHalfContainer(bool showShadow) {
     return AnimatedPositioned(
-      duration: Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 100),
       curve: Curves.easeOut,
       top: isSignupScreen ? 580 : 430,
       right: 0,
@@ -444,7 +456,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
         child: Container(
           height: 90,
           width: 90,
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(50),
@@ -458,24 +470,24 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               ]),
           child: !showShadow
               ? Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Colors.orange, Colors.red],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight),
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(.3),
-                      spreadRadius: 1,
-                      blurRadius: 2,
-                      offset: Offset(0, 1))
-                ]),
-            child: Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-            ),
-          )
+                  decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                          colors: [Colors.orange, Colors.red],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(.3),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: Offset(0, 1))
+                      ]),
+                  child: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                )
               : Center(),
         ),
       ),

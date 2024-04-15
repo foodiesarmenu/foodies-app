@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/home/home_screen.dart';
 
-import '../orders/orders_screen.dart';
-import '../profile/ProfileScreen.dart';
+import '../home/home_tab.dart';
+import '../orders/orders_tab.dart';
+import '../profile/ProfileTab.dart';
 
 class MainNavigationScaffold extends StatefulWidget {
-  static const String routeName = '/main-bottom-nav-bar';
+  static const String routeName = 'MainNavScaffold';
 
   const MainNavigationScaffold({super.key});
 
@@ -17,9 +17,9 @@ class _MainNavigationScaffoldState extends State<MainNavigationScaffold> {
   int selectedIndex = 0;
 
   List<Widget> tabs = const [
-    HomeScreen(),
-    OrdersScreen(),
-    ProfileScreen(),
+    HomeTab(),
+    OrdersTab(),
+    ProfileTab(),
   ];
 
   @override

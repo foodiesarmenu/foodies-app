@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/common/ButtonInProfile.dart';
-import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 
 import '../../../common/custom_app_bar.dart';
+import '../SettingsScreen.dart';
 
 class MyCardScreen extends StatelessWidget {
   static const String routeName = 'card-screen';
+
   const MyCardScreen({super.key});
 
   @override

@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/data.dart';
-import '../../../model/restaurant_response/Category.dart';
+import '../../../domain/model/Category.dart';
+import '../../../domain/model/Restaurant.dart';
 
 class RestaurantItem extends StatelessWidget {
   const RestaurantItem(
       {required this.restaurant, super.key, required this.category});
 
-  final Data restaurant;
+  final Restaurant? restaurant;
   final List<Category>? category;
 
   @override
@@ -17,22 +17,26 @@ class RestaurantItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Stack(children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: CachedNetworkImage(
-                imageUrl: restaurant.avatar ?? "",
-                height: 300,
-                width: double.infinity,
-                fit: BoxFit.fill,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                        child: CircularProgressIndicator(
-                            value: downloadProgress.progress)),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: restaurant?.image ?? "",
+                  height: 300,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                    child: CircularProgressIndicator(
+                      value: downloadProgress.progress,
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
               ),
-            ),
-          ]),
+            ],
+          ),
 
           const SizedBox(height: 8),
 
@@ -43,10 +47,10 @@ class RestaurantItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: CachedNetworkImage(
-                  imageUrl: restaurant.avatar ?? "",
+                  imageUrl: restaurant?.image ?? "",
                   height: 50,
                   width: 50,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(
                           child: CircularProgressIndicator(
@@ -64,7 +68,7 @@ class RestaurantItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    restaurant.name ?? "",
+                    restaurant?.name ?? "",
                     style: const TextStyle(
                         fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),

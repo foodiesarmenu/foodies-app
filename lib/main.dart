@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
+import 'package:foodies_app/ui/home/home_tab.dart';
 import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
+import 'package:foodies_app/ui/meal_details/item_details.dart';
+import 'package:foodies_app/ui/menu/menu_screen.dart';
+import 'package:foodies_app/ui/orders/orders_tab.dart';
+import 'package:foodies_app/ui/profile/ProfileTab.dart';
 import 'package:foodies_app/ui/profile/editProfile/EditProfileScreen.dart';
 import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/ui/profile/settings/myAccount/Address/add_address.dart';
@@ -20,8 +25,10 @@ import 'cubit/maps/maps_cubit.dart';
 import 'model/map_response/repository/maps_repo.dart';
 import 'model/map_response/web_services/places_web_services.dart';
 
+import 'di/di.dart';
 
 void main() {
+  //configureDependencies();
   runApp(const MyApp());
 }
 
@@ -64,15 +71,18 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName: (_) => const RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
         WelcomeScreen.routeName: (_) => const WelcomeScreen(),
-
+        HomeTab.routeName: (_) => const HomeTab(),
+        OrdersTab.routeName: (_) => const OrdersTab(),
+        ProfileTab.routeName: (_) => const ProfileTab(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         EditProfileScreen.routeName: (_) => const EditProfileScreen(),
         ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
         ChangeEmailScreen.routeName: (_) => const ChangeEmailScreen(),
-        //
         MyAddressScreen.routeName: (_) => const MyAddressScreen(),
         MyCardScreen.routeName: (_) => const MyCardScreen(),
-        LoginSignupScreen.routeName: (_) =>  LoginSignupScreen(),
+        LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
+        MenuScreen.routeName: (_) => const MenuScreen(),
+
         MainNavigationScaffold.routeName: (_) => const MainNavigationScaffold(),
         //
         //MapScreen.routeName: (_) => const MapScreen(),
@@ -84,6 +94,9 @@ class MyApp extends StatelessWidget {
         AddAddress.routeName: (_) => const AddAddress(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
 
+        //CartWidget.routeName: (_) => const CartWidget(),
+        MealDetails.routeName: (_) => const MealDetails(),
+        //ArWidget.routeName: (_) => const ArWidget(),
       },
     );
   }

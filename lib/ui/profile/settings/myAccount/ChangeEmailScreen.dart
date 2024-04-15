@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 import 'package:foodies_app/ui/common/EditTextInProfile.dart';
-import 'package:foodies_app/ui/profile/settings/SettingsScreen.dart';
 import 'package:foodies_app/validation_utils.dart';
 
 import '../../../common/custom_app_bar.dart';
+import '../SettingsScreen.dart';
 
 class ChangeEmailScreen extends StatefulWidget {
   static const String routeName = 'change-email';
+
   const ChangeEmailScreen({super.key});
 
   @override
@@ -25,7 +26,6 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
     return Scaffold(
       appBar: CustomAppBar.buildAppBar(context, 'Change Email'),
       body: Form(
-
         key: formKey,
         child: Container(
           padding: const EdgeInsets.all(12),
@@ -68,12 +68,12 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
               ),
               const SizedBox(height: 10.0), // Space before the button
               ButtonInProfile(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  text: 'Change Email',
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(SettingsScreen.routeName);
-                  },
+                backgroundColor: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                text: 'Change Email',
+                onPressed: () {
+                  Navigator.of(context).pushNamed(SettingsScreen.routeName);
+                },
               ),
             ],
           ),
@@ -81,7 +81,7 @@ class _ChangeEmailScreenState extends State<ChangeEmailScreen> {
       ),
     );
   }
-  /*void checkPass() {
+/*void checkPass() {
     if (formKey.currentState?.validate() == false) {
       return;
     }

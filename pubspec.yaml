@@ -36,14 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^1.1.0
   another_carousel_pro: ^1.0.2
-  provider: ^6.1.2
   location: ^5.0.3
   geolocator: ^11.0.0
   material_floating_search_bar_2: ^0.5.0
   font_awesome_flutter: ^10.7.0
   google_maps_flutter: ^2.5.3
   cached_network_image: ^3.3.1
-  path_provider: ^2.1.2
   flutter_bloc: ^8.1.4
   flutter_offline: ^3.0.1
   uuid: ^3.0.5
@@ -61,6 +59,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  # add the generator to your dev_dependencies
+  injectable_generator:
+  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

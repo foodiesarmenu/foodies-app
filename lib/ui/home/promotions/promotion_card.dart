@@ -21,24 +21,35 @@ class _PromotionCardState extends State<PromotionCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 200,
       width: double.infinity,
-      child: AnotherCarousel(
-        images: widget.imageUrls.map((imageUrl) {
-          return CachedNetworkImage(
-            imageUrl: imageUrl,
-            placeholder: (context, url) =>
-                const Center(child: CircularProgressIndicator()),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-            fit: BoxFit.fill,
-          );
-        }).toList(),
-        dotSize: 10,
-        indicatorBgPadding: 5,
-        dotColor: Colors.grey,
-        dotBgColor: Colors.transparent,
-        borderRadius: true,
-        radius: const Radius.circular(24.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: AnotherCarousel(
+              images: widget.imageUrls.map((imageUrl) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                    fit: BoxFit.fill,
+                  ),
+                );
+              }).toList(),
+              dotIncreasedColor: Theme.of(context).primaryColor,
+              dotSize: 10,
+              indicatorBgPadding: 5,
+              dotColor: Colors.grey,
+              dotBgColor: Colors.transparent,
+              borderRadius: true,
+              radius: const Radius.circular(24.0),
+            ),
+          ),
+        ],
       ),
     );
   }

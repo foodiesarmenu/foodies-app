@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
-  const SectionTitle({required this.title, required this.subtitle, super.key});
+  const SectionTitle({required this.title, this.subtitle, super.key});
 
   final String title;
-  final String subtitle;
+  final String? subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class SectionTitle extends StatelessWidget {
           height: 4,
         ),
         Text(
-          subtitle,
+          subtitle ?? '',
           style: TextStyle(color: Theme.of(context).colorScheme.secondary),
         ),
       ],

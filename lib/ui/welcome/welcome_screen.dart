@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:foodies-app/ui/welcome/read_qr.dart';
 import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
