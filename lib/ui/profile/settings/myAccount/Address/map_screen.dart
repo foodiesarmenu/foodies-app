@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 import '../../../../../cubit/maps/maps_cubit.dart';
 import '../../../../../model/map_response/place.dart';
 import '../../../../../model/map_response/place_seggestions.dart';
+import 'form_adress_screen.dart';
 
 
 class MapScreen extends StatefulWidget {
@@ -296,6 +297,27 @@ class _MapScreenState extends State<MapScreen> {
             ),
           ),
           buildFloatingSearchBar(),
+          Positioned(
+            bottom: 43, // Adjust the bottom position as needed
+            left: 24, // Adjust the left position as needed
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(FormAddressScreen.routeName);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor, // Change the button's background color
+                foregroundColor: Colors.white, // Change the button's text color
+                elevation: 4, // Add elevation to the button
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12), // Adjust padding as needed
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8), // Adjust border radius as needed
+                ),
+              ),
+              child: const Text("Confirm Address"),
+            ),
+          ),
+
+
         ],
       ),
 

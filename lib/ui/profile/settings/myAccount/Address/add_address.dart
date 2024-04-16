@@ -24,7 +24,27 @@ class AddAddress extends StatelessWidget {
               Navigator.pushNamed(context, MapScreen.routeName);
               //getLocation();
             },
-          )
+          ),
+
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.all(12),
+            padding: EdgeInsets.all(12),
+            color: Colors.yellow,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Cairo, haram, St.xxx, St.12, floor.8, Cairo, haram, St.xxx, St.12, floor.8',
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                SizedBox(width: 8), // Add some space between the icon and text
+                Icon(Icons.arrow_forward_ios_rounded), // Add your desired icon here
+              ],
+            ),
+          ),
+
         ],
       )
     );
