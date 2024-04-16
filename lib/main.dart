@@ -20,6 +20,7 @@ import 'package:foodies_app/ui/signing/login/login_screen.dart';
 import 'package:foodies_app/ui/signing/login_signup.dart';
 import 'package:foodies_app/ui/signing/register/register_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
+import 'package:foodies_app/ui/welcome/scan_qr.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 
 import 'cubit/maps/maps_cubit.dart';
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         scaffoldBackgroundColor: const Color(0xFFFFFFFF),
       ),
-      initialRoute: FormAddressScreen.routeName,
+      initialRoute: WelcomeScreen.routeName,
       //MainNavigationScaffold
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
@@ -98,6 +99,8 @@ class MyApp extends StatelessWidget {
         //ArWidget.routeName: (_) => const ArWidget(),
 
         FormAddressScreen.routeName: (_) => FormAddressScreen(),
+        ScanQR.routeName: (_) => ScanQR(),
+
 
       },
     );
