@@ -79,42 +79,6 @@ class RestaurantDto {
   String? updatedAt;
   int? v;
 
-  RestaurantDto copyWith({
-    String? id,
-    String? name,
-    String? email,
-    String? address,
-    String? image,
-    String? phoneNumber,
-    String? password,
-    bool? canDeliver,
-    String? city,
-    List<CategoryDto>? category,
-    String? status,
-    String? type,
-    bool? isDeleted,
-    String? createdAt,
-    String? updatedAt,
-    int? v,
-  }) =>
-      RestaurantDto(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        image: image ?? this.image,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        password: password ?? this.password,
-        canDeliver: canDeliver ?? this.canDeliver,
-        city: city ?? this.city,
-        category: category ?? this.category,
-        status: status ?? this.status,
-        type: type ?? this.type,
-        isDeleted: isDeleted ?? this.isDeleted,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        v: v ?? this.v,
-      );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -151,7 +115,7 @@ class RestaurantDto {
       canDeliver: canDeliver,
       city: city,
       category:
-          category!.map((categoryDto) => categoryDto.toCategory()).toList(),
+          category?.map((categoryDto) => categoryDto.toCategory()).toList(),
       status: status,
     );
   }
