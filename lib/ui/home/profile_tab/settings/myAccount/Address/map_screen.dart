@@ -3,27 +3,25 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/common/location_helper.dart';
-import 'package:foodies_app/ui/profile/settings/myAccount/Address/place_item.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/place_item.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../../cubit/maps/maps_cubit.dart';
-import '../../../../../model/map_response/place.dart';
-import '../../../../../model/map_response/place_seggestions.dart';
+import '../../../model/cubit/maps/maps_cubit.dart';
+import '../../../model/map_response/place.dart';
+import '../../../model/map_response/place_seggestions.dart';
 import 'form_adress_screen.dart';
-
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
+
   static const String routeName = 'map_screen';
 
   @override
   State<MapScreen> createState() => _MapScreenState();
 }
-
-
 
 class _MapScreenState extends State<MapScreen> {
   List<PlaceSuggestion> places = [];
@@ -110,12 +108,12 @@ class _MapScreenState extends State<MapScreen> {
     return FloatingSearchBar(
       controller: controller,
       elevation: 3,
-      hintStyle: TextStyle(fontSize: 18),
-      queryStyle: TextStyle(fontSize: 18),
+      hintStyle: const TextStyle(fontSize: 18),
+      queryStyle: const TextStyle(fontSize: 18),
       hint: 'Find a place..',
-      border: BorderSide(style: BorderStyle.none),
-      margins: EdgeInsets.fromLTRB(8, 32, 8, 0),
-      padding: EdgeInsets.all(0),
+      border: const BorderSide(style: BorderStyle.none),
+      margins: const EdgeInsets.fromLTRB(8, 32, 8, 0),
+      padding: const EdgeInsets.all(0),
       height: 54,
       iconColor: Theme.of(context).primaryColor,
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
@@ -189,11 +187,11 @@ class _MapScreenState extends State<MapScreen> {
   void buildSearchedPlaceMarker() {
     searchedPlaceMarker = Marker(
       position: goToSearchedForPlace.target,
-      markerId: MarkerId('1'),
+      markerId: const MarkerId('1'),
       onTap: () {
         buildCurrentLocationMarker();
         // show time and distance
-       /* setState(() {
+        /* setState(() {
           isSearchedPlaceMarkerClicked = true;
           isTimeAndDistanceVisible = true;
         });*/
@@ -208,9 +206,9 @@ class _MapScreenState extends State<MapScreen> {
   void buildCurrentLocationMarker() {
     currentLocationMarker = Marker(
       position: LatLng(position!.latitude, position!.longitude),
-      markerId: MarkerId('2'),
+      markerId: const MarkerId('2'),
       onTap: () {},
-      infoWindow: InfoWindow(title: "Your current Location"),
+      infoWindow: const InfoWindow(title: "Your current Location"),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
     );
     addMarkerToMarkersAndUpdateUI(currentLocationMarker);
@@ -229,7 +227,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void getPlacesSuggestions(String query) {
-    final sessionToken = Uuid().v4();
+    final sessionToken = const Uuid().v4();
     BlocProvider.of<MapsCubit>(context)
         .emitPlaceSuggestions(query, sessionToken);
   }
@@ -275,7 +273,7 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void getSelectedPlaceLocation() {
-    final sessionToken = Uuid().v4();
+    final sessionToken = const Uuid().v4();
     BlocProvider.of<MapsCubit>(context)
         .emitPlaceLocation(placeSuggestion.placeId, sessionToken);
   }
@@ -289,13 +287,13 @@ class _MapScreenState extends State<MapScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          position != null ? buildMap() :  Center(
-            child: Container(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
+          position != null
+              ? buildMap()
+              : Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
           buildFloatingSearchBar(),
           Positioned(
             bottom: 43, // Adjust the bottom position as needed
@@ -305,12 +303,18 @@ class _MapScreenState extends State<MapScreen> {
                 Navigator.of(context).pushNamed(FormAddressScreen.routeName);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor, // Change the button's background color
-                foregroundColor: Colors.white, // Change the button's text color
-                elevation: 4, // Add elevation to the button
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12), // Adjust padding as needed
+                backgroundColor: Theme.of(context).primaryColor,
+                // Change the button's background color
+                foregroundColor: Colors.white,
+                // Change the button's text color
+                elevation: 4,
+                // Add elevation to the button
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                // Adjust padding as needed
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), // Adjust border radius as needed
+                  borderRadius: BorderRadius.circular(
+                      8), // Adjust border radius as needed
                 ),
               ),
               child: const Text("Confirm Address"),
@@ -322,11 +326,14 @@ class _MapScreenState extends State<MapScreen> {
       ),
 
       floatingActionButton: Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 8, 30),
+        margin: const EdgeInsets.fromLTRB(0, 0, 8, 30),
         child: FloatingActionButton(
-            backgroundColor: Theme.of(context).primaryColor,
-            onPressed: _goToMyCurrentLocation,
-          child: Icon(Icons.place_outlined, color: Colors.white,),
+          backgroundColor: Theme.of(context).primaryColor,
+          onPressed: _goToMyCurrentLocation,
+          child: const Icon(
+            Icons.place_outlined,
+            color: Colors.white,
+          ),
         ),
       ),
 

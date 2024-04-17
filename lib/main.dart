@@ -11,29 +11,31 @@ import 'package:foodies_app/ui/checkout/ordering_animated.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
+import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
+import 'package:foodies_app/ui/home/profile_tab/editProfile/EditProfileScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/model/cubit/maps/maps_cubit.dart';
+import 'package:foodies_app/ui/home/profile_tab/model/map_response/repository/maps_repo.dart';
+import 'package:foodies_app/ui/home/profile_tab/model/map_response/web_services/places_web_services.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/add_address.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/form_adress_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/map_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyAddressScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
-import 'package:foodies_app/ui/welcome/scan_qr.dart';
-
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
 import 'package:foodies_app/ui/payment/payment_screen.dart';
-import 'package:foodies_app/ui/profile_tab/ProfileTab.dart';
-import 'package:foodies_app/ui/profile_tab/editProfile/EditProfileScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/SettingsScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/Address/add_address.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/Address/map_screen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/MyAddressScreen.dart';
-import 'package:foodies_app/ui/profile_tab/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/splash/animated_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
+import 'package:foodies_app/ui/welcome/scan_qr.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
-import 'cubit/maps/maps_cubit.dart';
-import 'model/map_response/repository/maps_repo.dart';
-import 'model/map_response/web_services/places_web_services.dart';
+
+import 'di/di.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -82,12 +84,12 @@ class MyApp extends StatelessWidget {
         MenuScreen.routeName: (_) => const MenuScreen(),
         //MapScreen.routeName: (_) => const MapScreen(),
         MapScreen.routeName: (context) => BlocProvider.value(
-          value: MapsCubit(MapsRepository(PlacesWebservices())), // Ensure bloc instance is created once
-          child: const MapScreen(),
-        ),
+              value: MapsCubit(MapsRepository(PlacesWebservices())),
+              // Ensure bloc instance is created once
+              child: const MapScreen(),
+            ),
         FormAddressScreen.routeName: (_) => FormAddressScreen(),
-        ScanQR.routeName: (_) => ScanQR(),
-
+        ScanQR.routeName: (_) => const ScanQR(),
         HomeScreen.routeName: (_) => const HomeScreen(),
         AddAddress.routeName: (_) => const AddAddress(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),

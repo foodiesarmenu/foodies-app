@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
-import '../../model/map_response/place.dart';
-import '../../model/map_response/place_seggestions.dart';
-import '../../model/map_response/repository/maps_repo.dart';
+import '../../map_response/place.dart';
+import '../../map_response/place_seggestions.dart';
+import '../../map_response/repository/maps_repo.dart';
 
 part 'maps_state.dart';
 

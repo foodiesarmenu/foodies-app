@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/profile_tab/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
 
 import 'ProfileButton.dart';
 import 'editProfile/EditProfileScreen.dart';

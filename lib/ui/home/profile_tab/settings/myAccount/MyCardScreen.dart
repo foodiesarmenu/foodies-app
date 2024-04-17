@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 
-import '../../../common/custom_app_bar.dart';
+import '../../../../common/custom_app_bar.dart';
 import '../SettingsScreen.dart';
 
 class MyCardScreen extends StatelessWidget {

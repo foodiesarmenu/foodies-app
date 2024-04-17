@@ -93,7 +93,7 @@ class _CartScreenState extends State<CartScreen> {
                         itemBuilder: (context, index) =>
                             CartItemWidget(cart: state.cart.cartItems?[index]),
                         separatorBuilder: (context, index) => Divider(
-                          height: 1,
+                          height: 10,
                           thickness: 1,
                           color: Colors.grey[300],
                         ),

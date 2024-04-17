@@ -3,7 +3,7 @@ import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 import 'package:foodies_app/ui/common/custom_app_bar.dart';
 
 import '../../../../validation_utils.dart';
-import '../../common/form_input_field.dart';
+import '../../../common/form_input_field.dart';
 import '../ProfileTab.dart';
 
 enum Gender { male, female } // Define the gender options
