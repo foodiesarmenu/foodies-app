@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../model/map_response/place_seggestions.dart';
+import '../../../model/map_response/place_seggestions.dart';
 
 class PlaceItem extends StatelessWidget {
   final PlaceSuggestion suggestion;
@@ -13,8 +13,8 @@ class PlaceItem extends StatelessWidget {
         .replaceAll(suggestion.description.split(',')[0], '');
     return Container(
       width: double.infinity,
-      margin: EdgeInsetsDirectional.all(8),
-      padding: EdgeInsetsDirectional.all(4),
+      margin: const EdgeInsetsDirectional.all(8),
+      padding: const EdgeInsetsDirectional.all(4),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: Column(
@@ -23,7 +23,7 @@ class PlaceItem extends StatelessWidget {
             leading: Container(
               width: 40,
               height: 40,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.black12),
               child: Icon(
                 Icons.place,
@@ -35,14 +35,14 @@ class PlaceItem extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: '${suggestion.description.split(',')[0]}\n',
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
                     text: subTitle.substring(2),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
                     ),

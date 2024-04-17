@@ -4,8 +4,8 @@ import 'package:foodies_app/di/di.dart';
 import 'package:foodies_app/ui/common/ButtonInProfile.dart';
 import 'package:foodies_app/ui/common/EditTextInProfile.dart';
 
-import '../../../common/custom_app_bar.dart';
-import '../../../utils/dialog_utils.dart';
+import '../../../../common/custom_app_bar.dart';
+import '../../../../utils/dialog_utils.dart';
 import '../../cubit/ProfileStates.dart';
 import '../../cubit/profile_view_model.dart';
 

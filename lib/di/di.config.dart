@@ -53,9 +53,9 @@ import '../ui/auth/register/cubit/register_view_model.dart' as _i30;
 import '../ui/cart/cubit/cart_screen_view_model.dart' as _i39;
 import '../ui/category_details/category_details_view_model.dart' as _i47;
 import '../ui/home/home_tab/cubit/home_tab_view_model.dart' as _i43;
+import '../ui/home/profile_tab/cubit/profile_view_model.dart' as _i46;
 import '../ui/meal_details/cubit/meal_details_view_model.dart' as _i44;
 import '../ui/menu/menu_view_model.dart' as _i45;
-import '../ui/profile_tab/cubit/profile_view_model.dart' as _i46;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt

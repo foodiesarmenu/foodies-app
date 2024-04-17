@@ -6,7 +6,7 @@ import 'package:foodies_app/ui/common/LocationManager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-import '../../../common/custom_app_bar.dart';
+import '../../../../common/custom_app_bar.dart';
 
 class MyAddressScreen extends StatefulWidget {
   static const String routeName = 'add-address';

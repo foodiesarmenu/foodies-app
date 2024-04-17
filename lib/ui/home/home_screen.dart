@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
 
-import '../profile_tab/ProfileTab.dart';
 import 'home_tab/home_tab.dart';
 import 'orders_tab/orders_tab.dart';
 
