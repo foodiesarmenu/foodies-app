@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../di/di.dart';
 import '../../domain/model/Restaurant.dart';
-import '../cart/cart_widget.dart';
+import '../cart/cart_screen.dart';
 import 'menu_container.dart';
 import 'menu_view_model.dart';
 
@@ -51,7 +51,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     restaurant: widget.restaurant!, menus: state.menus ?? []),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, CartWidget.routeName);
+                    Navigator.pushNamed(context, CartScreen.routeName);
                   },
                   backgroundColor: Colors.white,
                   child: Icon(

@@ -63,34 +63,35 @@ class MealItem extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Add to cart',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
+                  // InkWell(
+                  //   onTap: () {},
+                  //   child: Container(
+                  //     padding: const EdgeInsets.all(4),
+                  //     decoration: BoxDecoration(
+                  //       border: Border.all(
+                  //         color: Theme.of(context).primaryColor,
+                  //       ),
+                  //       borderRadius: BorderRadius.circular(8),
+                  //     ),
+                  //     child: Row(
+                  //       children: [
+                  //         Text(
+                  //           'Add to cart',
+                  //           style: TextStyle(
+                  //             color: Theme.of(context).primaryColor,
+                  //           ),
+                  //         ),
+                  //         Icon(
+                  //           Icons.shopping_cart,
+                  //           color: Theme.of(context).primaryColor,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(width: 8),
                   InkWell(
                     onTap: () {
                       Navigator.pushNamed(context, ArWidget.routeName);
@@ -106,10 +107,11 @@ class MealItem extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            'Display AR',
+                            'AR View',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
                             ),
+                            maxLines: 2,
                           ),
                           Icon(
                             Icons.all_inclusive,
@@ -127,14 +129,15 @@ class MealItem extends StatelessWidget {
             ],
           ),
         ),
+
         const SizedBox(width: 8),
         // Meal Image
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: CachedNetworkImage(
             imageUrl: menus?[menuIndex].meals?[mealIndex].image ?? "",
-            height: 90,
-            width: 90,
+            height: 110,
+            width: 110,
             fit: BoxFit.fill,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 Center(

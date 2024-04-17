@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
 import 'package:foodies_app/ui/welcome/scan_qr.dart';
+import '../home/home_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -44,8 +44,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           setState(() {
                             Navigator.of(context).pushNamed(ScanQR.routeName);
                           });
-                          //Navigator.pushNamed(context, MainNavigationScaffold.routeName);
-
                         },
                         style: ButtonStyle(
                           side: MaterialStateProperty.all(BorderSide(
@@ -73,8 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, MainNavigationScaffold.routeName);
+                          Navigator.pushNamed(context, HomeScreen.routeName);
                         },
                         style: ButtonStyle(
                           side: MaterialStateProperty.all(BorderSide(

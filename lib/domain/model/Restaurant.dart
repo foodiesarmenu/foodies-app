@@ -27,24 +27,6 @@ class Restaurant {
     this.status,
   });
 
-  Restaurant.fromJson(dynamic json) {
-    id = json['_id'];
-    name = json['name'];
-    email = json['email'];
-    address = json['address'];
-    image = json['image'];
-    phoneNumber = json['phoneNumber'];
-    password = json['password'];
-    canDeliver = json['canDeliver'];
-    city = json['city'];
-    if (json['category'] != null) {
-      category = [];
-      json['category'].forEach((v) {
-        category?.add(Category.fromJson(v));
-      });
-    }
-    status = json['status'];
-  }
 
   String? id;
   String? name;
@@ -58,48 +40,5 @@ class Restaurant {
   List<Category>? category;
   String? status;
 
-  Restaurant copyWith({
-    String? id,
-    String? name,
-    String? email,
-    String? address,
-    String? image,
-    String? phoneNumber,
-    String? password,
-    bool? canDeliver,
-    String? city,
-    List<Category>? category,
-    String? status,
-  }) =>
-      Restaurant(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        email: email ?? this.email,
-        address: address ?? this.address,
-        image: image ?? this.image,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        password: password ?? this.password,
-        canDeliver: canDeliver ?? this.canDeliver,
-        city: city ?? this.city,
-        category: category ?? this.category,
-        status: status ?? this.status,
-      );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['name'] = name;
-    map['email'] = email;
-    map['address'] = address;
-    map['image'] = image;
-    map['phoneNumber'] = phoneNumber;
-    map['password'] = password;
-    map['canDeliver'] = canDeliver;
-    map['city'] = city;
-    if (category != null) {
-      map['category'] = category?.map((v) => v.toJson()).toList();
-    }
-    map['status'] = status;
-    return map;
-  }
 }
