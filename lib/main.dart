@@ -13,6 +13,8 @@ import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
+import 'package:foodies_app/ui/welcome/scan_qr.dart';
+
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
 import 'package:foodies_app/ui/payment/payment_screen.dart';
@@ -29,8 +31,9 @@ import 'package:foodies_app/ui/splash/animated_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
-
-import 'di/di.dart';
+import 'cubit/maps/maps_cubit.dart';
+import 'model/map_response/repository/maps_repo.dart';
+import 'model/map_response/web_services/places_web_services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,8 +80,15 @@ class MyApp extends StatelessWidget {
         MyCardScreen.routeName: (_) => const MyCardScreen(),
         LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
         MenuScreen.routeName: (_) => const MenuScreen(),
+        //MapScreen.routeName: (_) => const MapScreen(),
+        MapScreen.routeName: (context) => BlocProvider.value(
+          value: MapsCubit(MapsRepository(PlacesWebservices())), // Ensure bloc instance is created once
+          child: const MapScreen(),
+        ),
+        FormAddressScreen.routeName: (_) => FormAddressScreen(),
+        ScanQR.routeName: (_) => ScanQR(),
+
         HomeScreen.routeName: (_) => const HomeScreen(),
-        MapScreen.routeName: (_) => const MapScreen(),
         AddAddress.routeName: (_) => const AddAddress(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
         CartScreen.routeName: (_) => const CartScreen(),
