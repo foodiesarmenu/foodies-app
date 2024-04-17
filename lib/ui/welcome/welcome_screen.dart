@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/main_navigation/main_navigation.dart';
+
+import '../home/home_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -34,8 +35,7 @@ class WelcomeScreen extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, MainNavigationScaffold.routeName);
+                          Navigator.pushNamed(context, HomeScreen.routeName);
                         },
                         style: ButtonStyle(
                           side: MaterialStateProperty.all(BorderSide(
@@ -63,8 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, MainNavigationScaffold.routeName);
+                          Navigator.pushNamed(context, HomeScreen.routeName);
                         },
                         style: ButtonStyle(
                           side: MaterialStateProperty.all(BorderSide(

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../di/di.dart';
 import '../../domain/model/Category.dart';
-import '../home/restaurants/restaurant_list.dart';
+import '../home/home_tab/restaurants/restaurant_list.dart';
 import 'category_details_view_model.dart';
 
 class CategoryDetails extends StatefulWidget {

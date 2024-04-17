@@ -28,13 +28,20 @@ class MyThemeData {
     useMaterial3: true,
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     textTheme: const TextTheme(
-      titleMedium: TextStyle(
+      titleLarge: TextStyle(
         fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+      titleMedium: TextStyle(
+        fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
       titleSmall: TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 16,
       ),
       bodySmall: TextStyle(
         fontSize: 16,

@@ -41,27 +41,6 @@ class CategoryDto {
   String? updatedAt;
   int? v;
 
-  CategoryDto copyWith({
-    String? id,
-    String? image,
-    String? name,
-    String? description,
-    bool? isDeleted,
-    String? createdAt,
-    String? updatedAt,
-    int? v,
-  }) =>
-      CategoryDto(
-        id: id ?? this.id,
-        image: image ?? this.image,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        isDeleted: isDeleted ?? this.isDeleted,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        v: v ?? this.v,
-      );
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['_id'] = id;

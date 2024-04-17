@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
+import 'package:foodies_app/data/model/response/profile_response/ProfileResponseDto.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:injectable/injectable.dart';
@@ -14,6 +15,7 @@ import 'model/request/LoginRequest.dart';
 import 'model/request/RegisterRequest.dart';
 import 'model/response/auth_response/LoginResponse.dart';
 import 'model/response/auth_response/RegisterResponse.dart';
+import 'model/response/cart_response/CartResponseDto.dart';
 import 'model/response/category_response/CategoriesResponse.dart';
 import 'model/response/menu_response/MenusResponse.dart';
 import 'model/response/restaurant_response/RestaurantsResponse.dart';
@@ -114,11 +116,164 @@ class ApiManager {
       var loginResponse = LoginResponse.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         SharedPreferenceUtils.saveData(
-            key: 'accessToken', value: loginResponse.accessToken);
+            key: 'token', value: loginResponse.accessToken);
+        print('token: ${loginResponse.accessToken}');
         return Right(loginResponse);
       } else {
         return Left(ServerError(
             errorMessage: loginResponse.error ?? loginResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, CartResponseDto>> addToCart(
+      {required String mealId, required String restaurantId}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.post(url,
+          body: {'meal': mealId, 'restaurant': restaurantId},
+          headers: {'Authorization': ApiConstants.authorization});
+      var cartResponseDto = CartResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(cartResponseDto);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: cartResponseDto.message));
+      } else {
+        return Left(ServerError(errorMessage: cartResponseDto.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, CartResponseDto>> getCart() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(cartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      } else {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, CartResponseDto>> removeItemFromCart(
+      {required String mealId}) async {
+    Uri url =
+        Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .delete(url, headers: {'Authorization': ApiConstants.authorization});
+      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(cartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      } else {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, CartResponseDto>> updateCountInCart(
+      {required String mealId, required int quantity}) async {
+    Uri url =
+        Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.patch(url,
+          body: {'quantity': '$quantity'},
+          headers: {'Authorization': ApiConstants.authorization});
+      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(cartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      } else {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, CartResponseDto>> deleteCart() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .delete(url, headers: {'Authorization': ApiConstants.authorization});
+      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(cartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      } else {
+        return Left(ServerError(errorMessage: cartResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> updatePassword(
+      {required String currentPassword,
+      required String newPassword,
+      required String confirmPassword}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.updatePasswordApi);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.patch(url, body: {
+        'currentPassword': currentPassword,
+        'newPassword': newPassword,
+        'confirmPassword': confirmPassword
+      }, headers: {
+        'Authorization': ApiConstants.authorization
+      });
+      var profileResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(profileResponse);
+      } else {
+        return Left(ServerError(errorMessage: profileResponse.message));
       }
     } else {
       return Left(
