@@ -10,7 +10,7 @@ class EditTextInProfile extends StatelessWidget {
   TextInputType? keyboardType;
   MyValidator? validator;
   bool isTextFieldEnabled;
-
+  final double? width; // New width parameter
 
   EditTextInProfile({
     required this.controller,
@@ -20,6 +20,7 @@ class EditTextInProfile extends StatelessWidget {
     this.validator,
     this.keyboardType = TextInputType.text,
     this.isTextFieldEnabled = true,
+    this.width, // Initialize the new width parameter
     super.key,
   });
 
@@ -27,6 +28,7 @@ class EditTextInProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
+      width: width, // Use the width parameter here
       child: TextFormField(
         enabled: isTextFieldEnabled,
         decoration: InputDecoration(

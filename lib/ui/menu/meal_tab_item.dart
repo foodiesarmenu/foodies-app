@@ -11,7 +11,7 @@ class MealTabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
@@ -21,9 +21,9 @@ class MealTabItem extends StatelessWidget {
           color: isSelected ? Theme.of(context).primaryColor : Colors.white),
       child: Text(
         menu.name ?? "",
-        style: TextStyle(
-          color: isSelected ? Colors.white : Theme.of(context).primaryColor,
-        ),
+        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: isSelected ? Colors.white : Theme.of(context).primaryColor,
+            ),
       ),
     );
   }

@@ -11,37 +11,11 @@ class Category {
     this.description,
   });
 
-  Category.fromJson(dynamic json) {
-    id = json['_id'];
-    image = json['image'];
-    name = json['name'];
-    description = json['description'];
-  }
 
   String? id;
   String? image;
   String? name;
   String? description;
 
-  Category copyWith({
-    String? id,
-    String? image,
-    String? name,
-    String? description,
-  }) =>
-      Category(
-        id: id ?? this.id,
-        image: image ?? this.image,
-        name: name ?? this.name,
-        description: description ?? this.description,
-      );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['image'] = image;
-    map['name'] = name;
-    map['description'] = description;
-    return map;
-  }
 }
