@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/home/profile_tab/favourite_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
 
 import 'ProfileButton.dart';
@@ -23,7 +24,6 @@ class _ProfileTabState extends State<ProfileTab> {
           margin: const EdgeInsets.symmetric(vertical: 24),
           child: Column(
             children: [
-              // Profile picture, name, and country in a row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -57,7 +57,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'Mohamed Hany',
+                            'Mahmoud Hossam',
                             style: TextStyle(
                                 fontSize: 20.0, fontWeight: FontWeight.bold),
                           ),
@@ -91,13 +91,6 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                     ],
                   ),
-
-                  /*IconButton(
-                      icon: Icon(Icons.notifications_none),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/notification');
-                    },
-                  ),*/
                   Stack(
                     children: [
                       IconButton(
@@ -135,20 +128,9 @@ class _ProfileTabState extends State<ProfileTab> {
                   )
                 ],
               ),
-              //SizedBox(height: 0.0),
-
-              //
-              /*
-            work here to make the
-                           notification
-              Account into + settings
-              edit profile
-            */
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                // Space buttons evenly
                 children: [
-                  // Edit Profile button
                   const SizedBox(
                     width: 52,
                   ),
@@ -170,8 +152,6 @@ class _ProfileTabState extends State<ProfileTab> {
                       ),
                     ),
                   ),
-
-                  // Settings icon button
                   Container(
                     margin: const EdgeInsets.all(16),
                     child: Expanded(
@@ -201,7 +181,6 @@ class _ProfileTabState extends State<ProfileTab> {
                   ),
                 ],
               ),
-              //SizedBox(height: 24,),
               const Divider(
                 thickness: 1.0,
                 color: Color(0xFFFFA500),
@@ -210,10 +189,9 @@ class _ProfileTabState extends State<ProfileTab> {
               // Navigation buttons
               Column(
                 children: [
-                  //ProfileButton(buttonText: 'Rewards', routeName: '/Rewards' ,iconData: Icons.card_giftcard),
                   ProfileButton(
                     buttonText: 'Favourite',
-                    routeName: '/Favourite',
+                    routeName: FavouriteScreen.routeName,
                     iconData: Icons.favorite_outline_outlined,
                     additionalText: '5',
                   ),
@@ -223,20 +201,16 @@ class _ProfileTabState extends State<ProfileTab> {
                     iconData: Icons.wallet_giftcard_outlined,
                     additionalText: '1',
                   ),
-                  //ProfileButton(buttonText: 'Your Orders', routeName: '/Your Orders' ,iconData: Icons.receipt_long), //assignment_rounded //event_note_outlined
                   ProfileButton(
                       buttonText: 'Offers',
                       routeName: '/Offers',
                       iconData: Icons.local_offer_outlined),
-                  //ProfileButtonNotification(buttonText: 'Notifications', routeName: '/Notifications' ,iconData: Icons.notifications_none, additionalText: '5',),
                   ProfileButton(
                     buttonText: 'Vouchers',
                     routeName: '/Vouchers',
                     iconData: Icons.confirmation_num_outlined,
                     additionalText: '2',
                   ),
-                  //ProfileButton(buttonText: 'Get Help', routeName: '/Get Help' ,iconData: Icons.help_outline_outlined),
-                  //ProfileButton(buttonText: 'About App', routeName: '/About App' ,iconData: Icons.info_outline),
                 ],
               ),
             ],
