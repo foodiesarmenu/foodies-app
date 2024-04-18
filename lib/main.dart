@@ -22,7 +22,6 @@ import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/form_
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/map_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
@@ -65,20 +64,19 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyThemeData.lightMode,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: OrdersTab.routeName,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
         WelcomeScreen.routeName: (_) => const WelcomeScreen(),
         HomeTab.routeName: (_) => const HomeTab(),
-        OrdersTab.routeName: (_) => const OrdersTab(),
+        OrdersTab.routeName: (_) => OrdersTab(),
         ProfileTab.routeName: (_) => const ProfileTab(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         EditProfileScreen.routeName: (_) => const EditProfileScreen(),
         ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
         ChangeEmailScreen.routeName: (_) => const ChangeEmailScreen(),
-        MyAddressScreen.routeName: (_) => const MyAddressScreen(),
         MyCardScreen.routeName: (_) => const MyCardScreen(),
         LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
         MenuScreen.routeName: (_) => const MenuScreen(),

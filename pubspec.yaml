@@ -36,18 +36,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   http:
   another_carousel_pro: ^1.0.2
-  location: ^5.0.3
   geolocator: ^11.0.0
   material_floating_search_bar_2: ^0.5.0
   font_awesome_flutter: ^10.7.0
+  dio: ^5.4.1
   google_maps_flutter: ^2.5.3
   cached_network_image: ^3.3.1
   flutter_bloc: ^8.1.4
   flutter_offline: ^3.0.1
   uuid: ^3.0.5
-  dio: ^5.4.3+1
-  barcode_widget: ^2.0.4
-  barcode_scan2: ^4.3.0
   flutter_barcode_scanner: ^2.0.0
   injectable:
   get_it:

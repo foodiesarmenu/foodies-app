@@ -16,9 +16,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
-  List<Widget> tabs = const [
+  List<Widget> tabs =  [
     HomeTab(),
     OrdersTab(),
+    //OrdersTab(scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor), // Pass the value
     ProfileTab(),
   ];
 
