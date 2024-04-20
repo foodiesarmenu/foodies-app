@@ -37,23 +37,23 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
   }
 
   updateCountInCart({required int quantity, required String mealId}) async {
-    emit(GetCartLoadingState(loadingMessage: 'Loading....'));
+    emit(UpdateCountInCartLoadingState(loadingMessage: 'Loading....'));
     var either = await updateCountInCartUseCase.invoke(
         mealId: mealId, quantity: quantity);
 
     either.fold((error) {
-      emit(GetCartErrorState(errorMessage: error));
+      emit(UpdateCountInCartErrorState(errorMessage: error));
     }, (response) {
       emit(GetCartSuccessState(cart: response));
     });
   }
 
   removeItemFromCart({required String mealId}) async {
-    emit(GetCartLoadingState(loadingMessage: 'Loading....'));
+    emit(RemoveItemFromCartLoadingState(loadingMessage: 'Loading....'));
     var either = await removeItemFromCartUseCase.invoke(mealId: mealId);
 
     either.fold((error) {
-      emit(GetCartErrorState(errorMessage: error));
+      emit(RemoveItemFromCartErrorState(errorMessage: error));
     }, (response) {
       emit(GetCartSuccessState(cart: response));
     });

@@ -23,7 +23,7 @@ class RestaurantItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 child: CachedNetworkImage(
                   imageUrl: restaurant?.image ?? "",
-                  height: 300,
+                  height: 275,
                   width: double.infinity,
                   fit: BoxFit.fill,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>

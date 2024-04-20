@@ -40,7 +40,7 @@ class CartDataSourceImpl extends CartDataSource {
       {required String mealId}) async {
     var either = await apiManager.removeItemFromCart(mealId: mealId);
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.toString()));
+      return Left(Failures(errorMessage: error.errorMessage));
     }, (response) {
       return Right(response.data!.toCart());
     });

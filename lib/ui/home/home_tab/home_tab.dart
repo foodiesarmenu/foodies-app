@@ -85,11 +85,7 @@ class _HomeTabState extends State<HomeTab> {
                       const SizedBox(height: 8),
                       CategoryList(state.categories ?? []),
 
-                      const Divider(
-                        height: 30,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
+                      const Divider(),
 
                       //Promotions
                       const SectionTitleWidget(
@@ -99,11 +95,7 @@ class _HomeTabState extends State<HomeTab> {
                       const SizedBox(height: 8),
                       const PromotionList(),
 
-                      const Divider(
-                        height: 30,
-                        thickness: 1,
-                        color: Colors.grey,
-                      ),
+                      const Divider(),
 
                       //Restaurants
                       const SectionTitleWidget(

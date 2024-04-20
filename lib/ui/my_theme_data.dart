@@ -48,5 +48,10 @@ class MyThemeData {
         color: Colors.grey,
       ),
     ),
+    dividerTheme: DividerThemeData(
+      color: Colors.grey[300],
+      space: 10,
+      thickness: 1,
+    ),
   );
 }

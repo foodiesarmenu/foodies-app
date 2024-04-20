@@ -6,6 +6,7 @@ import 'package:foodies_app/ui/auth/login_signup.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
 import 'package:foodies_app/ui/cart/cart_screen.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
+import 'package:foodies_app/ui/change_address/change_address_screen.dart';
 import 'package:foodies_app/ui/checkout/checkout_screen.dart';
 import 'package:foodies_app/ui/checkout/ordering_animated.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
@@ -22,12 +23,12 @@ import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/form_
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/map_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyAddressScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyCardScreen.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
+import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:foodies_app/ui/payment/payment_screen.dart';
 import 'package:foodies_app/ui/splash/animated_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen.dart';
@@ -47,7 +48,7 @@ Future<void> main() async {
   if (user == null) {
     route = SplashScreen.routeName;
   } else {
-    route = WelcomeScreen.routeName;
+    route = SplashScreen.routeName;
   }
   configureDependencies();
   Bloc.observer = MyBlocObserver();
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MyThemeData.lightMode,
-      initialRoute: SplashScreen.routeName,
+      initialRoute: route,
       routes: {
         SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
@@ -78,7 +79,6 @@ class MyApp extends StatelessWidget {
         EditProfileScreen.routeName: (_) => const EditProfileScreen(),
         ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
         ChangeEmailScreen.routeName: (_) => const ChangeEmailScreen(),
-        MyAddressScreen.routeName: (_) => const MyAddressScreen(),
         MyCardScreen.routeName: (_) => const MyCardScreen(),
         LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
         MenuScreen.routeName: (_) => const MenuScreen(),
@@ -93,13 +93,15 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (_) => const HomeScreen(),
         AddAddress.routeName: (_) => const AddAddress(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
-        CartScreen.routeName: (_) => const CartScreen(),
+        CartScreen.routeName: (_) => CartScreen(),
         MealDetails.routeName: (_) => const MealDetails(),
         ArWidget.routeName: (_) => const ArWidget(),
-        CheckoutScreen.routeName: (_) => CheckoutScreen(),
+        CheckoutScreen.routeName: (_) => const CheckoutScreen(),
         PaymentScreen.routeName: (_) => const PaymentScreen(),
         AnimatedScreen.routeName: (_) => const AnimatedScreen(),
         OrderingAnimated.routeName: (_) => const OrderingAnimated(),
+        OrderDetails.routeName: (_) => const OrderDetails(),
+        ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
       },
     );
   }
