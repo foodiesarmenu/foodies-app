@@ -14,6 +14,7 @@ import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
 import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
 import 'package:foodies_app/ui/home/profile_tab/editProfile/EditProfileScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/favourite_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/model/cubit/maps/maps_cubit.dart';
 import 'package:foodies_app/ui/home/profile_tab/model/map_response/repository/maps_repo.dart';
 import 'package:foodies_app/ui/home/profile_tab/model/map_response/web_services/places_web_services.dart';
@@ -73,7 +74,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (_) => const LoginScreen(),
         WelcomeScreen.routeName: (_) => const WelcomeScreen(),
         HomeTab.routeName: (_) => const HomeTab(),
-        OrdersTab.routeName: (_) => const OrdersTab(),
+        OrdersTab.routeName: (_) => OrdersTab(),
         ProfileTab.routeName: (_) => const ProfileTab(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         EditProfileScreen.routeName: (_) => const EditProfileScreen(),
@@ -82,7 +83,6 @@ class MyApp extends StatelessWidget {
         MyCardScreen.routeName: (_) => const MyCardScreen(),
         LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
         MenuScreen.routeName: (_) => const MenuScreen(),
-        //MapScreen.routeName: (_) => const MapScreen(),
         MapScreen.routeName: (context) => BlocProvider.value(
               value: MapsCubit(MapsRepository(PlacesWebservices())),
               // Ensure bloc instance is created once
@@ -102,6 +102,8 @@ class MyApp extends StatelessWidget {
         OrderingAnimated.routeName: (_) => const OrderingAnimated(),
         OrderDetails.routeName: (_) => const OrderDetails(),
         ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
+        FavouriteScreen.routeName: (_) =>  FavouriteScreen(),
+
       },
     );
   }
