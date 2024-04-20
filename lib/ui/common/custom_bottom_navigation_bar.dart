@@ -37,7 +37,7 @@ class CustomBottomNavBar extends StatelessWidget {
           children: [
             Text(
               title ?? '',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: Colors.white,
                   ),
             ),

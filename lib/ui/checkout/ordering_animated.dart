@@ -1,8 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:lottie/lottie.dart';
 
-import '../home/home_screen.dart';
+import '../../domain/model/Cart.dart';
 
 class OrderingAnimated extends StatelessWidget {
   static const routeName = 'OrderingAnimatedSC';
@@ -13,6 +14,8 @@ class OrderingAnimated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Cart?;
+
     return AnimatedSplashScreen(
       splash: Column(
         children: [
@@ -26,7 +29,7 @@ class OrderingAnimated extends StatelessWidget {
           )
         ],
       ),
-      nextScreen: const HomeScreen(),
+      nextScreen: OrderDetails(cart: args),
       splashIconSize: 400,
       duration: 5000,
     );

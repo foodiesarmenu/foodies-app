@@ -13,7 +13,7 @@ class SectionTitleWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(
           height: 4,

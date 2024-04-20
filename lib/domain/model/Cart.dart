@@ -22,6 +22,7 @@ class Cart {
     this.totalPriceAfterDiscount,
     this.discount,
     this.restaurant,
+    this.noOfCartItems,
   });
 
   String? id;
@@ -31,4 +32,5 @@ class Cart {
   num? totalPriceAfterDiscount;
   num? discount;
   Restaurant? restaurant;
+  int? noOfCartItems;
 }

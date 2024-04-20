@@ -24,7 +24,7 @@ class _PromotionCardState extends State<PromotionCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 225,
+      height: 200,
       width: double.infinity,
       child: Column(
         children: [

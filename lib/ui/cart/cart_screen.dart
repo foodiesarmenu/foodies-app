@@ -10,28 +10,17 @@ import '../../di/di.dart';
 import '../checkout/checkout_screen.dart';
 import 'cubit/cart_screen_view_model.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
+class CartScreen extends StatelessWidget {
+  CartScreen({Key? key}) : super(key: key);
 
   static const String routeName = 'CartSc';
 
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
   final viewModel = getIt<CartScreenViewModel>();
-
-  @override
-  void initState() {
-    viewModel.getCart();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => viewModel,
+      create: (context) => viewModel..getCart(),
       child: BlocBuilder<CartScreenViewModel, CartScreenStates>(
         builder: (context, state) {
           if (state is GetCartErrorState || state is DeleteCartSuccessState) {
@@ -53,52 +42,74 @@ class _CartScreenState extends State<CartScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 8.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RestaurantInfoWidget(cart: state.cart),
-                      const Divider(),
-                      Row(
-                        children: [
-                          Text('Order Details',
-                              style: Theme.of(context).textTheme.titleMedium),
-                          const Spacer(),
-                          //Clear Cart
-                          InkWell(
-                            onTap: () {
-                              viewModel.clearCart();
-                            },
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.delete_outline_outlined,
-                                  color: Colors.grey,
-                                ),
-                                Text('Clear Cart',
-                                    style:
-                                        Theme.of(context).textTheme.bodySmall),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                       const SizedBox(
-                        height: 8,
+                        height: 4,
                       ),
 
-                      //Cart Items
-                      ListView.separated(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: state.cart.cartItems?.length ?? 0,
-                        itemBuilder: (context, index) =>
-                            CartItemWidget(cart: state.cart.cartItems?[index]),
-                        separatorBuilder: (context, index) => Divider(
-                          height: 10,
-                          thickness: 1,
-                          color: Colors.grey[300],
+                      //Cart Item List
+                      Material(
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white,
+                        child: Container(
+                          color: Colors.white,
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(8),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Text('Order Details',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium),
+                                  ),
+                                  //Clear Cart
+                                  InkWell(
+                                    onTap: () {
+                                      viewModel.clearCart();
+                                      Navigator.pop(context);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.delete_outline_outlined,
+                                          color: Colors.grey,
+                                        ),
+                                        Text('Clear Cart',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              //Cart Items
+                              ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: state.cart.cartItems?.length ?? 0,
+                                itemBuilder: (context, index) => CartItemWidget(
+                                    cart: state.cart.cartItems?[index],
+                                    noOfCartItems: state.cart.noOfCartItems),
+                                separatorBuilder: (context, index) =>
+                                    const Divider(),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      const Divider(),
+
+                      const SizedBox(
+                        height: 16,
+                      ),
                       PaymentDetailsWidget(cart: state.cart),
                     ],
                   ),
@@ -114,7 +125,8 @@ class _CartScreenState extends State<CartScreen> {
               ),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
           }
         },
       ),

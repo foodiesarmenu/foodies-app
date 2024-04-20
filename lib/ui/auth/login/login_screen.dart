@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/auth/login/cubit/login_view_model.dart';
 
 import '../../../di/di.dart';
-import '../../../validation_utils.dart';
 import '../../common/form_input_field.dart';
 import '../../common/primary_button.dart';
 import '../../common/social_sign_in_options.dart';
 import '../../utils/dialog_utils.dart';
+import '../../utils/validation_utils.dart';
 import '../../welcome/welcome_screen.dart';
 import '../register/register_screen.dart';
 import 'cubit/login_states.dart';

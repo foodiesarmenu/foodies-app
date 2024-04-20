@@ -27,6 +27,7 @@ class CartDto {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.noOfCartItems,
   });
 
   CartDto.fromJson(dynamic json) {
@@ -48,6 +49,7 @@ class CartDto {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     v = json['__v'];
+    noOfCartItems = json['noOfCartItems'];
   }
 
   String? id;
@@ -61,6 +63,7 @@ class CartDto {
   String? createdAt;
   String? updatedAt;
   num? v;
+  int? noOfCartItems;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -79,6 +82,8 @@ class CartDto {
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['__v'] = v;
+    map['noOfCartItems'] = noOfCartItems;
+
     return map;
   }
 
@@ -91,6 +96,7 @@ class CartDto {
       totalPriceAfterDiscount: totalPriceAfterDiscount,
       discount: discount,
       restaurant: restaurant?.toRestaurant(),
+      noOfCartItems: noOfCartItems,
     );
   }
 }

@@ -53,11 +53,7 @@ class MealList extends StatelessWidget {
                         mealIndex: mealIndex,
                       ),
                     ),
-                    const Divider(
-                      height: 10,
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
+                    const Divider(),
                   ],
                 ),
               ),

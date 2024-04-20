@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodies_app/validation_utils.dart';
+import 'package:foodies_app/ui/utils/validation_utils.dart';
 
 import '../../../di/di.dart';
 import '../../common/form_input_field.dart';
