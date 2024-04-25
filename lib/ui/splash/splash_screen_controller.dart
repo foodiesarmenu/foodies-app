@@ -3,21 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 import 'package:lottie/lottie.dart';
 
-class AnimatedScreen extends StatelessWidget {
-  static const routeName = 'AnimatedSC';
+import '../auth/login/login_screen.dart';
+import '../utils/shared_preference_utils.dart';
 
-  const AnimatedScreen({super.key});
+class SplashScreenController extends StatelessWidget {
+  static const routeName = '/splashScreenController';
+
+  const SplashScreenController({super.key});
 
   get splash => null;
 
   @override
   Widget build(BuildContext context) {
+    var user = SharedPreferenceUtils.getData(key: 'token');
+
     return AnimatedSplashScreen(
       splash: Column(
         children: [
           Center(
             child: LottieBuilder.asset(
-              'assets/Lottie/splash.json',
+              'assets/Lottie/splash_animation.json',
               width: 400,
               height: 400,
               fit: BoxFit.contain,
@@ -25,7 +30,7 @@ class AnimatedScreen extends StatelessWidget {
           )
         ],
       ),
-      nextScreen: const WelcomeScreen(),
+      nextScreen: user != null ? const WelcomeScreen() : const LoginScreen(),
       splashIconSize: 400,
       backgroundColor: Theme.of(context).primaryColor,
       duration: 3000,

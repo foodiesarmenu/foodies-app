@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../common/ButtonInProfile.dart';
-import '../../common/custom_app_bar.dart';
 import 'order_list.dart';
 
 class OrdersTab extends StatelessWidget {
@@ -39,33 +38,35 @@ class OrdersTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.buildAppBar(context, 'Orders'),
-      body: ListView.separated(
-        separatorBuilder: (context, index) {
-          return Divider(indent: 30,endIndent: 30,);
-        },
-        itemCount: orders.length, // Length of the orders list
-        itemBuilder: (context, index) {
-          final order = orders[index]; // Get the current order
-          Color statusColor;
-          switch (order.orderStatus.toLowerCase()) {
-            case 'delivered':
-              statusColor = Colors.green;
-              break;
-            case 'pending':
-              statusColor = Theme.of(context).primaryColor;
-              break;
-            case 'canceled':
-              statusColor = Colors.red;
-              break;
-            default:
-              statusColor = Colors.black;
-          }
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-            child: Column(
-               children: [
-                 Row(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+        child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return const Divider(
+              indent: 30,
+              endIndent: 30,
+            );
+          },
+          itemCount: orders.length, // Length of the orders list
+          itemBuilder: (context, index) {
+            final order = orders[index]; // Get the current order
+            Color statusColor;
+            switch (order.orderStatus.toLowerCase()) {
+              case 'delivered':
+                statusColor = Colors.green;
+                break;
+              case 'pending':
+                statusColor = Theme.of(context).primaryColor;
+                break;
+              case 'canceled':
+                statusColor = Colors.red;
+                break;
+              default:
+                statusColor = Colors.black;
+            }
+            return Column(
+              children: [
+                Row(
                   children: [
                     Container(
                       width: 80,
@@ -78,68 +79,74 @@ class OrdersTab extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(order.imageUrl), // Use image URL from the order
+                          image: AssetImage(
+                              order.imageUrl), // Use image URL from the order
                         ),
                       ),
                     ),
-                    const SizedBox(width: 16,),
+                    const SizedBox(
+                      width: 16,
+                    ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              Expanded(
-                                child: Text(order.restaurantName,
-                                  style: Theme.of(context).textTheme.titleSmall
-                                ),
-                              ),
+                              Text(order.restaurantName,
+                                  style:
+                                      Theme.of(context).textTheme.titleSmall),
+                              Spacer(),
                               Text(order.orderStatus,
-                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: statusColor)
-                              ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: statusColor)),
                             ],
                           ),
                           Text(order.orderDate,
-                            style: Theme.of(context).textTheme.bodySmall
-                          ),
+                              style: Theme.of(context).textTheme.bodySmall),
                           //SizedBox(height: 16,),
                           Text(order.price,
-                            style: Theme.of(context).textTheme.titleSmall
-                          )
+                              style: Theme.of(context).textTheme.titleSmall)
                         ],
                       ),
                     ),
                   ],
-            ),
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   children: [
-                     ButtonInProfile(
-                       onPressed: (){},
-                       backgroundColor: Theme.of(context).primaryColor,
-                       text: 'reorder',
-                       textColor: Colors.white,
-                       width: 150,
-                       icon: Icons.refresh_outlined,
-                       height: 40,
-                     ),
-                     ButtonInProfile(
-                       onPressed: (){},
-                       backgroundColor: Colors.white,
-                       text: 'feedback',
-                       textColor: Theme.of(context).primaryColor,
-                       width: 150,
-                       borderColor: Theme.of(context).primaryColor,
-                       icon: Icons.feedback_outlined,
-                       height: 40,
-                     ),
-                   ],
-                 )
-               ],
-             ),
-          );
-        },
-        //
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: ButtonInProfile(
+                        onPressed: () {},
+                        backgroundColor: Theme.of(context).primaryColor,
+                        text: 'reorder',
+                        textColor: Colors.white,
+                        width: 150,
+                        icon: Icons.refresh_outlined,
+                        height: 40,
+                      ),
+                    ),
+                    Expanded(
+                      child: ButtonInProfile(
+                        onPressed: () {},
+                        backgroundColor: Colors.white,
+                        text: 'feedback',
+                        textColor: Theme.of(context).primaryColor,
+                        width: 150,
+                        borderColor: Theme.of(context).primaryColor,
+                        icon: Icons.feedback_outlined,
+                        height: 40,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            );
+          },
+          //
+        ),
       ),
     );
   }

@@ -20,8 +20,7 @@ class _ProfileTabState extends State<ProfileTab> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.all(16),
-          margin: const EdgeInsets.symmetric(vertical: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 46),
           child: Column(
             children: [
               Row(
@@ -154,25 +153,21 @@ class _ProfileTabState extends State<ProfileTab> {
                   ),
                   Container(
                     margin: const EdgeInsets.all(16),
-                    child: Expanded(
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          side:
-                              BorderSide(color: Theme.of(context).primaryColor),
-                          padding: EdgeInsets
-                              .zero, // Remove padding for compact icon
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, SettingsScreen.routeName);
-                        },
-                        child: Icon(
-                          Icons.settings_outlined,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                        side: BorderSide(color: Theme.of(context).primaryColor),
+                        padding:
+                            EdgeInsets.zero, // Remove padding for compact icon
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, SettingsScreen.routeName);
+                      },
+                      child: Icon(
+                        Icons.settings_outlined,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ),

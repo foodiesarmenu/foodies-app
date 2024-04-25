@@ -344,7 +344,7 @@ class _MealDetailsState extends State<MealDetails> {
             viewModel.addToCart(
                 mealId: widget.meal?.id ?? "",
                 restaurantId: widget.meal?.restaurant ?? "");
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
         ),
       ),

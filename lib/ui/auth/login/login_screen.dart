@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Center(
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     //Logo
                     Image.asset(
@@ -56,18 +57,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
 
                     const SizedBox(
-                      height: 8,
+                      height: 32,
                     ),
 
                     //Welcome
-                    const Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Text(
+                        textAlign: TextAlign.start,
+                        'Login to your account',
+                        style: Theme.of(context).textTheme.titleMedium),
 
+                    const SizedBox(
+                      height: 16,
+                    ),
                     //Form
                     Form(
                       key: viewModel.formKey,

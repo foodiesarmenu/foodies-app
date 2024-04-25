@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
 
+import '../cart/cart_screen.dart';
+import '../utils/shared_preference_utils.dart';
 import 'home_tab/home_tab.dart';
 import 'orders_tab/orders_tab.dart';
 
@@ -15,12 +17,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+  var isOrdering = SharedPreferenceUtils.getData(key: 'isOrdering') ?? false;
 
-  List<Widget> tabs =  [
+  List<Widget> tabs = [
     HomeTab(),
     OrdersTab(),
     //OrdersTab(scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor), // Pass the value
-    ProfileTab(),
+    const ProfileTab(),
   ];
 
   @override
@@ -53,6 +56,27 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      floatingActionButton: (isOrdering == false)
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, CartScreen.routeName);
+              },
+              backgroundColor: Colors.white,
+              child: Badge(
+                label: Text(
+                  '${SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? '0'}',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: Icon(
+                  Icons.shopping_cart,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
     );
   }
 }
