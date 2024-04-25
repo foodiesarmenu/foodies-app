@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:foodies_app/ui/ar/ar_widget.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
@@ -8,7 +9,7 @@ import 'package:foodies_app/ui/cart/cart_screen.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
 import 'package:foodies_app/ui/checkout/checkout_screen.dart';
-import 'package:foodies_app/ui/checkout/ordering_animated.dart';
+import 'package:foodies_app/ui/checkout/ordering_splash_screen.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
@@ -31,45 +32,35 @@ import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
 import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:foodies_app/ui/payment/payment_screen.dart';
-import 'package:foodies_app/ui/splash/animated_screen.dart';
-import 'package:foodies_app/ui/splash/splash_screen.dart';
+import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
 import 'package:foodies_app/ui/welcome/scan_qr.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
 
+import 'data/api_constants.dart';
 import 'di/di.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = ApiConstants.stripePublishableKey;
+  await Stripe.instance.applySettings();
   await SharedPreferenceUtils.init();
-  var user = SharedPreferenceUtils.getData(key: 'token');
-  print('Token: $user');
-
-  String route;
-  if (user == null) {
-    route = SplashScreen.routeName;
-  } else {
-    route = SplashScreen.routeName;
-  }
   configureDependencies();
   Bloc.observer = MyBlocObserver();
-  runApp(MyApp(route: route));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final String route;
 
-  const MyApp({required this.route, super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
       theme: MyThemeData.lightMode,
-      initialRoute: route,
+      initialRoute: SplashScreenController.routeName,
       routes: {
-        SplashScreen.routeName: (_) => const SplashScreen(),
         RegisterScreen.routeName: (_) => const RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
         WelcomeScreen.routeName: (_) => const WelcomeScreen(),
@@ -98,12 +89,11 @@ class MyApp extends StatelessWidget {
         ArWidget.routeName: (_) => const ArWidget(),
         CheckoutScreen.routeName: (_) => const CheckoutScreen(),
         PaymentScreen.routeName: (_) => const PaymentScreen(),
-        AnimatedScreen.routeName: (_) => const AnimatedScreen(),
-        OrderingAnimated.routeName: (_) => const OrderingAnimated(),
+        SplashScreenController.routeName: (_) => const SplashScreenController(),
+        OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
         OrderDetails.routeName: (_) => const OrderDetails(),
         ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
-        FavouriteScreen.routeName: (_) =>  FavouriteScreen(),
-
+        FavouriteScreen.routeName: (_) => FavouriteScreen(),
       },
     );
   }

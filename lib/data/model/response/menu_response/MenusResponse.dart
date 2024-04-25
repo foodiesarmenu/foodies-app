@@ -34,20 +34,6 @@ class MenusResponse {
   int? numberOfPages;
   int? numberOfRecords;
 
-  MenusResponse copyWith({
-    bool? success,
-    List<MenuDto>? data,
-    int? currentPage,
-    int? numberOfPages,
-    int? numberOfRecords,
-  }) =>
-      MenusResponse(
-        success: success ?? this.success,
-        data: data ?? this.data,
-        currentPage: currentPage ?? this.currentPage,
-        numberOfPages: numberOfPages ?? this.numberOfPages,
-        numberOfRecords: numberOfRecords ?? this.numberOfRecords,
-      );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

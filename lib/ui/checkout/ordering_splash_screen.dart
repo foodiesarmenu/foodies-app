@@ -1,14 +1,14 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../domain/model/Cart.dart';
+import '../home/home_screen.dart';
 
-class OrderingAnimated extends StatelessWidget {
+class OrderingSplashScreen extends StatelessWidget {
   static const routeName = 'OrderingAnimatedSC';
 
-  const OrderingAnimated({super.key});
+  const OrderingSplashScreen({super.key});
 
   get splash => null;
 
@@ -21,7 +21,7 @@ class OrderingAnimated extends StatelessWidget {
         children: [
           Center(
             child: LottieBuilder.asset(
-              'assets/Lottie/ordering.json',
+              'assets/Lottie/ordering_animation.json',
               width: 400,
               height: 400,
               fit: BoxFit.contain,
@@ -29,7 +29,8 @@ class OrderingAnimated extends StatelessWidget {
           )
         ],
       ),
-      nextScreen: OrderDetails(cart: args),
+      nextScreen: const HomeScreen(),
+      //OrderDetails(cart: args),
       splashIconSize: 400,
       duration: 5000,
     );

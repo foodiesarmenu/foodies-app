@@ -5,7 +5,7 @@ import '../../../di/di.dart';
 import 'categories/category_list.dart';
 import 'cubit/home_tab_view_model.dart';
 import 'home_app_bar/app_search_bar/app_search_bar.dart';
-import 'home_app_bar/delivery_address/delivery_address.dart';
+import 'home_app_bar/delivery_address/delivery_address_widget.dart';
 import 'promotions/promotion_list.dart';
 import 'restaurants/restaurant_list.dart';
 import 'section_title_widget.dart';
@@ -59,7 +59,7 @@ class _HomeTabState extends State<HomeTab> {
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          DeliveryAddress(),
+                          DeliveryAddressWidget(),
                           SizedBox(
                             height: 8,
                           ),

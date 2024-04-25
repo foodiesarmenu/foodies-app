@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../di/di.dart';
 import '../../domain/model/Restaurant.dart';
 import '../cart/cart_screen.dart';
+import '../utils/shared_preference_utils.dart';
 import 'menu_container.dart';
 import 'menu_view_model.dart';
 
@@ -54,9 +55,18 @@ class _MenuScreenState extends State<MenuScreen> {
                     Navigator.pushNamed(context, CartScreen.routeName);
                   },
                   backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.shopping_cart,
-                    color: Theme.of(context).primaryColor,
+                  child: Badge(
+                    label: Text(
+                      '${SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? '0'}',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
                 ),
               );

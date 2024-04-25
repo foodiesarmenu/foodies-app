@@ -46,17 +46,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Center(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //Logo
                   Image.asset('assets/images/app_logo.png'),
 
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 32),
 
                   //Register
-                  const Text(
-                    'Register',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  Text(
+                    textAlign: TextAlign.start,
+                    'Create your account',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
+
+                  const SizedBox(height: 16),
 
                   //Form
                   Form(

@@ -7,7 +7,7 @@ class OrderDetails extends StatelessWidget {
   const OrderDetails({this.cart, super.key});
 
   final Cart? cart;
-  static const String routeName = '/order_details';
+  static const String routeName = '/orderDetails';
 
   @override
   Widget build(BuildContext context) {
