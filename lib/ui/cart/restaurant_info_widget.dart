@@ -6,11 +6,16 @@ import '../change_address/change_address_screen.dart';
 import '../menu/menu_screen.dart';
 
 class RestaurantInfoWidget extends StatelessWidget {
-  const RestaurantInfoWidget({Key? key, this.isCart = true, required this.cart})
+  const RestaurantInfoWidget(
+      {Key? key,
+      this.isCart = true,
+      this.isOrderDetails = true,
+      required this.cart})
       : super(key: key);
 
   final Cart? cart;
   final bool isCart;
+  final bool isOrderDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +52,9 @@ class RestaurantInfoWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Your order from',
-                        style: Theme.of(context).textTheme.bodyText1),
+                        style: Theme.of(context).textTheme.headlineSmall),
                     Text(cart?.restaurant?.name ?? "",
-                        style: Theme.of(context).textTheme.headline6),
+                        style: Theme.of(context).textTheme.titleMedium),
                   ],
                 ),
                 const Expanded(
@@ -79,11 +84,11 @@ class RestaurantInfoWidget extends StatelessWidget {
                   ),
               ],
             ),
-            if (!isCart)
+            if (!isCart && !isOrderDetails)
               const SizedBox(
                 height: 16,
               ),
-            if (!isCart)
+            if (!isCart && !isOrderDetails)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

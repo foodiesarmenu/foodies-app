@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
+import 'package:foodies_app/data/model/response/favourite_response/FavouriteResponseDto.dart';
 import 'package:foodies_app/data/model/response/profile_response/ProfileResponseDto.dart';
 import 'package:foodies_app/domain/model/DeliveryAddress.dart';
 import 'package:http/http.dart';
@@ -363,7 +364,6 @@ class ApiManager {
           },
           // Encode the requestBody to JSON
           headers: {
-            'Content-Type': 'application/json',
             'Authorization': ApiConstants.authorization
           });
 
@@ -421,6 +421,40 @@ class ApiManager {
             PaymentIntentModel.fromJson(jsonDecode(response.body));
         return Left(
             ServerError(errorMessage: paymentIntentModel.error?.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, FavouriteResponseDto>> addToFavourite(
+      {required String restaurantId}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToFavourite);
+
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.post(url,
+          body: {"restaurant": restaurantId},
+          // Encode the requestBody to JSON
+          headers: {'Authorization': ApiConstants.authorization});
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        var favouriteResponseDto =
+            FavouriteResponseDto.fromJson(jsonDecode(response.body));
+        return Right(favouriteResponseDto);
+      } else if (response.statusCode == 401) {
+        var favouriteResponseDto =
+            FavouriteResponseDto.fromJson(jsonDecode(response.body));
+        return Left(ServerError(errorMessage: favouriteResponseDto.error));
+      } else {
+        var favouriteResponseDto =
+            FavouriteResponseDto.fromJson(jsonDecode(response.body));
+        return Left(ServerError(errorMessage: favouriteResponseDto.error));
       }
     } else {
       return Left(

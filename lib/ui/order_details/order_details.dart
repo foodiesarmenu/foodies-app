@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/cart/cart_item_list_widget.dart';
 import 'package:foodies_app/ui/cart/payment_details_widget.dart';
 
 import '../../domain/model/Cart.dart';
+import '../cart/restaurant_info_widget.dart';
+import '../checkout/address_details_widget.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({this.cart, super.key});
@@ -20,7 +23,16 @@ class OrderDetails extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Column(
-              children: [PaymentDetailsWidget(cart: cart)],
+              children: [
+                RestaurantInfoWidget(
+                  cart: cart,
+                  isCart: false,
+                  isOrderDetails: true,
+                ),
+                AddressDetailsWidget(),
+                CartItemListWidget(cart: cart!, isCart: false),
+                PaymentDetailsWidget(cart: cart),
+              ],
             ),
           ),
         ));

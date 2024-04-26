@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodies_app/ui/cart/cart_item_widget.dart';
+import 'package:foodies_app/ui/cart/cart_item_list_widget.dart';
 import 'package:foodies_app/ui/cart/cubit/cart_states.dart';
 import 'package:foodies_app/ui/cart/payment_details_widget.dart';
 import 'package:foodies_app/ui/cart/restaurant_info_widget.dart';
@@ -49,63 +49,8 @@ class CartScreen extends StatelessWidget {
                       ),
 
                       //Cart Item List
-                      Material(
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                        child: Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.all(8),
-                          margin: const EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Text('Order Details',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium),
-                                  ),
-                                  //Clear Cart
-                                  InkWell(
-                                    onTap: () {
-                                      viewModel.clearCart();
-                                      Navigator.pop(context);
-                                    },
-                                    child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.delete_outline_outlined,
-                                          color: Colors.grey,
-                                        ),
-                                        Text('Clear Cart',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodySmall),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              //Cart Items
-                              ListView.separated(
-                                physics: const NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: state.cart.cartItems?.length ?? 0,
-                                itemBuilder: (context, index) => CartItemWidget(
-                                    cart: state.cart.cartItems?[index],
-                                    noOfCartItems: state.cart.noOfCartItems),
-                                separatorBuilder: (context, index) =>
-                                    const Divider(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      CartItemListWidget(
+                          cart: state.cart, viewModel: viewModel),
 
                       const SizedBox(
                         height: 16,

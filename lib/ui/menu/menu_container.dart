@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/menu/cubit/menu_view_model.dart';
 import 'package:foodies_app/ui/menu/meal_tab_item.dart';
 
 import '../../domain/model/Menu.dart';
@@ -134,43 +135,70 @@ class _MenuContainerState extends State<MenuContainer> {
                         width: 8,
                       ),
                       //Restaurant Name/Service
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.restaurant.name ?? "",
-                            style: const TextStyle(
-                                fontSize: 16.0, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            widget.restaurant.category
-                                    ?.map((e) => e.name)
-                                    .join(", ") ??
-                                "",
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary),
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                color: Colors.yellow,
-                              ),
-                              Text(
-                                '4.6',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
-                              ),
-                              Text('(14.200 Ratings)',
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  widget.restaurant.name ?? "",
+                                  style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Icon(
+                                  Icons.verified,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                Spacer(),
+                                InkWell(
+                                  child: Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.red,
+                                  ),
+                                  onTap: () {
+                                    MenuViewModel.get(context).addToFavourite(
+                                        restaurantId:
+                                            widget.restaurant.id ?? "");
+                                  },
+                                ),
+                              ],
+                            ),
+                            Text(
+                              widget.restaurant.category
+                                      ?.map((e) => e.name)
+                                      .join(", ") ??
+                                  "",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                ),
+                                Text(
+                                  '4.6',
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .secondary)),
-                            ],
-                          )
-                        ],
+                                          .secondary),
+                                ),
+                                Text('(14.200 Ratings)',
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary)),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -179,7 +207,7 @@ class _MenuContainerState extends State<MenuContainer> {
                   ),
                   Row(
                     children: [
-                      //Restaurant Name/Service
+                      //Restaurant Service
                       Expanded(
                         child: Column(
                           children: [
