@@ -4,16 +4,21 @@ import '../../domain/model/Menu.dart';
 import '../meal_details/meal_details.dart';
 import 'meal_item.dart';
 
-class MealList extends StatelessWidget {
+class MealList extends StatefulWidget {
   const MealList({super.key, required this.menus});
 
   final List<Menu>? menus;
 
   @override
+  State<MealList> createState() => _MealListState();
+}
+
+class _MealListState extends State<MealList> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: List.generate(
-        menus?.length ?? 0,
+        widget.menus?.length ?? 0,
         (menuIndex) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -21,7 +26,7 @@ class MealList extends StatelessWidget {
 
             // Menu Title
             Text(
-              menus?[menuIndex].name ?? "",
+              widget.menus?[menuIndex].name ?? "",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
@@ -33,22 +38,25 @@ class MealList extends StatelessWidget {
             // List of Meals with Dividers
             Column(
               children: List.generate(
-                menus?[menuIndex].meals?.length ?? 0,
+                widget.menus?[menuIndex].meals?.length ?? 0,
                 (mealIndex) => Column(
                   children: [
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        var reLoadPage = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MealDetails(
-                              meal: menus?[menuIndex].meals?[mealIndex],
-                            ),
-                          ),
+                              builder: (context) => MealDetails(
+                                  meal: widget
+                                      .menus?[menuIndex].meals?[mealIndex],
+                                  refresh: refresh)),
                         );
+                        if (reLoadPage) {
+                          setState(() {});
+                        }
                       },
                       child: MealItem(
-                        menus: menus,
+                        menus: widget.menus,
                         menuIndex: menuIndex,
                         mealIndex: mealIndex,
                       ),
@@ -62,5 +70,11 @@ class MealList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  refresh() {
+    setState(() {
+//all the reload processes
+    });
   }
 }

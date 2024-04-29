@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../domain/model/Menu.dart';
 import '../ar/ar_widget.dart';
 
-class MealItem extends StatelessWidget {
+class MealItem extends StatefulWidget {
   const MealItem(
       {required this.menus,
       required this.menuIndex,
@@ -16,6 +16,11 @@ class MealItem extends StatelessWidget {
   final int mealIndex;
 
   @override
+  State<MealItem> createState() => _MealItemState();
+}
+
+class _MealItemState extends State<MealItem> {
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -26,13 +31,16 @@ class MealItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                menus?[menuIndex].meals?[mealIndex].name ?? "",
+                widget.menus?[widget.menuIndex].meals?[widget.mealIndex].name ??
+                    "",
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                menus?[menuIndex].meals?[mealIndex].description ?? "",
+                widget.menus?[widget.menuIndex].meals?[widget.mealIndex]
+                        .description ??
+                    "",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -44,7 +52,10 @@ class MealItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    menus?[menuIndex].meals?[mealIndex].price.toString() ?? "",
+                    widget.menus?[widget.menuIndex].meals?[widget.mealIndex]
+                            .price
+                            .toString() ??
+                        "",
                     style: const TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
@@ -52,7 +63,10 @@ class MealItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    menus?[menuIndex].meals?[mealIndex].price.toString() ?? "",
+                    widget.menus?[widget.menuIndex].meals?[widget.mealIndex]
+                            .price
+                            .toString() ??
+                        "",
                     style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: Colors.grey,
@@ -135,7 +149,9 @@ class MealItem extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: CachedNetworkImage(
-            imageUrl: menus?[menuIndex].meals?[mealIndex].image ?? "",
+            imageUrl: widget
+                    .menus?[widget.menuIndex].meals?[widget.mealIndex].image ??
+                "",
             height: 110,
             width: 110,
             fit: BoxFit.fill,

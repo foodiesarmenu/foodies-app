@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/model/CartItem.dart';
+import '../utils/shared_preference_utils.dart';
 import 'cubit/cart_screen_view_model.dart';
 
 class CartItemWidget extends StatelessWidget {
@@ -129,6 +130,8 @@ class CartItemWidget extends StatelessWidget {
                                   CartScreenViewModel.get(context).clearCart();
                                   Navigator.pop(context);
                                 }
+                                SharedPreferenceUtils.getData(
+                                    key: 'numOfCartItems');
                               },
                               icon: Icon(
                                 Icons.delete_outline_outlined,
@@ -148,6 +151,8 @@ class CartItemWidget extends StatelessWidget {
                                 mealId: cart?.meal?.id ?? "",
                                 quantity: counter,
                               );
+                              SharedPreferenceUtils.getData(
+                                  key: 'numOfCartItems');
                             },
                             icon: Icon(
                               Icons.add,

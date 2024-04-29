@@ -1,5 +1,6 @@
 import 'package:foodies_app/domain/failures.dart';
 import 'package:foodies_app/domain/model/Favourite.dart';
+import 'package:foodies_app/domain/model/FavouriteResponse.dart';
 
 import '../../../domain/model/Menu.dart';
 
@@ -41,4 +42,22 @@ class AddToFavouriteSuccessState extends MenuStates {
   Favourite? favourite;
 
   AddToFavouriteSuccessState({required this.favourite});
+}
+
+class CheckFavouriteLoadingState extends MenuStates {
+  String? loadingMessage;
+
+  CheckFavouriteLoadingState({required this.loadingMessage});
+}
+
+class CheckFavouriteErrorState extends MenuStates {
+  Failures errorMessage;
+
+  CheckFavouriteErrorState({required this.errorMessage});
+}
+
+class CheckFavouriteSuccessState extends MenuStates {
+  FavouriteResponse? favourite;
+
+  CheckFavouriteSuccessState({required this.favourite});
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/model/Cart.dart';
+import '../utils/shared_preference_utils.dart';
 import 'cart_item_widget.dart';
 import 'cubit/cart_screen_view_model.dart';
 
@@ -35,7 +36,9 @@ class CartItemListWidget extends StatelessWidget {
                     ? InkWell(
                         onTap: () {
                           viewModel?.clearCart();
-                          Navigator.pop(context);
+                          SharedPreferenceUtils.removeData(
+                              key: 'numOfCartItems');
+                          Navigator.pop(context, true);
                         },
                         child: Row(
                           children: [

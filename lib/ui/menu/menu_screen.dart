@@ -29,6 +29,24 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Call a separate method to fetch and update the count
+    _updateCartItemCount();
+  }
+
+  void _updateCartItemCount() {
+    setState(() {
+      numOfCartItems =
+          SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? 0;
+    });
+  }
+
+  var numOfCartItems;
+
+  //String received = await Navigator.push(context, MaterialPageRoute(builder: (_) => MealDetails()"Foo")));
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => viewModel,
@@ -52,6 +70,7 @@ class _MenuScreenState extends State<MenuScreen> {
               body: MenuContainer(
                 restaurant: widget.restaurant!,
                 menus: state.menus ?? [],
+                isFavourite: viewModel.isFavourite,
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
@@ -60,7 +79,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 backgroundColor: Colors.white,
                 child: Badge(
                   label: Text(
-                    '${SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? '0'}',
+                    '${numOfCartItems ?? 0}',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/home/profile_tab/favourite_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
 
+import '../../../di/di.dart';
 import 'ProfileButton.dart';
+import 'cubit/profile_view_model.dart';
 import 'editProfile/EditProfileScreen.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -13,6 +15,8 @@ class ProfileTab extends StatefulWidget {
   @override
   State<ProfileTab> createState() => _ProfileTabState();
 }
+
+var viewModel = getIt<ProfileViewModel>();
 
 class _ProfileTabState extends State<ProfileTab> {
   @override
@@ -188,23 +192,24 @@ class _ProfileTabState extends State<ProfileTab> {
                     buttonText: 'Favourite',
                     routeName: FavouriteScreen.routeName,
                     iconData: Icons.favorite_outline_outlined,
-                    additionalText: '5',
+                    additionalText: '',
                   ),
                   ProfileButton(
                     buttonText: 'Rewards',
                     routeName: '/Rewards',
                     iconData: Icons.wallet_giftcard_outlined,
-                    additionalText: '1',
+                    additionalText: '',
                   ),
                   ProfileButton(
                       buttonText: 'Offers',
                       routeName: '/Offers',
+                      additionalText: '',
                       iconData: Icons.local_offer_outlined),
                   ProfileButton(
                     buttonText: 'Vouchers',
                     routeName: '/Vouchers',
                     iconData: Icons.confirmation_num_outlined,
-                    additionalText: '2',
+                    additionalText: '',
                   ),
                 ],
               ),

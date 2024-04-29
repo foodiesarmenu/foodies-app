@@ -9,10 +9,14 @@ import 'meal_list.dart';
 
 class MenuContainer extends StatefulWidget {
   const MenuContainer(
-      {required this.menus, required this.restaurant, super.key});
+      {required this.isFavourite,
+      required this.menus,
+      required this.restaurant,
+      super.key});
 
   final Restaurant restaurant;
   final List<Menu>? menus;
+  final bool isFavourite;
 
   @override
   State<MenuContainer> createState() => _MenuContainerState();
@@ -20,7 +24,6 @@ class MenuContainer extends StatefulWidget {
 
 class _MenuContainerState extends State<MenuContainer> {
   int selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -141,25 +144,28 @@ class _MenuContainerState extends State<MenuContainer> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  widget.restaurant.name ?? "",
-                                  style: const TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  Icons.verified,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                Spacer(),
-                                InkWell(
-                                  child: Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.red,
+                                Expanded(
+                                  child: Text(
+                                    widget.restaurant.name ?? "",
+                                    style: const TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
                                   ),
+                                ),
+                                //Icon(
+                                //   Icons.verified,
+                                //   color: Theme.of(context).primaryColor,
+                                // ),
+                                InkWell(
+                                  child: widget.isFavourite
+                                      ? Icon(
+                                          Icons.favorite,
+                                          color: Colors.red,
+                                        )
+                                      : Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.red,
+                                        ),
                                   onTap: () {
                                     MenuViewModel.get(context).addToFavourite(
                                         restaurantId:

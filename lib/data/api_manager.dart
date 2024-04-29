@@ -21,6 +21,7 @@ import 'model/response/auth_response/RegisterResponse.dart';
 import 'model/response/cart_response/CartResponseDto.dart';
 import 'model/response/cash_order_response/CashOrderPaymentDto.dart';
 import 'model/response/category_response/CategoriesResponse.dart';
+import 'model/response/favourite_response/FavouriteDto.dart';
 import 'model/response/menu_response/MenusResponse.dart';
 import 'model/response/online_order_response/OnlineOrderPaymentDto.dart';
 import 'model/response/payment_intent_model_response/PaymentIntentModel.dart';
@@ -148,8 +149,6 @@ class ApiManager {
       var cartResponseDto = CartResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponseDto);
-      } else if (response.statusCode == 401) {
-        return Left(ServerError(errorMessage: cartResponseDto.message));
       } else {
         return Left(ServerError(errorMessage: cartResponseDto.message));
       }
@@ -171,8 +170,6 @@ class ApiManager {
       var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
-      } else if (response.statusCode == 401) {
-        return Left(ServerError(errorMessage: cartResponse.message));
       } else {
         return Left(ServerError(errorMessage: cartResponse.message));
       }
@@ -196,8 +193,6 @@ class ApiManager {
       var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
-      } else if (response.statusCode == 401) {
-        return Left(ServerError(errorMessage: cartResponse.message));
       } else {
         return Left(ServerError(errorMessage: cartResponse.message));
       }
@@ -222,8 +217,6 @@ class ApiManager {
       var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
-      } else if (response.statusCode == 401) {
-        return Left(ServerError(errorMessage: cartResponse.message));
       } else {
         return Left(ServerError(errorMessage: cartResponse.message));
       }
@@ -245,8 +238,6 @@ class ApiManager {
       var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
-      } else if (response.statusCode == 401) {
-        return Left(ServerError(errorMessage: cartResponse.message));
       } else {
         return Left(ServerError(errorMessage: cartResponse.message));
       }
@@ -320,9 +311,6 @@ class ApiManager {
           OnlineOrderPaymentDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(onlineResponseDto);
-      } else if (response.statusCode == 401) {
-        print(onlineResponseDto.message);
-        return Left(ServerError(errorMessage: onlineResponseDto.message));
       } else {
         print(onlineResponseDto.message);
         return Left(ServerError(errorMessage: onlineResponseDto.message));
@@ -359,25 +347,19 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a mobile network or wifi.
       var response = await client.post(url,
-          body: {
-            "deliveryAddress": jsonEncode(requestBody)
-          },
+          body: jsonEncode(requestBody),
           // Encode the requestBody to JSON
           headers: {
+            'Content-Type': 'application/json',
             'Authorization': ApiConstants.authorization
           });
 
+      var cashResponseDto =
+          CashOrderPaymentDto.fromJson(jsonDecode(response.body));
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        var cashResponseDto =
-            CashOrderPaymentDto.fromJson(jsonDecode(response.body));
         return Right(cashResponseDto);
-      } else if (response.statusCode == 401) {
-        var cashResponseDto =
-            CashOrderPaymentDto.fromJson(jsonDecode(response.body));
-        return Left(ServerError(errorMessage: cashResponseDto.message));
       } else {
-        var cashResponseDto =
-            CashOrderPaymentDto.fromJson(jsonDecode(response.body));
         return Left(ServerError(errorMessage: cashResponseDto.message));
       }
     } else {
@@ -411,11 +393,6 @@ class ApiManager {
         var paymentIntentModel =
             PaymentIntentModel.fromJson(jsonDecode(response.body));
         return Right(paymentIntentModel);
-      } else if (response.statusCode == 401) {
-        var paymentIntentModel =
-            PaymentIntentModel.fromJson(jsonDecode(response.body));
-        return Left(
-            ServerError(errorMessage: paymentIntentModel.error?.message));
       } else {
         var paymentIntentModel =
             PaymentIntentModel.fromJson(jsonDecode(response.body));
@@ -428,9 +405,9 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, FavouriteResponseDto>> addToFavourite(
+  Future<Either<Failures, FavouriteDto>> addToFavourite(
       {required String restaurantId}) async {
-    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToFavourite);
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.favourite);
 
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -443,17 +420,60 @@ class ApiManager {
           // Encode the requestBody to JSON
           headers: {'Authorization': ApiConstants.authorization});
 
+      var favouriteDto = FavouriteDto.fromJson(jsonDecode(response.body));
+
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        var favouriteResponseDto =
-            FavouriteResponseDto.fromJson(jsonDecode(response.body));
-        return Right(favouriteResponseDto);
-      } else if (response.statusCode == 401) {
-        var favouriteResponseDto =
-            FavouriteResponseDto.fromJson(jsonDecode(response.body));
-        return Left(ServerError(errorMessage: favouriteResponseDto.error));
+        return Right(favouriteDto);
       } else {
-        var favouriteResponseDto =
-            FavouriteResponseDto.fromJson(jsonDecode(response.body));
+        return Left(ServerError(errorMessage: favouriteDto.error));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, FavouriteResponseDto>> getAllFavourites() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.favourite);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var favouriteResponse =
+          FavouriteResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(favouriteResponse);
+      } else {
+        return Left(ServerError(errorMessage: favouriteResponse.error));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, FavouriteResponseDto>> checkFavourite(
+      {required String restaurantId}) async {
+    Uri url = Uri.https(
+        ApiConstants.baseUrl, '${ApiConstants.checkFavourite}/$restaurantId');
+
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+
+      var favouriteResponseDto =
+          FavouriteResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(favouriteResponseDto);
+      } else {
         return Left(ServerError(errorMessage: favouriteResponseDto.error));
       }
     } else {

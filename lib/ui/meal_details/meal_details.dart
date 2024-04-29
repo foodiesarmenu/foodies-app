@@ -9,10 +9,11 @@ import '../ar/ar_widget.dart';
 import '../common/custom_bottom_navigation_bar.dart';
 
 class MealDetails extends StatefulWidget {
-  const MealDetails({this.meal, super.key});
+  const MealDetails({this.refresh, this.meal, super.key});
 
   static const String routeName = 'MealDetailsSc';
   final Meal? meal;
+  final Function? refresh;
 
   @override
   State<MealDetails> createState() => _MealDetailsState();
@@ -66,7 +67,7 @@ class _MealDetailsState extends State<MealDetails> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pop(context, true);
                             },
                             icon: Icon(
                               Icons.arrow_back,
@@ -344,7 +345,10 @@ class _MealDetailsState extends State<MealDetails> {
             viewModel.addToCart(
                 mealId: widget.meal?.id ?? "",
                 restaurantId: widget.meal?.restaurant ?? "");
-            Navigator.pop(context, true);
+            widget.refresh!(); // just refresh() if its statelesswidget
+
+            Navigator.pop(context,
+                true); //This will pop the current screen and return true
           },
         ),
       ),

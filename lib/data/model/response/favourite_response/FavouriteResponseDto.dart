@@ -1,41 +1,37 @@
+import '../../../../domain/model/FavouriteResponse.dart';
 import 'FavouriteDto.dart';
 
 /// success : true
-/// data : {"user":"65febe55dfd1d02c2de022ab","restaurant":"65ee39a0b3eac564b5db7a81","isDeleted":false,"_id":"662af14cdf5899f01085767c","createdAt":"2024-04-26T00:11:56.634Z","updatedAt":"2024-04-26T00:11:56.634Z","__v":0}
+/// data : [{"_id":"662bf38a1726f1cbb2222d96","user":"65febe55dfd1d02c2de022ab","restaurant":{"_id":"65ef7552371067489c06ec30","name":"Buffalo Burger","email":"info@buffaloburger.com","address":"Burger Restaurant","description":"Buffalo Burger is a restaurant chain specializing in burgers. They offer a variety of beef and chicken burgers, along with sides, appetizers, and desserts. They also have a selection of keto and light options for those watching their weight. ","image":"http://res.cloudinary.com/dlvndc08a/image/upload/v1710191952/restaurant/tzhay7mq8ff3m1e2rnuv.jpg","phoneNumber":"19914","canDeliver":false,"city":"Alexandria","category":[{"_id":"65e460fdfa7564e23bb3d0a0","name":"Burgers"}],"status":"active","type":"Restaurant"}}]
 
 class FavouriteResponseDto {
   FavouriteResponseDto({
     this.success,
     this.data,
-    this.statusCode,
-    this.message,
     this.error,
+    this.statusCode,
   });
 
   FavouriteResponseDto.fromJson(dynamic json) {
     success = json['success'];
-    data = json['data'] != null ? FavouriteDto.fromJson(json['data']) : null;
-    statusCode = json['statusCode'];
-    message =
-        json['message'] != null ? List<String>.from(json['message']) : null;
+    data = json['data'] != null
+        ? (json['data'] as List).map((e) => FavouriteDto.fromJson(e)).toList()
+        : null;
     error = json['error'];
+    statusCode = json['statusCode'];
   }
 
   bool? success;
-  FavouriteDto? data;
-  int? statusCode;
-  List<String>? message;
+  List<FavouriteDto>? data;
   String? error;
+  int? statusCode;
+  int? noOfFavorites;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['success'] = success;
-    if (data != null) {
-      map['data'] = data?.toJson();
-    }
-    map['statusCode'] = statusCode;
-    map['message'] = message;
-    map['error'] = error;
-    return map;
+  FavouriteResponse toFavouriteResponse() {
+    return FavouriteResponse(
+      success: success,
+      favourite: data?.map((e) => e.toFavourite()).toList(),
+      noOfFavorites: noOfFavorites,
+    );
   }
 }
