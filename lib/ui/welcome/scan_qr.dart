@@ -86,9 +86,6 @@ class _ScanQRState extends State<ScanQR> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

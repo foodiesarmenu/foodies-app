@@ -2,10 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/model/CartItem.dart';
+import '../utils/shared_preference_utils.dart';
 import 'cubit/cart_screen_view_model.dart';
 
 class CartItemWidget extends StatelessWidget {
-  const CartItemWidget({this.noOfCartItems, required this.cart, super.key});
+  const CartItemWidget(
+      {this.isCart = true, this.noOfCartItems, required this.cart, super.key});
+
+  final bool isCart;
 
   final CartItem? cart;
   final int? noOfCartItems;
@@ -33,21 +37,29 @@ class CartItemWidget extends StatelessWidget {
               const SizedBox(
                 height: 8,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.edit_outlined,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  Text(
-                    'Edit',
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+              isCart
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.edit_outlined,
                           color: Theme.of(context).primaryColor,
                         ),
-                  ),
-                ],
-              ),
+                        Text(
+                          'Edit',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                        ),
+                      ],
+                    )
+                  : Text(
+                      'Quantity: ${cart?.quantity}',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                    ),
               const SizedBox(
                 height: 8,
               ),
@@ -79,72 +91,78 @@ class CartItemWidget extends StatelessWidget {
                         const Icon(Icons.error),
                   ),
                 ),
-                Positioned(
-                  top: 60,
-                  bottom: 0,
-                  left: -10,
-                  right: -10,
-                  child: Container(
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (cart!.quantity! > 1)
+                if (isCart)
+                  Positioned(
+                    top: 60,
+                    bottom: 0,
+                    left: -10,
+                    right: -10,
+                    child: Container(
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (cart!.quantity! > 1)
+                            IconButton(
+                              onPressed: () {
+                                int counter = cart?.quantity?.toInt() ?? 0;
+                                counter--;
+                                CartScreenViewModel.get(context)
+                                    .updateCountInCart(
+                                  mealId: cart?.meal?.id ?? "",
+                                  quantity: counter,
+                                );
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            )
+                          else
+                            IconButton(
+                              onPressed: () {
+                                if (noOfCartItems! > 1) {
+                                  CartScreenViewModel.get(context)
+                                      .removeItemFromCart(
+                                    mealId: cart?.id ?? "",
+                                  );
+                                } else {
+                                  CartScreenViewModel.get(context).clearCart();
+                                  Navigator.pop(context);
+                                }
+                                SharedPreferenceUtils.getData(
+                                    key: 'numOfCartItems');
+                              },
+                              icon: Icon(
+                                Icons.delete_outline_outlined,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+                          Text(
+                            cart?.quantity.toString() ?? "0",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
                           IconButton(
                             onPressed: () {
                               int counter = cart?.quantity?.toInt() ?? 0;
-                              counter--;
+                              counter++;
                               CartScreenViewModel.get(context)
                                   .updateCountInCart(
                                 mealId: cart?.meal?.id ?? "",
                                 quantity: counter,
                               );
+                              SharedPreferenceUtils.getData(
+                                  key: 'numOfCartItems');
                             },
                             icon: Icon(
-                              Icons.remove,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          )
-                        else
-                          IconButton(
-                            onPressed: () {
-                              if (noOfCartItems! > 1) {
-                                CartScreenViewModel.get(context)
-                                    .removeItemFromCart(
-                                  mealId: cart?.id ?? "",
-                                );
-                              } else {
-                                CartScreenViewModel.get(context).clearCart();
-                                Navigator.pop(context);
-                              }
-                            },
-                            icon: Icon(
-                              Icons.delete_outline_outlined,
+                              Icons.add,
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
-                        Text(
-                          cart?.quantity.toString() ?? "0",
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            int counter = cart?.quantity?.toInt() ?? 0;
-                            counter++;
-                            CartScreenViewModel.get(context).updateCountInCart(
-                              mealId: cart?.meal?.id ?? "",
-                              quantity: counter,
-                            );
-                          },
-                          icon: Icon(
-                            Icons.add,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ],

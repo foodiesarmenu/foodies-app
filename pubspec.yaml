@@ -61,6 +61,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  injectable_generator:
+  build_runner:
 
 flutter_launcher_icons:
   android: true
@@ -76,8 +78,6 @@ flutter_launcher_icons:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   # add the generator to your dev_dependencies
-  injectable_generator:
-  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

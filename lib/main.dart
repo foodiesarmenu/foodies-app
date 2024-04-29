@@ -15,7 +15,7 @@ import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
 import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
 import 'package:foodies_app/ui/home/profile_tab/editProfile/EditProfileScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/favourite_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/model/cubit/maps/maps_cubit.dart';
 import 'package:foodies_app/ui/home/profile_tab/model/map_response/repository/maps_repo.dart';
 import 'package:foodies_app/ui/home/profile_tab/model/map_response/web_services/places_web_services.dart';
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
         AddAddress.routeName: (_) => const AddAddress(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
         CartScreen.routeName: (_) => CartScreen(),
-        MealDetails.routeName: (_) => const MealDetails(),
+        MealDetails.routeName: (_) => MealDetails(),
         ArWidget.routeName: (_) => const ArWidget(),
         CheckoutScreen.routeName: (_) => const CheckoutScreen(),
         PaymentScreen.routeName: (_) => const PaymentScreen(),

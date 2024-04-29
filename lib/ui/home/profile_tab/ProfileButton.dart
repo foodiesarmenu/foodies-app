@@ -51,7 +51,7 @@ class ProfileButton extends StatelessWidget {
                     ],
                   ), // Add the icon
                   Text(
-                    additionalText ?? "",
+                    additionalText ?? "0",
                     style: const TextStyle(color: Colors.black),
                   ),
                 ],

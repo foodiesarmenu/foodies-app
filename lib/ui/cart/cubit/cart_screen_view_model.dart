@@ -37,7 +37,6 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
   }
 
   updateCountInCart({required int quantity, required String mealId}) async {
-    emit(UpdateCountInCartLoadingState(loadingMessage: 'Loading....'));
     var either = await updateCountInCartUseCase.invoke(
         mealId: mealId, quantity: quantity);
 
@@ -49,7 +48,6 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
   }
 
   removeItemFromCart({required String mealId}) async {
-    emit(RemoveItemFromCartLoadingState(loadingMessage: 'Loading....'));
     var either = await removeItemFromCartUseCase.invoke(mealId: mealId);
 
     either.fold((error) {
@@ -60,7 +58,6 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
   }
 
   clearCart() async {
-    emit(DeleteCartLoadingState(loadingMessage: 'Loading....'));
     var either = await deleteCartUseCase.invoke();
 
     either.fold((error) {

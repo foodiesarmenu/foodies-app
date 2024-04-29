@@ -64,7 +64,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       horizontal: 16.0, vertical: 8.0),
                   child: Column(
                     children: [
-                      RestaurantInfoWidget(cart: args, isCart: false),
+                      RestaurantInfoWidget(
+                          cart: args, isCart: false, isOrderDetails: false),
                       const SizedBox(height: 4),
                       const AddressDetailsWidget(),
                       const SizedBox(height: 8),
