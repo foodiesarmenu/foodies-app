@@ -341,13 +341,21 @@ class _MealDetailsState extends State<MealDetails> {
           title: 'Add to Cart',
           subTitle: '${widget.meal?.currency} ${calculateTotalPrice()}',
           onPressed: () {
-            print(widget.meal?.sizes?[_value ?? 0].id ?? "");
-            viewModel.addToCart(
-                mealId: widget.meal?.id ?? "",
-                restaurantId: widget.meal?.restaurant ?? "",
-                quantity: quantity,
-                sizeId: widget.meal?.sizes?[2].size ?? "");
-            Navigator.pop(context);
+            if(_value == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Please select size of meal'),
+                ),
+              );
+            } else {
+              print(widget.meal?.sizes?[_value ?? 0].id ?? "");
+              viewModel.addToCart(
+                  mealId: widget.meal?.id ?? "",
+                  restaurantId: widget.meal?.restaurant ?? "",
+                  quantity: quantity,
+                  sizeId: widget.meal?.sizes?[2].size ?? "");
+              Navigator.pop(context);
+            }
           },
         ),
       ),
