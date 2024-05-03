@@ -328,13 +328,20 @@ class _MenuContainerState extends State<MenuContainer> {
                             selectedIndex = newIndex;
                           });
                         },
+
                         isScrollable: true,
                         tabs: widget.menus!
                             .map((menu) => MealTabItem(
                                 menu: menu,
                                 isSelected: widget.menus?.indexOf(menu) ==
                                     selectedIndex,
-                                onTabSelected: scrollToMenu,
+                          onTabSelected: (selectedMenu) {
+                            setState(() {
+                              selectedIndex = widget.menus?.indexOf(selectedMenu) ?? 0;
+                            });
+                            scrollToMenu(selectedMenu.name ?? '');
+                          },
+
                         ),
                         ).toList(),
                       ),
