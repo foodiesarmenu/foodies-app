@@ -18,12 +18,12 @@ import 'model/request/RegisterRequest.dart';
 import 'model/request/payment_intent_input_model.dart';
 import 'model/response/auth_response/LoginResponse.dart';
 import 'model/response/auth_response/RegisterResponse.dart';
-import 'model/response/cart_response/CartResponseDto.dart';
-import 'model/response/cash_order_response/CashOrderPaymentDto.dart';
 import 'model/response/category_response/CategoriesResponse.dart';
 import 'model/response/favourite_response/FavouriteDto.dart';
 import 'model/response/menu_response/MenusResponse.dart';
 import 'model/response/online_order_response/OnlineOrderPaymentDto.dart';
+import 'model/response/order_cart_response/OrderResponseDto.dart';
+import 'model/response/order_cart_response/OrdersResponseDto.dart';
 import 'model/response/payment_intent_model_response/PaymentIntentModel.dart';
 import 'model/response/restaurant_response/RestaurantsResponse.dart';
 
@@ -135,7 +135,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, CartResponseDto>> addToCart(
+  Future<Either<Failures, OrderResponseDto>> addToCart(
       {required String mealId, required String restaurantId}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
     final ConnectivityResult connectivityResult =
@@ -146,7 +146,7 @@ class ApiManager {
       var response = await client.post(url,
           body: {'meal': mealId, 'restaurant': restaurantId},
           headers: {'Authorization': ApiConstants.authorization});
-      var cartResponseDto = CartResponseDto.fromJson(jsonDecode(response.body));
+      var cartResponseDto = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponseDto);
       } else {
@@ -158,7 +158,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, CartResponseDto>> getCart() async {
+  Future<Either<Failures, OrderResponseDto>> getCart() async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -167,7 +167,7 @@ class ApiManager {
       // I am connected to a mobile network or wifi.
       var response = await client
           .get(url, headers: {'Authorization': ApiConstants.authorization});
-      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
       } else {
@@ -179,7 +179,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, CartResponseDto>> removeItemFromCart(
+  Future<Either<Failures, OrderResponseDto>> removeItemFromCart(
       {required String mealId}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
@@ -190,7 +190,7 @@ class ApiManager {
       // I am connected to a mobile network or wifi.
       var response = await client
           .delete(url, headers: {'Authorization': ApiConstants.authorization});
-      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
       } else {
@@ -202,7 +202,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, CartResponseDto>> updateCountInCart(
+  Future<Either<Failures, OrderResponseDto>> updateCountInCart(
       {required String mealId, required int quantity}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
@@ -214,7 +214,7 @@ class ApiManager {
       var response = await client.patch(url,
           body: {'quantity': '$quantity'},
           headers: {'Authorization': ApiConstants.authorization});
-      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
       } else {
@@ -226,7 +226,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, CartResponseDto>> deleteCart() async {
+  Future<Either<Failures, OrderResponseDto>> deleteCart() async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -235,7 +235,7 @@ class ApiManager {
       // I am connected to a mobile network or wifi.
       var response = await client
           .delete(url, headers: {'Authorization': ApiConstants.authorization});
-      var cartResponse = CartResponseDto.fromJson(jsonDecode(response.body));
+      var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
       } else {
@@ -321,7 +321,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, CashOrderPaymentDto>> createCashOrder(
+  Future<Either<Failures, OrderResponseDto>> createCashOrder(
       {required DeliveryAddress deliveryAddress}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.createCashOrderApi);
 
@@ -355,7 +355,7 @@ class ApiManager {
           });
 
       var cashResponseDto =
-          CashOrderPaymentDto.fromJson(jsonDecode(response.body));
+      OrderResponseDto.fromJson(jsonDecode(response.body));
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cashResponseDto);
@@ -481,4 +481,47 @@ class ApiManager {
           NetworkError(errorMessage: 'Please check your internet connection'));
     }
   }
+
+  Future<Either<Failures, OrderResponseDto>> getOrder({required String orderId}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.orderApi}/$orderId');
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var orderResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(orderResponse);
+      } else {
+        return Left(ServerError(errorMessage: orderResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, OrdersResponseDto>> getAllOrders() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.orderApi);
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var ordersResponse = OrdersResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(ordersResponse);
+      } else {
+        return Left(ServerError(errorMessage: ordersResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
 }

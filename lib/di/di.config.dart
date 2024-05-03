@@ -12,42 +12,38 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../data/api_manager.dart' as _i3;
-import '../data/dataSourceContract/CategoriesDataSource.dart' as _i12;
-import '../data/dataSourceContract/MenusDataSource.dart' as _i26;
-import '../data/dataSourceContract/RestaurantsDataSource.dart' as _i39;
 import '../data/dataSourceContract/auth_remote_data_source.dart' as _i4;
 import '../data/dataSourceContract/cart_data_source.dart' as _i8;
+import '../data/dataSourceContract/CategoriesDataSource.dart' as _i12;
 import '../data/dataSourceContract/favourite_data_source.dart' as _i17;
-import '../data/dataSourceContract/order_data_soruce.dart' as _i30;
+import '../data/dataSourceContract/MenusDataSource.dart' as _i26;
+import '../data/dataSourceContract/order_data_source.dart' as _i30;
 import '../data/dataSourceContract/profile_data_source.dart' as _i32;
-import '../data/dataSourceImpl/CategoriesOnlineDataSourceImpl.dart' as _i13;
-import '../data/dataSourceImpl/MenusOnlineDataSourceImpl.dart' as _i27;
-import '../data/dataSourceImpl/RestaurantsOnlineDataSourceImpl.dart' as _i40;
+import '../data/dataSourceContract/RestaurantsDataSource.dart' as _i39;
 import '../data/dataSourceImpl/auth_remote_data_source_impl.dart' as _i5;
 import '../data/dataSourceImpl/cart_data_source_impl.dart' as _i9;
+import '../data/dataSourceImpl/CategoriesOnlineDataSourceImpl.dart' as _i13;
 import '../data/dataSourceImpl/favourite_data_source_impl.dart' as _i18;
+import '../data/dataSourceImpl/MenusOnlineDataSourceImpl.dart' as _i27;
 import '../data/dataSourceImpl/order_data_source_impl.dart' as _i31;
 import '../data/dataSourceImpl/profile_data_source_impl.dart' as _i33;
-import '../data/repositoryImpl/CategoriesRepoImpl.dart' as _i15;
-import '../data/repositoryImpl/MenusRepoImpl.dart' as _i29;
-import '../data/repositoryImpl/RestaurantsRepoImpl.dart' as _i42;
+import '../data/dataSourceImpl/RestaurantsOnlineDataSourceImpl.dart' as _i40;
 import '../data/repositoryImpl/auth_repo_impl.dart' as _i7;
 import '../data/repositoryImpl/cart_repository_impl.dart' as _i11;
+import '../data/repositoryImpl/CategoriesRepoImpl.dart' as _i15;
 import '../data/repositoryImpl/favourite_repo_impl.dart' as _i20;
+import '../data/repositoryImpl/MenusRepoImpl.dart' as _i29;
 import '../data/repositoryImpl/order_repository_impl.dart' as _i58;
 import '../data/repositoryImpl/profile_repository_impl.dart' as _i35;
-import '../domain/repositoryContract/CategoriesRepo.dart' as _i14;
-import '../domain/repositoryContract/MenusRepo.dart' as _i28;
-import '../domain/repositoryContract/RestaurantsRepo.dart' as _i41;
+import '../data/repositoryImpl/RestaurantsRepoImpl.dart' as _i42;
 import '../domain/repositoryContract/auth_repository.dart' as _i6;
 import '../domain/repositoryContract/cart_repository.dart' as _i10;
+import '../domain/repositoryContract/CategoriesRepo.dart' as _i14;
 import '../domain/repositoryContract/favourite_repository.dart' as _i19;
+import '../domain/repositoryContract/MenusRepo.dart' as _i28;
 import '../domain/repositoryContract/order_repository.dart' as _i57;
 import '../domain/repositoryContract/profile_repository.dart' as _i34;
-import '../domain/usecase/GetCategoriesUsecase.dart' as _i23;
-import '../domain/usecase/GetMenusUsecase.dart' as _i51;
-import '../domain/usecase/GetRestaurantsByCategoryId.dart' as _i52;
-import '../domain/usecase/GetRestaurantsUsecase.dart' as _i53;
+import '../domain/repositoryContract/RestaurantsRepo.dart' as _i41;
 import '../domain/usecase/add_to_cart_use_case.dart' as _i46;
 import '../domain/usecase/add_to_favourite_use_case.dart' as _i47;
 import '../domain/usecase/check_favourite_use_case.dart' as _i49;
@@ -55,9 +51,15 @@ import '../domain/usecase/create_cash_order_use_case.dart' as _i61;
 import '../domain/usecase/create_online_order_use_case.dart' as _i62;
 import '../domain/usecase/delete_cart_use_case.dart' as _i16;
 import '../domain/usecase/get_all_favourites_use_case.dart' as _i21;
+import '../domain/usecase/get_all_orders_use_case.dart' as _i63;
 import '../domain/usecase/get_cart_use_case.dart' as _i22;
+import '../domain/usecase/get_order_use_case.dart' as _i64;
+import '../domain/usecase/GetCategoriesUsecase.dart' as _i23;
+import '../domain/usecase/GetMenusUsecase.dart' as _i51;
+import '../domain/usecase/GetRestaurantsByCategoryId.dart' as _i52;
+import '../domain/usecase/GetRestaurantsUsecase.dart' as _i53;
 import '../domain/usecase/login_use_case.dart' as _i24;
-import '../domain/usecase/make_payment_use_case.dart' as _i63;
+import '../domain/usecase/make_payment_use_case.dart' as _i65;
 import '../domain/usecase/register_use_case.dart' as _i36;
 import '../domain/usecase/remove_item_from_cart_use_case.dart' as _i38;
 import '../domain/usecase/update_count_in_cart_use_case.dart' as _i44;
@@ -66,13 +68,15 @@ import '../ui/auth/login/cubit/login_view_model.dart' as _i25;
 import '../ui/auth/register/cubit/register_view_model.dart' as _i37;
 import '../ui/cart/cubit/cart_screen_view_model.dart' as _i48;
 import '../ui/category_details/category_details_view_model.dart' as _i60;
-import '../ui/checkout/cubit/checkout_view_model.dart' as _i64;
+import '../ui/checkout/cubit/checkout_view_model.dart' as _i68;
 import '../ui/home/home_tab/cubit/home_tab_view_model.dart' as _i54;
+import '../ui/home/orders_tab/cubit/orders_tab_view_model.dart' as _i67;
 import '../ui/home/profile_tab/cubit/profile_view_model.dart' as _i59;
 import '../ui/home/profile_tab/favourite/cubit/favourite_view_model.dart'
     as _i50;
 import '../ui/meal_details/cubit/meal_details_view_model.dart' as _i55;
 import '../ui/menu/cubit/menu_view_model.dart' as _i56;
+import '../ui/order_details/cubit/orders_details_view_model.dart' as _i66;
 import '../ui/utils/stripe_service.dart' as _i43;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -186,12 +190,20 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i61.CreateCashOrderUseCase(gh<_i57.OrderRepository>()));
     gh.factory<_i62.CreateOnlineOrderUseCase>(
         () => _i62.CreateOnlineOrderUseCase(gh<_i57.OrderRepository>()));
-    gh.factory<_i63.MakePaymentUseCase>(
-        () => _i63.MakePaymentUseCase(gh<_i57.OrderRepository>()));
-    gh.factory<_i64.CheckoutViewModel>(() => _i64.CheckoutViewModel(
+    gh.factory<_i63.GetAllOrdersUseCase>(
+        () => _i63.GetAllOrdersUseCase(gh<_i57.OrderRepository>()));
+    gh.factory<_i64.GetOrderUseCase>(
+        () => _i64.GetOrderUseCase(gh<_i57.OrderRepository>()));
+    gh.factory<_i65.MakePaymentUseCase>(
+        () => _i65.MakePaymentUseCase(gh<_i57.OrderRepository>()));
+    gh.factory<_i66.OrderDetailsViewModel>(
+        () => _i66.OrderDetailsViewModel(gh<_i64.GetOrderUseCase>()));
+    gh.factory<_i67.OrdersTabViewModel>(
+        () => _i67.OrdersTabViewModel(gh<_i63.GetAllOrdersUseCase>()));
+    gh.factory<_i68.CheckoutViewModel>(() => _i68.CheckoutViewModel(
           gh<_i62.CreateOnlineOrderUseCase>(),
           gh<_i61.CreateCashOrderUseCase>(),
-          gh<_i63.MakePaymentUseCase>(),
+          gh<_i65.MakePaymentUseCase>(),
         ));
     return this;
   }

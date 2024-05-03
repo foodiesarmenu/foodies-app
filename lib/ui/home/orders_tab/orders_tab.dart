@@ -1,153 +1,75 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodies_app/ui/home/orders_tab/cubit/orders_tab_states.dart';
+import 'package:foodies_app/ui/home/orders_tab/cubit/orders_tab_view_model.dart';
 
+import '../../../di/di.dart';
 import '../../common/ButtonInProfile.dart';
-import 'order_list.dart';
+import '../../order_details/order_details.dart';
+import 'order_item_widget.dart';
 
 class OrdersTab extends StatelessWidget {
   static const String routeName = 'OrdersSc';
 
   OrdersTab({super.key});
 
-  final List<Order> orders = [
-    Order(
-      id: 'ss',
-      restaurantName: 'Restaurant Name',
-      price: 'EGP 100',
-      orderStatus: 'Delivered',
-      orderDate: 'April 15, 2024',
-      imageUrl: 'assets/images/7oda.png',
-    ),
-    Order(
-      id: 'ss',
-      restaurantName: 'Restaurant Name',
-      price: 'EGP 250',
-      orderStatus: 'Pending',
-      orderDate: 'April 17, 2024',
-      imageUrl: 'assets/images/7oda.png',
-    ),
-    Order(
-      id: 'ss',
-      restaurantName: 'Restaurant Name',
-      price: 'EGP 700',
-      orderStatus: 'Canceled',
-      orderDate: 'April 19, 2024',
-      imageUrl: 'assets/images/7oda.png',
-    ),
-  ];
-
+  final viewModel = getIt<OrdersTabViewModel>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-        child: ListView.separated(
-          separatorBuilder: (context, index) {
-            return const Divider(
-              indent: 30,
-              endIndent: 30,
-            );
-          },
-          itemCount: orders.length, // Length of the orders list
-          itemBuilder: (context, index) {
-            final order = orders[index]; // Get the current order
-            Color statusColor;
-            switch (order.orderStatus.toLowerCase()) {
-              case 'delivered':
-                statusColor = Colors.green;
-                break;
-              case 'pending':
-                statusColor = Theme.of(context).primaryColor;
-                break;
-              case 'canceled':
-                statusColor = Colors.red;
-                break;
-              default:
-                statusColor = Colors.black;
-            }
-            return Column(
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 3,
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                        ),
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                              order.imageUrl), // Use image URL from the order
-                        ),
+    return BlocBuilder<OrdersTabViewModel,OrdersTabStates>(
+      bloc: viewModel..getAllOrders(),
+      builder: (context, state) {
+        return Scaffold(
+          body: (state is GetAllOrdersSuccessState) ?
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+            child: ListView.separated(
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  indent: 30,
+                  endIndent: 30,
+                );
+              },
+              itemCount: state.ordersResponse.length, // Length of the orders list
+              itemBuilder: (context, index) {
+                Color statusColor;
+                switch (state.ordersResponse[index].status?.toLowerCase()) {
+                  case 'delivered':
+                    statusColor = Colors.green;
+                    break;
+                  case 'pending':
+                    statusColor = Theme.of(context).primaryColor;
+                    break;
+                  case 'canceled':
+                    statusColor = Colors.red;
+                    break;
+                  default:
+                    statusColor = Colors.black;
+                }
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderDetails(orderId: state.ordersResponse[index].id ?? ''),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(order.restaurantName,
-                                  style:
-                                      Theme.of(context).textTheme.titleSmall),
-                              Spacer(),
-                              Text(order.orderStatus,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: statusColor)),
-                            ],
-                          ),
-                          Text(order.orderDate,
-                              style: Theme.of(context).textTheme.bodySmall),
-                          //SizedBox(height: 16,),
-                          Text(order.price,
-                              style: Theme.of(context).textTheme.titleSmall)
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: ButtonInProfile(
-                        onPressed: () {},
-                        backgroundColor: Theme.of(context).primaryColor,
-                        text: 'reorder',
-                        textColor: Colors.white,
-                        width: 150,
-                        icon: Icons.refresh_outlined,
-                        height: 40,
-                      ),
-                    ),
-                    Expanded(
-                      child: ButtonInProfile(
-                        onPressed: () {},
-                        backgroundColor: Colors.white,
-                        text: 'feedback',
-                        textColor: Theme.of(context).primaryColor,
-                        width: 150,
-                        borderColor: Theme.of(context).primaryColor,
-                        icon: Icons.feedback_outlined,
-                        height: 40,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            );
-          },
-          //
-        ),
-      ),
+                    );
+                  },
+                  child: OrderItemWidget(
+                    order: state.ordersResponse[index],
+                    statusColor: statusColor,
+                  ),
+                );
+              },
+              //
+            ),
+          ) :
+          const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }

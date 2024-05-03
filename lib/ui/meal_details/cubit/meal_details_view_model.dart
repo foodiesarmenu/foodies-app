@@ -20,7 +20,7 @@ class MealDetailsViewModel extends Cubit<MealDetailsStates> {
     }, (response) {
       emit(AddToCartSuccessState(cart: response));
       SharedPreferenceUtils.saveData(
-          key: 'numOfCartItems', value: response.noOfCartItems);
+          key: 'numOfCartItems', value: response.noOfOrderItems);
     });
   }
 }

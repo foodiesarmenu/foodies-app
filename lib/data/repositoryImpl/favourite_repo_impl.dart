@@ -4,7 +4,7 @@ import 'package:foodies_app/domain/failures.dart';
 import 'package:foodies_app/domain/model/Favourite.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/model/FavouriteResponse.dart';
+import '../../domain/model/CheckFavourite.dart';
 import '../../domain/repositoryContract/favourite_repository.dart';
 
 @Injectable(as: FavouriteRepository)
@@ -21,12 +21,12 @@ class FavouriteRepoImpl extends FavouriteRepository {
   }
 
   @override
-  Future<Either<Failures, FavouriteResponse>> getAllFavourites() async {
+  Future<Either<Failures, List<Favourite>>> getAllFavourites() async {
     return await favouriteDataSource.getAllFavourites();
   }
 
   @override
-  Future<Either<Failures, FavouriteResponse>> checkFavourite(
+  Future<Either<Failures, CheckFavourite>> checkFavourite(
       {required String restaurantId}) async {
     return await favouriteDataSource.checkFavourite(restaurantId: restaurantId);
   }

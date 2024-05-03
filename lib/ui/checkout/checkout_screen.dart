@@ -8,7 +8,7 @@ import 'package:foodies_app/ui/checkout/cubit/checkout_view_model.dart';
 
 import '../../data/model/request/payment_intent_input_model.dart';
 import '../../di/di.dart';
-import '../../domain/model/Cart.dart';
+import '../../domain/model/OrderEntity.dart';
 import '../utils/shared_preference_utils.dart';
 import 'address_details_widget.dart';
 import 'ordering_splash_screen.dart';
@@ -24,11 +24,11 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   String paymentMethod = 'Click to choose payment method';
-  Cart? args;
+  OrderEntity? args;
 
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute.of(context)!.settings.arguments as Cart?;
+    args = ModalRoute.of(context)!.settings.arguments as OrderEntity?;
     var viewModel = getIt<CheckoutViewModel>();
 
     return BlocProvider(
@@ -38,7 +38,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           listener: (context, state) {
             print('Big State $state');
             if (state is MakePaymentSuccessState) {
-              viewModel.createOnlineOrder(
+              // viewModel.createOnlineOrder(
+              //   deliveryAddress: DeliveryAddress(
+              //     firstAddress: "123 Main St222222",
+              //     secondAddress: "Apt 1012222",
+              //     buildingNumber: "Building A22",
+              //     streetName: "Oak Avenue22",
+              //     floorNumber: "2nd Floor222",
+              //     apartmentNumber: "10122",
+              //     note: "Near the park2",
+              //   ),
+              // );
+              viewModel.createCashOrder(
                 deliveryAddress: DeliveryAddress(
                   firstAddress: "123 Main St222222",
                   secondAddress: "Apt 1012222",
@@ -49,8 +60,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   note: "Near the park2",
                 ),
               );
-              Navigator.pushReplacementNamed(
-                  context, OrderingSplashScreen.routeName);
+            } else if (state is CreateCashOrderSuccessState){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderingSplashScreen(orderId: state.cashOrder.id ),
+                ),
+              );
+            } else if(state is CreateOnlineOrderSuccessState){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderingSplashScreen(orderId: state.onlineOrderPayment.id ),
+                ),
+              );
             }
           },
           builder: (context, state) {
@@ -150,18 +173,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           note: "Near the park2",
                         ),
                       );
-                      Navigator.pushReplacementNamed(
-                          context, OrderingSplashScreen.routeName,
-                          arguments: args);
                       SharedPreferenceUtils.saveData(
                           key: 'isOrdering', value: true);
                     } else if (paymentMethod == 'Card') {
                       print('Small State $state');
                       await viewModel.makePayment(
                         paymentIntentInputModel: PaymentIntentInputModel(
-                            amount: args?.cartTotalPrice.toString() ?? '',
+                            amount: args?.orderTotalPrice.toString() ?? '',
                             currency: 'EGP'),
                       );
+
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

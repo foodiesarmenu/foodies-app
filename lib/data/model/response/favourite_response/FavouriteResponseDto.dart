@@ -1,4 +1,4 @@
-import '../../../../domain/model/FavouriteResponse.dart';
+import '../../../../domain/model/CheckFavourite.dart';
 import 'FavouriteDto.dart';
 
 /// success : true
@@ -27,8 +27,8 @@ class FavouriteResponseDto {
   int? statusCode;
   int? noOfFavorites;
 
-  FavouriteResponse toFavouriteResponse() {
-    return FavouriteResponse(
+  CheckFavourite toFavouriteResponse() {
+    return CheckFavourite(
       success: success,
       favourite: data?.map((e) => e.toFavourite()).toList(),
       noOfFavorites: noOfFavorites,

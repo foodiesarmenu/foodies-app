@@ -1,6 +1,6 @@
 import 'package:foodies_app/domain/failures.dart';
 import 'package:foodies_app/domain/model/Favourite.dart';
-import 'package:foodies_app/domain/model/FavouriteResponse.dart';
+import 'package:foodies_app/domain/model/CheckFavourite.dart';
 
 import '../../../domain/model/Menu.dart';
 
@@ -57,7 +57,7 @@ class CheckFavouriteErrorState extends MenuStates {
 }
 
 class CheckFavouriteSuccessState extends MenuStates {
-  FavouriteResponse? favourite;
+  CheckFavourite? favourite;
 
   CheckFavouriteSuccessState({required this.favourite});
 }

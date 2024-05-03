@@ -1,5 +1,5 @@
 import '../../../domain/failures.dart';
-import '../../../domain/model/Cart.dart';
+import '../../../domain/model/OrderEntity.dart';
 
 abstract class MealDetailsStates {}
 
@@ -18,7 +18,7 @@ class AddToCartErrorState extends MealDetailsStates {
 }
 
 class AddToCartSuccessState extends MealDetailsStates {
-  Cart cart;
+  OrderEntity cart;
 
   AddToCartSuccessState({required this.cart});
 }
