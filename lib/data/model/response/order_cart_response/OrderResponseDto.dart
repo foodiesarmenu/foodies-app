@@ -17,6 +17,7 @@ class OrderResponseDto {
     success = json['success'];
     data = json['data'] != null ? OrderDto.fromJson(json['data']) : null;
     statusCode = json['statusCode'];
+    message = json['message'];
   }
   bool? success;
   OrderDto? data;

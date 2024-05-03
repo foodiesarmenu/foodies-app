@@ -142,7 +142,6 @@ class _MealItemState extends State<MealItem> {
             ],
           ),
         ),
-
         const SizedBox(width: 8),
         // Meal Image
         ClipRRect(

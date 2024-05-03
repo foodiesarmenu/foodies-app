@@ -111,7 +111,7 @@ class CartItemWidget extends StatelessWidget {
                                     .updateCountInCart(
                                   mealId: cart?.meal?.id ?? "",
                                   quantity: counter,
-                                  sizeId: cart?.size ?? "",
+                                  size: cart?.size ?? "",
                                 );
                               },
                               icon: Icon(
@@ -151,11 +151,12 @@ class CartItemWidget extends StatelessWidget {
                                   .updateCountInCart(
                                 mealId: cart?.meal?.id ?? "",
                                 quantity: counter,
-                                sizeId: cart?.size ?? "",
+                                size: cart?.size ?? "",
                               );
                               SharedPreferenceUtils.getData(
                                   key: 'numOfCartItems');
                             },
+
                             icon: Icon(
                               Icons.add,
                               color: Theme.of(context).primaryColor,

@@ -43,14 +43,14 @@ class _MealListState extends State<MealList> {
                   children: [
                     InkWell(
                       onTap: () async {
-Navigator.push(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MealDetails(
-                                  meal: widget
-                                      .menus?[menuIndex].meals?[mealIndex],)),
+                                    meal: widget
+                                        .menus?[menuIndex].meals?[mealIndex],
+                                  )),
                         );
-
                       },
                       child: MealItem(
                         menus: widget.menus,
@@ -59,6 +59,7 @@ Navigator.push(
                       ),
                     ),
                     const Divider(),
+
                   ],
                 ),
               ),
@@ -68,5 +69,4 @@ Navigator.push(
       ),
     );
   }
-
 }

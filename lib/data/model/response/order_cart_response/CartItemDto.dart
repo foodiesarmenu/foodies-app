@@ -26,7 +26,7 @@ class CartItemDto {
   }
 
   MealDto? meal;
-  num? quantity;
+  int? quantity;
   num? price;
   num? totalPrice;
   String? id;

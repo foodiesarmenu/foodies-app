@@ -11,10 +11,10 @@ class MealDetailsViewModel extends Cubit<MealDetailsStates> {
 
   @factoryMethod
   MealDetailsViewModel(this.addToCartUseCase) : super(AddToCartInitialState());
-  addToCart({required String mealId, required String restaurantId,required int quantity, required String sizeId}) async {
+  addToCart({required String mealId, required String restaurantId,required int quantity, required String size}) async {
     emit(AddToCartLoadingState(loadingMessage: 'Loading....'));
     var either = await addToCartUseCase.invoke(
-        mealId: mealId, restaurantId: restaurantId, quantity: quantity, sizeId: sizeId);
+        mealId: mealId, restaurantId: restaurantId, quantity: quantity, size: size);
     either.fold((error) {
       print(error.errorMessage);
       emit(AddToCartErrorState(errorMessage: error));

@@ -22,6 +22,8 @@ class OrderDetails extends StatefulWidget {
 
 class _OrderDetailsState extends State<OrderDetails> {
   var viewModel = getIt<OrderDetailsViewModel>();
+  Color? statusColor;
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,9 @@ class _OrderDetailsState extends State<OrderDetails> {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderDetailsViewModel, OrderDetailsStates>(
       bloc: viewModel,
+
       builder: (context, state) {
+
         if (state is GetOrderLoadingState) {
           return Scaffold(body: const Center(child: CircularProgressIndicator()));
         } else if (state is GetOrderErrorState) {
@@ -40,6 +44,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               body: Center(
                   child: Text(state.errorMessage.errorMessage ?? 'Error')));
         } else if (state is GetOrderSuccessState) {
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Order Details'),
@@ -55,6 +60,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       cart: state.orderResponse,
                       isCart: false,
                       isOrderDetails: true,
+                      isOrder: true,
                     ),
                     AddressDetailsWidget(),
                     CartItemListWidget(

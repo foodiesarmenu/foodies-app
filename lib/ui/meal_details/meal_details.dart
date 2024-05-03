@@ -348,12 +348,12 @@ class _MealDetailsState extends State<MealDetails> {
                 ),
               );
             } else {
-              print(widget.meal?.sizes?[_value ?? 0].id ?? "");
+              print(widget.meal?.sizes?[_value ?? 0].size ?? "");
               viewModel.addToCart(
                   mealId: widget.meal?.id ?? "",
                   restaurantId: widget.meal?.restaurant ?? "",
                   quantity: quantity,
-                  sizeId: widget.meal?.sizes?[2].size ?? "");
+                  size: widget.meal?.sizes?[_value ?? 0].size ?? "");
               Navigator.pop(context);
             }
           },
@@ -370,10 +370,10 @@ class _MealDetailsState extends State<MealDetails> {
     });
   }
 
-  String calculateTotalPrice() {
+  int calculateTotalPrice() {
     num mealPrice = widget.meal?.price ?? 0;
     num totalPrice = mealPrice * quantity;
-    return totalPrice.toString();
+    return totalPrice.toInt();
   }
 
   void incrementQuantity() {

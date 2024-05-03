@@ -15,8 +15,8 @@ class CartRepositoryImpl extends CartRepository {
 
   @override
   Future<Either<Failures, OrderEntity>> addToCart(
-      {required String mealId, required String restaurantId,required int quantity, required String sizeId}) {
-    return cartDataSource.addToCart(mealId: mealId, restaurantId: restaurantId, quantity: quantity, sizeId: sizeId);
+      {required String mealId, required String restaurantId,required int quantity, required String size}) {
+    return cartDataSource.addToCart(mealId: mealId, restaurantId: restaurantId, quantity: quantity, size: size);
   }
 
   @override
@@ -31,8 +31,8 @@ class CartRepositoryImpl extends CartRepository {
 
   @override
   Future<Either<Failures, OrderEntity>> updateCountInCart(
-      {required String mealId, required int quantity,required String sizeId}) {
-    return cartDataSource.updateCountInCart(mealId: mealId, quantity: quantity, sizeId: sizeId);
+      {required String mealId, required int quantity,required String size}) {
+    return cartDataSource.updateCountInCart(mealId: mealId, quantity: quantity, size: size);
   }
 
   @override

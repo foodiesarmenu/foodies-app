@@ -315,6 +315,7 @@ class _MenuContainerState extends State<MenuContainer> {
                   ),
                 ),
                 DefaultTabController(
+
                   length: widget.menus?.length ?? 0,
                   child: Column(
                     children: [
@@ -322,13 +323,12 @@ class _MenuContainerState extends State<MenuContainer> {
                         height: 8,
                       ),
                       TabBar(
-                        indicatorColor: Colors.transparent,
                         onTap: (newIndex) {
                           setState(() {
                             selectedIndex = newIndex;
                           });
                         },
-
+                        indicatorColor: Colors.transparent,
                         isScrollable: true,
                         tabs: widget.menus!
                             .map((menu) => MealTabItem(
@@ -347,6 +347,9 @@ class _MenuContainerState extends State<MenuContainer> {
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 8,
                 ),
                 MealList(
                   menus: widget.menus ?? [],

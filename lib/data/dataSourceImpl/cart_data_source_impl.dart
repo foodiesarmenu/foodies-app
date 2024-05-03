@@ -15,9 +15,9 @@ class CartDataSourceImpl extends CartDataSource {
 
   @override
   Future<Either<Failures, OrderEntity>> addToCart(
-      {required String mealId, required String restaurantId,required int quantity, required String sizeId}) async {
+      {required String mealId, required String restaurantId,required int quantity, required String size}) async {
     var either =
-        await apiManager.addToCart(mealId: mealId, restaurantId: restaurantId, quantity: quantity, sizeId: sizeId);
+        await apiManager.addToCart(mealId: mealId, restaurantId: restaurantId, quantity: quantity, size: size);
     return either.fold((error) {
       return Left(Failures(errorMessage: error.errorMessage));
     }, (response) {
@@ -48,9 +48,9 @@ class CartDataSourceImpl extends CartDataSource {
 
   @override
   Future<Either<Failures, OrderEntity>> updateCountInCart(
-      {required String mealId, required int quantity,required String sizeId}) async {
+      {required String mealId, required int quantity,required String size}) async {
     var either =
-        await apiManager.updateCountInCart(mealId: mealId, quantity: quantity, sizeId: sizeId);
+        await apiManager.updateCountInCart(mealId: mealId, quantity: quantity, size: size);
     return either.fold((error) {
       return Left(Failures(errorMessage: error.errorMessage.toString()));
     }, (response) {
