@@ -24,9 +24,35 @@ class MenuContainer extends StatefulWidget {
 
 class _MenuContainerState extends State<MenuContainer> {
   int selectedIndex = 0;
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void scrollToMenu(String menuName) {
+    final index = widget.menus?.indexWhere((menu) => menu.name == menuName);
+    if (index != null && index >= 0) {
+      _scrollController.animateTo(
+        (index * 400).toDouble(), // Adjust 400 according to your meal list item height
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Stack(
         children: [
           //Restaurant Cover
@@ -307,8 +333,10 @@ class _MenuContainerState extends State<MenuContainer> {
                             .map((menu) => MealTabItem(
                                 menu: menu,
                                 isSelected: widget.menus?.indexOf(menu) ==
-                                    selectedIndex))
-                            .toList(),
+                                    selectedIndex,
+                                onTabSelected: scrollToMenu,
+                        ),
+                        ).toList(),
                       ),
                     ],
                   ),

@@ -35,15 +35,4 @@ class MenusResponse {
   int? numberOfRecords;
 
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['success'] = success;
-    if (data != null) {
-      map['data'] = data?.map((v) => v.toJson()).toList();
-    }
-    map['currentPage'] = currentPage;
-    map['numberOfPages'] = numberOfPages;
-    map['numberOfRecords'] = numberOfRecords;
-    return map;
-  }
 }

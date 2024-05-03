@@ -30,7 +30,7 @@ class CartItemWidget extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              Text('El 3emlak',
+              Text(cart?.size ?? "",
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                       )),
@@ -111,6 +111,7 @@ class CartItemWidget extends StatelessWidget {
                                     .updateCountInCart(
                                   mealId: cart?.meal?.id ?? "",
                                   quantity: counter,
+                                  sizeId: cart?.size ?? "",
                                 );
                               },
                               icon: Icon(
@@ -150,6 +151,7 @@ class CartItemWidget extends StatelessWidget {
                                   .updateCountInCart(
                                 mealId: cart?.meal?.id ?? "",
                                 quantity: counter,
+                                sizeId: cart?.size ?? "",
                               );
                               SharedPreferenceUtils.getData(
                                   key: 'numOfCartItems');

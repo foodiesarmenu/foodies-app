@@ -11,39 +11,8 @@ class Menu {
     this.meals,
   });
 
-  Menu.fromJson(dynamic json) {
-    name = json['name'];
-    description = json['description'];
-    if (json['meals'] != null) {
-      meals = [];
-      json['meals'].forEach((v) {
-        meals?.add(Meal.fromJson(v));
-      });
-    }
-  }
-
   String? name;
   String? description;
   List<Meal>? meals;
 
-  Menu copyWith({
-    String? name,
-    String? description,
-    List<Meal>? meals,
-  }) =>
-      Menu(
-        name: name ?? this.name,
-        description: description ?? this.description,
-        meals: meals ?? this.meals,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['name'] = name;
-    map['description'] = description;
-    if (meals != null) {
-      map['meals'] = meals?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
 }

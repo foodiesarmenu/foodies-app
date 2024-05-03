@@ -27,26 +27,6 @@ class MenuDto {
   String? description;
   List<MealDto>? meals;
 
-  MenuDto copyWith({
-    String? name,
-    String? description,
-    List<MealDto>? meals,
-  }) =>
-      MenuDto(
-        name: name ?? this.name,
-        description: description ?? this.description,
-        meals: meals ?? this.meals,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['name'] = name;
-    map['description'] = description;
-    if (meals != null) {
-      map['meals'] = meals?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
 
   Menu toMenu() {
     return Menu(

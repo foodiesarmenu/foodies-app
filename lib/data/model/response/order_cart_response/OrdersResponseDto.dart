@@ -23,13 +23,11 @@ class OrdersResponseDto {
     }
     message = json['message'];
     statusCode = json['statusCode'];
-
   }
+
   bool? success;
   List<OrderDto>? data;
   bool? statusCode;
   String? message;
-
-
 
 }

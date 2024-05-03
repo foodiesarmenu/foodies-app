@@ -13,8 +13,8 @@ class UpdateCountInCartUseCase {
   UpdateCountInCartUseCase(this.cartRepository);
 
   Future<Either<Failures, OrderEntity>> invoke(
-      {required String mealId, required int quantity}) async {
+      {required String mealId, required int quantity,required String sizeId}) async {
     return await cartRepository.updateCountInCart(
-        mealId: mealId, quantity: quantity);
+        mealId: mealId, quantity: quantity, sizeId: sizeId);
   }
 }

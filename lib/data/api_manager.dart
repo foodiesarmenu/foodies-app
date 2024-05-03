@@ -136,7 +136,7 @@ class ApiManager {
   }
 
   Future<Either<Failures, OrderResponseDto>> addToCart(
-      {required String mealId, required String restaurantId}) async {
+      {required String mealId, required String restaurantId,required int quantity, required String sizeId}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -144,12 +144,13 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a mobile network or wifi.
       var response = await client.post(url,
-          body: {'meal': mealId, 'restaurant': restaurantId},
+          body: {'meal': mealId, 'restaurant': restaurantId, 'quantity': '$quantity', 'size': sizeId},
           headers: {'Authorization': ApiConstants.authorization});
       var cartResponseDto = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponseDto);
       } else {
+        print(cartResponseDto.message);
         return Left(ServerError(errorMessage: cartResponseDto.message));
       }
     } else {
@@ -202,8 +203,9 @@ class ApiManager {
     }
   }
 
+
   Future<Either<Failures, OrderResponseDto>> updateCountInCart(
-      {required String mealId, required int quantity}) async {
+      {required String mealId, required int quantity,required String sizeId}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
     final ConnectivityResult connectivityResult =
@@ -212,7 +214,7 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a mobile network or wifi.
       var response = await client.patch(url,
-          body: {'quantity': '$quantity'},
+          body: {'quantity': '$quantity', 'size': sizeId},
           headers: {'Authorization': ApiConstants.authorization});
       var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {

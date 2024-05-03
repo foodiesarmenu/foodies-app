@@ -52,8 +52,7 @@ class _MealItemState extends State<MealItem> {
               Row(
                 children: [
                   Text(
-                    widget.menus?[widget.menuIndex].meals?[widget.mealIndex]
-                            .price
+                    widget.menus?[widget.menuIndex].meals?[widget.mealIndex].price
                             .toString() ??
                         "",
                     style: const TextStyle(

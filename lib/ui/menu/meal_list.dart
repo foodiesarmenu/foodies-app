@@ -43,17 +43,14 @@ class _MealListState extends State<MealList> {
                   children: [
                     InkWell(
                       onTap: () async {
-                        var reLoadPage = await Navigator.push(
+Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => MealDetails(
                                   meal: widget
-                                      .menus?[menuIndex].meals?[mealIndex],
-                                  refresh: refresh)),
+                                      .menus?[menuIndex].meals?[mealIndex],)),
                         );
-                        if (reLoadPage) {
-                          setState(() {});
-                        }
+
                       },
                       child: MealItem(
                         menus: widget.menus,
@@ -72,9 +69,4 @@ class _MealListState extends State<MealList> {
     );
   }
 
-  refresh() {
-    setState(() {
-//all the reload processes
-    });
-  }
 }
