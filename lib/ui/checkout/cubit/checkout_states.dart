@@ -1,5 +1,5 @@
 import '../../../domain/failures.dart';
-import '../../../domain/model/CashOrder.dart';
+import '../../../domain/model/OrderEntity.dart';
 import '../../../domain/model/OnlineOrder.dart';
 
 abstract class CheckoutStates {}
@@ -37,7 +37,7 @@ class CreateCashOrderErrorState extends CheckoutStates {
 }
 
 class CreateCashOrderSuccessState extends CheckoutStates {
-  CashOrder cashOrder;
+  OrderEntity cashOrder;
 
   CreateCashOrderSuccessState({required this.cashOrder});
 }

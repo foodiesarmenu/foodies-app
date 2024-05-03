@@ -23,7 +23,7 @@ class FavouriteViewModel extends Cubit<FavouriteStates> {
     either.fold((error) {
       emit(GetAllFavouriteErrorState(errorMessage: error));
     }, (response) {
-      favourites = response.favourite ?? [];
+      favourites = response;
       emit(GetAllFavouriteSuccessState(favouriteResponse: favourites));
     });
   }

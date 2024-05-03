@@ -91,7 +91,7 @@ class MyApp extends StatelessWidget {
         PaymentScreen.routeName: (_) => const PaymentScreen(),
         SplashScreenController.routeName: (_) => const SplashScreenController(),
         OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
-        OrderDetails.routeName: (_) => const OrderDetails(),
+        OrderDetails.routeName: (_) =>  OrderDetails(),
         ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
         FavouriteScreen.routeName: (_) => FavouriteScreen(),
       },

@@ -22,6 +22,7 @@ class ApiConstants {
   static const String makeOnlineOrderApi = '/v1/payment_intents';
   static const String favourite = '/mobile/favorite';
   static const String checkFavourite = '/mobile/favorite/is-favorite';
+  static const String orderApi = '/client/order';
 
   static const String stripePublishableKey =
       'pk_test_51P74Z0RvZAWQr39yHYhCjcu6B95Mf205iwVrhBknhNr8VE1HPSq6jqQi8v4Qhl9PDq1aIrtVIOIAa79Tz9kaTU8x00FCy5Pg1I';

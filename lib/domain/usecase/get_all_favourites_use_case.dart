@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../failures.dart';
-import '../model/FavouriteResponse.dart';
+import '../model/CheckFavourite.dart';
+import '../model/Favourite.dart';
 import '../repositoryContract/favourite_repository.dart';
 
 @injectable
@@ -12,7 +13,7 @@ class GetAllFavouritesUseCase {
   @factoryMethod
   GetAllFavouritesUseCase(this.favouriteRepository);
 
-  Future<Either<Failures, FavouriteResponse>> invoke() async {
+  Future<Either<Failures, List<Favourite>>> invoke() async {
     return await favouriteRepository.getAllFavourites();
   }
 }

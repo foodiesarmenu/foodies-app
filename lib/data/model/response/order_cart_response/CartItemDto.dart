@@ -29,18 +29,6 @@ class CartItemDto {
   num? totalPrice;
   String? id;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (meal != null) {
-      map['meal'] = meal?.toJson();
-    }
-    map['quantity'] = quantity;
-    map['price'] = price;
-    map['totalPrice'] = totalPrice;
-    map['_id'] = id;
-    return map;
-  }
-
   CartItem toCartItem() {
     return CartItem(
       meal: meal?.toMeal(),

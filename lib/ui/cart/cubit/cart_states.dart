@@ -1,5 +1,5 @@
 import '../../../domain/failures.dart';
-import '../../../domain/model/Cart.dart';
+import '../../../domain/model/OrderEntity.dart';
 
 abstract class CartScreenStates {}
 
@@ -18,7 +18,7 @@ class GetCartErrorState extends CartScreenStates {
 }
 
 class GetCartSuccessState extends CartScreenStates {
-  Cart cart;
+  OrderEntity cart;
 
   GetCartSuccessState({required this.cart});
 }
@@ -38,7 +38,7 @@ class UpdateCountInCartErrorState extends CartScreenStates {
 }
 
 class UpdateCountInCartSuccessState extends CartScreenStates {
-  Cart cart;
+  OrderEntity cart;
 
   UpdateCountInCartSuccessState({required this.cart});
 }
@@ -58,7 +58,7 @@ class RemoveItemFromCartErrorState extends CartScreenStates {
 }
 
 class RemoveItemFromCartSuccessState extends CartScreenStates {
-  Cart cart;
+  OrderEntity cart;
 
   RemoveItemFromCartSuccessState({required this.cart});
 }
@@ -78,7 +78,7 @@ class DeleteCartErrorState extends CartScreenStates {
 }
 
 class DeleteCartSuccessState extends CartScreenStates {
-  Cart? cart;
+  OrderEntity? cart;
 
   DeleteCartSuccessState({required this.cart});
 }

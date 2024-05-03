@@ -19,8 +19,8 @@ import 'Restaurant.dart';
 /// updatedAt : "2024-04-20T04:54:57.062Z"
 /// __v : 0
 
-class CashOrder {
-  CashOrder({
+class OrderEntity {
+  OrderEntity({
     this.id,
     this.userId,
     this.orderItems,

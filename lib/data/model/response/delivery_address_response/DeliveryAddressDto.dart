@@ -1,4 +1,4 @@
-import '../../../domain/model/DeliveryAddress.dart';
+import '../../../../domain/model/DeliveryAddress.dart';
 
 /// firstAddress : "123 Main St222222"
 /// secondAddress : "Apt 1012222"

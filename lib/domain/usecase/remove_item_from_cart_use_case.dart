@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../failures.dart';
-import '../model/Cart.dart';
+import '../model/OrderEntity.dart';
 import '../repositoryContract/cart_repository.dart';
 
 @injectable
@@ -12,7 +12,7 @@ class RemoveItemFromCartUseCase {
   @factoryMethod
   RemoveItemFromCartUseCase(this.cartRepository);
 
-  Future<Either<Failures, Cart>> invoke({required String mealId}) async {
+  Future<Either<Failures, OrderEntity>> invoke({required String mealId}) async {
     return await cartRepository.removeItemFromCart(mealId: mealId);
   }
 }

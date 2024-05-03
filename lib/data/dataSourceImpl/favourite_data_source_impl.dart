@@ -5,7 +5,7 @@ import 'package:foodies_app/domain/failures.dart';
 import 'package:foodies_app/domain/model/Favourite.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/model/FavouriteResponse.dart';
+import '../../domain/model/CheckFavourite.dart';
 
 @Injectable(as: FavouriteDataSource)
 class FavouriteDataSourceImpl extends FavouriteDataSource {
@@ -27,7 +27,7 @@ class FavouriteDataSourceImpl extends FavouriteDataSource {
   }
 
   @override
-  Future<Either<Failures, FavouriteResponse>> checkFavourite(
+  Future<Either<Failures, CheckFavourite>> checkFavourite(
       {required String restaurantId}) async {
     var either = await apiManager.checkFavourite(restaurantId: restaurantId);
 
@@ -39,13 +39,13 @@ class FavouriteDataSourceImpl extends FavouriteDataSource {
   }
 
   @override
-  Future<Either<Failures, FavouriteResponse>> getAllFavourites() async {
+  Future<Either<Failures, List<Favourite>>> getAllFavourites() async {
     var either = await apiManager.getAllFavourites();
 
     return either.fold((l) {
       return Left(Failures(errorMessage: l.errorMessage));
     }, (r) {
-      return Right(r.toFavouriteResponse());
+      return Right(r.data?.map((e) => e.toFavourite()).toList() ?? []);
     });
   }
 }

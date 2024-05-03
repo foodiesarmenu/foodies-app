@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
 import '../failures.dart';
-import '../model/CashOrder.dart';
+import '../model/OrderEntity.dart';
 import '../model/DeliveryAddress.dart';
 import '../repositoryContract/order_repository.dart';
 
@@ -13,7 +13,7 @@ class CreateCashOrderUseCase {
   @factoryMethod
   CreateCashOrderUseCase(this.orderRepository);
 
-  Future<Either<Failures, CashOrder>> invoke(
+  Future<Either<Failures, OrderEntity>> invoke(
       {required DeliveryAddress deliveryAddress}) async {
     return await orderRepository.createCashOrder(
         deliveryAddress: deliveryAddress);

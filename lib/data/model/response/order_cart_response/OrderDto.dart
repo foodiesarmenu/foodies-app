@@ -1,6 +1,6 @@
-import '../../../../domain/model/CashOrder.dart';
-import '../DeliveryAddressDto.dart';
-import '../cart_response/CartItemDto.dart';
+import '../../../../domain/model/OrderEntity.dart';
+import '../delivery_address_response/DeliveryAddressDto.dart';
+import 'CartItemDto.dart';
 import '../restaurant_response/RestaurantDto.dart';
 
 /// _id : "66234aa16a22215e3e14fdd7"
@@ -20,8 +20,8 @@ import '../restaurant_response/RestaurantDto.dart';
 /// updatedAt : "2024-04-20T04:54:57.062Z"
 /// __v : 0
 
-class CashOrderDto {
-  CashOrderDto({
+class OrderDto {
+  OrderDto({
     this.id,
     this.userId,
     this.orderItems,
@@ -34,35 +34,34 @@ class CashOrderDto {
     this.paymentMethod,
     this.isPaid,
     this.deliveryAddress,
-    this.isDeleted,
     this.createdAt,
     this.updatedAt,
     this.v,
   });
 
-  CashOrderDto.fromJson(dynamic json) {
+  OrderDto.fromJson(dynamic json) {
     id = json['_id'];
     userId = json['userId'];
-    if (json['orderItems'] != null) {
+    if (json['cartItems'] != null) {
       orderItems = [];
-      json['orderItems'].forEach((v) {
+      json['cartItems'].forEach((v) {
         orderItems?.add(CartItemDto.fromJson(v));
       });
     }
-    orderTotalPrice = json['orderTotalPrice'];
+
+    orderTotalPrice = json['cartTotalPrice'];
     totalPriceAfterDiscount = json['totalPriceAfterDiscount'];
     discount = json['discount'];
     restaurant = json['restaurant'] != null
         ? RestaurantDto.fromJson(json['restaurant'])
         : null;
-    noOfOrderItems = json['noOfOrderItems'];
+    noOfOrderItems = json['noOfCartItems'];
     status = json['status'];
     paymentMethod = json['paymentMethod'];
     isPaid = json['isPaid'];
     deliveryAddress = json['deliveryAddress'] != null
         ? DeliveryAddressDto.fromJson(json['deliveryAddress'])
         : null;
-    isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     v = json['__v'];
@@ -80,40 +79,12 @@ class CashOrderDto {
   String? paymentMethod;
   bool? isPaid;
   DeliveryAddressDto? deliveryAddress;
-  bool? isDeleted;
   String? createdAt;
   String? updatedAt;
   num? v;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['userId'] = userId;
-    if (orderItems != null) {
-      map['orderItems'] = orderItems?.map((v) => v.toJson()).toList();
-    }
-    map['orderTotalPrice'] = orderTotalPrice;
-    map['totalPriceAfterDiscount'] = totalPriceAfterDiscount;
-    map['discount'] = discount;
-    if (restaurant != null) {
-      map['restaurant'] = restaurant?.toJson();
-    }
-    map['noOfOrderItems'] = noOfOrderItems;
-    map['status'] = status;
-    map['paymentMethod'] = paymentMethod;
-    map['isPaid'] = isPaid;
-    if (deliveryAddress != null) {
-      map['deliveryAddress'] = deliveryAddress?.toJson();
-    }
-    map['isDeleted'] = isDeleted;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['__v'] = v;
-    return map;
-  }
-
-  CashOrder toCashOrder() {
-    return CashOrder(
+  OrderEntity toOrderEntity() {
+    return OrderEntity(
       id: id,
       userId: userId,
       orderItems: orderItems!.map((e) => e.toCartItem()).toList(),

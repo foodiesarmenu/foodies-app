@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:foodies_app/domain/model/Cart.dart';
-
+import '../../domain/model/OrderEntity.dart';
 import '../change_address/change_address_screen.dart';
 import '../menu/menu_screen.dart';
 
@@ -13,7 +12,7 @@ class RestaurantInfoWidget extends StatelessWidget {
       required this.cart})
       : super(key: key);
 
-  final Cart? cart;
+  final OrderEntity? cart;
   final bool isCart;
   final bool isOrderDetails;
 

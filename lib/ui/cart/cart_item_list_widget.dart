@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/model/Cart.dart';
+import '../../domain/model/OrderEntity.dart';
 import '../utils/shared_preference_utils.dart';
 import 'cart_item_widget.dart';
 import 'cubit/cart_screen_view_model.dart';
@@ -10,7 +10,7 @@ class CartItemListWidget extends StatelessWidget {
       {this.viewModel, required this.cart, this.isCart = true, super.key});
 
   final bool isCart;
-  final Cart cart;
+  final OrderEntity? cart;
   final CartScreenViewModel? viewModel;
 
   @override
@@ -51,7 +51,7 @@ class CartItemListWidget extends StatelessWidget {
                           ],
                         ),
                       )
-                    : Text('Total cart items: ${cart.noOfCartItems}',
+                    : Text('Total cart items: ${cart?.noOfOrderItems}',
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -67,10 +67,10 @@ class CartItemListWidget extends StatelessWidget {
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: cart.cartItems?.length ?? 0,
+              itemCount: cart?.orderItems?.length ?? 0,
               itemBuilder: (context, index) => CartItemWidget(
-                  cart: cart.cartItems?[index],
-                  noOfCartItems: cart.noOfCartItems,
+                  cart: cart?.orderItems?[index],
+                  noOfCartItems: cart?.noOfOrderItems?.toInt(),
                   isCart: isCart),
               separatorBuilder: (context, index) => const Divider(),
             ),

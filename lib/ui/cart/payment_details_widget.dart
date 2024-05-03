@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/model/Cart.dart';
+import '../../domain/model/OrderEntity.dart';
 
 class PaymentDetailsWidget extends StatelessWidget {
   const PaymentDetailsWidget({required this.cart, super.key});
 
-  final Cart? cart;
+  final OrderEntity? cart;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class PaymentDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                'EGP ${cart?.cartTotalPrice.toString()}',
+                'EGP ${cart?.orderTotalPrice.toString()}',
                 style: Theme.of(context).textTheme.headlineSmall,
               )
             ]),
@@ -103,7 +103,7 @@ class PaymentDetailsWidget extends StatelessWidget {
               Text('Total amount',
                   style: Theme.of(context).textTheme.titleSmall),
               const Spacer(),
-              Text('EGP ${cart?.cartTotalPrice}',
+              Text('EGP ${cart?.orderTotalPrice}',
                   style: Theme.of(context).textTheme.titleSmall)
             ]),
           ],
