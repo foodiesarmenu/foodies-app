@@ -24,9 +24,35 @@ class MenuContainer extends StatefulWidget {
 
 class _MenuContainerState extends State<MenuContainer> {
   int selectedIndex = 0;
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void scrollToMenu(String menuName) {
+    final index = widget.menus?.indexWhere((menu) => menu.name == menuName);
+    if (index != null && index >= 0) {
+      _scrollController.animateTo(
+        (index * 400).toDouble(), // Adjust 400 according to your meal list item height
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: _scrollController,
       child: Stack(
         children: [
           //Restaurant Cover
@@ -289,6 +315,7 @@ class _MenuContainerState extends State<MenuContainer> {
                   ),
                 ),
                 DefaultTabController(
+
                   length: widget.menus?.length ?? 0,
                   child: Column(
                     children: [
@@ -296,22 +323,33 @@ class _MenuContainerState extends State<MenuContainer> {
                         height: 8,
                       ),
                       TabBar(
-                        indicatorColor: Colors.transparent,
                         onTap: (newIndex) {
                           setState(() {
                             selectedIndex = newIndex;
                           });
                         },
+                        indicatorColor: Colors.transparent,
                         isScrollable: true,
                         tabs: widget.menus!
                             .map((menu) => MealTabItem(
                                 menu: menu,
                                 isSelected: widget.menus?.indexOf(menu) ==
-                                    selectedIndex))
-                            .toList(),
+                                    selectedIndex,
+                          onTabSelected: (selectedMenu) {
+                            setState(() {
+                              selectedIndex = widget.menus?.indexOf(selectedMenu) ?? 0;
+                            });
+                            scrollToMenu(selectedMenu.name ?? '');
+                          },
+
+                        ),
+                        ).toList(),
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 8,
                 ),
                 MealList(
                   menus: widget.menus ?? [],

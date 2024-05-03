@@ -44,8 +44,6 @@ class _MenuScreenState extends State<MenuScreen> {
 
   var numOfCartItems;
 
-  //String received = await Navigator.push(context, MaterialPageRoute(builder: (_) => MealDetails()"Foo")));
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

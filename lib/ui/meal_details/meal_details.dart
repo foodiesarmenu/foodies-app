@@ -9,11 +9,10 @@ import '../ar/ar_widget.dart';
 import '../common/custom_bottom_navigation_bar.dart';
 
 class MealDetails extends StatefulWidget {
-  const MealDetails({this.refresh, this.meal, super.key});
+  const MealDetails({this.meal, super.key});
 
   static const String routeName = 'MealDetailsSc';
   final Meal? meal;
-  final Function? refresh;
 
   @override
   State<MealDetails> createState() => _MealDetailsState();
@@ -24,8 +23,10 @@ class _MealDetailsState extends State<MealDetails> {
   int quantity = 1;
   bool customIcon = false;
 
-  List<String> sizes = ['Small', 'Medium', 'Large'];
-  List<String> prices = ['0', '30', '60'];
+@override
+  void initState() {
+    super.initState();
+  }
 
   var viewModel = getIt<MealDetailsViewModel>();
 
@@ -67,7 +68,7 @@ class _MealDetailsState extends State<MealDetails> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              Navigator.pop(context, true);
+                              Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.arrow_back,
@@ -130,7 +131,7 @@ class _MealDetailsState extends State<MealDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${widget.meal?.currency}${calculateTotalPrice()}',
+                          '${widget.meal?.currency} ${calculateTotalPrice()}',
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: Colors.red,
@@ -284,21 +285,19 @@ class _MealDetailsState extends State<MealDetails> {
                         style: Theme.of(context).textTheme.bodySmall),
                     ListView.separated(
                       shrinkWrap: true,
-                      itemCount: sizes.length,
+                      itemCount: widget.meal?.sizes?.length ?? 0,
                       itemBuilder: (context, index) {
-                        final String sizeName = sizes[index];
-                        final String price =
-                            '(+${widget.meal?.currency}${prices[index]})';
                         return RadioListTile(
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                sizeName,
+                                widget.meal?.sizes?[index].size ?? "",
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
+                              if(widget.meal?.sizes?[index] != widget.meal?.sizes?[0])
                               Text(
-                                price,
+                                  '${widget.meal?.currency} ${widget.meal?.sizes?[index].price.toString() ?? ""}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -317,7 +316,7 @@ class _MealDetailsState extends State<MealDetails> {
                               _value = value;
                               if (value != null) {
                                 widget.meal?.price =
-                                    double.parse(prices[index]);
+                                    widget.meal?.sizes?[value].price;
                                 calculateTotalPrice();
                               }
                             });
@@ -342,13 +341,21 @@ class _MealDetailsState extends State<MealDetails> {
           title: 'Add to Cart',
           subTitle: '${widget.meal?.currency} ${calculateTotalPrice()}',
           onPressed: () {
-            viewModel.addToCart(
-                mealId: widget.meal?.id ?? "",
-                restaurantId: widget.meal?.restaurant ?? "");
-            widget.refresh!(); // just refresh() if its statelesswidget
-
-            Navigator.pop(context,
-                true); //This will pop the current screen and return true
+            if(_value == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Please select size of meal'),
+                ),
+              );
+            } else {
+              print(widget.meal?.sizes?[_value ?? 0].size ?? "");
+              viewModel.addToCart(
+                  mealId: widget.meal?.id ?? "",
+                  restaurantId: widget.meal?.restaurant ?? "",
+                  quantity: quantity,
+                  size: widget.meal?.sizes?[_value ?? 0].size ?? "");
+              Navigator.pop(context);
+            }
           },
         ),
       ),
@@ -363,10 +370,10 @@ class _MealDetailsState extends State<MealDetails> {
     });
   }
 
-  String calculateTotalPrice() {
+  int calculateTotalPrice() {
     num mealPrice = widget.meal?.price ?? 0;
     num totalPrice = mealPrice * quantity;
-    return totalPrice.toStringAsFixed(2);
+    return totalPrice.toInt();
   }
 
   void incrementQuantity() {

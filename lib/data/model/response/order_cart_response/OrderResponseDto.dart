@@ -16,15 +16,12 @@ class OrderResponseDto {
   OrderResponseDto.fromJson(dynamic json) {
     success = json['success'];
     data = json['data'] != null ? OrderDto.fromJson(json['data']) : null;
-    message = json['message'];
     statusCode = json['statusCode'];
-
+    message = json['message'];
   }
   bool? success;
   OrderDto? data;
   int? statusCode;
   String? message;
-
-
 
 }

@@ -36,9 +36,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
     });
   }
 
-  updateCountInCart({required int quantity, required String mealId}) async {
+  updateCountInCart({required int quantity, required String mealId,required String size}) async {
     var either = await updateCountInCartUseCase.invoke(
-        mealId: mealId, quantity: quantity);
+        mealId: mealId, quantity: quantity, size: size);
 
     either.fold((error) {
       emit(UpdateCountInCartErrorState(errorMessage: error));

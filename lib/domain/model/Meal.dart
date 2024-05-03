@@ -1,3 +1,5 @@
+import 'MealSize.dart';
+
 /// _id : "65f07c75199e09c646a5bf84"
 /// restaurant : "65ee39a0b3eac564b5db7a81"
 /// image : "http://res.cloudinary.com/dlvndc08a/image/upload/v1710259315/meal/drn2kjljn4inotrfp4yi.jpg"
@@ -27,23 +29,8 @@ class Meal {
     this.protein,
     this.fat,
     this.carbohydrates,
+    this.sizes,
   });
-
-  Meal.fromJson(dynamic json) {
-    id = json['_id'];
-    restaurant = json['restaurant'];
-    image = json['image'];
-    name = json['name'];
-    price = json['price'];
-    currency = json['currency'];
-    description = json['description'];
-    rate = json['rate'];
-    tags = json['tags'] != null ? json['tags'].cast<String>() : [];
-    calories = json['calories'];
-    protein = json['protein'];
-    fat = json['fat'];
-    carbohydrates = json['carbohydrates'];
-  }
 
   String? id;
   String? restaurant;
@@ -58,53 +45,6 @@ class Meal {
   num? protein;
   num? fat;
   num? carbohydrates;
+  List<MealSize>? sizes;
 
-  Meal copyWith({
-    String? id,
-    String? restaurant,
-    String? image,
-    String? name,
-    num? price,
-    String? currency,
-    String? description,
-    num? rate,
-    List<String>? tags,
-    num? calories,
-    num? protein,
-    num? fat,
-    num? carbohydrates,
-  }) =>
-      Meal(
-        id: id ?? this.id,
-        restaurant: restaurant ?? this.restaurant,
-        image: image ?? this.image,
-        name: name ?? this.name,
-        price: price ?? this.price,
-        currency: currency ?? this.currency,
-        description: description ?? this.description,
-        rate: rate ?? this.rate,
-        tags: tags ?? this.tags,
-        calories: calories ?? this.calories,
-        protein: protein ?? this.protein,
-        fat: fat ?? this.fat,
-        carbohydrates: carbohydrates ?? this.carbohydrates,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['restaurant'] = restaurant;
-    map['image'] = image;
-    map['name'] = name;
-    map['price'] = price;
-    map['currency'] = currency;
-    map['description'] = description;
-    map['rate'] = rate;
-    map['tags'] = tags;
-    map['calories'] = calories;
-    map['protein'] = protein;
-    map['fat'] = fat;
-    map['carbohydrates'] = carbohydrates;
-    return map;
-  }
 }

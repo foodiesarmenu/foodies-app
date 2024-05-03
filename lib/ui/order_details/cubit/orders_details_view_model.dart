@@ -15,7 +15,6 @@ class OrderDetailsViewModel extends Cubit<OrderDetailsStates> {
     emit(GetOrderLoadingState(loadingMessage: "Loading Orders..."));
     var either = await getOrderUseCase.invoke(orderId: orderId);
     either.fold((error) {
-      print(error.errorMessage);
       emit(GetOrderErrorState(errorMessage: error));
 
     }, (response) {

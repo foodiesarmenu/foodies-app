@@ -1,4 +1,5 @@
 import '../../../../domain/model/Meal.dart';
+import 'MealSizeDto.dart';
 
 /// _id : "65f07c75199e09c646a5bf84"
 /// restaurant : "65ee39a0b3eac564b5db7a81"
@@ -37,6 +38,7 @@ class MealDto {
     this.createdAt,
     this.updatedAt,
     this.v,
+    this.sizes,
   });
 
   MealDto.fromJson(dynamic json) {
@@ -57,6 +59,12 @@ class MealDto {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     v = json['__v'];
+    if (json['sizes'] != null) {
+      sizes = [];
+      json['sizes'].forEach((v) {
+        sizes?.add(MealSizeDto.fromJson(v));
+      });
+    }
   }
 
   String? id;
@@ -76,67 +84,7 @@ class MealDto {
   String? createdAt;
   String? updatedAt;
   num? v;
-
-  MealDto copyWith({
-    String? id,
-    String? restaurant,
-    String? image,
-    String? name,
-    num? price,
-    String? currency,
-    String? description,
-    num? rate,
-    List<String>? tags,
-    num? calories,
-    num? protein,
-    num? fat,
-    num? carbohydrates,
-    bool? isDeleted,
-    String? createdAt,
-    String? updatedAt,
-    num? v,
-  }) =>
-      MealDto(
-        id: id ?? this.id,
-        restaurant: restaurant ?? this.restaurant,
-        image: image ?? this.image,
-        name: name ?? this.name,
-        price: price ?? this.price,
-        currency: currency ?? this.currency,
-        description: description ?? this.description,
-        rate: rate ?? this.rate,
-        tags: tags ?? this.tags,
-        calories: calories ?? this.calories,
-        protein: protein ?? this.protein,
-        fat: fat ?? this.fat,
-        carbohydrates: carbohydrates ?? this.carbohydrates,
-        isDeleted: isDeleted ?? this.isDeleted,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        v: v ?? this.v,
-      );
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['_id'] = id;
-    map['restaurant'] = restaurant;
-    map['image'] = image;
-    map['name'] = name;
-    map['price'] = price;
-    map['currency'] = currency;
-    map['description'] = description;
-    map['rate'] = rate;
-    map['tags'] = tags;
-    map['calories'] = calories;
-    map['protein'] = protein;
-    map['fat'] = fat;
-    map['carbohydrates'] = carbohydrates;
-    map['isDeleted'] = isDeleted;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['__v'] = v;
-    return map;
-  }
+  List<MealSizeDto>? sizes;
 
   Meal toMeal() {
     return Meal(
@@ -153,6 +101,7 @@ class MealDto {
       protein: protein,
       fat: fat,
       carbohydrates: carbohydrates,
+      sizes: sizes?.map((e) => e.toMealSize()).toList(),
     );
   }
 }

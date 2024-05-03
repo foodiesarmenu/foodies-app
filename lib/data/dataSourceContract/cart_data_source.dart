@@ -8,10 +8,10 @@ abstract class CartDataSource {
   Future<Either<Failures, OrderEntity>> removeItemFromCart({required String mealId});
 
   Future<Either<Failures, OrderEntity>> updateCountInCart(
-      {required String mealId, required int quantity});
+      {required String mealId, required int quantity,required String size});
 
   Future<Either<Failures, OrderEntity>> addToCart(
-      {required String mealId, required String restaurantId});
+      {required String mealId, required String restaurantId,required int quantity, required String size});
 
   Future<Either<Failures, OrderEntity?>> deleteCart();
 }

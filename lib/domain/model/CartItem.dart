@@ -12,6 +12,7 @@ class CartItem {
     this.price,
     this.totalPrice,
     this.id,
+    this.size,
   });
 
   Meal? meal;
@@ -19,4 +20,5 @@ class CartItem {
   num? price;
   num? totalPrice;
   String? id;
+  String? size;
 }

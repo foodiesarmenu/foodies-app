@@ -13,6 +13,7 @@ class CartItemDto {
     this.price,
     this.totalPrice,
     this.id,
+    this.size
   });
 
   CartItemDto.fromJson(dynamic json) {
@@ -21,13 +22,15 @@ class CartItemDto {
     price = json['price'];
     totalPrice = json['totalPrice'];
     id = json['_id'];
+    size = json['size'];
   }
 
   MealDto? meal;
-  num? quantity;
+  int? quantity;
   num? price;
   num? totalPrice;
   String? id;
+  String? size;
 
   CartItem toCartItem() {
     return CartItem(
@@ -36,6 +39,7 @@ class CartItemDto {
       price: price,
       totalPrice: totalPrice,
       id: id,
+      size: size,
     );
   }
 }

@@ -5,19 +5,36 @@ import '../change_address/change_address_screen.dart';
 import '../menu/menu_screen.dart';
 
 class RestaurantInfoWidget extends StatelessWidget {
-  const RestaurantInfoWidget(
+   RestaurantInfoWidget(
       {Key? key,
       this.isCart = true,
       this.isOrderDetails = true,
+      this.isOrder=false,
       required this.cart})
       : super(key: key);
 
   final OrderEntity? cart;
   final bool isCart;
   final bool isOrderDetails;
-
+  final bool isOrder;
+late final Color? statusColor;
   @override
   Widget build(BuildContext context) {
+    switch (cart?.status?.toLowerCase()) {
+      case 'delivered':
+        statusColor = Colors.green;
+        break;
+      case 'pending':
+        statusColor = Theme
+            .of(context)
+            .primaryColor;
+        break;
+      case 'canceled':
+        statusColor = Colors.red;
+        break;
+      default:
+        statusColor = Colors.black;
+    }
     return Material(
       elevation: 1,
       borderRadius: BorderRadius.circular(12),
@@ -80,6 +97,19 @@ class RestaurantInfoWidget extends StatelessWidget {
                         const Text('Add Items'),
                       ],
                     ),
+                  ),
+                if(isOrder)
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: statusColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(cart?.status ?? "",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Colors.white,
+                            ),
+                  ),
                   ),
               ],
             ),

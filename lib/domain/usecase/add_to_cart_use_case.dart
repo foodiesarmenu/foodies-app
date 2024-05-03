@@ -13,8 +13,8 @@ class AddToCartUseCase {
   AddToCartUseCase(this.cartRepository);
 
   Future<Either<Failures, OrderEntity>> invoke(
-      {required String mealId, required String restaurantId}) async {
+      {required String mealId, required String restaurantId,required int quantity, required String size}) async {
     return await cartRepository.addToCart(
-        mealId: mealId, restaurantId: restaurantId);
+        mealId: mealId, restaurantId: restaurantId, quantity: quantity, size: size);
   }
 }

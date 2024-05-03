@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:foodies_app/data/model/response/favourite_response/FavouriteResponseDto.dart';
@@ -8,7 +7,6 @@ import 'package:foodies_app/domain/model/DeliveryAddress.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:injectable/injectable.dart';
-
 import '../domain/failures.dart';
 import '../ui/utils/shared_preference_utils.dart';
 import 'LoggingInterceptor.dart';
@@ -136,20 +134,35 @@ class ApiManager {
   }
 
   Future<Either<Failures, OrderResponseDto>> addToCart(
-      {required String mealId, required String restaurantId}) async {
+      {required String mealId, required String restaurantId,required int quantity, required String size}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
+
+    Map<String, dynamic> requestBody = {
+      "meal": mealId,
+      "restaurant": restaurantId,
+      "quantity": quantity,
+      "size": size,
+    };
+
+    print(jsonEncode(requestBody)); // Print the requestBody
+
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a mobile network or wifi.
+
+
       var response = await client.post(url,
-          body: {'meal': mealId, 'restaurant': restaurantId},
-          headers: {'Authorization': ApiConstants.authorization});
+          body: jsonEncode(requestBody),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': ApiConstants.authorization});
       var cartResponseDto = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponseDto);
       } else {
+        print(cartResponseDto.message);
         return Left(ServerError(errorMessage: cartResponseDto.message));
       }
     } else {
@@ -202,22 +215,39 @@ class ApiManager {
     }
   }
 
+
   Future<Either<Failures, OrderResponseDto>> updateCountInCart(
-      {required String mealId, required int quantity}) async {
+      {required String mealId, required int quantity,required String size}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
+
+    Map<String, dynamic> requestBody = {
+        "quantity": quantity,
+        "size": size,
+    };
+
+    print(jsonEncode(requestBody)); // Print the requestBody
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
+ //      var mealBody = AddMealRequest(
+ //          quantity: quantity.toString(), // Convert quantity to string
+ // size: size
+ //      );
       // I am connected to a mobile network or wifi.
+      //print('Request Body: ${mealBody.toJson()}'); // Print the request body
       var response = await client.patch(url,
-          body: {'quantity': '$quantity'},
-          headers: {'Authorization': ApiConstants.authorization});
+          body: jsonEncode(requestBody),
+          headers: {
+        'Content-Type': 'application/json',
+          'Authorization': ApiConstants.authorization});
+
       var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponse);
       } else {
+        print(cartResponse.message);
         return Left(ServerError(errorMessage: cartResponse.message));
       }
     } else {
@@ -262,6 +292,7 @@ class ApiManager {
         'newPassword': newPassword,
         'confirmPassword': confirmPassword
       }, headers: {
+
         'Authorization': ApiConstants.authorization
       });
       var profileResponse =
