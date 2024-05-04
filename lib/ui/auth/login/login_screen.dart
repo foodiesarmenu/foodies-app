@@ -9,6 +9,7 @@ import '../../common/social_sign_in_options.dart';
 import '../../utils/dialog_utils.dart';
 import '../../utils/validation_utils.dart';
 import '../../welcome/welcome_screen.dart';
+import '../forget_password/forget_password_screen.dart';
 import '../register/register_screen.dart';
 import 'cubit/login_states.dart';
 
@@ -112,12 +113,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 8),
 
                           //Forget Password
-                          const Align(
+                           Align(
                             alignment: Alignment.centerRight,
-                            child: Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                color: Color((0xFFA3A3A3)),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    ForgetPasswordScreen.routeName);
+                              },
+                              child: Text(
+                                'Forget Password?',
+                                style: TextStyle(
+                                  color: Color((0xFFA3A3A3)),
+                                ),
                               ),
                             ),
                           ),

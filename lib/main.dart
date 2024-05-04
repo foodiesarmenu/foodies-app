@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:foodies_app/ui/ar/ar_widget.dart';
+import 'package:foodies_app/ui/auth/forget_password/forget_password_screen.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
+import 'package:foodies_app/ui/auth/otp/otp_code_screen.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
 import 'package:foodies_app/ui/cart/cart_screen.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
@@ -94,6 +96,8 @@ class MyApp extends StatelessWidget {
         OrderDetails.routeName: (_) =>  OrderDetails(),
         ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
         FavouriteScreen.routeName: (_) => FavouriteScreen(),
+        OtpCodeScreen.routeName: (_) => OtpCodeScreen(),
+        ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
       },
     );
   }
