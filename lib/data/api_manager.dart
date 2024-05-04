@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
+import 'package:foodies_app/data/model/response/delivery_address_response/AddressessResponseDto.dart';
 import 'package:foodies_app/data/model/response/favourite_response/FavouriteResponseDto.dart';
 import 'package:foodies_app/data/model/response/profile_response/ProfileResponseDto.dart';
 import 'package:foodies_app/domain/model/DeliveryAddress.dart';
@@ -17,6 +18,7 @@ import 'model/request/payment_intent_input_model.dart';
 import 'model/response/auth_response/LoginResponse.dart';
 import 'model/response/auth_response/RegisterResponse.dart';
 import 'model/response/category_response/CategoriesResponse.dart';
+import 'model/response/delivery_address_response/AddressResponseDto.dart';
 import 'model/response/favourite_response/FavouriteDto.dart';
 import 'model/response/menu_response/MenusResponse.dart';
 import 'model/response/online_order_response/OnlineOrderPaymentDto.dart';
@@ -548,6 +550,161 @@ class ApiManager {
         return Right(ordersResponse);
       } else {
         return Left(ServerError(errorMessage: ordersResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, AddressessResponseDto>> getAllAddressess() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addressApi);
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var addressessResponse =
+      AddressessResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addressessResponse);
+      } else {
+        return Left(ServerError(errorMessage: addressessResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, AddressResponseDto>> getPrimaryAddress() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/primary');
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var addressResponse =
+      AddressResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addressResponse);
+      } else {
+        return Left(ServerError(errorMessage: addressResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+  
+  Future<Either<Failures, AddressResponseDto>> addDeliveryAddress(
+      {required DeliveryAddress deliveryAddress}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addressApi);
+
+    Map<String, dynamic> requestBody = {
+      "deliveryAddress": {
+        "firstAddress": deliveryAddress.firstAddress,
+        "secondAddress": deliveryAddress.secondAddress,
+        "buildingNumber": deliveryAddress.buildingNumber,
+        "streetName": deliveryAddress.streetName,
+        "floorNumber": deliveryAddress.floorNumber,
+        "apartmentNumber": deliveryAddress.apartmentNumber,
+        "note": deliveryAddress.note,
+      }
+    };
+
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.post(url,
+          body: jsonEncode(requestBody),
+          // Encode the requestBody to JSON
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': ApiConstants.authorization
+          });
+
+      var addressResponse =
+      AddressResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addressResponse);
+      } else {
+        return Left(ServerError(errorMessage: addressResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, AddressResponseDto>> updateDeliveryAddress(
+      {bool? isPrimary,DeliveryAddress? deliveryAddress}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addressApi);
+
+    Map<String, dynamic> requestBody = {
+      "deliveryAddress": {
+        "firstAddress": deliveryAddress?.firstAddress,
+        "secondAddress": deliveryAddress?.secondAddress,
+        "buildingNumber": deliveryAddress?.buildingNumber,
+        "streetName": deliveryAddress?.streetName,
+        "floorNumber": deliveryAddress?.floorNumber,
+        "apartmentNumber": deliveryAddress?.apartmentNumber,
+        "note": deliveryAddress?.note,
+      },
+      "isPrimary": isPrimary,
+    };
+
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.post(url,
+          body: jsonEncode(requestBody),
+          // Encode the requestBody to JSON
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': ApiConstants.authorization
+          });
+
+      var addressResponse =
+      AddressResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addressResponse);
+      } else {
+        return Left(ServerError(errorMessage: addressResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, AddressResponseDto>> deleteDeliveryAddress({required String id}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/$id');
+    final ConnectivityResult connectivityResult =
+    await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var addressResponse =
+      AddressResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addressResponse);
+      } else {
+        return Left(ServerError(errorMessage: addressResponse.message));
       }
     } else {
       return Left(

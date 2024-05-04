@@ -10,44 +10,52 @@ import '../../../../domain/model/DeliveryAddress.dart';
 
 class DeliveryAddressDto {
   DeliveryAddressDto({
+    this.id,
     this.firstAddress,
     this.secondAddress,
     this.buildingNumber,
     this.streetName,
     this.floorNumber,
     this.apartmentNumber,
+    this.user,
     this.note,
-  });
+    this.isPrimary,
+    this.isDeleted,
+    this.createdAt,
+    this.updatedAt,
+    this.v,});
 
   DeliveryAddressDto.fromJson(dynamic json) {
+    id = json['_id'];
     firstAddress = json['firstAddress'];
     secondAddress = json['secondAddress'];
     buildingNumber = json['buildingNumber'];
     streetName = json['streetName'];
     floorNumber = json['floorNumber'];
     apartmentNumber = json['apartmentNumber'];
+    user = json['user'];
     note = json['note'];
+    isPrimary = json['isPrimary'];
+    isDeleted = json['isDeleted'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    v = json['__v'];
   }
-
+  String? id;
   String? firstAddress;
   String? secondAddress;
   String? buildingNumber;
   String? streetName;
   String? floorNumber;
   String? apartmentNumber;
+  String? user;
   String? note;
+  bool? isPrimary;
+  bool? isDeleted;
+  String? createdAt;
+  String? updatedAt;
+  num? v;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['firstAddress'] = firstAddress;
-    map['secondAddress'] = secondAddress;
-    map['buildingNumber'] = buildingNumber;
-    map['streetName'] = streetName;
-    map['floorNumber'] = floorNumber;
-    map['apartmentNumber'] = apartmentNumber;
-    map['note'] = note;
-    return map;
-  }
 
   DeliveryAddress toDeliveryAddress() {
     return DeliveryAddress(
@@ -58,6 +66,8 @@ class DeliveryAddressDto {
       floorNumber: floorNumber,
       apartmentNumber: apartmentNumber,
       note: note,
+      isPrimary: isPrimary,
+      id: id,
     );
   }
 }

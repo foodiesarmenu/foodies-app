@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 import '../../../model/cubit/maps/maps_cubit.dart';
 import '../../../model/map_response/place.dart';
 import '../../../model/map_response/place_seggestions.dart';
-import 'form_adress_screen.dart';
+import 'form_address_screen.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});

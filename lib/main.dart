@@ -6,6 +6,7 @@ import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
 import 'package:foodies_app/ui/cart/cart_screen.dart';
+import 'package:foodies_app/ui/cart/cubit/cart_screen_view_model.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
 import 'package:foodies_app/ui/checkout/checkout_screen.dart';
@@ -21,7 +22,7 @@ import 'package:foodies_app/ui/home/profile_tab/model/map_response/repository/ma
 import 'package:foodies_app/ui/home/profile_tab/model/map_response/web_services/places_web_services.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/add_address.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/form_adress_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/form_address_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/map_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
@@ -31,7 +32,6 @@ import 'package:foodies_app/ui/menu/menu_screen.dart';
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
 import 'package:foodies_app/ui/order_details/order_details.dart';
-import 'package:foodies_app/ui/payment/payment_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
 import 'package:foodies_app/ui/welcome/scan_qr.dart';
@@ -56,45 +56,47 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: MyThemeData.lightMode,
-      initialRoute: SplashScreenController.routeName,
-      routes: {
-        RegisterScreen.routeName: (_) => const RegisterScreen(),
-        LoginScreen.routeName: (_) => const LoginScreen(),
-        WelcomeScreen.routeName: (_) => const WelcomeScreen(),
-        HomeTab.routeName: (_) => const HomeTab(),
-        OrdersTab.routeName: (_) => OrdersTab(),
-        ProfileTab.routeName: (_) => const ProfileTab(),
-        SettingsScreen.routeName: (_) => const SettingsScreen(),
-        EditProfileScreen.routeName: (_) => const EditProfileScreen(),
-        ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
-        ChangeEmailScreen.routeName: (_) => const ChangeEmailScreen(),
-        MyCardScreen.routeName: (_) => const MyCardScreen(),
-        LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
-        MenuScreen.routeName: (_) => const MenuScreen(),
-        MapScreen.routeName: (context) => BlocProvider.value(
-              value: MapsCubit(MapsRepository(PlacesWebservices())),
-              // Ensure bloc instance is created once
-              child: const MapScreen(),
-            ),
-        FormAddressScreen.routeName: (_) => FormAddressScreen(),
-        ScanQR.routeName: (_) => const ScanQR(),
-        HomeScreen.routeName: (_) => const HomeScreen(),
-        AddAddress.routeName: (_) => const AddAddress(),
-        CategoryDetails.routeName: (_) => const CategoryDetails(),
-        CartScreen.routeName: (_) => CartScreen(),
-        MealDetails.routeName: (_) => MealDetails(),
-        ArWidget.routeName: (_) => const ArWidget(),
-        CheckoutScreen.routeName: (_) => const CheckoutScreen(),
-        PaymentScreen.routeName: (_) => const PaymentScreen(),
-        SplashScreenController.routeName: (_) => const SplashScreenController(),
-        OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
-        OrderDetails.routeName: (_) =>  OrderDetails(),
-        ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
-        FavouriteScreen.routeName: (_) => FavouriteScreen(),
-      },
+    return BlocProvider(
+      create: (BuildContext context)=>getIt<CartScreenViewModel>(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: MyThemeData.lightMode,
+        initialRoute: SplashScreenController.routeName,
+        routes: {
+          RegisterScreen.routeName: (_) => const RegisterScreen(),
+          LoginScreen.routeName: (_) => const LoginScreen(),
+          WelcomeScreen.routeName: (_) => const WelcomeScreen(),
+          HomeTab.routeName: (_) => const HomeTab(),
+          OrdersTab.routeName: (_) => OrdersTab(),
+          ProfileTab.routeName: (_) => const ProfileTab(),
+          SettingsScreen.routeName: (_) => const SettingsScreen(),
+          EditProfileScreen.routeName: (_) => const EditProfileScreen(),
+          ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
+          ChangeEmailScreen.routeName: (_) => const ChangeEmailScreen(),
+          MyCardScreen.routeName: (_) => const MyCardScreen(),
+          LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
+          MenuScreen.routeName: (_) => const MenuScreen(),
+          MapScreen.routeName: (context) => BlocProvider.value(
+                value: MapsCubit(MapsRepository(PlacesWebservices())),
+                // Ensure bloc instance is created once
+                child: const MapScreen(),
+              ),
+          FormAddressScreen.routeName: (_) => FormAddressScreen(),
+          ScanQR.routeName: (_) => const ScanQR(),
+          HomeScreen.routeName: (_) => const HomeScreen(),
+          AddAddress.routeName: (_) => const AddAddress(),
+          CategoryDetails.routeName: (_) => const CategoryDetails(),
+          CartScreen.routeName: (_) => CartScreen(),
+          MealDetails.routeName: (_) => MealDetails(),
+          ArWidget.routeName: (_) => const ArWidget(),
+          CheckoutScreen.routeName: (_) => const CheckoutScreen(),
+          SplashScreenController.routeName: (_) => const SplashScreenController(),
+          OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
+          OrderDetails.routeName: (_) =>  OrderDetails(),
+          ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
+          FavouriteScreen.routeName: (_) => FavouriteScreen(),
+        },
+      ),
     );
   }
 }

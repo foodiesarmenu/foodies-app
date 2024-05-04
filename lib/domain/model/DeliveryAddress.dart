@@ -1,32 +1,27 @@
-/// firstAddress : "123 Main St222222"
-/// secondAddress : "Apt 1012222"
-/// buildingNumber : "Building A22"
-/// streetName : "Oak Avenue22"
-/// floorNumber : "2nd Floor222"
-/// apartmentNumber : "10122"
-/// note : "Near the park2"
+/// _id : "662eb9fad2409c880a0c06cb"
+/// firstAddress : "13 Main St123"
+/// secondAddress : "Apt 101"
+/// buildingNumber : "456"
+/// streetName : "Elm Street"
+/// floorNumber : "2nd"
+/// apartmentNumber : "101"
+/// user : "661f68ada0971d280a156407"
+/// note : "Near the park"
+/// isPrimary : true
 
 class DeliveryAddress {
   DeliveryAddress({
-    this.firstAddress,
-    this.secondAddress,
-    this.buildingNumber,
-    this.streetName,
-    this.floorNumber,
-    this.apartmentNumber,
-    this.note,
-  });
+      this.id, 
+      this.firstAddress, 
+      this.secondAddress, 
+      this.buildingNumber, 
+      this.streetName, 
+      this.floorNumber, 
+      this.apartmentNumber, 
+      this.note,
+      this.isPrimary,});
 
-  DeliveryAddress.fromJson(dynamic json) {
-    firstAddress = json['firstAddress'];
-    secondAddress = json['secondAddress'];
-    buildingNumber = json['buildingNumber'];
-    streetName = json['streetName'];
-    floorNumber = json['floorNumber'];
-    apartmentNumber = json['apartmentNumber'];
-    note = json['note'];
-  }
-
+  String? id;
   String? firstAddress;
   String? secondAddress;
   String? buildingNumber;
@@ -34,16 +29,6 @@ class DeliveryAddress {
   String? floorNumber;
   String? apartmentNumber;
   String? note;
+  bool? isPrimary;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['firstAddress'] = firstAddress;
-    map['secondAddress'] = secondAddress;
-    map['buildingNumber'] = buildingNumber;
-    map['streetName'] = streetName;
-    map['floorNumber'] = floorNumber;
-    map['apartmentNumber'] = apartmentNumber;
-    map['note'] = note;
-    return map;
-  }
 }
