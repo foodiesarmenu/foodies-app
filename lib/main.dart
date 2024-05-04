@@ -7,6 +7,7 @@ import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
 import 'package:foodies_app/ui/auth/otp/otp_code_screen.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
+import 'package:foodies_app/ui/auth/reset_password/reset_password.dart';
 import 'package:foodies_app/ui/cart/cart_screen.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
@@ -98,6 +99,7 @@ class MyApp extends StatelessWidget {
         FavouriteScreen.routeName: (_) => FavouriteScreen(),
         OtpCodeScreen.routeName: (_) => OtpCodeScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
+        ResetPassword.routeName: (_) =>  ResetPassword(),
       },
     );
   }

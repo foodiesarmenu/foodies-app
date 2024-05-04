@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/auth/login/cubit/login_view_model.dart';
 
 import '../../../di/di.dart';
+import '../../common/AppTextFormField.dart';
 import '../../common/form_input_field.dart';
 import '../../common/primary_button.dart';
 import '../../common/social_sign_in_options.dart';
@@ -60,13 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 32,
                     ),
-
                     //Welcome
                     Text(
                         textAlign: TextAlign.start,
                         'Login to your account',
                         style: Theme.of(context).textTheme.titleMedium),
-
                     const SizedBox(
                       height: 16,
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
+import 'package:foodies_app/ui/auth/reset_password/reset_password.dart';
 import '../forget_password/button_widget.dart';
 import '../forget_password/intro_text_widget.dart';
 
@@ -111,7 +112,7 @@ class OtpCodeScreen extends StatelessWidget {
                 children: [
                   ButtonWidget.buildNextBtn(
                     () {
-                      Navigator.pushNamed(context, LoginScreen.routeName);
+                      Navigator.pushNamed(context, ResetPassword.routeName);
                     },
                     'Verify',
                   ),
