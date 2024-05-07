@@ -1,4 +1,5 @@
 import '../../../domain/failures.dart';
+import '../../../domain/model/DeliveryAddress.dart';
 import '../../../domain/model/OrderEntity.dart';
 import '../../../domain/model/OnlineOrder.dart';
 
@@ -51,3 +52,15 @@ class MakePaymentErrorState extends CheckoutStates {
 }
 
 class MakePaymentSuccessState extends CheckoutStates {}
+
+class GetPrimaryDeliveryAddressSuccessState extends CheckoutStates {
+  DeliveryAddress? primaryDeliveryAddress;
+
+  GetPrimaryDeliveryAddressSuccessState({this.primaryDeliveryAddress});
+}
+
+class GetPrimaryDeliveryAddressErrorState extends CheckoutStates {
+  String? error;
+
+  GetPrimaryDeliveryAddressErrorState({this.error});
+}

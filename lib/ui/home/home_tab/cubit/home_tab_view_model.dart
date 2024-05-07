@@ -1,4 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodies_app/domain/failures.dart';
+import 'package:foodies_app/domain/model/DeliveryAddress.dart';
+import 'package:foodies_app/domain/usecase/get_primary_delivery_address_use_case.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/model/Category.dart';
@@ -10,16 +15,25 @@ import '../../../../domain/usecase/GetRestaurantsUsecase.dart';
 class HomeTabViewModel extends Cubit<HomeTabState> {
   GetRestaurantsUsecase getRestaurantsUsecase;
   GetCategoriesUsecase getCategoriesUsecase;
+  GetPrimaryDeliveryAddressUseCase getPrimaryDeliveryAddressUseCase;
 
   @factoryMethod
-  HomeTabViewModel(this.getRestaurantsUsecase, this.getCategoriesUsecase)
+  HomeTabViewModel(this.getRestaurantsUsecase, this.getCategoriesUsecase, this.getPrimaryDeliveryAddressUseCase)
       : super(LoadingState('Loading...'));
+  DeliveryAddress? address ;
 
   initPage() async {
     emit(LoadingState('Loading.....'));
     try {
       var restaurants = await getRestaurantsUsecase.invoke();
       var categories = await getCategoriesUsecase.invoke();
+      var primaryDeliveryAddress = await getPrimaryDeliveryAddressUseCase.invoke();
+      primaryDeliveryAddress.fold((l) {
+        emit(GetPrimaryDeliveryAddressErrorState(error: l.errorMessage));
+      }, (r) {
+        address = r;
+        emit(GetPrimaryDeliveryAddressSuccessState(primaryDeliveryAddress: r));
+      },);
       emit(SuccessState(restaurants, categories));
     } catch (e) {
       emit(ErrorState(e.toString()));
@@ -27,7 +41,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
   }
 }
 
-sealed class HomeTabState {}
+abstract class HomeTabState {}
 
 class LoadingState extends HomeTabState {
   String message;
@@ -46,4 +60,16 @@ class SuccessState extends HomeTabState {
   List<Category>? categories;
 
   SuccessState(this.restaurants, this.categories);
+}
+
+class GetPrimaryDeliveryAddressSuccessState extends HomeTabState {
+  DeliveryAddress? primaryDeliveryAddress;
+
+  GetPrimaryDeliveryAddressSuccessState({this.primaryDeliveryAddress});
+}
+
+class GetPrimaryDeliveryAddressErrorState extends HomeTabState {
+  String? error;
+
+  GetPrimaryDeliveryAddressErrorState({this.error});
 }
