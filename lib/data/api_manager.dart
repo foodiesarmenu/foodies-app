@@ -606,7 +606,6 @@ class ApiManager {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addressApi);
 
     Map<String, dynamic> requestBody = {
-      "deliveryAddress": {
         "firstAddress": deliveryAddress.firstAddress,
         "secondAddress": deliveryAddress.secondAddress,
         "buildingNumber": deliveryAddress.buildingNumber,
@@ -614,7 +613,7 @@ class ApiManager {
         "floorNumber": deliveryAddress.floorNumber,
         "apartmentNumber": deliveryAddress.apartmentNumber,
         "note": deliveryAddress.note,
-      }
+      "isPrimary": deliveryAddress.isPrimary ?? false
     };
 
     final ConnectivityResult connectivityResult =
@@ -646,8 +645,8 @@ class ApiManager {
   }
 
   Future<Either<Failures, AddressResponseDto>> updateDeliveryAddress(
-      {bool? isPrimary,DeliveryAddress? deliveryAddress}) async {
-    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addressApi);
+      {required String addressId,bool? isPrimary,DeliveryAddress? deliveryAddress}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/$addressId');
 
     Map<String, dynamic> requestBody = {
       "deliveryAddress": {
@@ -668,7 +667,7 @@ class ApiManager {
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a mobile network or wifi.
-      var response = await client.post(url,
+      var response = await client.patch(url,
           body: jsonEncode(requestBody),
           // Encode the requestBody to JSON
           headers: {
@@ -698,7 +697,7 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       // I am connected to a mobile network or wifi.
       var response = await client
-          .get(url, headers: {'Authorization': ApiConstants.authorization});
+          .delete(url, headers: {'Authorization': ApiConstants.authorization});
       var addressResponse =
       AddressResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {

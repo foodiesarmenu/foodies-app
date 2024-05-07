@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 
-import '../../constants/strings.dart';
-
 class PlacesWebservices {
   late Dio dio;
+  static const suggestionsBaseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  static const googleAPIKey = 'AIzaSyDwproMFUGZzFhwlDh8YL4ULifz_tK7H-o';
+  static const placeLocationBaseUrl = 'https://maps.googleapis.com/maps/api/place/details/json';
+
 
   PlacesWebservices() {
     BaseOptions options = BaseOptions(

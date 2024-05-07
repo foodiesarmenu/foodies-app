@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../model/map_response/place_seggestions.dart';
+import '../../../../../../domain/model/place_suggestions.dart';
+
 
 class PlaceItem extends StatelessWidget {
   final PlaceSuggestion suggestion;

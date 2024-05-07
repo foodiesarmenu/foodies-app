@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/settings_screen.dart';
 
 import '../../../di/di.dart';
-import 'ProfileButton.dart';
+import 'edit_profile/EditProfileScreen.dart';
+import 'profile_button.dart';
 import 'cubit/profile_view_model.dart';
-import 'editProfile/EditProfileScreen.dart';
 
 class ProfileTab extends StatefulWidget {
   static const String routeName = 'profile';

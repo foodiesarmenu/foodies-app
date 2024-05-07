@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProfileButtonNotification extends StatelessWidget {
-  String buttonText;
-  String routeName;
+  final String buttonText;
+  final String routeName;
   final IconData iconData; // Add a field to store the icon data
   final String additionalText; // Add a field to store the additional text
 

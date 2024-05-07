@@ -62,7 +62,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                       isOrderDetails: true,
                       isOrder: true,
                     ),
-                    AddressDetailsWidget(),
+                    AddressDetailsWidget(address: state.orderResponse?.deliveryAddress),
                     CartItemListWidget(
                         cart: state.orderResponse, isCart: false),
                     PaymentDetailsWidget(cart: state.orderResponse),

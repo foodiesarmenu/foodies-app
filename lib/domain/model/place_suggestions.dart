@@ -8,6 +8,5 @@ class PlaceSuggestion{
     placeId = json["place_id"];
     description = json["description"];
 
-
   }
 }

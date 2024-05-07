@@ -7,7 +7,7 @@ import '../../domain/repositoryContract/delivery_address_repository.dart';
 import '../dataSourceContract/delivery_address_data_source.dart';
 
 @Injectable(as: DeliveryAddressRepository)
-abstract class DeliveryAddressRepositoryImpl extends DeliveryAddressRepository{
+class DeliveryAddressRepositoryImpl extends DeliveryAddressRepository{
    DeliveryAddressDataSource dataSource;
 
    @factoryMethod
@@ -34,8 +34,8 @@ abstract class DeliveryAddressRepositoryImpl extends DeliveryAddressRepository{
   }
 
   @override
-  Future<Either<Failures, DeliveryAddress>> updateDeliveryAddress({bool? isPrimary, DeliveryAddress? deliveryAddress}) async {
-    return dataSource.updateDeliveryAddress(isPrimary: isPrimary, deliveryAddress: deliveryAddress);
+  Future<Either<Failures, DeliveryAddress>> updateDeliveryAddress({required String addressId,bool? isPrimary, DeliveryAddress? deliveryAddress}) async {
+    return dataSource.updateDeliveryAddress(isPrimary: isPrimary, deliveryAddress: deliveryAddress,addressId : addressId);
   }
 
   @override

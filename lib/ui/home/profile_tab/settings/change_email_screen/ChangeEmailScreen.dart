@@ -4,7 +4,7 @@ import 'package:foodies_app/ui/common/EditTextInProfile.dart';
 import 'package:foodies_app/ui/utils/validation_utils.dart';
 
 import '../../../../common/custom_app_bar.dart';
-import '../SettingsScreen.dart';
+import '../settings_screen.dart';
 
 class ChangeEmailScreen extends StatefulWidget {
   static const String routeName = 'change-email';

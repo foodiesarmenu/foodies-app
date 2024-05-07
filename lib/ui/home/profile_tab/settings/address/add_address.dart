@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../../../../common/ButtonInProfile.dart';
-import 'map_screen.dart';
+import '../../../../common/ButtonInProfile.dart';
+import 'maps/map_screen.dart';
 
 class AddAddress extends StatelessWidget {
   const AddAddress({super.key});

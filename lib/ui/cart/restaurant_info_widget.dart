@@ -10,13 +10,14 @@ class RestaurantInfoWidget extends StatelessWidget {
       this.isCart = true,
       this.isOrderDetails = true,
       this.isOrder=false,
-      required this.cart})
+      required this.cart, this.navigateToChangeAddress})
       : super(key: key);
 
   final OrderEntity? cart;
   final bool isCart;
   final bool isOrderDetails;
   final bool isOrder;
+  final Function? navigateToChangeAddress;
 late final Color? statusColor;
   @override
   Widget build(BuildContext context) {
@@ -127,8 +128,7 @@ late final Color? statusColor;
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(
-                          context, ChangeAddressScreen.routeName);
+                      navigateToChangeAddress!();
                     },
                     child: Row(
                       children: [

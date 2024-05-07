@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/domain/model/DeliveryAddress.dart';
+
+import '../change_address/cubit/change_address_view_model.dart';
+import 'checkout_screen.dart';
 
 class AddressDetailsWidget extends StatelessWidget {
-  const AddressDetailsWidget({this.isChangeAddress = false, super.key});
+  const AddressDetailsWidget(
+      {this.address, this.isChangeAddress = false, super.key, this.refreshAddress});
 
   final bool isChangeAddress;
+  final DeliveryAddress? address;
+  final Function? refreshAddress;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +41,8 @@ class AddressDetailsWidget extends StatelessWidget {
                   width: 16,
                 ),
                 Expanded(
-                  child: Text('Sidi Bishr, Alexandria, Egypt',
+                  child: Text(
+                      '${address?.firstAddress ?? ''} ${address?.secondAddress ?? ''}',
                       style: Theme.of(context).textTheme.headlineSmall),
                 ),
               ],
@@ -50,7 +58,7 @@ class AddressDetailsWidget extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    '17St Magd El Arb Sedii Bshr Bahrii, 17 Building, 3rd Flood,Apartment 3',
+                    '${address?.streetName ?? ''} ${address?.buildingNumber ?? ''} ${address?.floorNumber ?? ''} ${address?.apartmentNumber ?? ''} ${address?.note ?? ''}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
@@ -80,8 +88,26 @@ class AddressDetailsWidget extends StatelessWidget {
               ),
             if (isChangeAddress)
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                address?.isPrimary != true
+                    ? InkWell(
+                        onTap: () {
+                          ChangeAddressScreenViewModel.get(context).setPrimaryAddress(
+                              addressId: address?.id ?? '', isPrimary: true).then((_) {
+                            refreshAddress!();
+                          }
+                          );
+                        },
+                        child: Text(
+                          'Set as Primary',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(color: Theme.of(context).primaryColor),
+                        ),
+                      )
+                    :
                 Text(
-                  'Primay',
+                  'Primary',
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
@@ -89,8 +115,16 @@ class AddressDetailsWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('Delete',
-                        style: Theme.of(context).textTheme.bodySmall),
+                    InkWell(
+                      onTap: () {
+                        ChangeAddressScreenViewModel.get(context)
+                            .deleteAddress(id: address?.id ?? '').then((_) {
+                                refreshAddress!();
+                        });
+                      },
+                      child: Text('Delete',
+                          style: Theme.of(context).textTheme.bodySmall),
+                    ),
                     const SizedBox(width: 16),
                     Text('Edit', style: Theme.of(context).textTheme.bodySmall),
                   ],

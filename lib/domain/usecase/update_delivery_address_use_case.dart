@@ -11,7 +11,7 @@ class UpdateDeliveryAddressUseCase {
   @factoryMethod
   UpdateDeliveryAddressUseCase(this.deliveryAddressRepository);
 
-  Future<Either<Failures, DeliveryAddress>> invoke({bool? isPrimary,DeliveryAddress? deliveryAddress}) async {
-    return await deliveryAddressRepository.updateDeliveryAddress(deliveryAddress: deliveryAddress,isPrimary: isPrimary);
+  Future<Either<Failures, DeliveryAddress>> invoke({required String addressId,bool? isPrimary,DeliveryAddress? deliveryAddress}) async {
+    return await deliveryAddressRepository.updateDeliveryAddress(deliveryAddress: deliveryAddress,isPrimary: isPrimary,addressId : addressId);
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SettingsButton extends StatelessWidget {
-  String buttonText;
-  String routeName;
-  String? additionalText;
+  final String buttonText;
+  final String routeName;
+  final String? additionalText;
   final IconData iconData;
-  IconData? righticon;
+  final IconData? righticon;
   final Color itemColor; // Add a field to store the item color
-  Function? onPressed;
+  final Function? onPressed;
 
   SettingsButton(
       {super.key,

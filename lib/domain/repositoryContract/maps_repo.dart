@@ -1,6 +1,6 @@
-import '../place.dart';
-import '../place_seggestions.dart';
-import '../web_services/places_web_services.dart';
+import '../model/place.dart';
+import '../model/place_suggestions.dart';
+import '../../data/places_web_services.dart';
 
 class MapsRepository {
   final PlacesWebservices placesWebservices;

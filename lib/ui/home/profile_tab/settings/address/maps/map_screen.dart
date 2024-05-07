@@ -1,18 +1,16 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/common/location_helper.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/place_item.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/address/maps/place_item.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:uuid/uuid.dart';
-
-import '../../../model/cubit/maps/maps_cubit.dart';
-import '../../../model/map_response/place.dart';
-import '../../../model/map_response/place_seggestions.dart';
-import 'form_address_screen.dart';
+import '../../../../../../domain/model/place.dart';
+import '../../../../../../domain/model/place_suggestions.dart';
+import '../form_address/form_address_screen.dart';
+import 'cubit/maps_cubit.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -39,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
 
   //these variables for getPlaceLocation
   Set<Marker> markers = Set();
-  late PlaceSuggestion placeSuggestion;
+  PlaceSuggestion? placeSuggestion;
   late Place selectedPlace;
   late Marker searchedPlaceMarker;
   late Marker currentLocationMarker;
@@ -196,7 +194,7 @@ class _MapScreenState extends State<MapScreen> {
           isTimeAndDistanceVisible = true;
         });*/
       },
-      infoWindow: InfoWindow(title: "${placeSuggestion.description}"),
+      infoWindow: InfoWindow(title: "${placeSuggestion?.description}"),
       icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
     );
 
@@ -275,7 +273,7 @@ class _MapScreenState extends State<MapScreen> {
   void getSelectedPlaceLocation() {
     final sessionToken = const Uuid().v4();
     BlocProvider.of<MapsCubit>(context)
-        .emitPlaceLocation(placeSuggestion.placeId, sessionToken);
+        .emitPlaceLocation(placeSuggestion?.placeId ?? '', sessionToken);
   }
 
 
@@ -300,7 +298,7 @@ class _MapScreenState extends State<MapScreen> {
             left: 24, // Adjust the left position as needed
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(FormAddressScreen.routeName);
+                Navigator.of(context).pushNamed(FormAddressScreen.routeName, arguments: placeSuggestion?.description);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).primaryColor,

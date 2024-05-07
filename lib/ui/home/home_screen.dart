@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
+import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
 
 import '../cart/cart_screen.dart';
 import '../utils/shared_preference_utils.dart';

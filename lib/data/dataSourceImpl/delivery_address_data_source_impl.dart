@@ -28,7 +28,7 @@ class DeliveryAddressDataSourceImpl extends DeliveryAddressDataSource {
     return either.fold((l) {
       return Left(Failures(errorMessage: l.errorMessage));
     }, (r) {
-      return Right(r.data!.toDeliveryAddress());
+      return Right(r.data?.toDeliveryAddress() ?? DeliveryAddress());
     });
   }
 
@@ -61,8 +61,8 @@ class DeliveryAddressDataSourceImpl extends DeliveryAddressDataSource {
   }
 
   @override
-  Future<Either<Failures, DeliveryAddress>> updateDeliveryAddress({bool? isPrimary, DeliveryAddress? deliveryAddress}) async {
-    var either = await apiManager.updateDeliveryAddress(isPrimary: isPrimary, deliveryAddress: deliveryAddress);
+  Future<Either<Failures, DeliveryAddress>> updateDeliveryAddress({required String addressId,bool? isPrimary, DeliveryAddress? deliveryAddress}) async {
+    var either = await apiManager.updateDeliveryAddress(isPrimary: isPrimary, deliveryAddress: deliveryAddress, addressId: addressId);
 
     return either.fold((l) {
       return Left(Failures(errorMessage: l.errorMessage));

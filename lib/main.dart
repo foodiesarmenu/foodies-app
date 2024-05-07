@@ -14,19 +14,19 @@ import 'package:foodies_app/ui/checkout/ordering_splash_screen.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
-import 'package:foodies_app/ui/home/profile_tab/ProfileTab.dart';
-import 'package:foodies_app/ui/home/profile_tab/editProfile/EditProfileScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/edit_profile/EditProfileScreen.dart';
+import 'package:foodies_app/domain/repositoryContract/maps_repo.dart';
+import 'package:foodies_app/data/places_web_services.dart';
+import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
 import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/model/cubit/maps/maps_cubit.dart';
-import 'package:foodies_app/ui/home/profile_tab/model/map_response/repository/maps_repo.dart';
-import 'package:foodies_app/ui/home/profile_tab/model/map_response/web_services/places_web_services.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/SettingsScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/add_address.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/form_address_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/Address/map_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangeEmailScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/myAccount/MyCardScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/address/add_address.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/address/form_address/form_address_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/address/maps/cubit/maps_cubit.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/address/maps/map_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/settings_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/change_email_screen/ChangeEmailScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/change_password/ChangePasswordScreen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_card/MyCardScreen.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
 import 'package:foodies_app/ui/my_bloc_observer.dart';
@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
           SplashScreenController.routeName: (_) => const SplashScreenController(),
           OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
           OrderDetails.routeName: (_) =>  OrderDetails(),
-          ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
+          ChangeAddressScreen.routeName: (_) =>  ChangeAddressScreen(),
           FavouriteScreen.routeName: (_) => FavouriteScreen(),
         },
       ),

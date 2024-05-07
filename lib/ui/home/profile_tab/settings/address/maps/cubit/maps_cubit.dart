@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
-import '../../map_response/place.dart';
-import '../../map_response/place_seggestions.dart';
-import '../../map_response/repository/maps_repo.dart';
-
+import '../../../../../../../domain/model/place.dart';
+import '../../../../../../../domain/model/place_suggestions.dart';
+import '../../../../../../../domain/repositoryContract/maps_repo.dart';
 part 'maps_state.dart';
 
 class MapsCubit extends Cubit<MapsState> {

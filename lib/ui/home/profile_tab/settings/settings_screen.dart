@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import '../../../auth/login/login_screen.dart';
 import '../../../common/custom_app_bar.dart';
 import '../../../utils/shared_preference_utils.dart';
-import 'SettingsButton.dart';
-import 'myAccount/Address/add_address.dart';
-import 'myAccount/ChangeEmailScreen.dart';
-import 'myAccount/ChangePasswordScreen.dart';
-import 'myAccount/MyCardScreen.dart';
+import 'address/add_address.dart';
+import 'settings_button.dart';
+import 'change_email_screen/ChangeEmailScreen.dart';
+import 'change_password/ChangePasswordScreen.dart';
+import 'my_card/MyCardScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings';

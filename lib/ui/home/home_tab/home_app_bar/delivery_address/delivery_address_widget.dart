@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../domain/model/DeliveryAddress.dart';
+
 class DeliveryAddressWidget extends StatelessWidget {
-  const DeliveryAddressWidget({super.key});
+  const DeliveryAddressWidget({required this.address,super.key});
+final DeliveryAddress? address;
+
+  @override
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +29,11 @@ class DeliveryAddressWidget extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            const InkWell(
+             InkWell(
               child: Row(
                 children: [
                   Text(
-                    'Faculty of Science,Alexandria',
+                    '${address?.firstAddress ?? 'No Address Defined'} ${address?.secondAddress ?? ''}',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Icon(Icons.keyboard_arrow_down_outlined),
