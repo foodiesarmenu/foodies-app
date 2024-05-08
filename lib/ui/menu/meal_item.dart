@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/ar/ar_screen.dart';
 
 import '../../domain/model/Menu.dart';
-import '../ar/ar_widget.dart';
 
 class MealItem extends StatefulWidget {
   const MealItem(
@@ -107,7 +107,7 @@ class _MealItemState extends State<MealItem> {
                   // const SizedBox(width: 8),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, ArWidget.routeName);
+                      Navigator.pushNamed(context, ARScreen.routeName);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(4),

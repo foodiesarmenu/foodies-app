@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:foodies_app/ui/ar/ar_widget.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
@@ -31,6 +30,7 @@ import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
+import 'package:foodies_app/ui/ar/ar_screen.dart';
 import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
@@ -88,13 +88,13 @@ class MyApp extends StatelessWidget {
           CategoryDetails.routeName: (_) => const CategoryDetails(),
           CartScreen.routeName: (_) => CartScreen(),
           MealDetails.routeName: (_) => MealDetails(),
-          ArWidget.routeName: (_) => const ArWidget(),
           CheckoutScreen.routeName: (_) => const CheckoutScreen(),
           SplashScreenController.routeName: (_) => const SplashScreenController(),
           OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
           OrderDetails.routeName: (_) =>  OrderDetails(),
           ChangeAddressScreen.routeName: (_) =>  ChangeAddressScreen(),
           FavouriteScreen.routeName: (_) => FavouriteScreen(),
+          ARScreen.routeName: (_) => ARScreen(),
         },
       ),
     );
