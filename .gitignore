@@ -45,3 +45,5 @@ app.*.map.json
 
 # Ignore Unity library folders
 unityLibrary/
+unity/
+
