@@ -5,7 +5,7 @@ import 'package:foodies_app/ui/meal_details/cubit/meal_details_view_model.dart';
 
 import '../../di/di.dart';
 import '../../domain/model/Meal.dart';
-import '../ar/ar_widget.dart';
+import '../ar/ar_screen.dart';
 import '../common/custom_bottom_navigation_bar.dart';
 
 class MealDetails extends StatefulWidget {
@@ -94,7 +94,7 @@ class _MealDetailsState extends State<MealDetails> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, ArWidget.routeName);
+                              Navigator.pushNamed(context, ARScreen.routeName);
                             },
                             icon: Icon(
                               Icons.all_inclusive,

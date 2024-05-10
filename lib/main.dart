@@ -34,6 +34,7 @@ import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
+import 'package:foodies_app/ui/ar/ar_screen.dart';
 import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
         OtpCodeScreen.routeName: (_) => OtpCodeScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
         ResetPassword.routeName: (_) =>  ResetPassword(),
+        ARScreen.routeName: (_) => ARScreen(),
       },
     );
   }

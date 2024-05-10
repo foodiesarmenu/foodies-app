@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
+  flutter_unity_widget
   geolocator_windows
 )
 
