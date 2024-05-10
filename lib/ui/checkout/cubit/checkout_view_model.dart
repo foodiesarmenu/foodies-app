@@ -5,6 +5,7 @@ import '../../../data/model/request/payment_intent_input_model.dart';
 import '../../../domain/model/DeliveryAddress.dart';
 import '../../../domain/usecase/create_cash_order_use_case.dart';
 import '../../../domain/usecase/create_online_order_use_case.dart';
+import '../../../domain/usecase/get_primary_delivery_address_use_case.dart';
 import '../../../domain/usecase/make_payment_use_case.dart';
 import 'checkout_states.dart';
 
@@ -13,12 +14,14 @@ class CheckoutViewModel extends Cubit<CheckoutStates> {
   CreateOnlineOrderUseCase createOnlineOrderUseCase;
   CreateCashOrderUseCase createCashOrderUseCase;
   MakePaymentUseCase makePaymentUseCase;
-
+GetPrimaryDeliveryAddressUseCase getPrimaryDeliveryAddressUseCase;
   @factoryMethod
   CheckoutViewModel(this.createOnlineOrderUseCase, this.createCashOrderUseCase,
-      this.makePaymentUseCase)
+      this.makePaymentUseCase,this.getPrimaryDeliveryAddressUseCase)
       : super(MakePaymentInitialState());
 
+  static CheckoutViewModel get(context) => BlocProvider.of(context);
+DeliveryAddress? address ;
   Future makePayment(
       {required PaymentIntentInputModel paymentIntentInputModel}) async {
     emit(MakePaymentLoadingState());
@@ -59,5 +62,16 @@ class CheckoutViewModel extends Cubit<CheckoutStates> {
         (cashOrder) {
       emit(CreateCashOrderSuccessState(cashOrder: cashOrder));
     });
+  }
+
+  getPrimaryAddress() async {
+    var primaryDeliveryAddress = await getPrimaryDeliveryAddressUseCase.invoke();
+    primaryDeliveryAddress.fold((l) {
+      print(l.errorMessage);
+      emit(GetPrimaryDeliveryAddressErrorState(error: l.errorMessage));
+    }, (r) {
+      address = r;
+      emit(GetPrimaryDeliveryAddressSuccessState(primaryDeliveryAddress: r));
+    },);
   }
 }

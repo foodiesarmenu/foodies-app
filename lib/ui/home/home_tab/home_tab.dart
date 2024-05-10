@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../di/di.dart';
+import '../../../domain/model/DeliveryAddress.dart';
 import 'categories/category_list.dart';
 import 'cubit/home_tab_view_model.dart';
 import 'home_app_bar/app_search_bar/app_search_bar.dart';
@@ -53,13 +54,13 @@ class _HomeTabState extends State<HomeTab> {
                 automaticallyImplyLeading: false,
                 backgroundColor: const Color(0xFFD3D3D3),
                 toolbarHeight: 120,
-                actions: const [
+                actions:  [
                   Expanded(
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          DeliveryAddressWidget(),
+                          DeliveryAddressWidget(address: viewModel.address),
                           SizedBox(
                             height: 8,
                           ),
@@ -109,6 +110,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
             );
         }
+        return const Scaffold(body: Center(child: CircularProgressIndicator()),);
       },
     );
   }
