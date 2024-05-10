@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/auth/login/cubit/login_view_model.dart';
 
 import '../../../di/di.dart';
+import '../../common/AppTextFormField.dart';
 import '../../common/form_input_field.dart';
 import '../../common/primary_button.dart';
 import '../../common/social_sign_in_options.dart';
 import '../../utils/dialog_utils.dart';
 import '../../utils/validation_utils.dart';
 import '../../welcome/welcome_screen.dart';
+import '../forget_password/forget_password_screen.dart';
 import '../register/register_screen.dart';
 import 'cubit/login_states.dart';
 
@@ -59,13 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 32,
                     ),
-
                     //Welcome
                     Text(
                         textAlign: TextAlign.start,
                         'Login to your account',
                         style: Theme.of(context).textTheme.titleMedium),
-
                     const SizedBox(
                       height: 16,
                     ),
@@ -112,12 +112,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 8),
 
                           //Forget Password
-                          const Align(
+                           Align(
                             alignment: Alignment.centerRight,
-                            child: Text(
-                              'Forget Password?',
-                              style: TextStyle(
-                                color: Color((0xFFA3A3A3)),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                    ForgetPasswordScreen.routeName);
+                              },
+                              child: Text(
+                                'Forget Password?',
+                                style: TextStyle(
+                                  color: Color((0xFFA3A3A3)),
+                                ),
                               ),
                             ),
                           ),
