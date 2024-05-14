@@ -4,7 +4,10 @@ import '../change_address/cubit/change_address_view_model.dart';
 
 class AddressDetailsWidget extends StatelessWidget {
   const AddressDetailsWidget(
-      {this.address, this.isChangeAddress = false, super.key, this.refreshAddress});
+      {this.address,
+      this.isChangeAddress = false,
+      super.key,
+      this.refreshAddress});
 
   final bool isChangeAddress;
   final DeliveryAddress? address;
@@ -54,15 +57,15 @@ class AddressDetailsWidget extends StatelessWidget {
                 const SizedBox(
                   width: 16,
                 ),
+                if(address != null)
                 Expanded(
-                  child:                                     Text(
+                  child: Text(
                     'St ${address?.streetName}, '
-                        'Building ${address?.buildingNumber}, '
-                        '${address?.floorNumber == null ? 'Floor ${address?.floorNumber}, ' : ''}'
-                        'Apt ${address?.apartmentNumber}',
+                    'Building ${address?.buildingNumber}, '
+                    '${address?.floorNumber == null ? 'Floor ${address?.floorNumber}, ' : ''}'
+                    'Apt ${address?.apartmentNumber}',
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
-
                         .textTheme
                         .bodySmall
                         ?.copyWith(color: Colors.grey),
@@ -84,7 +87,7 @@ class AddressDetailsWidget extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  '01144416288',
+                  '0127917334',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],
@@ -98,11 +101,12 @@ class AddressDetailsWidget extends StatelessWidget {
                 address?.isPrimary != true
                     ? InkWell(
                         onTap: () {
-                          ChangeAddressScreenViewModel.get(context).setPrimaryAddress(
-                              addressId: address?.id ?? '', isPrimary: true).then((_) {
+                          ChangeAddressScreenViewModel.get(context)
+                              .setPrimaryAddress(
+                                  addressId: address?.id ?? '', isPrimary: true)
+                              .then((_) {
                             refreshAddress!();
-                          }
-                          );
+                          });
                         },
                         child: Text(
                           'Set as Primary',
@@ -112,21 +116,21 @@ class AddressDetailsWidget extends StatelessWidget {
                               ?.copyWith(color: Theme.of(context).primaryColor),
                         ),
                       )
-                    :
-                Text(
-                  'Primary',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(color: Theme.of(context).primaryColor),
-                ),
+                    : Text(
+                        'Primary',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(color: Theme.of(context).primaryColor),
+                      ),
                 Row(
                   children: [
                     InkWell(
                       onTap: () {
                         ChangeAddressScreenViewModel.get(context)
-                            .deleteAddress(id: address?.id ?? '').then((_) {
-                                refreshAddress!();
+                            .deleteAddress(id: address?.id ?? '')
+                            .then((_) {
+                          refreshAddress!();
                         });
                       },
                       child: Text('Delete',

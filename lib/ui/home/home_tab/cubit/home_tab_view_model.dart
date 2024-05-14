@@ -39,7 +39,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
     try {
       var restaurants = await getRestaurantsUsecase.invoke();
       var categories = await getCategoriesUsecase.invoke();
-      //var primaryDeliveryAddress = await getPrimaryDeliveryAddressUseCase.invoke();
+      // var primaryDeliveryAddress = await getPrimaryDeliveryAddressUseCase.invoke();
       var deliveryAddresses = await getAllDeliveryAddressesUseCase.invoke();
       // primaryDeliveryAddress.fold((l) {
       //   emit(GetPrimaryDeliveryAddressErrorState(error: l.errorMessage));
@@ -51,12 +51,15 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
         emit(GetAllDeliveryAddressesErrorState(error: l.errorMessage));
       }, (r) {
         addresses = r;
-        primaryAddress = addresses.firstWhere((element) => element.isPrimary == true);
-        print('Primary Address : $primaryAddress');
+        if(addresses.isNotEmpty){
+          primaryAddress = addresses.firstWhere((element) => element.isPrimary == true);
+          print('Primary Address : $primaryAddress');
+        }
         emit(GetAllDeliveryAddressesSuccessState(allDeliveryAddresses: addresses));
       });
       emit(SuccessState(restaurants, categories));
     } catch (e) {
+      print(e);
       emit(ErrorState(e.toString()));
     }
   }
