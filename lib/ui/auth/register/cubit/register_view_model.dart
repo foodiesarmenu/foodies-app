@@ -19,7 +19,7 @@ class RegisterViewModel extends Cubit<RegisterStates> {
       TextEditingController();
 
   var formKey = GlobalKey<FormState>();
-  bool isObscure = true;
+  //bool isObscure = true;
 
   Future<void> register() async {
     if (formKey.currentState!.validate()) {

@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/change_address/cubit/change_address_states.dart';
 import '../../di/di.dart';
 import '../checkout/address_details_widget.dart';
-import '../home/profile_tab/settings/address/add_address.dart';
-import '../home/profile_tab/settings/address/maps/map_screen.dart';
+import '../home/profile_tab/settings/my_addresses/maps/map_screen.dart';
 import 'cubit/change_address_view_model.dart';
 
 class ChangeAddressScreen extends StatelessWidget {
@@ -22,7 +21,7 @@ final viewModel = getIt<ChangeAddressScreenViewModel>();
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(
-                title: const Text('Select delivery address'),
+                title: const Text('Addresses'),
               ),
               body: (state is GetAllAddressesSuccessState) ?
               SingleChildScrollView(

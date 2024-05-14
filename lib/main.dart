@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:foodies_app/ui/ar/ar_widget.dart';
 import 'package:foodies_app/ui/auth/forget_password/forget_password_screen.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
@@ -9,7 +8,6 @@ import 'package:foodies_app/ui/auth/otp/otp_code_screen.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
 import 'package:foodies_app/ui/auth/reset_password/reset_password.dart';
 import 'package:foodies_app/ui/cart/cart_screen.dart';
-import 'package:foodies_app/ui/cart/cubit/cart_screen_view_model.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
 import 'package:foodies_app/ui/checkout/checkout_screen.dart';
@@ -22,10 +20,10 @@ import 'package:foodies_app/domain/repositoryContract/maps_repo.dart';
 import 'package:foodies_app/data/places_web_services.dart';
 import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
 import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/address/add_address.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/address/form_address/form_address_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/address/maps/cubit/maps_cubit.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/address/maps/map_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/form_address/form_address_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/maps/cubit/maps_cubit.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/maps/map_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/my_addresses_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/settings_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/change_email_screen/ChangeEmailScreen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/change_password/ChangePasswordScreen.dart';
@@ -40,7 +38,6 @@ import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 import 'package:foodies_app/ui/utils/shared_preference_utils.dart';
 import 'package:foodies_app/ui/welcome/scan_qr.dart';
 import 'package:foodies_app/ui/welcome/welcome_screen.dart';
-
 import 'data/api_constants.dart';
 import 'di/di.dart';
 
@@ -51,7 +48,8 @@ Future<void> main() async {
   await SharedPreferenceUtils.init();
   configureDependencies();
   Bloc.observer = MyBlocObserver();
-  runApp(const MyApp());
+  runApp(
+      const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -86,17 +84,15 @@ class MyApp extends StatelessWidget {
         FormAddressScreen.routeName: (_) => FormAddressScreen(),
         ScanQR.routeName: (_) => const ScanQR(),
         HomeScreen.routeName: (_) => const HomeScreen(),
-        AddAddress.routeName: (_) => const AddAddress(),
+        MyAddressesScreen.routeName: (_) => const MyAddressesScreen(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
         CartScreen.routeName: (_) => CartScreen(),
         MealDetails.routeName: (_) => MealDetails(),
-        ArWidget.routeName: (_) => const ArWidget(),
         CheckoutScreen.routeName: (_) => const CheckoutScreen(),
-        PaymentScreen.routeName: (_) => const PaymentScreen(),
         SplashScreenController.routeName: (_) => const SplashScreenController(),
         OrderingSplashScreen.routeName: (_) => const OrderingSplashScreen(),
         OrderDetails.routeName: (_) =>  OrderDetails(),
-        ChangeAddressScreen.routeName: (_) => const ChangeAddressScreen(),
+        ChangeAddressScreen.routeName: (_) => ChangeAddressScreen(),
         FavouriteScreen.routeName: (_) => FavouriteScreen(),
         OtpCodeScreen.routeName: (_) => OtpCodeScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),

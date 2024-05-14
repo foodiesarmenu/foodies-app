@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../di/di.dart';
-import '../../../domain/model/DeliveryAddress.dart';
+import '../../search/seach_screen.dart';
 import 'categories/category_list.dart';
 import 'cubit/home_tab_view_model.dart';
 import 'home_app_bar/app_search_bar/app_search_bar.dart';
@@ -22,7 +21,6 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   var viewModel = getIt<HomeTabViewModel>();
-
   @override
   void initState() {
     super.initState();
@@ -31,87 +29,145 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeTabViewModel, HomeTabState>(
-      bloc: viewModel,
-      builder: (context, state) {
-        switch (state) {
-          case LoadingState():
-            return const Center(child: CircularProgressIndicator());
-          case ErrorState():
-            return Column(
-              children: [
-                Text(state.errorMessage),
-                ElevatedButton(
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: BlocBuilder<HomeTabViewModel, HomeTabState>(
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case LoadingState:
+              return const Center(child: CircularProgressIndicator());
+            case ErrorState:
+              return Column(
+                children: [
+                  Text((state as ErrorState).errorMessage),
+                  ElevatedButton(
                     onPressed: () {
                       viewModel.initPage();
                     },
-                    child: const Text('Try Again'))
-              ],
-            );
-          case SuccessState():
-            return Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                backgroundColor: const Color(0xFFD3D3D3),
-                toolbarHeight: 120,
-                actions:  [
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          DeliveryAddressWidget(address: viewModel.address),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          AppSearchBar()
-                        ],
-                      ),
-                    ),
+                    child: const Text('Try Again'),
                   ),
                 ],
-              ),
-              body: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //Category
-                      const SectionTitleWidget(
-                        title: 'Category',
-                        subtitle: 'Discover different categories',
-                      ),
-                      const SizedBox(height: 8),
-                      CategoryList(state.categories ?? []),
+              );
+            case SuccessState:
+              final successState = state as SuccessState;
 
-                      const Divider(),
+              return CustomScrollView(
+                        slivers: <Widget>[
 
-                      //Promotions
-                      const SectionTitleWidget(
-                        title: 'Promotions',
-                        subtitle: 'Wide range of promotions just for you',
-                      ),
-                      const SizedBox(height: 8),
-                      const PromotionList(),
+                          SliverAppBar(
+                            automaticallyImplyLeading: false,
+                            pinned: false,
+                            floating: false,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            actions: [
+                              Expanded(
 
-                      const Divider(),
-
-                      //Restaurants
-                      const SectionTitleWidget(
-                          title: 'Restaurants',
-                          subtitle: 'Explore various restaurants'),
-                      const SizedBox(height: 8),
-                      RestaurantList(state.restaurants ?? []),
-                    ],
-                  ),
-                ),
-              ),
-            );
-        }
-        return const Scaffold(body: Center(child: CircularProgressIndicator()),);
-      },
+                                child: DeliveryAddressWidget(homeTabViewModel : viewModel),
+                              ),
+                            ],
+                          ),
+                          SliverAppBar(
+                            automaticallyImplyLeading: false,
+                            pinned: true,
+                            floating: true,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            actions: [
+                              Expanded(
+                                child: AppSearchBar(
+                                        onPressed: () {
+                                          showSearch(
+                                            context: context,
+                                            delegate: SearchScreen(restaurants: successState.restaurants),
+                                          );
+                                        },
+                              ),
+                              ),
+                            ],
+                          ),
+                          // SliverPersistentHeader(
+                          //   pinned: false,
+                          //   floating: false,
+                          //   delegate: _SearchAppBarDelegate(
+                          //     child: Container(
+                          //       color: Theme.of(context).primaryColor,
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          //         child: AppSearchBar(
+                          //           onPressed: () {
+                          //             showSearch(
+                          //               context: context,
+                          //               delegate: SearchScreen(),
+                          //             );
+                          //           },
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          SliverPadding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                            sliver: SliverList(
+                              delegate: SliverChildListDelegate(
+                                [
+                                  const SectionTitleWidget(
+                                    title: 'Category',
+                                    subtitle: 'Discover different categories',
+                                  ),
+                                  const SizedBox(height: 8),
+                                  CategoryList(successState.categories ?? []),
+                                  const Divider(),
+                                  const SectionTitleWidget(
+                                    title: 'Promotions',
+                                    subtitle: 'Wide range of promotions just for you',
+                                  ),
+                                  const SizedBox(height: 8),
+                                  const PromotionList(),
+                                  const Divider(),
+                                  const SectionTitleWidget(
+                                    title: 'Restaurants',
+                                    subtitle: 'Explore various restaurants',
+                                  ),
+                                  const SizedBox(height: 8),
+                                  RestaurantList(successState.restaurants ?? []),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+          }
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        },
+      ),
     );
   }
+
 }
+class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
+  _SearchAppBarDelegate({   this.expandedHeight,
+    this.backgroundColor,
+    required this.child});
+  final double? expandedHeight;
+  final Color? backgroundColor;
+
+  final Widget child;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  double get maxExtent => expandedHeight ?? kToolbarHeight;
+
+  @override
+  double get minExtent => kToolbarHeight;
+
+  @override
+  bool shouldRebuild(_SearchAppBarDelegate oldDelegate) {
+    return false;
+  }
+}
+

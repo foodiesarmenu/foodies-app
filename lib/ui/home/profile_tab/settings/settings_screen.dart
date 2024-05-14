@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../../auth/login/login_screen.dart';
+import '../../../change_address/change_address_screen.dart';
 import '../../../common/custom_app_bar.dart';
 import '../../../utils/shared_preference_utils.dart';
-import 'address/add_address.dart';
 import 'settings_button.dart';
 import 'change_email_screen/ChangeEmailScreen.dart';
 import 'change_password/ChangePasswordScreen.dart';
@@ -63,8 +62,8 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SettingsButton(
                     itemColor: Colors.black,
-                    buttonText: 'Delivery address',
-                    routeName: AddAddress.routeName,
+                    buttonText: 'My Addresses',
+                    routeName: ChangeAddressScreen.routeName,
                     iconData: Icons.location_on_outlined,
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),

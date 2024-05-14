@@ -423,11 +423,10 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     return TextButton(
       onPressed: () {},
       style: TextButton.styleFrom(
-          side: const BorderSide(width: 1, color: Colors.white),
+          foregroundColor: Colors.white, side: const BorderSide(width: 1, color: Colors.white),
           minimumSize: const Size(145, 40),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          primary: Colors.white,
           backgroundColor: backgroundColor),
       child: Row(
         children: [

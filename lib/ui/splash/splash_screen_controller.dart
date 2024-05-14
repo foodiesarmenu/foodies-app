@@ -16,7 +16,6 @@ class SplashScreenController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var user = SharedPreferenceUtils.getData(key: 'token');
-print(user);
     return AnimatedSplashScreen(
       splash: Column(
         children: [

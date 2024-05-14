@@ -28,21 +28,8 @@ class _MenuScreenState extends State<MenuScreen> {
     viewModel.initPage(restaurantId: widget.restaurant?.id);
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Call a separate method to fetch and update the count
-    _updateCartItemCount();
-  }
-
-  void _updateCartItemCount() {
-    setState(() {
-      numOfCartItems =
-          SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? 0;
-    });
-  }
-
-  var numOfCartItems;
+  var numOfCartItems =
+  SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? 0;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +64,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 backgroundColor: Colors.white,
                 child: Badge(
                   label: Text(
-                    '${numOfCartItems ?? 0}',
+                    '${numOfCartItems }',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold,
