@@ -14,7 +14,6 @@ class FormAddressViewModel extends Cubit<FormAddressStates> {
   static FormAddressViewModel get(context) => BlocProvider.of(context);
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController firstAddressController = TextEditingController();
-  TextEditingController secondAddressController = TextEditingController();
   TextEditingController buildingNoController = TextEditingController();
   TextEditingController streetNameController = TextEditingController();
   TextEditingController floorNoController = TextEditingController();
@@ -22,26 +21,26 @@ class FormAddressViewModel extends Cubit<FormAddressStates> {
   TextEditingController othersController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
- addAddress() async {
-   if (formKey.currentState!.validate()) {
-     var addAddress = await addDeliveryAddressUseCase.invoke(
-         deliveryAddress: DeliveryAddress(
-              firstAddress: firstAddressController.text,
-              secondAddress: secondAddressController.text,
-              buildingNumber: buildingNoController.text,
-              streetName: streetNameController.text,
-              floorNumber: floorNoController.text,
-              apartmentNumber: apartmentNoController.text,
-              note: othersController.text,
-              isPrimary: true,
-         ));
-     addAddress.fold((l) {
-       print(l.errorMessage);
-       emit(AddAddressErrorState(error: l.errorMessage));
-     }, (r) {
-       emit(AddAddressSuccessState(deliveryAddress: r));
-     },);
-   }
- }
-
+  addAddress() async {
+    if (formKey.currentState!.validate()) {
+      emit(AddAddressLoadingState(loadingMessage: 'loading...'));
+      var addAddress = await addDeliveryAddressUseCase.invoke(
+          deliveryAddress: DeliveryAddress(
+            firstAddress: firstAddressController.text,
+            secondAddress: " ",
+            buildingNumber: buildingNoController.text,
+            streetName: streetNameController.text,
+            floorNumber: floorNoController.text ?? " ",
+            apartmentNumber: apartmentNoController.text,
+            note: othersController.text,
+            isPrimary: true,
+          ));
+      addAddress.fold((l) {
+        print(l.errorMessage);
+        emit(AddAddressErrorState(error: l.errorMessage));
+      }, (r) {
+        emit(AddAddressSuccessState(deliveryAddress: r));
+      },);
+    }
+  }
 }

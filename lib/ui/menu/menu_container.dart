@@ -75,25 +75,21 @@ class _MenuContainerState extends State<MenuContainer> {
             top: 30,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32),
-                      color: Colors.white,
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Theme.of(context).primaryColor,
-                        size: 32,
-                      ),
-                    ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  color: Colors.white,
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).primaryColor,
+                    size: 32,
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -104,23 +100,19 @@ class _MenuContainerState extends State<MenuContainer> {
             top: 30,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(32),
-                      color: Colors.white,
-                    ),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.more_horiz,
-                        color: Theme.of(context).primaryColor,
-                        size: 32,
-                      ),
-                    ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(32),
+                  color: Colors.white,
+                ),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: Theme.of(context).primaryColor,
+                    size: 32,
                   ),
-                ],
+                ),
               ),
             ),
           ),
@@ -315,7 +307,6 @@ class _MenuContainerState extends State<MenuContainer> {
                   ),
                 ),
                 DefaultTabController(
-
                   length: widget.menus?.length ?? 0,
                   child: Column(
                     children: [
@@ -351,6 +342,7 @@ class _MenuContainerState extends State<MenuContainer> {
                 const SizedBox(
                   height: 8,
                 ),
+                //Meal List
                 MealList(
                   menus: widget.menus ?? [],
                 ),

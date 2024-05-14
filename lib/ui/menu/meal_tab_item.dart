@@ -26,14 +26,14 @@ class MealTabItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: Theme.of(context).primaryColor,
-            width: 2,
+            width:1.5,
           ),
-          color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+          color: Colors.white ,
         ),
         child: Text(
           menu.name ?? '',
           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: isSelected ? Colors.white : Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColor ,
           ),
         ),
       ),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/DeliveryAddress.dart';
-
 import '../change_address/cubit/change_address_view_model.dart';
-import 'checkout_screen.dart';
 
 class AddressDetailsWidget extends StatelessWidget {
   const AddressDetailsWidget(
@@ -57,10 +55,19 @@ class AddressDetailsWidget extends StatelessWidget {
                   width: 16,
                 ),
                 Expanded(
-                  child: Text(
-                    '${address?.streetName ?? ''} ${address?.buildingNumber ?? ''} ${address?.floorNumber ?? ''} ${address?.apartmentNumber ?? ''} ${address?.note ?? ''}',
-                    style: Theme.of(context).textTheme.bodySmall,
+                  child:                                     Text(
+                    'St ${address?.streetName}, '
+                        'Building ${address?.buildingNumber}, '
+                        '${address?.floorNumber == null ? 'Floor ${address?.floorNumber}, ' : ''}'
+                        'Apt ${address?.apartmentNumber}',
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context)
+
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: Colors.grey),
                   ),
+
                 ),
               ],
             ),

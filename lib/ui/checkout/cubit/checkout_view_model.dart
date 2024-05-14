@@ -7,6 +7,7 @@ import '../../../domain/usecase/create_cash_order_use_case.dart';
 import '../../../domain/usecase/create_online_order_use_case.dart';
 import '../../../domain/usecase/get_primary_delivery_address_use_case.dart';
 import '../../../domain/usecase/make_payment_use_case.dart';
+import '../../utils/shared_preference_utils.dart';
 import 'checkout_states.dart';
 
 @injectable
@@ -49,6 +50,7 @@ DeliveryAddress? address ;
       emit(CreateOnlineOrderErrorState(errorMessage: failure));
     }, (onlineOrder) {
       emit(CreateOnlineOrderSuccessState(onlineOrderPayment: onlineOrder));
+
     });
   }
 
@@ -61,7 +63,10 @@ DeliveryAddress? address ;
         (failure) => emit(CreateCashOrderErrorState(errorMessage: failure)),
         (cashOrder) {
       emit(CreateCashOrderSuccessState(cashOrder: cashOrder));
-    });
+      SharedPreferenceUtils.saveData(
+          key: 'numOfCartItems', value: cashOrder.noOfOrderItems);
+      print(' Order Id : ${SharedPreferenceUtils.getData(key: 'numOfCartItems')}');
+        });
   }
 
   getPrimaryAddress() async {

@@ -5,6 +5,7 @@ import '../../../domain/usecase/delete_cart_use_case.dart';
 import '../../../domain/usecase/get_cart_use_case.dart';
 import '../../../domain/usecase/remove_item_from_cart_use_case.dart';
 import '../../../domain/usecase/update_count_in_cart_use_case.dart';
+import '../../utils/shared_preference_utils.dart';
 import 'cart_states.dart';
 
 @injectable
@@ -44,6 +45,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
       emit(UpdateCountInCartErrorState(errorMessage: error));
     }, (response) {
       emit(GetCartSuccessState(cart: response));
+      SharedPreferenceUtils.saveData(
+          key: 'numOfCartItems', value: response.noOfOrderItems);
+
     });
   }
 
@@ -54,6 +58,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
       emit(RemoveItemFromCartErrorState(errorMessage: error));
     }, (response) {
       emit(GetCartSuccessState(cart: response));
+      SharedPreferenceUtils.saveData(
+          key: 'numOfCartItems', value: response.noOfOrderItems);
+
     });
   }
 
@@ -64,6 +71,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
       emit(DeleteCartErrorState(errorMessage: error));
     }, (response) {
       emit(DeleteCartSuccessState(cart: response));
+      SharedPreferenceUtils.saveData(
+          key: 'numOfCartItems', value: response?.noOfOrderItems ?? 0);
+
     });
   }
 }

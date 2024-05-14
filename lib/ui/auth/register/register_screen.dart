@@ -79,7 +79,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 return 'Please enter full name';
                               }
                               return null;
-                            }),
+                            }
+                            ),
 
                         FormInputField(
                             isPassword: false,

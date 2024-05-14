@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import '../../../../common/ButtonInProfile.dart';
 import 'maps/map_screen.dart';
 
-class AddAddress extends StatelessWidget {
-  const AddAddress({super.key});
+class MyAddressesScreen extends StatelessWidget {
+  const MyAddressesScreen({super.key});
 
-  static const String routeName = 'add_screen';
+  static const String routeName = 'AddressesSc';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Add Address'),
+          title: const Text('Addresses'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,

@@ -15,3 +15,8 @@ class AddAddressErrorState extends FormAddressStates {
 
   AddAddressErrorState({this.error});
 }
+class AddAddressLoadingState extends FormAddressStates {
+String? loadingMessage;
+
+  AddAddressLoadingState({this.loadingMessage});
+}
