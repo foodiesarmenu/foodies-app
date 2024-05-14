@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodies_app/ui/common/location_helper.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/address/maps/place_item.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/maps/location_helper.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/maps/place_item.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';

@@ -93,7 +93,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 )
                 ),
                     const SizedBox(height: 4),
-                     if (state is GetPrimaryDeliveryAddressSuccessState)
                      AddressDetailsWidget(address : viewModel.address),
                     const SizedBox(height: 8),
                     Material(

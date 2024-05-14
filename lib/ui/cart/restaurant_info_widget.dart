@@ -137,7 +137,7 @@ late final Color? statusColor;
                           color: Theme.of(context).primaryColor,
                         ),
                         Text(
-                          'Change',
+                          'Select',
                           style:
                               Theme.of(context).textTheme.titleSmall?.copyWith(
                                     color: Theme.of(context).primaryColor,
