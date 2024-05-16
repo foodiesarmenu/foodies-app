@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
 
 import '../model/Restaurant.dart';
-import '../repositoryContract/RestaurantsRepo.dart';
+import '../repositoryContract/home_repository.dart';
 
 @injectable
 class GetRestaurantsUsecase {
-  RestaurantsRepo restaurantsRepo;
+  HomeRepository restaurantsRepo;
 
   @factoryMethod
   GetRestaurantsUsecase(this.restaurantsRepo);

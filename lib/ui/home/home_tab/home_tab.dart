@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodies_app/ui/home/home_tab/widgets/promotion_widget.dart';
 import '../../../di/di.dart';
 import '../../search/seach_screen.dart';
-import 'categories/category_list.dart';
+import 'cubit/home_states.dart';
+import 'widgets/category_list.dart';
 import 'cubit/home_tab_view_model.dart';
-import 'home_app_bar/app_search_bar/app_search_bar.dart';
-import 'home_app_bar/delivery_address/delivery_address_widget.dart';
-import 'promotions/promotion_list.dart';
-import 'restaurants/restaurant_list.dart';
-import 'section_title_widget.dart';
+import 'widgets/app_search_bar.dart';
+import 'widgets/delivery_address_widget.dart';
+import 'widgets/restaurant_list.dart';
+import 'widgets/section_title_widget.dart';
 
 class HomeTab extends StatefulWidget {
   static const String routeName = 'HomeSc';
@@ -112,62 +113,61 @@ class _HomeTabState extends State<HomeTab> {
                                 [
                                   const SectionTitleWidget(
                                     title: 'Category',
-                                    subtitle: 'Discover different categories',
-                                  ),
-                                  const SizedBox(height: 8),
-                                  CategoryList(successState.categories ?? []),
-                                  const Divider(),
-                                  const SectionTitleWidget(
-                                    title: 'Promotions',
-                                    subtitle: 'Wide range of promotions just for you',
-                                  ),
-                                  const SizedBox(height: 8),
-                                  const PromotionList(),
-                                  const Divider(),
-                                  const SectionTitleWidget(
-                                    title: 'Restaurants',
-                                    subtitle: 'Explore various restaurants',
-                                  ),
-                                  const SizedBox(height: 8),
-                                  RestaurantList(successState.restaurants ?? []),
-                                ],
+                            subtitle: 'Discover different categories',
+                          ),
+                          const SizedBox(height: 8),
+                          CategoryList(successState.categories ?? []),
+                          const Divider(),
+                          const SectionTitleWidget(
+                            title: 'Promotions',
+                            subtitle: 'Wide range of promotions just for you',
+                          ),
+                          const SizedBox(height: 8),
+                          PromotionWidget(successState.promotions ?? []),
+                          const Divider(),
+                          const SectionTitleWidget(
+                            title: 'Restaurants',
+                            subtitle: 'Explore various restaurants',
+                          ),
+                          const SizedBox(height: 8),
+                          RestaurantList(successState.restaurants ?? []),
+                        ],
                               ),
                             ),
                           ),
-                        ],
-                      );
+                ],
+              );
           }
-          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+          return const Scaffold(
+              body: Center(child: CircularProgressIndicator()));
         },
       ),
     );
   }
-
 }
-class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SearchAppBarDelegate({   this.expandedHeight,
-    this.backgroundColor,
-    required this.child});
-  final double? expandedHeight;
-  final Color? backgroundColor;
-
-  final Widget child;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(child: child);
-  }
-
-  @override
-  double get maxExtent => expandedHeight ?? kToolbarHeight;
-
-  @override
-  double get minExtent => kToolbarHeight;
-
-  @override
-  bool shouldRebuild(_SearchAppBarDelegate oldDelegate) {
-    return false;
-  }
-}
-
+// class _SearchAppBarDelegate extends SliverPersistentHeaderDelegate {
+//   _SearchAppBarDelegate({   this.expandedHeight,
+//     this.backgroundColor,
+//     required this.child});
+//   final double? expandedHeight;
+//   final Color? backgroundColor;
+//
+//   final Widget child;
+//
+//   @override
+//   Widget build(
+//       BuildContext context, double shrinkOffset, bool overlapsContent) {
+//     return SizedBox.expand(child: child);
+//   }
+//
+//   @override
+//   double get maxExtent => expandedHeight ?? kToolbarHeight;
+//
+//   @override
+//   double get minExtent => kToolbarHeight;
+//
+//   @override
+//   bool shouldRebuild(_SearchAppBarDelegate oldDelegate) {
+//     return false;
+//   }
+// }

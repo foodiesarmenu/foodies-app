@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/change_address/cubit/change_address_states.dart';
 import '../../di/di.dart';
-import '../checkout/address_details_widget.dart';
+import '../common/address_details_widget.dart';
 import '../home/profile_tab/settings/my_addresses/maps/map_screen.dart';
 import 'cubit/change_address_view_model.dart';
 

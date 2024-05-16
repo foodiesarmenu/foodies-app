@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
-import 'package:foodies_app/ui/auth/reset_password/reset_password.dart';
-import '../forget_password/button_widget.dart';
-import '../forget_password/intro_text_widget.dart';
+import 'package:foodies_app/ui/auth/reset_password/reset_password_screen.dart';
+import '../forget_password/widgets/button_widget.dart';
+import '../forget_password/widgets/intro_text_widget.dart';
 
 class OtpCodeScreen extends StatelessWidget {
   static const String routeName = "otp_screen";
+
   OtpCodeScreen({super.key});
 
   late final phoneNumber;
@@ -112,7 +113,8 @@ class OtpCodeScreen extends StatelessWidget {
                 children: [
                   ButtonWidget.buildNextBtn(
                     () {
-                      Navigator.pushNamed(context, ResetPassword.routeName);
+                      Navigator.pushNamed(
+                          context, ResetPasswordScreen.routeName);
                     },
                     'Verify',
                   ),
