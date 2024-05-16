@@ -4,10 +4,10 @@ import 'package:foodies_app/ui/common/custom_bottom_navigation_bar.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/order_details/cubit/orders_details_states.dart';
 import '../../di/di.dart';
-import '../cart/cart_item_list_widget.dart';
-import '../cart/payment_details_widget.dart';
-import '../cart/restaurant_info_widget.dart';
-import '../checkout/address_details_widget.dart';
+import '../common/cart_item_list_widget.dart';
+import '../common/address_details_widget.dart';
+import '../common/payment_details_widget.dart';
+import '../common/restaurant_info_widget.dart';
 import 'cubit/orders_details_view_model.dart';
 
 class OrderDetails extends StatefulWidget {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodies_app/ui/cart/cart_item_list_widget.dart';
+import 'package:foodies_app/ui/common/cart_item_list_widget.dart';
 import 'package:foodies_app/ui/cart/cubit/cart_states.dart';
-import 'package:foodies_app/ui/cart/payment_details_widget.dart';
-import 'package:foodies_app/ui/cart/restaurant_info_widget.dart';
 import 'package:foodies_app/ui/common/custom_bottom_navigation_bar.dart';
 
 import '../../di/di.dart';
 import '../checkout/checkout_screen.dart';
+import '../common/payment_details_widget.dart';
+import '../common/restaurant_info_widget.dart';
 import 'cubit/cart_screen_view_model.dart';
 
 class CartScreen extends StatelessWidget {

@@ -1,16 +1,20 @@
+import 'package:injectable/injectable.dart';
+
 import '../model/place.dart';
 import '../model/place_suggestions.dart';
 import '../../data/places_web_services.dart';
 
+@injectable
 class MapsRepository {
-  final PlacesWebservices placesWebservices;
+  PlacesWebservices placesWebservices;
 
+  @factoryMethod
   MapsRepository(this.placesWebservices);
 
   Future<List<PlaceSuggestion>> fetchSuggestions(
       String place, String sessionToken) async {
     final suggestions =
-    await placesWebservices.fetchSuggestions(place, sessionToken);
+        await placesWebservices.fetchSuggestions(place, sessionToken);
 
     return suggestions
         .map((suggestion) => PlaceSuggestion.fromJson(suggestion))

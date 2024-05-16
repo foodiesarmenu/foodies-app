@@ -25,6 +25,7 @@ import 'model/response/online_order_response/OnlineOrderPaymentDto.dart';
 import 'model/response/order_cart_response/OrderResponseDto.dart';
 import 'model/response/order_cart_response/OrdersResponseDto.dart';
 import 'model/response/payment_intent_model_response/PaymentIntentModel.dart';
+import 'model/response/promotion_response/PromotionResponseDto.dart';
 import 'model/response/restaurant_response/RestaurantsResponse.dart';
 
 @singleton
@@ -711,4 +712,25 @@ class ApiManager {
     }
   }
 
+  Future<Either<Failures, PromotionResponseDto>> getAllPromotions() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.promotionApi);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var promotionsResponse =
+          PromotionResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(promotionsResponse);
+      } else {
+        return Left(ServerError(errorMessage: 'Error fetching promotions'));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
 }

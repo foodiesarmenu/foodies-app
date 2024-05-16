@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/auth/login/cubit/login_view_model.dart';
-
 import '../../../di/di.dart';
-import '../../common/AppTextFormField.dart';
 import '../../common/form_input_field.dart';
 import '../../common/primary_button.dart';
 import '../../common/social_sign_in_options.dart';
+import '../../order_choice/order_choice_screen.dart';
 import '../../utils/dialog_utils.dart';
 import '../../utils/validation_utils.dart';
-import '../../welcome/welcome_screen.dart';
 import '../forget_password/forget_password_screen.dart';
 import '../register/register_screen.dart';
 import 'cubit/login_states.dart';
@@ -30,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocListener<LoginViewModel, LoginStates>(
         bloc: viewModel,
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is LoginLoadingState) {
             DialogUtils.showLoading(context, state.loadingMessage ?? 'Waiting');
           } else if (state is LoginErrorState) {
@@ -39,10 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Error', posActionName: 'Ok');
           } else if (state is LoginSuccessState) {
             DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(context, state.authResult.data?.name ?? '',
-                title: 'Success', posActionName: 'Ok', posAction: () {
-              Navigator.pushReplacementNamed(context, WelcomeScreen.routeName);
-            });
+            Navigator.pushReplacementNamed(context, OrderChoiceScreen.routeName,
+                arguments: state.authResult.data?.name ?? '');
+            // DialogUtils.showMessage(context, state.authResult.data?.name ?? '',
+            //     title: 'Success', posActionName: 'Ok', posAction: () {
+            // });
           }
         },
         child: Scaffold(
@@ -181,6 +180,6 @@ class _LoginScreenState extends State<LoginScreen> {
     if (viewModel.formKey.currentState?.validate() == false) {
       return;
     }
-    Navigator.of(context).pushNamed(WelcomeScreen.routeName);
+    Navigator.of(context).pushNamed(OrderChoiceScreen.routeName);
   }
 }
