@@ -1,11 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
+@injectable
 class PlacesWebservices {
   late Dio dio;
-  static const suggestionsBaseUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+  static const suggestionsBaseUrl =
+      'https://maps.googleapis.com/maps/api/place/autocomplete/json';
   static const googleAPIKey = 'AIzaSyDwproMFUGZzFhwlDh8YL4ULifz_tK7H-o';
-  static const placeLocationBaseUrl = 'https://maps.googleapis.com/maps/api/place/details/json';
-
+  static const placeLocationBaseUrl =
+      'https://maps.googleapis.com/maps/api/place/details/json';
 
   PlacesWebservices() {
     BaseOptions options = BaseOptions(
@@ -17,8 +21,7 @@ class PlacesWebservices {
   }
 
 
-  Future<List<dynamic>> fetchSuggestions(
-      String place, String sessionToken) async {
+  Future<List<dynamic>> fetchSuggestions(String place, String sessionToken) async {
     try {
       Response response = await dio.get(
         suggestionsBaseUrl,
@@ -40,8 +43,7 @@ class PlacesWebservices {
   }
 
 
-  Future<dynamic> getPlaceLocation(
-      String placeId, String sessionToken) async {
+  Future<dynamic> getPlaceLocation(String placeId, String sessionToken) async {
     try {
       Response response = await dio.get(
         placeLocationBaseUrl,

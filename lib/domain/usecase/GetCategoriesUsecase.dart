@@ -1,11 +1,11 @@
 import 'package:injectable/injectable.dart';
 
 import '../model/Category.dart';
-import '../repositoryContract/CategoriesRepo.dart';
+import '../repositoryContract/home_repository.dart';
 
 @injectable
 class GetCategoriesUsecase {
-  CategoriesRepo categoriesRepo;
+  HomeRepository categoriesRepo;
 
   @factoryMethod
   GetCategoriesUsecase(this.categoriesRepo);

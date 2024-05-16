@@ -37,7 +37,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         } else if (state is RegisterSuccessState) {
           DialogUtils.hideLoading(context);
           DialogUtils.showMessage(context, 'Register Successfully',
-              title: 'Success', posActionName: 'ok');
+              title: 'Success', posActionName: 'ok', posAction: () {
+            Navigator.pushNamed(context, LoginScreen.routeName);
+          });
         }
       },
       child: Scaffold(
@@ -76,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             hint: 'Full Name',
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
-                                return 'Please enter full name';
+                                return 'Please enter name';
                               }
                               return null;
                             }
@@ -127,6 +129,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                             if (text.length <= 6) {
                               return 'Password should at least 6 chars';
+                            }
+                            if (!ValidationUtils.isValidPassword(text)) {
+                              return 'Please enter valid password';
                             }
                             return null;
                           },

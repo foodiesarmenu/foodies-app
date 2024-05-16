@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/menu/cubit/menu_view_model.dart';
-import 'package:foodies_app/ui/menu/meal_tab_item.dart';
-
+import 'package:foodies_app/ui/menu/widgets/meal_list.dart';
+import 'package:foodies_app/ui/menu/widgets/meal_tab_item.dart';
 import '../../domain/model/Menu.dart';
 import '../../domain/model/Restaurant.dart';
-import 'meal_list.dart';
 
 class MenuContainer extends StatefulWidget {
   const MenuContainer(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../di/di.dart';
 import '../../domain/model/Category.dart';
-import '../home/home_tab/restaurants/restaurant_list.dart';
-import 'category_details_view_model.dart';
+import '../home/home_tab/widgets/restaurant_list.dart';
+import 'cubit/category_details_view_model.dart';
 
 class CategoryDetails extends StatefulWidget {
   const CategoryDetails({this.category, super.key});

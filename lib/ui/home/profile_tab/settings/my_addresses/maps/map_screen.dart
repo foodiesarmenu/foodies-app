@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:uuid/uuid.dart';
+import '../../../../../../di/di.dart';
 import '../../../../../../domain/model/place.dart';
 import '../../../../../../domain/model/place_suggestions.dart';
 import '../form_address/form_address_screen.dart';
@@ -55,8 +56,7 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-
-
+  var viewModel = getIt<MapsCubit>();
 
   @override
   void initState() {
@@ -64,6 +64,7 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
     getMyCurrentLocation();
   }
+
   Future<void> getMyCurrentLocation() async {
     await LocationHelper.getCurrentLocation();
     position = await LocationHelper.getCurrentLocation().whenComplete(() {
@@ -226,8 +227,7 @@ class _MapScreenState extends State<MapScreen> {
 
   void getPlacesSuggestions(String query) {
     final sessionToken = const Uuid().v4();
-    BlocProvider.of<MapsCubit>(context)
-        .emitPlaceSuggestions(query, sessionToken);
+    viewModel.emitPlaceSuggestions(query, sessionToken);
   }
 
   Widget buildSuggestionsBloc() {
@@ -272,69 +272,73 @@ class _MapScreenState extends State<MapScreen> {
 
   void getSelectedPlaceLocation() {
     final sessionToken = const Uuid().v4();
-    BlocProvider.of<MapsCubit>(context)
-        .emitPlaceLocation(placeSuggestion?.placeId ?? '', sessionToken);
+    viewModel.emitPlaceLocation(placeSuggestion?.placeId ?? '', sessionToken);
   }
-
 
 
     @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //appBar: AppBar(title: const Text('Map'),),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          position != null
-              ? buildMap()
-              : Center(
-                  child: CircularProgressIndicator(
-                    color: Theme.of(context).primaryColor,
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: BlocBuilder<MapsCubit, MapsState>(
+        builder: (context, state) {
+          return Scaffold(
+            //appBar: AppBar(title: const Text('Map'),),
+            body: Stack(
+              fit: StackFit.expand,
+              children: [
+                position != null
+                    ? buildMap()
+                    : Center(
+                        child: CircularProgressIndicator(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                buildFloatingSearchBar(),
+                Positioned(
+                  bottom: 43, // Adjust the bottom position as needed
+                  left: 24, // Adjust the left position as needed
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                          FormAddressScreen.routeName,
+                          arguments: placeSuggestion?.description);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      // Change the button's background color
+                      foregroundColor: Colors.white,
+                      // Change the button's text color
+                      elevation: 4,
+                      // Add elevation to the button
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                      // Adjust padding as needed
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            8), // Adjust border radius as needed
+                      ),
+                    ),
+                    child: const Text("Confirm Address"),
                   ),
                 ),
-          buildFloatingSearchBar(),
-          Positioned(
-            bottom: 43, // Adjust the bottom position as needed
-            left: 24, // Adjust the left position as needed
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(FormAddressScreen.routeName, arguments: placeSuggestion?.description);
-              },
-              style: ElevatedButton.styleFrom(
+              ],
+            ),
+
+            floatingActionButton: Container(
+              margin: const EdgeInsets.fromLTRB(0, 0, 8, 30),
+              child: FloatingActionButton(
                 backgroundColor: Theme.of(context).primaryColor,
-                // Change the button's background color
-                foregroundColor: Colors.white,
-                // Change the button's text color
-                elevation: 4,
-                // Add elevation to the button
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                // Adjust padding as needed
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      8), // Adjust border radius as needed
+                onPressed: _goToMyCurrentLocation,
+                child: const Icon(
+                  Icons.place_outlined,
+                  color: Colors.white,
                 ),
               ),
-              child: const Text("Confirm Address"),
             ),
-          ),
-
-
-        ],
+          );
+        },
       ),
-
-      floatingActionButton: Container(
-        margin: const EdgeInsets.fromLTRB(0, 0, 8, 30),
-        child: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: _goToMyCurrentLocation,
-          child: const Icon(
-            Icons.place_outlined,
-            color: Colors.white,
-          ),
-        ),
-      ),
-
     );
   }
 }

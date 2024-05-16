@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../domain/model/Restaurant.dart';
-import '../home/home_tab/restaurants/restaurant_list.dart';
+import '../home/home_tab/widgets/restaurant_list.dart';
 
 class SearchScreen extends SearchDelegate {
   SearchScreen({this.restaurants});
