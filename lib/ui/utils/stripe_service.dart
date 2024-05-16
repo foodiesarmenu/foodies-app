@@ -3,7 +3,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:foodies_app/data/api_manager.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/model/request/payment_intent_input_model.dart';
+import '../../data/model/request/PaymentIntentInputModel.dart';
 import '../../domain/model/InitPaymentSheetInputModel.dart';
 
 @injectable

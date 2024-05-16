@@ -1,11 +1,6 @@
 import '../ui/utils/shared_preference_utils.dart';
 
 class ApiConstants {
-//https://foodies-backend-1.onrender.com/mobile/category
-//https://foodies-backend-1.onrender.com/mobile/restaurant/
-//https://foodies-backend-1.onrender.com/mobile/restaurant/menu/
-//https://foodies-backend-1.onrender.com/mobile/client
-//https://foodies-backend-1.onrender.com/mobile/auth/login
 
   static const String baseUrl = 'foodies-backend-1.onrender.com';
   static const String stripeUrl = 'api.stripe.com';
@@ -25,6 +20,7 @@ class ApiConstants {
   static const String orderApi = '/client/order';
   static const String addressApi = '/mobile/address';
   static const String promotionApi = '/mobile/promotion';
+  static const String getProfileDataApi = '/mobile/client';
 
   static const String stripePublishableKey =
       'pk_test_51P74Z0RvZAWQr39yHYhCjcu6B95Mf205iwVrhBknhNr8VE1HPSq6jqQi8v4Qhl9PDq1aIrtVIOIAa79Tz9kaTU8x00FCy5Pg1I';

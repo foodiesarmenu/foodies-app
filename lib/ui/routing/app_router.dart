@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/ar/ar_screen.dart';
 import 'package:foodies_app/ui/auth/forget_password/forget_password_screen.dart';
 import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
@@ -9,38 +10,38 @@ import 'package:foodies_app/ui/cart/cart_screen.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
 import 'package:foodies_app/ui/checkout/checkout_screen.dart';
-import 'package:foodies_app/ui/ordering_splash_screen/ordering_splash_screen.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/home/home_tab/home_tab.dart';
 import 'package:foodies_app/ui/home/orders_tab/orders_tab.dart';
-import 'package:foodies_app/ui/home/profile_tab/edit_profile/EditProfileScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
+import 'package:foodies_app/ui/home/profile_tab/edit_profile/edit_profile_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/change_email_screen/change_email_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/change_password/change_password_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/form_address/form_address_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/maps/map_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/my_addresses_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/my_card/my_card_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/settings_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/change_email_screen/ChangeEmailScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/change_password/ChangePasswordScreen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/my_card/MyCardScreen.dart';
 import 'package:foodies_app/ui/meal_details/meal_details.dart';
 import 'package:foodies_app/ui/menu/menu_screen.dart';
-import 'package:foodies_app/ui/ar/ar_screen.dart';
 import 'package:foodies_app/ui/menu_scanner/menu_scanner_screen.dart';
 import 'package:foodies_app/ui/order_choice/order_choice_screen.dart';
 import 'package:foodies_app/ui/order_details/order_details.dart';
+import 'package:foodies_app/ui/ordering_splash_screen/ordering_splash_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 
 class AppRouter {
   static String initialRoute = SplashScreenController.routeName;
 
-  static Map<String, WidgetBuilder> get routes => {
+  static Map<String, WidgetBuilder> get routes =>
+      {
         RegisterScreen.routeName: (_) => const RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
         OrderChoiceScreen.routeName: (_) => const OrderChoiceScreen(),
         HomeTab.routeName: (_) => const HomeTab(),
         OrdersTab.routeName: (_) => OrdersTab(),
-        ProfileTab.routeName: (_) => const ProfileTab(),
+        ProfileTab.routeName: (_) => ProfileTab(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         EditProfileScreen.routeName: (_) => const EditProfileScreen(),
         ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),

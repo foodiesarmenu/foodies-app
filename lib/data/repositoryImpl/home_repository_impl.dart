@@ -6,8 +6,6 @@ import 'package:foodies_app/domain/model/Restaurant.dart';
 import 'package:foodies_app/domain/repositoryContract/home_repository.dart';
 import 'package:injectable/injectable.dart';
 
-import '../dataSourceContract/CategoriesDataSource.dart';
-import '../dataSourceContract/RestaurantsDataSource.dart';
 import '../dataSourceContract/home_data_source.dart';
 
 @Injectable(as: HomeRepository)

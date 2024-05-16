@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/model/Restaurant.dart';
-import '../../../domain/usecase/GetRestaurantsByCategoryId.dart';
+import '../../../domain/usecase/get_restaurants_by_category_id.dart';
 
 @injectable
 class CategoryDetailsViewModel extends Cubit<CategoryDetailsState> {

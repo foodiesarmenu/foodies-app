@@ -54,4 +54,14 @@ class ProfileDataSourceImpl extends ProfileDataSource {
     // TODO: implement updateProfilePicture
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failures, User>> getProfileData() async {
+    var either = await apiManager.getProfileData();
+    return either.fold((error) {
+      return Left(Failures(errorMessage: error.errorMessage));
+    }, (response) {
+      return Right(response.data!.toUser());
+    });
+  }
 }

@@ -1,9 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/OrderEntity.dart';
-import 'package:foodies_app/ui/order_details/order_details.dart';
 
-import '../../common/ButtonInProfile.dart';
+import '../../common/button_in_profile.dart';
 
 class OrderItemWidget extends StatelessWidget {
    OrderItemWidget({super.key, required this.order, this.statusColor });

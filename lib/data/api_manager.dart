@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:foodies_app/data/model/response/delivery_address_response/AddressessResponseDto.dart';
@@ -8,13 +9,14 @@ import 'package:foodies_app/domain/model/DeliveryAddress.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import 'package:injectable/injectable.dart';
+
 import '../domain/failures.dart';
 import '../ui/utils/shared_preference_utils.dart';
-import 'LoggingInterceptor.dart';
 import 'api_constants.dart';
+import 'logging_interceptor.dart';
 import 'model/request/LoginRequest.dart';
+import 'model/request/PaymentIntentInputModel.dart';
 import 'model/request/RegisterRequest.dart';
-import 'model/request/payment_intent_input_model.dart';
 import 'model/response/auth_response/LoginResponse.dart';
 import 'model/response/auth_response/RegisterResponse.dart';
 import 'model/response/category_response/CategoriesResponse.dart';
@@ -727,6 +729,28 @@ class ApiManager {
         return Right(promotionsResponse);
       } else {
         return Left(ServerError(errorMessage: 'Error fetching promotions'));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> getProfileData() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getProfileDataApi);
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .get(url, headers: {'Authorization': ApiConstants.authorization});
+      var profileResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(profileResponse);
+      } else {
+        return Left(ServerError(errorMessage: profileResponse.message));
       }
     } else {
       return Left(

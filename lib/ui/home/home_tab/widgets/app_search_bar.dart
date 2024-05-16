@@ -33,8 +33,11 @@ class _AppSearchBarState extends State<AppSearchBar> {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
 
                 child: Text(
-                  'Search for meal or restaurant...',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+                  'Search for restaurant...',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Colors.grey),
                 ),
               ),
               // Optionally include a disabled filter icon for visual consistency

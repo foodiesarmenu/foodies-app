@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/AppTextButton.dart';
-import '../../common/AppTextFormField.dart';
-import '../../common/ButtonInProfile.dart';
-import '../../common/EditTextInProfile.dart';
+import '../../common/app_text_button.dart';
+import '../../common/app_text_form_field.dart';
 import '../login/login_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
