@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../otp/otp_code_screen.dart';
 import 'widgets/button_widget.dart';
 import 'widgets/intro_text_widget.dart';
@@ -53,21 +53,37 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Form(
         key: phoneFormKey,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 32, vertical: 88),
+          margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IntroTextWidget.buildIntroText(
                 'What is your phone Number?',
-                'Please enter your phone number to verify your account.',
+                'Please enter your phone number to reset the password.',
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               PhoneFieldWidget.buildPhoneFormField(phoneController),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

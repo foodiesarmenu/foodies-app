@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../common/ButtonInProfile.dart';
+
+import '../../../../common/button_in_profile.dart';
 import 'maps/map_screen.dart';
 
 class MyAddressesScreen extends StatelessWidget {

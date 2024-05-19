@@ -1,8 +1,8 @@
 import 'package:foodies_app/domain/model/Menu.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/repositoryContract/MenusRepo.dart';
-import '../dataSourceContract/MenusDataSource.dart';
+import '../../domain/repositoryContract/menus_repo.dart';
+import '../dataSourceContract/menus_data_source.dart';
 
 @Injectable(as: MenusRepo)
 class MenusRepoImpl extends MenusRepo {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/reset_password/reset_password_screen.dart';
+
 import '../forget_password/widgets/button_widget.dart';
 import '../forget_password/widgets/intro_text_widget.dart';
 
@@ -37,10 +37,22 @@ class OtpCodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: Form(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 32, vertical: 88),
+          margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

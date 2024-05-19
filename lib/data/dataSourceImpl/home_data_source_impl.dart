@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/model/Category.dart';
 import '../../domain/model/Promotion.dart';
-import '../dataSourceContract/RestaurantsDataSource.dart';
 import '../dataSourceContract/home_data_source.dart';
 
 @Injectable(as: HomeDataSource)

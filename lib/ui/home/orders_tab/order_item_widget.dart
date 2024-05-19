@@ -1,25 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/OrderEntity.dart';
-import 'package:foodies_app/ui/order_details/order_details.dart';
+import 'package:intl/intl.dart';
 
-import '../../common/ButtonInProfile.dart';
+import '../../common/button_in_profile.dart';
 
 class OrderItemWidget extends StatelessWidget {
-   OrderItemWidget({super.key, required this.order, this.statusColor });
-final OrderEntity? order;
-final Color? statusColor;
+  OrderItemWidget({super.key, required this.order, this.statusColor});
+
+  final OrderEntity? order;
+  final Color? statusColor;
+
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    DateTime dateTime = DateTime.parse(order?.date ?? '');
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+    String formattedDateString = dateFormat.format(dateTime);
+
+    return Column(
       children: [
         Row(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: CachedNetworkImage(
-                imageUrl: order?.restaurant!.image ??
-                    "",
+                imageUrl: order?.restaurant!.image ?? "",
                 height: 75,
                 width: 75,
                 fit: BoxFit.fill,
@@ -54,7 +59,7 @@ final Color? statusColor;
                               ?.copyWith(color: statusColor)),
                     ],
                   ),
-                  Text('24-04-2024',
+                  Text(formattedDateString,
                       style: Theme.of(context).textTheme.bodySmall),
                   Text('${order?.noOfOrderItems} Items',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.secondary)),

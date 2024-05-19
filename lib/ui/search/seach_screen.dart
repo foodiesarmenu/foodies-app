@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../domain/model/Restaurant.dart';
 import '../home/home_tab/widgets/restaurant_list.dart';
 
@@ -24,10 +25,13 @@ return null;
 
   @override
   Widget buildResults(BuildContext context) {
-    List<Restaurant>? filter = restaurants?.where((element) => element.name!.contains(query)).toList();
+    List<Restaurant>? filter = restaurants
+        ?.where((element) =>
+            element.name!.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
         child: RestaurantList(
           filter,
         ),
@@ -37,18 +41,22 @@ return null;
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<Restaurant>? filter = restaurants?.where((element) => element.name!.contains(query)).toList();
+    List<Restaurant>? filter = restaurants
+        ?.where((element) =>
+            element.name!.toLowerCase().contains(query.toLowerCase()))
+        .toList();
 
     return SingleChildScrollView(
-        child: Column(
+      child: Column(
         children: [
           if (query.isNotEmpty)
             Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 16),
-            child: Column(
-              children: [
-                Row(
-                  children: [
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
                     Text(
                       'Search Results',
                       style: Theme.of(context).textTheme.titleSmall,

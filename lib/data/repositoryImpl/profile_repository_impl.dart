@@ -49,4 +49,9 @@ class ProfileRepositoryImpl extends ProfileRepository {
     // TODO: implement updateProfilePicture
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failures, User>> getProfileData() {
+    return profileDataSource.getProfileData();
+  }
 }

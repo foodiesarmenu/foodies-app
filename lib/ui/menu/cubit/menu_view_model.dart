@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodies_app/domain/usecase/GetMenusUsecase.dart';
+import 'package:foodies_app/domain/usecase/get_menus_use_case.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/model/Menu.dart';

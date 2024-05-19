@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
 
 import '../cart/cart_screen.dart';
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeTab(),
     OrdersTab(),
     //OrdersTab(scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor), // Pass the value
-    const ProfileTab(),
+    ProfileTab(),
   ];
 
   @override

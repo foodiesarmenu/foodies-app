@@ -19,4 +19,6 @@ abstract class ProfileDataSource {
   Future<Either<Failures, User>> deleteProfilePicture();
 
   Future<Either<Failures, User>> deleteAccount();
+
+  Future<Either<Failures, User>> getProfileData();
 }

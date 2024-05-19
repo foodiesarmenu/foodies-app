@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../data/model/request/payment_intent_input_model.dart';
+import '../../../data/model/request/PaymentIntentInputModel.dart';
 import '../../../domain/model/DeliveryAddress.dart';
 import '../../../domain/usecase/create_cash_order_use_case.dart';
 import '../../../domain/usecase/create_online_order_use_case.dart';

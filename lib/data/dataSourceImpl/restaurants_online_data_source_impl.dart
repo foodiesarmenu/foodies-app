@@ -2,7 +2,7 @@ import 'package:foodies_app/data/api_manager.dart';
 import 'package:foodies_app/domain/model/Restaurant.dart';
 import 'package:injectable/injectable.dart';
 
-import '../dataSourceContract/RestaurantsDataSource.dart';
+import '../dataSourceContract/restaurants_data_source.dart';
 
 @Injectable(as: RestaurantsDataSource)
 class RestaurantsOnlineDataSourceImpl extends RestaurantsDataSource {

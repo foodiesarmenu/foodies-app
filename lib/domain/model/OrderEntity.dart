@@ -33,7 +33,7 @@ class OrderEntity {
     this.paymentMethod,
     this.isPaid,
     this.deliveryAddress,
-  });
+    this.date});
 
   String? id;
   String? userId;
@@ -47,4 +47,5 @@ class OrderEntity {
   String? paymentMethod;
   bool? isPaid;
   DeliveryAddress? deliveryAddress;
+  String? date;
 }

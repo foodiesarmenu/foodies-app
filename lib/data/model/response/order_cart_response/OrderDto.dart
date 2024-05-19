@@ -1,7 +1,7 @@
 import '../../../../domain/model/OrderEntity.dart';
 import '../delivery_address_response/DeliveryAddressDto.dart';
-import 'CartItemDto.dart';
 import '../restaurant_response/RestaurantDto.dart';
+import 'CartItemDto.dart';
 
 /// _id : "66234aa16a22215e3e14fdd7"
 /// userId : "65febe55dfd1d02c2de022ab"
@@ -97,6 +97,7 @@ class OrderDto {
       paymentMethod: paymentMethod,
       isPaid: isPaid,
       deliveryAddress: deliveryAddress?.toDeliveryAddress(),
+      date: createdAt,
     );
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/domain/model/DeliveryAddress.dart';
-import 'package:foodies_app/domain/usecase/GetPromotionsUseCase.dart';
 import 'package:foodies_app/domain/usecase/get_primary_delivery_address_use_case.dart';
+import 'package:foodies_app/domain/usecase/get_promotions_use_case.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../domain/model/Promotion.dart';
-import '../../../../domain/usecase/GetCategoriesUsecase.dart';
-import '../../../../domain/usecase/GetRestaurantsUsecase.dart';
+
 import '../../../../domain/usecase/get_all_delivery_addressess_use_case.dart';
+import '../../../../domain/usecase/get_categories_use_case.dart';
+import '../../../../domain/usecase/get_restaurants_use_case.dart';
 import '../../../../domain/usecase/update_delivery_address_use_case.dart';
 import 'home_states.dart';
 

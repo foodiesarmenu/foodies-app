@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,6 +15,7 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
   RemoveItemFromCartUseCase removeItemFromCartUseCase;
   UpdateCountInCartUseCase updateCountInCartUseCase;
   DeleteCartUseCase deleteCartUseCase;
+  TextEditingController couponController = TextEditingController();
 
   @factoryMethod
   CartScreenViewModel(
@@ -47,7 +49,6 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
       emit(GetCartSuccessState(cart: response));
       SharedPreferenceUtils.saveData(
           key: 'numOfCartItems', value: response.noOfOrderItems);
-
     });
   }
 
@@ -60,7 +61,6 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
       emit(GetCartSuccessState(cart: response));
       SharedPreferenceUtils.saveData(
           key: 'numOfCartItems', value: response.noOfOrderItems);
-
     });
   }
 
@@ -73,7 +73,6 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
       emit(DeleteCartSuccessState(cart: response));
       SharedPreferenceUtils.saveData(
           key: 'numOfCartItems', value: response?.noOfOrderItems ?? 0);
-
     });
   }
 }
