@@ -7,7 +7,7 @@ class FormInputField extends StatelessWidget {
   final TextEditingController controller;
   final bool isSecured;
   final TextInputType keyboardType;
-  final MyValidator validator;
+  final MyValidator? validator;
   final IconData? icon;
   final String? hint;
   final bool isPassword;
@@ -18,7 +18,7 @@ class FormInputField extends StatelessWidget {
       {required this.controller,
       this.isSecured = false,
       this.label,
-      required this.validator,
+      this.validator,
       this.keyboardType = TextInputType.text,
       this.hint,
       this.icon,
@@ -38,7 +38,6 @@ class FormInputField extends StatelessWidget {
             icon,
             color: const Color(0xFFB6C7D1),
           ),
-
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
             borderRadius: BorderRadius.all(Radius.circular(16.0)),
