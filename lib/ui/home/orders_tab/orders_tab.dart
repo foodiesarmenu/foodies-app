@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/home/orders_tab/cubit/orders_tab_states.dart';
 import 'package:foodies_app/ui/home/orders_tab/cubit/orders_tab_view_model.dart';
 
 import '../../../di/di.dart';
-import '../../common/ButtonInProfile.dart';
 import '../../order_details/order_details.dart';
 import 'order_item_widget.dart';
 
@@ -20,19 +18,20 @@ class OrdersTab extends StatelessWidget {
     return BlocBuilder<OrdersTabViewModel,OrdersTabStates>(
       bloc: viewModel..getAllOrders(),
       builder: (context, state) {
-        return Scaffold(
-          body: (state is GetAllOrdersSuccessState) ?
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-            child: ListView.separated(
-              separatorBuilder: (context, index) {
-                return const Divider(
-                  indent: 30,
-                  endIndent: 30,
-                );
-              },
-              itemCount: state.ordersResponse.length, // Length of the orders list
-              itemBuilder: (context, index) {
+        return (state is GetAllOrdersSuccessState)
+            ? Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+                child: ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      indent: 30,
+                      endIndent: 30,
+                    );
+                  },
+                  itemCount:
+                      state.ordersResponse.length, // Length of the orders list
+                  itemBuilder: (context, index) {
                 Color statusColor;
                 switch (state.ordersResponse[index].status?.toLowerCase()) {
                   case 'delivered':
@@ -67,7 +66,6 @@ class OrdersTab extends StatelessWidget {
           ) :
           const Center(
             child: CircularProgressIndicator(),
-          ),
         );
       },
     );

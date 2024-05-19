@@ -2,7 +2,7 @@ import 'package:foodies_app/data/api_manager.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/model/Category.dart';
-import '../dataSourceContract/CategoriesDataSource.dart';
+import '../dataSourceContract/categories_data_source.dart';
 
 @Injectable(as: CategoriesDataSource)
 class CategoriesOnlineDataSourceImpl extends CategoriesDataSource {

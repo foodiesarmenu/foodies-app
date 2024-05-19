@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../model/Menu.dart';
-import '../repositoryContract/MenusRepo.dart';
+import '../repositoryContract/menus_repo.dart';
 
 @injectable
 class GetMenusUsecase {

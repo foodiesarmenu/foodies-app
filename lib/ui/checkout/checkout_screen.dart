@@ -4,7 +4,8 @@ import 'package:foodies_app/domain/model/DeliveryAddress.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
 import 'package:foodies_app/ui/checkout/cubit/checkout_states.dart';
 import 'package:foodies_app/ui/checkout/cubit/checkout_view_model.dart';
-import '../../data/model/request/payment_intent_input_model.dart';
+
+import '../../data/model/request/PaymentIntentInputModel.dart';
 import '../../di/di.dart';
 import '../../domain/model/OrderEntity.dart';
 import '../common/address_details_widget.dart';

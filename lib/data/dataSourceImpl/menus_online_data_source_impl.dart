@@ -2,7 +2,7 @@ import 'package:foodies_app/domain/model/Menu.dart';
 import 'package:injectable/injectable.dart';
 
 import '../api_manager.dart';
-import '../dataSourceContract/MenusDataSource.dart';
+import '../dataSourceContract/menus_data_source.dart';
 
 @Injectable(as: MenusDataSource)
 class MenusOnlineDataSourceImpl extends MenusDataSource {

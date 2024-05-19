@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/common/ButtonInProfile.dart';
+import 'package:foodies_app/ui/common/button_in_profile.dart';
 
 import '../../../../common/custom_app_bar.dart';
 import '../settings_screen.dart';

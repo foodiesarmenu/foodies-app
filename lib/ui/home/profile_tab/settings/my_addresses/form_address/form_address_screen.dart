@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodies_app/ui/common/EditTextInProfile.dart';
+import 'package:foodies_app/ui/common/edit_text_in_profile.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
+
 import '../../../../../../di/di.dart';
-import '../../../../../common/ButtonInProfile.dart';
+import '../../../../../common/button_in_profile.dart';
 import '../../../../../common/custom_app_bar.dart';
 import 'cubit/form_address_states.dart';
 import 'cubit/form_address_view_model.dart';

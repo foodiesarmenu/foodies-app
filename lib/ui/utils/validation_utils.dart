@@ -5,15 +5,23 @@ class ValidationUtils {
     return regex.hasMatch(email);
   }
 
-  static bool isValidPassword(String password) {
-    var regex = RegExp(
-        r'^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$');
-    return regex.hasMatch(password);
+  static bool hasLowerCase(String password) {
+    return RegExp(r'^(?=.*[a-z])').hasMatch(password);
   }
 
-  /// Checks if string consist only Alphabet. (No Whitespace)
-  static bool isText(String name) {
-    var regex = RegExp(r'^[a-zA-Z]+$');
-    return regex.hasMatch(name);
+  static bool hasUpperCase(String password) {
+    return RegExp(r'^(?=.*[A-Z])').hasMatch(password);
+  }
+
+  static bool hasNumber(String password) {
+    return RegExp(r'^(?=.*?[0-9])').hasMatch(password);
+  }
+
+  static bool hasSpecialCharacter(String password) {
+    return RegExp(r'^(?=.*?[#?!@$%^&*-])').hasMatch(password);
+  }
+
+  static bool hasMinLength(String password) {
+    return RegExp(r'^(?=.{8,})').hasMatch(password);
   }
 }

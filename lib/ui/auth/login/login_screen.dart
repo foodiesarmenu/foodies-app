@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/auth/login/cubit/login_view_model.dart';
+
 import '../../../di/di.dart';
 import '../../common/form_input_field.dart';
 import '../../common/primary_button.dart';
-import '../../common/social_sign_in_options.dart';
 import '../../order_choice/order_choice_screen.dart';
 import '../../utils/dialog_utils.dart';
 import '../../utils/validation_utils.dart';
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Login to your account',
                         style: Theme.of(context).textTheme.titleMedium),
                     const SizedBox(
-                      height: 16,
+                      height: 24,
                     ),
                     //Form
                     Form(
@@ -75,8 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           FormInputField(
+                            label: 'Email',
+                            icon: Icons.email_outlined,
                             controller: viewModel.emailController,
-                            hint: 'yehya404@gmail.com',
+                            //hint: 'yehya404@gmail.com',
                             keyboardType: TextInputType.emailAddress,
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
@@ -87,22 +89,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               }
                               return null;
                             },
-                            isPassword: false,
-                            isEmail: true,
+                          ),
+
+                          SizedBox(
+                            height: 16,
                           ),
 
                           FormInputField(
-                            isPassword: true,
-                            isEmail: false,
+                            icon: Icons.lock_outlined,
                             controller: viewModel.passwordController,
-                            hint: 'Ehab123@',
+                            label: 'Password',
+                            //hint: 'Ehab123@',
                             isSecured: true,
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
                                 return 'Please enter password';
-                              }
-                              if (text.length <= 6) {
-                                return 'Password should at least 6 chars';
                               }
                               return null;
                             },
@@ -111,18 +112,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(height: 8),
 
                           //Forget Password
-                           Align(
+                          Align(
                             alignment: Alignment.centerRight,
                             child: InkWell(
                               onTap: () {
-                                Navigator.of(context).pushNamed(
-                                    ForgetPasswordScreen.routeName);
+                                Navigator.of(context)
+                                    .pushNamed(ForgetPasswordScreen.routeName);
                               },
                               child: Text(
                                 'Forget Password?',
                                 style: TextStyle(
-                                  color: Color((0xFFA3A3A3)),
-                                ),
+                                    color: Theme.of(context).primaryColor),
                               ),
                             ),
                           ),
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Do not have account ?',
+                                'Do not have account? ',
                                 style: TextStyle(
                                     color: Theme.of(context)
                                         .colorScheme
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
 
                           //Social Connect
-                          const SocialSignInOptions(),
+                          // const SocialSignInOptions(),
                         ],
                       ),
                     ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/di/di.dart';
-import 'package:foodies_app/ui/common/ButtonInProfile.dart';
-import 'package:foodies_app/ui/common/EditTextInProfile.dart';
+import 'package:foodies_app/ui/common/button_in_profile.dart';
+import 'package:foodies_app/ui/common/edit_text_in_profile.dart';
 
 import '../../../../common/custom_app_bar.dart';
 import '../../../../utils/dialog_utils.dart';
-import '../../cubit/ProfileStates.dart';
+import '../../cubit/profile_states.dart';
 import '../../cubit/profile_view_model.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return BlocListener<ProfileViewModel, ProfileStates>(
       bloc: viewModel,
       listener: (context, state) {
-        if (state is UpdatePasswordLoadingState) {
+        if (state is ProfileLoadingState) {
           DialogUtils.showLoading(context, state.loadingMessage ?? 'Waiting');
         } else if (state is UpdatePasswordErrorState) {
           DialogUtils.hideLoading(context);

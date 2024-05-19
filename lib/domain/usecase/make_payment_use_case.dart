@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../data/model/request/payment_intent_input_model.dart';
+import '../../data/model/request/PaymentIntentInputModel.dart';
 import '../../data/model/response/payment_intent_model_response/PaymentIntentModel.dart';
 import '../failures.dart';
 import '../repositoryContract/order_repository.dart';

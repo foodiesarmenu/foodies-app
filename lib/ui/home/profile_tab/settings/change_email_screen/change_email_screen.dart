@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodies_app/ui/common/ButtonInProfile.dart';
-import 'package:foodies_app/ui/common/EditTextInProfile.dart';
+import 'package:foodies_app/ui/common/button_in_profile.dart';
+import 'package:foodies_app/ui/common/edit_text_in_profile.dart';
 import 'package:foodies_app/ui/utils/validation_utils.dart';
 
 import '../../../../common/custom_app_bar.dart';
