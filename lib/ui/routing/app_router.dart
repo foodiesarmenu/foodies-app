@@ -31,12 +31,13 @@ import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:foodies_app/ui/ordering_splash_screen/ordering_splash_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 
+import '../auth/set_a_new_password/set_a_new_password_screen.dart';
+
 class AppRouter {
   static String initialRoute = SplashScreenController.routeName;
 
-  static Map<String, WidgetBuilder> get routes =>
-      {
-        RegisterScreen.routeName: (_) => const RegisterScreen(),
+  static Map<String, WidgetBuilder> get routes => {
+        RegisterScreen.routeName: (_) => RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
         OrderChoiceScreen.routeName: (_) => const OrderChoiceScreen(),
         HomeTab.routeName: (_) => const HomeTab(),
@@ -66,6 +67,7 @@ class AppRouter {
         OtpCodeScreen.routeName: (_) => OtpCodeScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
         ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
+        SetANewPasswordScreen.routeName: (_) => SetANewPasswordScreen(),
         ARScreen.routeName: (_) => ARScreen(),
       };
 }

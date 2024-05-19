@@ -135,8 +135,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           const SizedBox(
                               height: 20.0), // Space between sections
                           FormInputField(
+                            icon: Icons.person_outlined,
                             controller: fullNameController,
                             label: 'Full Name',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
                             hint: state.user.name ?? 'Yehya Gamal',
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
@@ -144,14 +146,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               }
                               return null;
                             },
-                            isPassword: false,
-                            isEmail: false,
                           ),
+                          SizedBox(height: 12.0),
                           FormInputField(
-                              isPassword: false,
-                              isEmail: false,
+                              icon: Icons.email_outlined,
                               controller: emailController,
                               label: 'Email',
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
                               hint: state.user.email ?? 'yungy@gmail.com',
                               keyboardType: TextInputType.emailAddress,
                               validator: (text) {
@@ -163,12 +165,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 }
                                 return null;
                               }),
+                          SizedBox(height: 12.0),
+
                           FormInputField(
-                            isPassword: false,
-                            isEmail: false,
+                            icon: Icons.phone_outlined,
                             controller: phoneController,
                             label: 'Phone',
                             hint: state.user.phoneNumber ?? '01000000000',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
                             keyboardType: TextInputType.number,
                             validator: (text) {
                               if (text == null || text.trim().isEmpty) {
@@ -180,6 +184,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               return null;
                             },
                           ),
+
                           Row(
                             children: [
                               Text(
@@ -217,16 +222,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     fontSize: 14, color: Colors.black),
                               ),
                             ],
-                          ), //Gender Selection
+                          ), //G
+                          SizedBox(height: 12.0),
+// ender Selection
                           Row(
                             children: [
                               Expanded(
                                 child: FormInputField(
+                                  icon: Icons.calendar_today,
                                   isPassword: false,
                                   isEmail: false,
                                   controller: birthDateController,
                                   keyboardType: TextInputType.datetime,
                                   label: 'Birth-Date',
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
                                   hint: state.user.dateOfBirth != null
                                       ? '${state.user.dateOfBirth}'
                                       : 'DD/MM/YYYY',
@@ -249,7 +259,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ],
                           ), //Birth date
                           const SizedBox(
-                              height: 10.0), // Space before the button
+                              height: 12.0), // Space before the button
                           /*ElevatedButton(
                     onPressed: editAccount,
                     style: ElevatedButton.styleFrom(
