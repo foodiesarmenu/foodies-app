@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/model/OrderEntity.dart';
-import '../utils/shared_preference_utils.dart';
-import 'cart_item_widget.dart';
 import '../cart/cubit/cart_screen_view_model.dart';
+import 'cart_item_widget.dart';
 
 class CartItemListWidget extends StatelessWidget {
   const CartItemListWidget(
-      {this.viewModel, required this.cart, this.isCart = true, super.key});
+      {this.viewModel,
+      required this.cart,
+      this.isCart = true,
+      this.refreshMenuState,
+      super.key});
 
   final bool isCart;
   final OrderEntity? cart;
   final CartScreenViewModel? viewModel;
+  final Function()? refreshMenuState;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +38,10 @@ class CartItemListWidget extends StatelessWidget {
                 //Clear Cart
                 isCart
                     ? InkWell(
-                        onTap: () {
-                          viewModel?.clearCart();
-                          SharedPreferenceUtils.removeData(
-                              key: 'numOfCartItems');
-                          Navigator.pop(context, true);
+                        onTap: () async {
+                          await viewModel?.clearCart();
+                          refreshMenuState!();
+                          Navigator.pop(context);
                         },
                         child: Row(
                           children: [
@@ -71,7 +74,8 @@ class CartItemListWidget extends StatelessWidget {
               itemBuilder: (context, index) => CartItemWidget(
                   cart: cart?.orderItems?[index],
                   noOfCartItems: cart?.noOfOrderItems?.toInt(),
-                  isCart: isCart),
+                  isCart: isCart,
+                  cartViewModel: viewModel),
               separatorBuilder: (context, index) => const Divider(),
             ),
           ],

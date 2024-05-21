@@ -9,9 +9,10 @@ import '../ar/ar_screen.dart';
 import '../common/custom_bottom_navigation_bar.dart';
 
 class MealDetails extends StatefulWidget {
-  const MealDetails({this.meal, super.key});
+  const MealDetails({this.meal, this.refreshMenuState, super.key});
 
   static const String routeName = 'MealDetailsSc';
+  final Function()? refreshMenuState;
   final Meal? meal;
 
   @override
@@ -284,6 +285,7 @@ class _MealDetailsState extends State<MealDetails> {
                     Text('Choose 1',
                         style: Theme.of(context).textTheme.bodySmall),
                     ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: widget.meal?.sizes?.length ?? 0,
                       itemBuilder: (context, index) {
@@ -296,16 +298,16 @@ class _MealDetailsState extends State<MealDetails> {
                                 style: Theme.of(context).textTheme.titleSmall,
                               ),
                               if(widget.meal?.sizes?[index] != widget.meal?.sizes?[0])
-                              Text(
+                                Text(
                                   '${widget.meal?.currency} ${widget.meal?.sizes?[index].price.toString() ?? ""}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary),
-                              ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
+                                ),
                             ],
                           ),
                           contentPadding: EdgeInsets.zero,
@@ -349,12 +351,16 @@ class _MealDetailsState extends State<MealDetails> {
               );
             } else {
               print(widget.meal?.sizes?[_value ?? 0].size ?? "");
-              viewModel.addToCart(
-                  mealId: widget.meal?.id ?? "",
-                  restaurantId: widget.meal?.restaurant ?? "",
-                  quantity: quantity,
-                  size: widget.meal?.sizes?[_value ?? 0].size ?? "");
-              Navigator.pop(context);
+              viewModel
+                  .addToCart(
+                      mealId: widget.meal?.id ?? "",
+                      restaurantId: widget.meal?.restaurant ?? "",
+                      quantity: quantity,
+                      size: widget.meal?.sizes?[_value ?? 0].size ?? "")
+                  .then((value) {
+                widget.refreshMenuState!();
+                Navigator.pop(context);
+              });
             }
           },
         ),

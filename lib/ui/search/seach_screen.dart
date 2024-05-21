@@ -4,11 +4,14 @@ import '../../domain/model/Restaurant.dart';
 import '../home/home_tab/widgets/restaurant_list.dart';
 
 class SearchScreen extends SearchDelegate {
-  SearchScreen({this.restaurants});
+  SearchScreen({this.restaurants, this.refreshHomeState});
+
   final List<Restaurant>? restaurants;
+  final Function()? refreshHomeState;
+
   @override
   List<Widget>? buildActions(BuildContext context) {
-return [
+    return [
       IconButton(
         onPressed: () {
           query = '';
@@ -34,6 +37,7 @@ return null;
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
         child: RestaurantList(
           filter,
+          refreshState: refreshHomeState,
         ),
       ),
     );
@@ -65,8 +69,9 @@ return null;
                 ),
                 SizedBox(height: 16),
                 RestaurantList(
-                   filter,
-                ),
+                  filter,
+                    refreshState: refreshHomeState,
+                  ),
               ],
             ),
           ),

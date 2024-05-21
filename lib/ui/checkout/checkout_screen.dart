@@ -30,6 +30,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void refreshPrimaryAddress() {
     viewModel.getPrimaryAddress();
   }
+
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context)!.settings.arguments as OrderEntity?;
@@ -177,7 +178,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   } else if (paymentMethod == 'Card') {
                     await viewModel.makePayment(
                       paymentIntentInputModel: PaymentIntentInputModel(
-                          amount: args?.orderTotalPrice.toString() ?? '',
+                          amount: args?.totalPriceAfterDiscount?.toDouble() ??
+                              args?.orderTotalPrice?.toDouble() ??
+                              0,
                           currency: 'EGP'),
                     );
 

@@ -5,8 +5,9 @@ import '../../meal_details/meal_details.dart';
 import 'meal_item.dart';
 
 class MealList extends StatefulWidget {
-  const MealList({super.key, required this.menus});
+  const MealList({super.key, this.refreshMenuState, required this.menus});
 
+  final Function()? refreshMenuState;
   final List<Menu>? menus;
 
   @override
@@ -47,8 +48,9 @@ class _MealListState extends State<MealList> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MealDetails(
-                                    meal: widget
+                                meal: widget
                                         .menus?[menuIndex].meals?[mealIndex],
+                                    refreshMenuState: widget.refreshMenuState,
                                   )),
                         );
                       },

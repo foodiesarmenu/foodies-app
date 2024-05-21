@@ -5,8 +5,9 @@ import '../../../../domain/model/Restaurant.dart';
 import '../../../menu/menu_screen.dart';
 
 class RestaurantList extends StatelessWidget {
-  const RestaurantList(this.restaurants, {super.key});
+  const RestaurantList(this.restaurants, {this.refreshState, super.key});
 
+  final Function()? refreshState;
   final List<Restaurant>? restaurants;
 
   @override
@@ -22,8 +23,10 @@ class RestaurantList extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          MenuScreen(restaurant: restaurants?[index]),
+                      builder: (context) => MenuScreen(
+                        restaurant: restaurants?[index],
+                        refreshHomeState: refreshState,
+                      ),
                     ),
                   );
                 },

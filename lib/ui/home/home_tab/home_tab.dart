@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/home/home_tab/widgets/promotion_widget.dart';
+
 import '../../../di/di.dart';
 import '../../search/seach_screen.dart';
 import 'cubit/home_states.dart';
-import 'widgets/category_list.dart';
 import 'cubit/home_tab_view_model.dart';
 import 'widgets/app_search_bar.dart';
+import 'widgets/category_list.dart';
 import 'widgets/delivery_address_widget.dart';
 import 'widgets/restaurant_list.dart';
 import 'widgets/section_title_widget.dart';
 
 class HomeTab extends StatefulWidget {
   static const String routeName = 'HomeSc';
+  final Function()? refreshHomeState;
 
-  const HomeTab({super.key});
+  const HomeTab({this.refreshHomeState, super.key});
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -22,10 +24,11 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   var viewModel = getIt<HomeTabViewModel>();
+
   @override
   void initState() {
-    super.initState();
     viewModel.initPage();
+    super.initState();
   }
 
   @override
@@ -54,7 +57,6 @@ class _HomeTabState extends State<HomeTab> {
 
               return CustomScrollView(
                         slivers: <Widget>[
-
                           SliverAppBar(
                             automaticallyImplyLeading: false,
                             pinned: false,
@@ -62,7 +64,6 @@ class _HomeTabState extends State<HomeTab> {
                             backgroundColor: Theme.of(context).primaryColor,
                             actions: [
                               Expanded(
-
                                 child: DeliveryAddressWidget(homeTabViewModel : viewModel),
                               ),
                             ],
@@ -78,8 +79,10 @@ class _HomeTabState extends State<HomeTab> {
                                         onPressed: () {
                                           showSearch(
                                             context: context,
-                                            delegate: SearchScreen(restaurants: successState.restaurants),
-                                          );
+                              delegate: SearchScreen(
+                                  restaurants: successState.restaurants,
+                                  refreshHomeState: widget.refreshHomeState),
+                            );
                                         },
                               ),
                               ),
@@ -111,12 +114,13 @@ class _HomeTabState extends State<HomeTab> {
                             sliver: SliverList(
                               delegate: SliverChildListDelegate(
                                 [
-                                  const SectionTitleWidget(
-                                    title: 'Category',
+                          const SectionTitleWidget(
+                            title: 'Category',
                             subtitle: 'Discover different categories',
                           ),
                           const SizedBox(height: 8),
-                          CategoryList(successState.categories ?? []),
+                          CategoryList(successState.categories ?? [],
+                              widget.refreshHomeState),
                           const Divider(),
                           const SectionTitleWidget(
                             title: 'Promotions',
@@ -130,7 +134,8 @@ class _HomeTabState extends State<HomeTab> {
                             subtitle: 'Explore various restaurants',
                           ),
                           const SizedBox(height: 8),
-                          RestaurantList(successState.restaurants ?? []),
+                          RestaurantList(successState.restaurants ?? [],
+                              refreshState: widget.refreshHomeState),
                         ],
                               ),
                             ),

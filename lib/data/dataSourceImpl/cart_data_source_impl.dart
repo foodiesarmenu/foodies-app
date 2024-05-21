@@ -67,4 +67,15 @@ class CartDataSourceImpl extends CartDataSource {
       return Right(response.data?.toOrderEntity());
     });
   }
+
+  @override
+  Future<Either<Failures, OrderEntity>> applyCoupon(
+      {required String coupon}) async {
+    var either = await apiManager.applyCoupon(coupon: coupon);
+    return either.fold((error) {
+      return Left(Failures(errorMessage: error.errorMessage));
+    }, (response) {
+      return Right(response.data!.toOrderEntity());
+    });
+  }
 }

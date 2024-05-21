@@ -5,8 +5,9 @@ import '../../../category_details/category_details.dart';
 import 'category_item.dart';
 
 class CategoryList extends StatelessWidget {
-  const CategoryList(this.categories, {super.key});
+  const CategoryList(this.categories, this.refreshHomeState, {super.key});
 
+  final Function()? refreshHomeState;
   final List<Category> categories;
 
   @override
@@ -20,8 +21,9 @@ class CategoryList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        CategoryDetails(category: categories[index]),
+                    builder: (context) => CategoryDetails(
+                        category: categories[index],
+                        refreshHomeState: refreshHomeState),
                   ),
                 );
               },
