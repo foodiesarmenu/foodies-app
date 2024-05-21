@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/menu/cubit/menu_view_model.dart';
 import 'package:foodies_app/ui/menu/widgets/meal_list.dart';
 import 'package:foodies_app/ui/menu/widgets/meal_tab_item.dart';
+
 import '../../domain/model/Menu.dart';
 import '../../domain/model/Restaurant.dart';
 
@@ -11,11 +12,13 @@ class MenuContainer extends StatefulWidget {
       {required this.isFavourite,
       required this.menus,
       required this.restaurant,
+      this.refreshMenuState,
       super.key});
 
   final Restaurant restaurant;
   final List<Menu>? menus;
   final bool isFavourite;
+  final Function()? refreshMenuState;
 
   @override
   State<MenuContainer> createState() => _MenuContainerState();
@@ -81,6 +84,7 @@ class _MenuContainerState extends State<MenuContainer> {
                 ),
                 child: IconButton(
                   onPressed: () {
+                    widget.refreshMenuState!();
                     Navigator.pop(context);
                   },
                   icon: Icon(
@@ -344,6 +348,7 @@ class _MenuContainerState extends State<MenuContainer> {
                 //Meal List
                 MealList(
                   menus: widget.menus ?? [],
+                  refreshMenuState: widget.refreshMenuState,
                 ),
               ],
             ),

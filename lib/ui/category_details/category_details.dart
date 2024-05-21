@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../di/di.dart';
 import '../../domain/model/Category.dart';
 import '../home/home_tab/widgets/restaurant_list.dart';
 import 'cubit/category_details_view_model.dart';
 
 class CategoryDetails extends StatefulWidget {
-  const CategoryDetails({this.category, super.key});
+  const CategoryDetails({this.category, this.refreshHomeState, super.key});
 
   static const String routeName = 'CategoryDetailsSc';
   final Category? category;
+  final Function()? refreshHomeState;
 
   @override
   State<CategoryDetails> createState() => _CategoryDetailsState();
@@ -62,7 +64,8 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                       const SizedBox(
                         height: 8,
                       ),
-                      RestaurantList(state.restaurants ?? []),
+                      RestaurantList(state.restaurants ?? [],
+                          refreshState: widget.refreshHomeState),
                     ],
                   ),
                 ),

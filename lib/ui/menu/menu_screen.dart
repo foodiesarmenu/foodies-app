@@ -10,8 +10,9 @@ import 'cubit/menu_view_model.dart';
 import 'menu_container.dart';
 
 class MenuScreen extends StatefulWidget {
-  const MenuScreen({this.restaurant, super.key});
+  const MenuScreen({this.restaurant, this.refreshHomeState, super.key});
 
+  final Function()? refreshHomeState;
   final Restaurant? restaurant;
   static const String routeName = 'RestaurantDetailsSc';
 
@@ -21,6 +22,8 @@ class MenuScreen extends StatefulWidget {
 
 class _MenuScreenState extends State<MenuScreen> {
   var viewModel = getIt<MenuViewModel>();
+  int? numOfCartItems =
+      SharedPreferenceUtils.getData(key: 'numOfCartItems') as int?;
 
   @override
   void initState() {
@@ -28,8 +31,13 @@ class _MenuScreenState extends State<MenuScreen> {
     viewModel.initPage(restaurantId: widget.restaurant?.id);
   }
 
-  var numOfCartItems =
-  SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? 0;
+  void refreshMenuState() {
+    setState(() {
+      numOfCartItems =
+          SharedPreferenceUtils.getData(key: 'numOfCartItems') as int?;
+      widget.refreshHomeState!();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,26 +64,35 @@ class _MenuScreenState extends State<MenuScreen> {
                 restaurant: widget.restaurant!,
                 menus: state.menus ?? [],
                 isFavourite: viewModel.isFavourite,
+                refreshMenuState: refreshMenuState,
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, CartScreen.routeName);
-                },
-                backgroundColor: Colors.white,
-                child: Badge(
-                  label: Text(
-                    '${numOfCartItems }',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  child: Icon(
-                    Icons.shopping_cart,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
+              floatingActionButton:
+                  (numOfCartItems != 0 && numOfCartItems != null)
+                      ? FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartScreen(
+                                        refreshMenuState: refreshMenuState)));
+                            // Navigator.pushNamed(context, CartScreen.routeName);
+                          },
+                          backgroundColor: Colors.white,
+                          child: Badge(
+                            label: Text(
+                              '$numOfCartItems',
+                              style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.shopping_cart,
+                              color: Theme.of(context).primaryColor,
+                            ),
+                          ),
+                        )
+                      : null,
             );
         }
         return const Scaffold();

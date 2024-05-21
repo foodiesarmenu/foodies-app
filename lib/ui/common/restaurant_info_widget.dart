@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 import '../../domain/model/OrderEntity.dart';
 import '../menu/menu_screen.dart';
 
@@ -8,8 +9,10 @@ class RestaurantInfoWidget extends StatelessWidget {
       {Key? key,
       this.isCart = true,
       this.isOrderDetails = true,
-      this.isOrder=false,
-      required this.cart, this.navigateToChangeAddress})
+      this.isOrder = false,
+      required this.cart,
+      this.navigateToChangeAddress,
+      this.refreshMenuState})
       : super(key: key);
 
   final OrderEntity? cart;
@@ -17,7 +20,9 @@ class RestaurantInfoWidget extends StatelessWidget {
   final bool isOrderDetails;
   final bool isOrder;
   final Function? navigateToChangeAddress;
-late final Color? statusColor;
+  late final Color? statusColor;
+  final Function()? refreshMenuState;
+
   @override
   Widget build(BuildContext context) {
     switch (cart?.status?.toLowerCase()) {
@@ -25,9 +30,7 @@ late final Color? statusColor;
         statusColor = Colors.green;
         break;
       case 'pending':
-        statusColor = Theme
-            .of(context)
-            .primaryColor;
+        statusColor = Theme.of(context).primaryColor;
         break;
       case 'canceled':
         statusColor = Colors.red;
@@ -83,8 +86,9 @@ late final Color? statusColor;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              MenuScreen(restaurant: cart?.restaurant),
+                          builder: (context) => MenuScreen(
+                              restaurant: cart?.restaurant,
+                              refreshHomeState: refreshMenuState),
                         ),
                       );
                     },

@@ -1,12 +1,14 @@
 class PaymentIntentInputModel {
-  final String amount;
+  final double amount;
   final String currency;
 
   PaymentIntentInputModel({required this.amount, required this.currency});
 
   toJson() {
+    int amountInCents = (amount * 100).toInt();
+
     return {
-      'amount': '${amount}00',
+      'amount': amountInCents.toString(),
       'currency': currency,
     };
   }

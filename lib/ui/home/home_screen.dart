@@ -17,17 +17,27 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  var isOrdering = SharedPreferenceUtils.getData(key: 'isOrdering') ?? false;
+  int? numOfCartItems =
+      SharedPreferenceUtils.getData(key: 'numOfCartItems') as int?;
+  late List<Widget> tabs;
 
-  List<Widget> tabs = [
-    HomeTab(),
-    OrdersTab(),
-    //OrdersTab(scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor), // Pass the value
-    ProfileTab(),
-  ];
+  void refreshNumOfCartItems() {
+    setState(() {
+      numOfCartItems =
+          SharedPreferenceUtils.getData(key: 'numOfCartItems') as int?;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    tabs = [
+      HomeTab(
+        refreshHomeState: refreshNumOfCartItems,
+      ),
+      OrdersTab(),
+      //OrdersTab(scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor), // Pass the value
+      ProfileTab(),
+    ];
     return Scaffold(
       body: tabs[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -56,16 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      floatingActionButton: (isOrdering == false)
-          ? null
-          : FloatingActionButton(
+      floatingActionButton: (numOfCartItems != 0 && numOfCartItems != null)
+          ? FloatingActionButton(
               onPressed: () {
-                Navigator.pushNamed(context, CartScreen.routeName);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CartScreen(
+                            refreshMenuState: refreshNumOfCartItems)));
+                // Navigator.pushNamed(context, CartScreen.routeName);
               },
               backgroundColor: Colors.white,
               child: Badge(
                 label: Text(
-                  '${SharedPreferenceUtils.getData(key: 'numOfCartItems') ?? '0'}',
+                  '$numOfCartItems',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
@@ -76,7 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Theme.of(context).primaryColor,
                 ),
               ),
-            ),
+            )
+          : null,
     );
   }
 }

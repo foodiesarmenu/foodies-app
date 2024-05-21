@@ -43,6 +43,21 @@ class PaymentDetailsWidget extends StatelessWidget {
             Row(children: [
               Expanded(
                 child: Text(
+                  'Discount',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              Text(
+                '% ${cart?.discount.toString()}',
+                style: Theme.of(context).textTheme.bodySmall,
+              )
+            ]),
+            const SizedBox(
+              height: 8,
+            ),
+            Row(children: [
+              Expanded(
+                child: Text(
                   'Tax',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
@@ -103,7 +118,7 @@ class PaymentDetailsWidget extends StatelessWidget {
               Text('Total amount',
                   style: Theme.of(context).textTheme.titleSmall),
               const Spacer(),
-              Text('EGP ${cart?.orderTotalPrice}',
+              Text('EGP ${cart?.totalPriceAfterDiscount}',
                   style: Theme.of(context).textTheme.titleSmall)
             ]),
           ],

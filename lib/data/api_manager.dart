@@ -405,7 +405,7 @@ class ApiManager {
   }
 
   Future<Either<Failures, PaymentIntentModel>> createPaymentIntent(
-      {required String amount, required String currency}) async {
+      {required double amount, required String currency}) async {
     Uri url =
         Uri.https(ApiConstants.stripeUrl, ApiConstants.makeOnlineOrderApi);
 
@@ -751,6 +751,34 @@ class ApiManager {
         return Right(profileResponse);
       } else {
         return Left(ServerError(errorMessage: profileResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, OrderResponseDto>> applyCoupon(
+      {required String coupon}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.applyCouponApi);
+
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client.post(url,
+          body: {"coupon": coupon},
+          // Encode the requestBody to JSON
+          headers: {'Authorization': ApiConstants.authorization});
+
+      var orderResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(orderResponse);
+      } else {
+        return Left(ServerError(errorMessage: orderResponse.message));
       }
     } else {
       return Left(

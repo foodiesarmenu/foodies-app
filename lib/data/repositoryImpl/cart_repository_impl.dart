@@ -31,12 +31,18 @@ class CartRepositoryImpl extends CartRepository {
 
   @override
   Future<Either<Failures, OrderEntity>> updateCountInCart(
-      {required String mealId, required int quantity,required String size}) {
-    return cartDataSource.updateCountInCart(mealId: mealId, quantity: quantity, size: size);
+      {required String mealId, required int quantity, required String size}) {
+    return cartDataSource.updateCountInCart(
+        mealId: mealId, quantity: quantity, size: size);
   }
 
   @override
   Future<Either<Failures, OrderEntity?>> deleteCart() {
     return cartDataSource.deleteCart();
+  }
+
+  @override
+  Future<Either<Failures, OrderEntity>> applyCoupon({required String coupon}) {
+    return cartDataSource.applyCoupon(coupon: coupon);
   }
 }

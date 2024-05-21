@@ -21,6 +21,7 @@ class ApiConstants {
   static const String addressApi = '/mobile/address';
   static const String promotionApi = '/mobile/promotion';
   static const String getProfileDataApi = '/mobile/client';
+  static const String applyCouponApi = '/mobile/cart/coupon';
 
   static const String stripePublishableKey =
       'pk_test_51P74Z0RvZAWQr39yHYhCjcu6B95Mf205iwVrhBknhNr8VE1HPSq6jqQi8v4Qhl9PDq1aIrtVIOIAa79Tz9kaTU8x00FCy5Pg1I';

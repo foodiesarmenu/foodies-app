@@ -2,17 +2,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/model/CartItem.dart';
-import '../utils/shared_preference_utils.dart';
 import '../cart/cubit/cart_screen_view_model.dart';
 
 class CartItemWidget extends StatelessWidget {
   const CartItemWidget(
-      {this.isCart = true, this.noOfCartItems, required this.cart, super.key});
+      {this.isCart = true,
+      this.noOfCartItems,
+      required this.cart,
+      this.cartViewModel,
+      super.key});
 
   final bool isCart;
 
   final CartItem? cart;
   final int? noOfCartItems;
+  final CartScreenViewModel? cartViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -107,8 +111,7 @@ class CartItemWidget extends StatelessWidget {
                               onPressed: () {
                                 int counter = cart?.quantity?.toInt() ?? 0;
                                 counter--;
-                                CartScreenViewModel.get(context)
-                                    .updateCountInCart(
+                                cartViewModel?.updateCountInCart(
                                   mealId: cart?.meal?.id ?? "",
                                   quantity: counter,
                                   size: cart?.size ?? "",
@@ -123,16 +126,13 @@ class CartItemWidget extends StatelessWidget {
                             IconButton(
                               onPressed: () {
                                 if (noOfCartItems! > 1) {
-                                  CartScreenViewModel.get(context)
-                                      .removeItemFromCart(
+                                  cartViewModel?.removeItemFromCart(
                                     mealId: cart?.id ?? "",
                                   );
                                 } else {
-                                  CartScreenViewModel.get(context).clearCart();
+                                  cartViewModel?.clearCart();
                                   Navigator.pop(context);
                                 }
-                                SharedPreferenceUtils.getData(
-                                    key: 'numOfCartItems');
                               },
                               icon: Icon(
                                 Icons.delete_outline_outlined,
@@ -147,14 +147,11 @@ class CartItemWidget extends StatelessWidget {
                             onPressed: () {
                               int counter = cart?.quantity?.toInt() ?? 0;
                               counter++;
-                              CartScreenViewModel.get(context)
-                                  .updateCountInCart(
+                              cartViewModel?.updateCountInCart(
                                 mealId: cart?.meal?.id ?? "",
                                 quantity: counter,
                                 size: cart?.size ?? "",
                               );
-                              SharedPreferenceUtils.getData(
-                                  key: 'numOfCartItems');
                             },
 
                             icon: Icon(

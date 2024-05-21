@@ -50,7 +50,7 @@ DeliveryAddress? address ;
       emit(CreateOnlineOrderErrorState(errorMessage: failure));
     }, (onlineOrder) {
       emit(CreateOnlineOrderSuccessState(onlineOrderPayment: onlineOrder));
-
+      SharedPreferenceUtils.saveData(key: 'numOfCartItems', value: 0);
     });
   }
 
@@ -62,11 +62,9 @@ DeliveryAddress? address ;
     either.fold(
         (failure) => emit(CreateCashOrderErrorState(errorMessage: failure)),
         (cashOrder) {
-      emit(CreateCashOrderSuccessState(cashOrder: cashOrder));
-      SharedPreferenceUtils.saveData(
-          key: 'numOfCartItems', value: cashOrder.noOfOrderItems);
-      print(' Order Id : ${SharedPreferenceUtils.getData(key: 'numOfCartItems')}');
-        });
+          emit(CreateCashOrderSuccessState(cashOrder: cashOrder));
+      SharedPreferenceUtils.saveData(key: 'numOfCartItems', value: 0);
+    });
   }
 
   getPrimaryAddress() async {

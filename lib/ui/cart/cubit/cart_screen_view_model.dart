@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../domain/usecase/apply_coupon_use_case.dart';
 import '../../../domain/usecase/delete_cart_use_case.dart';
 import '../../../domain/usecase/get_cart_use_case.dart';
 import '../../../domain/usecase/remove_item_from_cart_use_case.dart';
@@ -15,7 +18,13 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
   RemoveItemFromCartUseCase removeItemFromCartUseCase;
   UpdateCountInCartUseCase updateCountInCartUseCase;
   DeleteCartUseCase deleteCartUseCase;
+  ApplyCouponUseCase applyCouponUseCase;
+
   TextEditingController couponController = TextEditingController();
+  final _errorStreamController = StreamController<String?>.broadcast();
+  bool couponApplied = false;
+
+  Stream<String?> get errorStream => _errorStreamController.stream;
 
   @factoryMethod
   CartScreenViewModel(
@@ -23,10 +32,17 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
     this.removeItemFromCartUseCase,
     this.updateCountInCartUseCase,
     this.deleteCartUseCase,
+    this.applyCouponUseCase,
   ) : super(GetCartInitialState());
 
   static CartScreenViewModel get(context) =>
       BlocProvider.of<CartScreenViewModel>(context);
+
+  @override
+  Future<void> close() {
+    _errorStreamController.close();
+    return super.close();
+  }
 
   getCart() async {
     emit(GetCartLoadingState(loadingMessage: 'Loading....'));
@@ -35,6 +51,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
     either.fold((error) {
       emit(GetCartErrorState(errorMessage: error));
     }, (response) {
+      if (response.discount != 0) {
+        couponApplied = true;
+      }
       emit(GetCartSuccessState(cart: response));
     });
   }
@@ -46,9 +65,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
     either.fold((error) {
       emit(UpdateCountInCartErrorState(errorMessage: error));
     }, (response) {
-      emit(GetCartSuccessState(cart: response));
       SharedPreferenceUtils.saveData(
-          key: 'numOfCartItems', value: response.noOfOrderItems);
+          key: 'numOfCartItems', value: response.noOfOrderItems?.toInt());
+      emit(GetCartSuccessState(cart: response));
     });
   }
 
@@ -58,9 +77,9 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
     either.fold((error) {
       emit(RemoveItemFromCartErrorState(errorMessage: error));
     }, (response) {
-      emit(GetCartSuccessState(cart: response));
       SharedPreferenceUtils.saveData(
-          key: 'numOfCartItems', value: response.noOfOrderItems);
+          key: 'numOfCartItems', value: response.noOfOrderItems?.toInt());
+      emit(GetCartSuccessState(cart: response));
     });
   }
 
@@ -70,9 +89,18 @@ class CartScreenViewModel extends Cubit<CartScreenStates> {
     either.fold((error) {
       emit(DeleteCartErrorState(errorMessage: error));
     }, (response) {
-      emit(DeleteCartSuccessState(cart: response));
-      SharedPreferenceUtils.saveData(
-          key: 'numOfCartItems', value: response?.noOfOrderItems ?? 0);
+      SharedPreferenceUtils.removeData(key: 'numOfCartItems');
+    });
+  }
+
+  applyCoupon() async {
+    var either = await applyCouponUseCase.invoke(coupon: couponController.text);
+
+    either.fold((error) {
+      _errorStreamController.add(error.errorMessage);
+    }, (response) {
+      couponApplied = true;
+      emit(GetCartSuccessState(cart: response));
     });
   }
 }

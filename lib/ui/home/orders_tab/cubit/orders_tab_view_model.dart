@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../../domain/model/OrderEntity.dart';
 import '../../../../domain/usecase/get_all_orders_use_case.dart';
 import 'orders_tab_states.dart';
 
@@ -17,7 +19,10 @@ class OrdersTabViewModel extends Cubit<OrdersTabStates> {
     either.fold((error) {
       emit(GetAllOrdersErrorState(errorMessage: error));
     }, (response) {
-      emit(GetAllOrdersSuccessState(ordersResponse: response));
+      List<OrderEntity> sortedOrders = response;
+      sortedOrders.sort((a, b) => b.date!.compareTo(a.date ?? ''));
+
+      emit(GetAllOrdersSuccessState(ordersResponse: sortedOrders));
     });
   }
 

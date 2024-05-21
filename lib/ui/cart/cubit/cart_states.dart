@@ -18,7 +18,7 @@ class GetCartErrorState extends CartScreenStates {
 }
 
 class GetCartSuccessState extends CartScreenStates {
-  OrderEntity cart;
+  OrderEntity? cart;
 
   GetCartSuccessState({required this.cart});
 }
@@ -81,4 +81,16 @@ class DeleteCartSuccessState extends CartScreenStates {
   OrderEntity? cart;
 
   DeleteCartSuccessState({required this.cart});
+}
+
+class ApplyCouponErrorState extends CartScreenStates {
+  String? errorMessage;
+
+  ApplyCouponErrorState({required this.errorMessage});
+}
+
+class ApplyCouponSuccessState extends CartScreenStates {
+  OrderEntity? cart;
+
+  ApplyCouponSuccessState({required this.cart});
 }
