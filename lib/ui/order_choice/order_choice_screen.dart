@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../home/home_screen.dart';
 import '../menu_scanner/menu_scanner_screen.dart';
 
 class OrderChoiceScreen extends StatefulWidget {
-  const OrderChoiceScreen({super.key});
+  OrderChoiceScreen({super.key});
 
   static const String routeName = 'WelcomeSc';
 
@@ -43,10 +44,8 @@ class _OrderChoiceScreenState extends State<OrderChoiceScreen> {
                     children: [
                       ElevatedButton(
                         onPressed: () {
-                          setState(() {
                             Navigator.of(context)
                                 .pushNamed(MenuScannerScreen.routeName);
-                          });
                         },
                         style: ButtonStyle(
                           side: MaterialStateProperty.all(BorderSide(

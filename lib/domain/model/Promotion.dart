@@ -1,3 +1,5 @@
+import 'package:foodies_app/domain/model/Restaurant.dart';
+
 /// _id : "661da99bb11c27bad493619c"
 /// title : "الاكيلة"
 /// description : " 3وراك + ٣ سيخ كفتة ومعاهم رز بسمتي ب ٣٠٠🔥"
@@ -17,5 +19,5 @@ class Promotion {
   String? title;
   String? description;
   String? image;
-  String? restaurant;
+  Restaurant? restaurant;
 }

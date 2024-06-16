@@ -18,6 +18,8 @@ class ApiConstants {
   static const String favourite = '/mobile/favorite';
   static const String checkFavourite = '/mobile/favorite/is-favorite';
   static const String orderApi = '/client/order';
+  static const String reOrder = '/client/order/reOrder';
+
   static const String addressApi = '/mobile/address';
   static const String promotionApi = '/mobile/promotion';
   static const String getProfileDataApi = '/mobile/client';

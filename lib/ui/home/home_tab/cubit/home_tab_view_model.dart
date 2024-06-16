@@ -31,7 +31,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
       this.getAllDeliveryAddressesUseCase,
       this.updateDeliveryAddressUseCase,
       this.getPromotionsUseCase)
-      : super(LoadingState('Loading...'));
+      : super(InitialState());
 
   static HomeTabViewModel get(context) => BlocProvider.of(context);
 
@@ -49,7 +49,6 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
         if (addresses.isNotEmpty) {
           primaryAddress =
               addresses.firstWhere((element) => element.isPrimary == true);
-          print('Primary Address : $primaryAddress');
         }
         emit(GetAllDeliveryAddressesSuccessState(
             allDeliveryAddresses: addresses));

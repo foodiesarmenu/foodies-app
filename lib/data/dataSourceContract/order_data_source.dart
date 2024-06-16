@@ -2,12 +2,11 @@ import 'package:dartz/dartz.dart';
 import 'package:foodies_app/domain/failures.dart';
 import 'package:foodies_app/domain/model/OnlineOrder.dart';
 
-import '../../domain/model/OrderEntity.dart';
 import '../../domain/model/DeliveryAddress.dart';
 import '../../domain/model/OrderEntity.dart';
 
 abstract class OrderDataSource {
-  Future<Either<Failures, OnlineOrder>> createOnlineOrder(
+  Future<Either<Failures, OrderEntity>> createOnlineOrder(
       {required DeliveryAddress deliveryAddress});
 
   Future<Either<Failures, OrderEntity>> createCashOrder(
@@ -20,4 +19,6 @@ abstract class OrderDataSource {
   Future<Either<Failures, OrderEntity>> getOrder({required String orderId});
 
   Future<Either<Failures, List<OrderEntity>>> getAllOrders();
+
+  Future<Either<Failures, OrderEntity>> reOrder({required String orderId});
 }

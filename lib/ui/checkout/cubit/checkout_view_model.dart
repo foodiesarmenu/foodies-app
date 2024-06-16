@@ -42,15 +42,13 @@ DeliveryAddress? address ;
   }
 
   createOnlineOrder({required DeliveryAddress deliveryAddress}) async {
-    emit(CreateOnlineOrderLoadingState(
-        loadingMessage: 'Creating online order...'));
     final either =
         await createOnlineOrderUseCase.invoke(deliveryAddress: deliveryAddress);
     either.fold((failure) {
       emit(CreateOnlineOrderErrorState(errorMessage: failure));
     }, (onlineOrder) {
       emit(CreateOnlineOrderSuccessState(onlineOrderPayment: onlineOrder));
-      SharedPreferenceUtils.saveData(key: 'numOfCartItems', value: 0);
+      SharedPreferenceUtils.removeData(key: 'numOfCartItems');
     });
   }
 
@@ -63,7 +61,7 @@ DeliveryAddress? address ;
         (failure) => emit(CreateCashOrderErrorState(errorMessage: failure)),
         (cashOrder) {
           emit(CreateCashOrderSuccessState(cashOrder: cashOrder));
-      SharedPreferenceUtils.saveData(key: 'numOfCartItems', value: 0);
+      SharedPreferenceUtils.removeData(key: 'numOfCartItems');
     });
   }
 

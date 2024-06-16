@@ -20,7 +20,7 @@ class CreateOnlineOrderErrorState extends CheckoutStates {
 }
 
 class CreateOnlineOrderSuccessState extends CheckoutStates {
-  OnlineOrder onlineOrderPayment;
+  OrderEntity onlineOrderPayment;
 
   CreateOnlineOrderSuccessState({required this.onlineOrderPayment});
 }

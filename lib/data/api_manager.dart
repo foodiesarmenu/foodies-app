@@ -23,7 +23,6 @@ import 'model/response/category_response/CategoriesResponse.dart';
 import 'model/response/delivery_address_response/AddressResponseDto.dart';
 import 'model/response/favourite_response/FavouriteDto.dart';
 import 'model/response/menu_response/MenusResponse.dart';
-import 'model/response/online_order_response/OnlineOrderPaymentDto.dart';
 import 'model/response/order_cart_response/OrderResponseDto.dart';
 import 'model/response/order_cart_response/OrdersResponseDto.dart';
 import 'model/response/payment_intent_model_response/PaymentIntentModel.dart';
@@ -313,7 +312,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, OnlineOrderPaymentDto>> createOnlineOrder(
+  Future<Either<Failures, OrderResponseDto>> createOnlineOrder(
       {required DeliveryAddress deliveryAddress}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, ApiConstants.createOnlineOrderApi);
@@ -344,7 +343,7 @@ class ApiManager {
       print(jsonEncode(requestBody));
 
       var onlineResponseDto =
-          OnlineOrderPaymentDto.fromJson(jsonDecode(response.body));
+          OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(onlineResponseDto);
       } else {
@@ -775,6 +774,29 @@ class ApiManager {
 
       var orderResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
 
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(orderResponse);
+      } else {
+        return Left(ServerError(errorMessage: orderResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, OrderResponseDto>> reOrder(
+      {required String orderId}) async {
+    Uri url =
+        Uri.https(ApiConstants.baseUrl, '${ApiConstants.reOrder}/$orderId');
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .post(url, headers: {'Authorization': ApiConstants.authorization});
+      var orderResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(orderResponse);
       } else {

@@ -118,8 +118,10 @@ class PaymentDetailsWidget extends StatelessWidget {
               Text('Total amount',
                   style: Theme.of(context).textTheme.titleSmall),
               const Spacer(),
-              Text('EGP ${cart?.totalPriceAfterDiscount}',
-                  style: Theme.of(context).textTheme.titleSmall)
+              Text(
+                'EGP ${cart?.totalPriceAfterDiscount != 0 ? cart?.totalPriceAfterDiscount : cart?.orderTotalPrice}',
+                style: Theme.of(context).textTheme.titleSmall,
+              )
             ]),
           ],
         ),

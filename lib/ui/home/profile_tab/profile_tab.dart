@@ -58,6 +58,7 @@ class ProfileTab extends StatelessWidget {
                                           AssetImage('assets/images/7oda.png')),
                                 ),
                               ),
+
                               const SizedBox(width: 16),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

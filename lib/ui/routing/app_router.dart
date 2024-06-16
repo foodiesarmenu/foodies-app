@@ -39,7 +39,7 @@ class AppRouter {
   static Map<String, WidgetBuilder> get routes => {
         RegisterScreen.routeName: (_) => RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
-        OrderChoiceScreen.routeName: (_) => const OrderChoiceScreen(),
+        OrderChoiceScreen.routeName: (_) => OrderChoiceScreen(),
         HomeTab.routeName: (_) => const HomeTab(),
         OrdersTab.routeName: (_) => OrdersTab(),
         ProfileTab.routeName: (_) => ProfileTab(),

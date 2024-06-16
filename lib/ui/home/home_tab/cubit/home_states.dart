@@ -5,6 +5,8 @@ import '../../../../domain/model/Restaurant.dart';
 
 abstract class HomeTabState {}
 
+class InitialState extends HomeTabState {}
+
 class LoadingState extends HomeTabState {
   String message;
 

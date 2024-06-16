@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/OrderEntity.dart';
 import 'package:intl/intl.dart';
 
+import '../../cart/cart_screen.dart';
 import '../../common/button_in_profile.dart';
+import 'cubit/orders_tab_view_model.dart';
 
 class OrderItemWidget extends StatelessWidget {
-  OrderItemWidget({super.key, required this.order, this.statusColor});
+  OrderItemWidget(
+      {this.viewModel, super.key, required this.order, this.statusColor});
 
   final OrderEntity? order;
   final Color? statusColor;
-
+  OrdersTabViewModel? viewModel;
   @override
   Widget build(BuildContext context) {
     DateTime dateTime = DateTime.parse(order?.date ?? '');
@@ -76,7 +79,17 @@ class OrderItemWidget extends StatelessWidget {
           children: [
             Expanded(
               child: ButtonInProfile(
-                onPressed: () {},
+                onPressed: () async {
+                  await viewModel
+                  ?.deleteCart();
+                  viewModel?.reOrder(orderId: order
+                  ?.
+                  id
+                  ??
+                  '
+                  '
+                  );
+                },
                 backgroundColor: Theme.of(context).primaryColor,
                 text: 'Reorder',
                 textColor: Colors.white,

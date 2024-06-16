@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
       HomeTab(
         refreshHomeState: refreshNumOfCartItems,
       ),
-      OrdersTab(),
+      OrdersTab(refreshHomeState: refreshNumOfCartItems),
       //OrdersTab(scaffoldBackgroundColor: Theme.of(context).scaffoldBackgroundColor), // Pass the value
       ProfileTab(),
     ];

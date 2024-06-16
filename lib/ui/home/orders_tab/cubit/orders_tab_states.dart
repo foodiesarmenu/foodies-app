@@ -1,4 +1,5 @@
 import 'package:foodies_app/domain/model/OrderEntity.dart';
+
 import '../../../../../domain/failures.dart';
 
 abstract class OrdersTabStates {}
@@ -24,3 +25,26 @@ class GetAllOrdersSuccessState extends OrdersTabStates {
 }
 
 
+class ReOrderErrorState extends OrdersTabStates {
+  Failures errorMessage;
+
+  ReOrderErrorState({required this.errorMessage});
+}
+
+class ReOrderSuccessState extends OrdersTabStates {
+  OrderEntity orderResponse;
+
+  ReOrderSuccessState({required this.orderResponse});
+}
+
+class DeleteCartErrorState extends OrdersTabStates {
+  Failures errorMessage;
+
+  DeleteCartErrorState({required this.errorMessage});
+}
+
+class DeleteCartSuccessState extends OrdersTabStates {
+  OrderEntity? orderResponse;
+
+  DeleteCartSuccessState({required this.orderResponse});
+}

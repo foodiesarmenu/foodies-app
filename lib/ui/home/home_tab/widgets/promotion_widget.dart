@@ -7,7 +7,9 @@ import '../../../../domain/model/Promotion.dart';
 import '../../../menu/menu_screen.dart';
 
 class PromotionWidget extends StatefulWidget {
-  PromotionWidget(this.promotions, {super.key});
+  PromotionWidget(this.promotions, {this.refreshState, super.key});
+
+  final Function()? refreshState;
 
   final List<Promotion> promotions;
 
@@ -40,12 +42,14 @@ class _PromotionWidgetState extends State<PromotionWidget> {
                 images: widget.promotions.map((promotion) {
                   return InkWell(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => MenuScreen(restaurant: promotion.restaurant),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MenuScreen(
+                              restaurant: promotion.restaurant,
+                              refreshHomeState: widget.refreshState),
+                        ),
+                      );
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),

@@ -78,6 +78,7 @@ class _CartScreenState extends State<CartScreen> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
+                    widget.refreshMenuState!();
                     Navigator.pop(context);
                   },
                 ),
