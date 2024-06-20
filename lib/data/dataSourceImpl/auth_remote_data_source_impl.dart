@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:foodies_app/domain/model/ForgetPassword.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/failures.dart';
@@ -32,6 +33,42 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       return Left(Failures(errorMessage: l.errorMessage));
     }, (response) {
       return Right(response.toAuthResult());
+    });
+  }
+
+  @override
+  Future<Either<Failures, AuthResult>> changePassword(
+      {required String email,
+      required String newPassword,
+      required String confirmPassword}) async {
+    var either =
+        await apiManager.changePassword(email, newPassword, confirmPassword);
+    return either.fold((l) {
+      return Left(Failures(errorMessage: l.errorMessage));
+    }, (response) {
+      return Right(response.toAuthResult());
+    });
+  }
+
+  @override
+  Future<Either<Failures, ForgetPassword>> forgetPassword(
+      {required String email}) async {
+    var either = await apiManager.forgetPassword(email);
+    return either.fold((l) {
+      return Left(Failures(errorMessage: l.errorMessage));
+    }, (response) {
+      return Right(response.toForgetPassword());
+    });
+  }
+
+  @override
+  Future<Either<Failures, ForgetPassword>> verifyOTP(
+      {required String email, required String code}) async {
+    var either = await apiManager.verifyOTP(email, code);
+    return either.fold((l) {
+      return Left(Failures(errorMessage: l.errorMessage));
+    }, (response) {
+      return Right(response.toForgetPassword());
     });
   }
 }

@@ -9,16 +9,16 @@ import '../../../../utils/dialog_utils.dart';
 import '../../cubit/profile_states.dart';
 import '../../cubit/profile_view_model.dart';
 
-class ChangePasswordScreen extends StatefulWidget {
-  static const String routeName = 'change-password';
+class ResetPasswordScreen extends StatefulWidget {
+  static const String routeName = 'reset-password';
 
-  const ChangePasswordScreen({super.key});
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   var viewModel = getIt<ProfileViewModel>();
 
   @override

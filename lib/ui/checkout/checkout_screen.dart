@@ -31,10 +31,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     super.initState();
     viewModel.getPrimaryAddress();
+    viewModel.getUserData();
   }
 
   void refreshPrimaryAddress() {
     viewModel.getPrimaryAddress();
+    viewModel.getUserData();
   }
 
   @override
@@ -92,7 +94,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             )),
                     const SizedBox(height: 4),
-                    AddressDetailsWidget(address: viewModel.address),
+                    AddressDetailsWidget(
+                        address: viewModel.address, user: viewModel.user),
                     const SizedBox(height: 8),
                     Material(
                       elevation: 1,

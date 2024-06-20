@@ -42,17 +42,20 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   }
 
   @override
-  Future<Either<Failures, User>> updateProfile(
-      {required String name, required String email, required String phone}) {
+  Future<Either<Failures, User>> updateProfile({String? name, String? phone}) {
     // TODO: implement updateProfile
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failures, User>> updateProfilePicture(
-      {required String profilePicture}) {
-    // TODO: implement updateProfilePicture
-    throw UnimplementedError();
+  Future<Either<Failures, User>> updateProfileImage(
+      {required String image}) async {
+    var either = await apiManager.updateProfileImage(image: image);
+    return either.fold((error) {
+      return Left(Failures(errorMessage: error.errorMessage));
+    }, (response) {
+      return Right(response.data!.toUser());
+    });
   }
 
   @override

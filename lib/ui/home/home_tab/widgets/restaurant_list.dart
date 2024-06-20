@@ -24,7 +24,7 @@ class RestaurantList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => MenuScreen(
-                        restaurant: restaurants?[index],
+                        restaurantId: restaurants?[index].id,
                         refreshHomeState: refreshState,
                       ),
                     ),

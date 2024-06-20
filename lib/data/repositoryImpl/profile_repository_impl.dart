@@ -37,21 +37,18 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Either<Failures, User>> updateProfile(
-      {required String name, required String email, required String phone}) {
+  Future<Either<Failures, User>> updateProfile({String? name, String? phone}) {
     // TODO: implement updateProfile
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failures, User>> updateProfilePicture(
-      {required String profilePicture}) {
-    // TODO: implement updateProfilePicture
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Failures, User>> getProfileData() {
     return profileDataSource.getProfileData();
+  }
+
+  @override
+  Future<Either<Failures, User>> updateProfileImage({required String image}) {
+    return profileDataSource.updateProfileImage(image: image);
   }
 }

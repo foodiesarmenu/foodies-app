@@ -6,7 +6,7 @@ import 'package:foodies_app/ui/home/orders_tab/cubit/orders_tab_view_model.dart'
 import '../../../di/di.dart';
 import '../../cart/cart_screen.dart';
 import '../../order_details/order_details.dart';
-import 'order_item_widget.dart';
+import 'widgets/order_item_widget.dart';
 
 class OrdersTab extends StatefulWidget {
   static const String routeName = 'OrdersSc';

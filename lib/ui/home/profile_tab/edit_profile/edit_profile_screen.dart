@@ -1,16 +1,19 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodies_app/di/di.dart';
 import 'package:foodies_app/ui/common/button_in_profile.dart';
 import 'package:foodies_app/ui/common/custom_app_bar.dart';
+import 'package:foodies_app/ui/home/profile_tab/cubit/profile_view_model.dart';
+import 'package:foodies_app/ui/utils/image_functions.dart';
 
-import '../../../../di/di.dart';
 import '../../../common/form_input_field.dart';
-import '../../../utils/validation_utils.dart';
-import '../profile_tab.dart';
 import 'cubit/edit_profile_states.dart';
 import 'cubit/edit_profile_view_model.dart';
 
-enum Gender { male, female } // Define the gender options
+enum Gender { male, female }
 
 class EditProfileScreen extends StatefulWidget {
   static const String routeName = 'edit-profile';
@@ -27,12 +30,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
-  TextEditingController bioController = TextEditingController();
   var formKey = GlobalKey<FormState>();
 
-  //date
   DateTime? selectedDate;
   DateTime date = DateTime.now();
+  Gender selectedGender = Gender.male;
+
+  var viewModel = getIt<EditProfileViewModel>();
+  var args;
+  File? pickedImage;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    args = ModalRoute.of(context)!.settings.arguments as ProfileViewModel?;
+  }
+
+  @override
+  void initState() {
+    viewModel..getProfileData();
+    super.initState();
+  }
 
   Future<void> selectedTimePicker(BuildContext context) async {
     final DateTime? pickedDate = await showDatePicker(
@@ -48,20 +66,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  //gender
-  Gender selectedGender = Gender.male; // Initially selected gender
-
-  var viewModel = getIt<EditProfileViewModel>();
-
-  @override
-  void initState() {
-    viewModel..getProfileData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditProfileViewModel, EditProfileStates>(
+    return BlocConsumer<EditProfileViewModel, EditProfileStates>(
+      listener: (context, state) async {
+        if (state is UpdateProfileImageSuccessState) {
+          await args.getProfileData();
+          Navigator.pop(context);
+        } else if (state is UpdateProfileImageErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else if (state is EditProfileLoadingState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.loadingMessage ?? 'Loading'),
+              backgroundColor: Colors.blue,
+            ),
+          );
+        }
+      },
       bloc: viewModel,
       builder: (context, state) {
         return (state is GetProfileDataSuccessState)
@@ -94,11 +121,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     ),
                                   ],
                                   shape: BoxShape.circle,
-                                  image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image:
-                                          AssetImage('assets/images/7oda.png')),
+                                  image: pickedImage != null
+                                      ? DecorationImage(
+                                          image: FileImage(pickedImage!),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : null,
                                 ),
+                                child: pickedImage == null
+                                    ? ClipOval(
+                                        child: CachedNetworkImage(
+                                          width: 80,
+                                          height: 80,
+                                          fit: BoxFit.cover,
+                                          imageUrl: state.user.image ?? '',
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Container(),
+                                        ),
+                                      )
+                                    : null,
                               ),
                               Positioned(
                                 height: 40,
@@ -107,8 +150,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 right: 0,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: Theme.of(context)
-                                        .primaryColor, // Light grey background
+                                    color: Theme.of(context).primaryColor,
                                     shape: BoxShape.circle,
                                   ),
                                   child: Container(
@@ -123,17 +165,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       icon: const Icon(
                                         Icons.edit,
                                         color: Colors.white,
-                                      ), // Edit icon
-                                      onPressed: () {},
+                                      ),
+                                      onPressed: () {
+                                        editPhotoBottomSheet();
+                                      },
                                       iconSize: 18.0,
                                     ),
                                   ),
                                 ),
                               ),
                             ],
-                          ), //profile photo
-                          const SizedBox(
-                              height: 20.0), // Space between sections
+                          ),
+                          const SizedBox(height: 20.0),
                           FormInputField(
                             icon: Icons.person_outlined,
                             controller: fullNameController,
@@ -148,25 +191,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             },
                           ),
                           SizedBox(height: 12.0),
-                          FormInputField(
-                              icon: Icons.email_outlined,
-                              controller: emailController,
-                              label: 'Email',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
-                              hint: state.user.email ?? 'yungy@gmail.com',
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (text) {
-                                if (text == null || text.trim().isEmpty) {
-                                  return 'Please enter full name';
-                                }
-                                if (!ValidationUtils.isValidEmail(text)) {
-                                  return 'Please enter valid email';
-                                }
-                                return null;
-                              }),
-                          SizedBox(height: 12.0),
-
                           FormInputField(
                             icon: Icons.phone_outlined,
                             controller: phoneController,
@@ -184,112 +208,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               return null;
                             },
                           ),
-
-                          Row(
-                            children: [
-                              Text(
-                                'Gender ',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black),
-                              ),
-                              Radio<Gender>(
-                                value: Gender.male,
-                                groupValue: selectedGender,
-                                onChanged: (Gender? value) {
-                                  if (value != null) {
-                                    setState(() => selectedGender = value);
-                                  }
-                                },
-                              ),
-                              Text(
-                                'Male',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black),
-                              ),
-                              SizedBox(width: 10.0),
-                              Radio<Gender>(
-                                value: Gender.female,
-                                groupValue: selectedGender,
-                                onChanged: (Gender? value) {
-                                  if (value != null) {
-                                    setState(() => selectedGender = value);
-                                  }
-                                },
-                              ),
-                              Text(
-                                'Female',
-                                style: TextStyle(
-                                    fontSize: 14, color: Colors.black),
-                              ),
-                            ],
-                          ), //G
                           SizedBox(height: 12.0),
-// ender Selection
                           Row(
                             children: [
                               Expanded(
-                                child: FormInputField(
-                                  icon: Icons.calendar_today,
-                                  isPassword: false,
-                                  isEmail: false,
-                                  controller: birthDateController,
-                                  keyboardType: TextInputType.datetime,
-                                  label: 'Birth-Date',
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
-                                  hint: state.user.dateOfBirth != null
-                                      ? '${state.user.dateOfBirth}'
-                                      : 'DD/MM/YYYY',
-                                  validator: (text) {
-                                    if (text == null || text.trim().isEmpty) {
-                                      return 'Please enter your birth date';
-                                    }
-                                    return null;
+                                child: ButtonInProfile(
+                                  borderColor: Theme.of(context).primaryColor,
+                                  text: 'Cancel',
+                                  textColor: Theme.of(context).primaryColor,
+                                  backgroundColor: Colors.white,
+                                  onPressed: () {
+                                    Navigator.pop(context);
                                   },
                                 ),
                               ),
-                              //const SizedBox(width: 10.0),
-                              IconButton(
-                                icon: const Icon(
-                                  Icons.calendar_today,
-                                  color: Color(0xFFFFA500),
+                              Expanded(
+                                child: ButtonInProfile(
+                                  text: 'Save',
+                                  textColor: Colors.white,
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                  onPressed: () {
+                                    viewModel.updateProfileImage(
+                                        image: pickedImage!.path);
+                                  },
                                 ),
-                                onPressed: () => selectedTimePicker(context),
-                              ),
-                            ],
-                          ), //Birth date
-                          const SizedBox(
-                              height: 12.0), // Space before the button
-                          /*ElevatedButton(
-                    onPressed: editAccount,
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 50.0), // Full-width button
-                    ),
-                    child:const Text('Save'),
-                  ),*/
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ButtonInProfile(
-                                    //width: 60,
-                                    borderColor: Theme.of(context).primaryColor,
-                                    text: 'Cancel',
-                                    textColor: Theme.of(context).primaryColor,
-                                    backgroundColor: Colors.white,
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }),
-                              ),
-                              Expanded(
-                                child: ButtonInProfile(
-                                    // width: 60,
-                                    text: 'Save',
-                                    textColor: Colors.white,
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor,
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    }),
                               ),
                             ],
                           ),
@@ -304,10 +247,43 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  void editAccount() {
-    if (formKey.currentState?.validate() == false) {
-      return;
-    }
-    Navigator.of(context).pushNamed(ProfileTab.routeName);
+  void editPhotoBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: [
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text('Take Photo'),
+              onTap: () {
+                ImageFunctions.cameraPicker().then((pickedFile) {
+                  if (pickedFile != null) {
+                    setState(() {
+                      pickedImage = pickedFile;
+                    });
+                  }
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.photo_library),
+              title: Text('Choose from Gallery'),
+              onTap: () {
+                ImageFunctions.galleryPicker().then((pickedFile) {
+                  if (pickedFile != null) {
+                    setState(() {
+                      pickedImage = pickedFile;
+                    });
+                  }
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

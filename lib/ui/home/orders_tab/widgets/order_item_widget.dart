@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/OrderEntity.dart';
 import 'package:intl/intl.dart';
 
-import '../../cart/cart_screen.dart';
-import '../../common/button_in_profile.dart';
-import 'cubit/orders_tab_view_model.dart';
+import '../../../common/button_in_profile.dart';
+import '../cubit/orders_tab_view_model.dart';
 
 class OrderItemWidget extends StatelessWidget {
   OrderItemWidget(
@@ -82,13 +81,7 @@ class OrderItemWidget extends StatelessWidget {
                 onPressed: () async {
                   await viewModel
                   ?.deleteCart();
-                  viewModel?.reOrder(orderId: order
-                  ?.
-                  id
-                  ??
-                  '
-                  '
-                  );
+                  viewModel?.reOrder(orderId: order?.id ?? '');
                 },
                 backgroundColor: Theme.of(context).primaryColor,
                 text: 'Reorder',
@@ -98,18 +91,18 @@ class OrderItemWidget extends StatelessWidget {
                 height: 40,
               ),
             ),
-            Expanded(
-              child: ButtonInProfile(
-                onPressed: () {},
-                backgroundColor: Colors.white,
-                text: 'Feedback',
-                textColor: Theme.of(context).primaryColor,
-                width: 150,
-                borderColor: Theme.of(context).primaryColor,
-                icon: Icons.feedback_outlined,
-                height: 40,
-              ),
-            ),
+            // Expanded(
+            //   child: ButtonInProfile(
+            //     onPressed: () {},
+            //     backgroundColor: Colors.white,
+            //     text: 'Feedback',
+            //     textColor: Theme.of(context).primaryColor,
+            //     width: 150,
+            //     borderColor: Theme.of(context).primaryColor,
+            //     icon: Icons.feedback_outlined,
+            //     height: 40,
+            //   ),
+            // ),
           ],
         )
       ],

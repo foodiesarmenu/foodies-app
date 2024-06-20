@@ -89,18 +89,19 @@ class _MealDetailsState extends State<MealDetails> {
                     child: Row(
                       children: [
                         Container(
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(32),
                             color: Colors.white,
                           ),
-                          child: IconButton(
-                            onPressed: () {
+                          child: InkWell(
+                            onTap: () {
                               Navigator.pushNamed(context, ARScreen.routeName);
                             },
-                            icon: Icon(
-                              Icons.all_inclusive,
+                            child: Image.asset(
+                              'assets/icons/ar2.png',
                               color: Theme.of(context).primaryColor,
-                              size: 32,
+                              height: 32,
                             ),
                           ),
                         ),

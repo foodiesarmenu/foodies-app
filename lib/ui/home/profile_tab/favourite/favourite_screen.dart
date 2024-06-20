@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/di/di.dart';
 
+import '../../../common/custom_app_bar.dart';
 import 'cubit/favourite_states.dart';
 import 'cubit/favourite_view_model.dart';
 
@@ -11,7 +12,7 @@ class FavouriteScreen extends StatelessWidget {
 
   FavouriteScreen({super.key});
 
-  var viewModel = getIt<FavouriteViewModel>();
+  final viewModel = getIt<FavouriteViewModel>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +20,7 @@ class FavouriteScreen extends StatelessWidget {
         bloc: viewModel..getAllFavourites(),
         builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('Favourite'),
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
+            appBar: CustomAppBar.buildAppBar(context, 'Favourites'),
             body: (state is GetAllFavouriteSuccessState)
                 ? ListView.separated(
                     separatorBuilder: (context, index) {
@@ -49,11 +44,11 @@ class FavouriteScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12),
                                   child: CachedNetworkImage(
                                     imageUrl: viewModel.favourites[index]
-                                            .restaurant!.image ??
-                                        "",
+                                            .restaurant?.image ??
+                                        '',
                                     height: 75,
                                     width: 75,
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     progressIndicatorBuilder: (context, url,
                                             downloadProgress) =>
                                         Center(
@@ -76,7 +71,7 @@ class FavouriteScreen extends StatelessWidget {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                                viewModel.favourites?[index]
+                                                viewModel.favourites[index]
                                                         .restaurant?.name ??
                                                     "",
                                                 style: Theme.of(context)
@@ -87,7 +82,7 @@ class FavouriteScreen extends StatelessWidget {
                                               onTap: () {
                                                 viewModel.DeleteFavourite(
                                                     restaurantId: viewModel
-                                                        .favourites![index]
+                                                        .favourites[index]
                                                         .restaurant!
                                                         .id!);
                                               },
@@ -98,8 +93,7 @@ class FavouriteScreen extends StatelessWidget {
                                         ],
                                       ),
                                       Text(
-                                          viewModel.favourites?[index]
-                                                  .restaurant?.category!
+                                          viewModel.favourites[index].restaurant?.category!
                                                   .map((e) => e.name)
                                                   .join(', ') ??
                                               "",

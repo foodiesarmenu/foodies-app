@@ -108,7 +108,7 @@ class RestaurantItem extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     Text(
-                      "30Mins",
+                      "30 mins",
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary),
                     ),
@@ -121,7 +121,7 @@ class RestaurantItem extends StatelessWidget {
                     Icon(Icons.delivery_dining_outlined,
                         color: Theme.of(context).colorScheme.secondary),
                     Text(
-                      "15EGP",
+                      "EGP 0",
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.secondary),
                     ),

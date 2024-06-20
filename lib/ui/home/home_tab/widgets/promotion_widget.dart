@@ -46,7 +46,7 @@ class _PromotionWidgetState extends State<PromotionWidget> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => MenuScreen(
-                              restaurant: promotion.restaurant,
+                              restaurantId: promotion.restaurant?.id ?? '',
                               refreshHomeState: widget.refreshState),
                         ),
                       );

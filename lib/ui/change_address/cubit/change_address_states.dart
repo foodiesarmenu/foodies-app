@@ -1,4 +1,5 @@
 import '../../../domain/model/DeliveryAddress.dart';
+import '../../../domain/model/User.dart';
 
 abstract class ChangeAddressStates {}
 
@@ -26,8 +27,21 @@ class DeleteAddressErrorState extends ChangeAddressStates {
 
 class SetPrimaryAddressSuccessState extends ChangeAddressStates {
 }
+
 class SetPrimaryAddressErrorState extends ChangeAddressStates {
   String? error;
 
   SetPrimaryAddressErrorState({this.error});
+}
+
+class GetUserDataSuccessState extends ChangeAddressStates {
+  User? user;
+
+  GetUserDataSuccessState({this.user});
+}
+
+class GetUserDataErrorState extends ChangeAddressStates {
+  String? error;
+
+  GetUserDataErrorState({this.error});
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:foodies_app/ui/home/profile_tab/settings/reset_password/reset_password_screen.dart';
 
 import '../../../auth/login/login_screen.dart';
 import '../../../change_address/change_address_screen.dart';
 import '../../../common/custom_app_bar.dart';
 import '../../../utils/shared_preference_utils.dart';
 import 'change_email_screen/change_email_screen.dart';
-import 'change_password/change_password_screen.dart';
-import 'my_card/my_card_screen.dart';
 import 'settings_button.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -50,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                   SettingsButton(
                     itemColor: Colors.black,
                     buttonText: 'Change password',
-                    routeName: ChangePasswordScreen.routeName,
+                    routeName: ResetPasswordScreen.routeName,
                     iconData: Icons.password_outlined,
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
@@ -68,13 +67,13 @@ class SettingsScreen extends StatelessWidget {
                     iconData: Icons.location_on_outlined,
                     righticon: Icons.keyboard_arrow_right_rounded,
                   ),
-                  SettingsButton(
-                    itemColor: Colors.black,
-                    buttonText: 'My Cards',
-                    routeName: MyCardScreen.routeName,
-                    iconData: Icons.credit_card_outlined,
-                    righticon: Icons.keyboard_arrow_right_rounded,
-                  ),
+                  // SettingsButton(
+                  //   itemColor: Colors.black,
+                  //   buttonText: 'My Cards',
+                  //   routeName: MyCardScreen.routeName,
+                  //   iconData: Icons.credit_card_outlined,
+                  //   righticon: Icons.keyboard_arrow_right_rounded,
+                  // ),
                 ],
               ),
               const Divider(thickness: 1.0),
@@ -169,13 +168,13 @@ class SettingsScreen extends StatelessWidget {
                             context, LoginScreen.routeName);
                       }),
                   const Divider(thickness: 1.0),
-                  SettingsButton(
-                    itemColor: Colors.red,
-                    buttonText: 'Delete My Account',
-                    routeName: '/Delete My Account',
-                    iconData: Icons.person_remove_rounded,
-                    righticon: Icons.keyboard_arrow_right_rounded,
-                  ),
+                  // SettingsButton(
+                  //   itemColor: Colors.red,
+                  //   buttonText: 'Delete My Account',
+                  //   routeName: '/Delete My Account',
+                  //   iconData: Icons.person_remove_rounded,
+                  //   righticon: Icons.keyboard_arrow_right_rounded,
+                  // ),
                 ],
               ),
             ],

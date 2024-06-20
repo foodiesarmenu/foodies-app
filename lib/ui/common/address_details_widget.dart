@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/DeliveryAddress.dart';
+
+import '../../domain/model/User.dart';
 import '../change_address/cubit/change_address_view_model.dart';
 
 class AddressDetailsWidget extends StatelessWidget {
   const AddressDetailsWidget(
       {this.address,
+      this.user,
       this.isChangeAddress = false,
       super.key,
       this.refreshAddress});
@@ -12,6 +15,7 @@ class AddressDetailsWidget extends StatelessWidget {
   final bool isChangeAddress;
   final DeliveryAddress? address;
   final Function? refreshAddress;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class AddressDetailsWidget extends StatelessWidget {
             (!isChangeAddress)
                 ? Text('Delivery Address Details',
                     style: Theme.of(context).textTheme.titleMedium)
-                : Text('Yehya Gamal',
+                : Text(user?.name ?? '',
                     style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(
               height: 8,
@@ -87,7 +91,7 @@ class AddressDetailsWidget extends StatelessWidget {
                   width: 16,
                 ),
                 Text(
-                  '0127917334',
+                  user?.phoneNumber ?? '',
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
               ],

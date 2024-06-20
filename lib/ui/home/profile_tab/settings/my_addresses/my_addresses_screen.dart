@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../common/button_in_profile.dart';
+import '../../../../common/custom_app_bar.dart';
 import 'maps/map_screen.dart';
 
 class MyAddressesScreen extends StatelessWidget {
@@ -11,9 +12,7 @@ class MyAddressesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Addresses'),
-        ),
+        appBar: CustomAppBar.buildAppBar(context, 'Addresses'),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

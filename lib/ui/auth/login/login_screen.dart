@@ -39,9 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
             DialogUtils.hideLoading(context);
             Navigator.pushReplacementNamed(context, OrderChoiceScreen.routeName,
                 arguments: state.authResult.data?.name ?? '');
-            // DialogUtils.showMessage(context, state.authResult.data?.name ?? '',
-            //     title: 'Success', posActionName: 'Ok', posAction: () {
-            // });
           }
         },
         child: Scaffold(
@@ -176,10 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
   }
 
-  void login() {
-    if (viewModel.formKey.currentState?.validate() == false) {
-      return;
-    }
-    Navigator.of(context).pushNamed(OrderChoiceScreen.routeName);
-  }
+// void login() {
+//   if (viewModel.formKey.currentState?.validate() == false) {
+//     return;
+//   }
+//   Navigator.of(context).pushNamed(OrderChoiceScreen.routeName);
+// }
 }

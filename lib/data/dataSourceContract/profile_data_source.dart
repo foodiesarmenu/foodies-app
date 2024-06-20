@@ -4,8 +4,7 @@ import '../../domain/failures.dart';
 import '../../domain/model/User.dart';
 
 abstract class ProfileDataSource {
-  Future<Either<Failures, User>> updateProfile(
-      {required String name, required String email, required String phone});
+  Future<Either<Failures, User>> updateProfile({String? name, String? phone});
 
   Future<Either<Failures, User>> updatePassword({
     required String currentPassword,
@@ -13,8 +12,7 @@ abstract class ProfileDataSource {
     required String confirmPassword,
   });
 
-  Future<Either<Failures, User>> updateProfilePicture(
-      {required String profilePicture});
+  Future<Either<Failures, User>> updateProfileImage({required String image});
 
   Future<Either<Failures, User>> deleteProfilePicture();
 

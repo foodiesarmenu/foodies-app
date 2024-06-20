@@ -4,7 +4,10 @@ import 'package:foodies_app/domain/usecase/delete_delivery_address_use_case.dart
 import 'package:foodies_app/domain/usecase/get_all_delivery_addressess_use_case.dart';
 import 'package:foodies_app/domain/usecase/update_delivery_address_use_case.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../domain/model/DeliveryAddress.dart';
+import '../../../domain/model/User.dart';
+import '../../../domain/usecase/get_profile_data_use_case.dart';
 import 'change_address_states.dart';
 
 @injectable
@@ -13,17 +16,21 @@ class ChangeAddressScreenViewModel extends Cubit<ChangeAddressStates> {
   DeleteDeliveryAddressUseCase deleteDeliveryAddressUseCase;
   GetAllDeliveryAddressessUseCase getAllDeliveryAddressesUseCase;
   UpdateDeliveryAddressUseCase updateDeliveryAddressUseCase;
+  GetProfileDataUseCase getProfileDataUseCase;
+
   @factoryMethod
   ChangeAddressScreenViewModel(
       this.addDeliveryAddressUseCase,
       this.deleteDeliveryAddressUseCase,
       this.getAllDeliveryAddressesUseCase,
-      this.updateDeliveryAddressUseCase)
+      this.updateDeliveryAddressUseCase,
+      this.getProfileDataUseCase)
       : super(DeliveryAddressInitialState());
 
   static ChangeAddressScreenViewModel get(context) => BlocProvider.of(context);
 List<DeliveryAddress> addresses = [] ;
 
+  User? user;
   getAllAddresses() async {
     var getAllAddresses = await getAllDeliveryAddressesUseCase.invoke();
     getAllAddresses.fold((l) {
@@ -65,4 +72,15 @@ List<DeliveryAddress> addresses = [] ;
     },);
   }
 
+  getUserData() async {
+    var userData = await getProfileDataUseCase.invoke();
+    userData.fold(
+      (l) {
+        emit(GetUserDataErrorState(error: l.errorMessage));
+      },
+      (r) {
+        user = r;
+      },
+    );
+  }
 }

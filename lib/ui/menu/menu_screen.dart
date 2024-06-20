@@ -10,10 +10,15 @@ import 'cubit/menu_view_model.dart';
 import 'menu_container.dart';
 
 class MenuScreen extends StatefulWidget {
-  const MenuScreen({this.restaurant, this.refreshHomeState, super.key});
+  const MenuScreen(
+      {this.restaurantId,
+      this.refreshHomeState,
+      this.fromScanner = false,
+      super.key});
 
   final Function()? refreshHomeState;
-  final Restaurant? restaurant;
+  final String? restaurantId;
+  final bool? fromScanner;
   static const String routeName = 'RestaurantDetailsSc';
 
   @override
@@ -28,7 +33,7 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel.initPage(restaurantId: widget.restaurant?.id);
+    viewModel.initPage(restaurantId: widget.restaurantId);
   }
 
   void refreshMenuState() {
@@ -53,7 +58,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 Text(state.errorMessage ?? ""),
                 ElevatedButton(
                     onPressed: () {
-                      viewModel.initPage(restaurantId: widget.restaurant?.id);
+                      viewModel.initPage(restaurantId: widget.restaurantId);
                     },
                     child: const Text('Try Again'))
               ],
@@ -61,7 +66,8 @@ class _MenuScreenState extends State<MenuScreen> {
           case Success():
             return Scaffold(
               body: MenuContainer(
-                restaurant: widget.restaurant!,
+                fromScanner: widget.fromScanner,
+                restaurant: state.restaurant ?? Restaurant(),
                 menus: state.menus ?? [],
                 isFavourite: viewModel.isFavourite,
                 refreshMenuState: refreshMenuState,

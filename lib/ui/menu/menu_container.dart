@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/menu/cubit/menu_view_model.dart';
 import 'package:foodies_app/ui/menu/widgets/meal_list.dart';
 import 'package:foodies_app/ui/menu/widgets/meal_tab_item.dart';
+import 'package:foodies_app/ui/order_choice/order_choice_screen.dart';
 
 import '../../domain/model/Menu.dart';
 import '../../domain/model/Restaurant.dart';
@@ -13,12 +14,14 @@ class MenuContainer extends StatefulWidget {
       required this.menus,
       required this.restaurant,
       this.refreshMenuState,
+      this.fromScanner = false,
       super.key});
 
   final Restaurant restaurant;
   final List<Menu>? menus;
   final bool isFavourite;
   final Function()? refreshMenuState;
+  final bool? fromScanner;
 
   @override
   State<MenuContainer> createState() => _MenuContainerState();
@@ -84,8 +87,12 @@ class _MenuContainerState extends State<MenuContainer> {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    widget.refreshMenuState!();
-                    Navigator.pop(context);
+                    if (widget.fromScanner == true) {
+                      Navigator.pushNamed(context, OrderChoiceScreen.routeName);
+                    } else {
+                      widget.refreshMenuState!();
+                      Navigator.pop(context);
+                    }
                   },
                   icon: Icon(
                     Icons.arrow_back,
@@ -98,27 +105,27 @@ class _MenuContainerState extends State<MenuContainer> {
           ),
 
           //Bullets Icon
-          Positioned(
-            right: 20,
-            top: 30,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: Colors.white,
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.more_horiz,
-                    color: Theme.of(context).primaryColor,
-                    size: 32,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   right: 20,
+          //   top: 30,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(16.0),
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(32),
+          //         color: Colors.white,
+          //       ),
+          //       child: IconButton(
+          //         onPressed: () {},
+          //         icon: Icon(
+          //           Icons.more_horiz,
+          //           color: Theme.of(context).primaryColor,
+          //           size: 32,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           //Restaurant Details
           Positioned(
@@ -244,7 +251,7 @@ class _MenuContainerState extends State<MenuContainer> {
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              'EGP 14.99',
+                              'EGP 0',
                               style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.secondary),
@@ -262,7 +269,7 @@ class _MenuContainerState extends State<MenuContainer> {
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              '25 mins',
+                              '30 mins',
                               style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.secondary),

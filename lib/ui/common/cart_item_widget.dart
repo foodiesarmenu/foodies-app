@@ -42,22 +42,23 @@ class CartItemWidget extends StatelessWidget {
                 height: 8,
               ),
               isCart
-                  ? Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.edit_outlined,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        Text(
-                          'Edit',
-                          style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                        ),
-                      ],
-                    )
+                  // ? Row(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Icon(
+                  //         Icons.edit_outlined,
+                  //         color: Theme.of(context).primaryColor,
+                  //       ),
+                  //       Text(
+                  //         'Edit',
+                  //         style:
+                  //             Theme.of(context).textTheme.titleSmall?.copyWith(
+                  //                   color: Theme.of(context).primaryColor,
+                  //                 ),
+                  //       ),
+                  //     ],
+                  //   )
+                  ? Container()
                   : Text(
                       'Quantity: ${cart?.quantity}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(

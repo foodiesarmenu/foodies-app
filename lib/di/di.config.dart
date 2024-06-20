@@ -36,70 +36,80 @@ import '../data/dataSourceImpl/restaurants_online_data_source_impl.dart'
 import '../data/places_web_services.dart' as _i4;
 import '../data/repositoryImpl/auth_repo_impl.dart' as _i23;
 import '../data/repositoryImpl/cart_repository_impl.dart' as _i34;
-import '../data/repositoryImpl/delivery_address_repository_impl.dart' as _i54;
+import '../data/repositoryImpl/delivery_address_repository_impl.dart' as _i58;
 import '../data/repositoryImpl/favourite_repo_impl.dart' as _i36;
 import '../data/repositoryImpl/home_repository_impl.dart' as _i42;
-import '../data/repositoryImpl/menus_repo_impl.dart' as _i67;
+import '../data/repositoryImpl/menus_repo_impl.dart' as _i71;
 import '../data/repositoryImpl/order_repository_impl.dart' as _i15;
 import '../data/repositoryImpl/profile_repository_impl.dart' as _i45;
 import '../domain/repositoryContract/auth_repository.dart' as _i22;
 import '../domain/repositoryContract/cart_repository.dart' as _i33;
-import '../domain/repositoryContract/delivery_address_repository.dart' as _i53;
+import '../domain/repositoryContract/delivery_address_repository.dart' as _i57;
 import '../domain/repositoryContract/favourite_repository.dart' as _i35;
 import '../domain/repositoryContract/home_repository.dart' as _i41;
 import '../domain/repositoryContract/maps_repo.dart' as _i32;
-import '../domain/repositoryContract/menus_repo.dart' as _i66;
+import '../domain/repositoryContract/menus_repo.dart' as _i70;
 import '../domain/repositoryContract/order_repository.dart' as _i14;
 import '../domain/repositoryContract/profile_repository.dart' as _i44;
-import '../domain/usecase/add_delivery_address_use_case.dart' as _i76;
-import '../domain/usecase/add_to_cart_use_case.dart' as _i60;
-import '../domain/usecase/add_to_favourite_use_case.dart' as _i50;
-import '../domain/usecase/apply_coupon_use_case.dart' as _i61;
-import '../domain/usecase/check_favourite_use_case.dart' as _i51;
+import '../domain/usecase/add_delivery_address_use_case.dart' as _i84;
+import '../domain/usecase/add_to_cart_use_case.dart' as _i64;
+import '../domain/usecase/add_to_favourite_use_case.dart' as _i53;
+import '../domain/usecase/apply_coupon_use_case.dart' as _i65;
+import '../domain/usecase/change_password_use_case.dart' as _i46;
+import '../domain/usecase/check_favourite_use_case.dart' as _i54;
 import '../domain/usecase/create_cash_order_use_case.dart' as _i26;
 import '../domain/usecase/create_online_order_use_case.dart' as _i27;
-import '../domain/usecase/delete_cart_use_case.dart' as _i62;
-import '../domain/usecase/delete_delivery_address_use_case.dart' as _i77;
-import '../domain/usecase/get_all_delivery_addressess_use_case.dart' as _i78;
-import '../domain/usecase/get_all_favourites_use_case.dart' as _i52;
+import '../domain/usecase/delete_cart_use_case.dart' as _i66;
+import '../domain/usecase/delete_delivery_address_use_case.dart' as _i85;
+import '../domain/usecase/forget_password_use_case.dart' as _i47;
+import '../domain/usecase/get_all_delivery_addressess_use_case.dart' as _i86;
+import '../domain/usecase/get_all_favourites_use_case.dart' as _i55;
 import '../domain/usecase/get_all_orders_use_case.dart' as _i28;
-import '../domain/usecase/get_cart_use_case.dart' as _i63;
-import '../domain/usecase/get_categories_use_case.dart' as _i57;
-import '../domain/usecase/get_menus_use_case.dart' as _i68;
+import '../domain/usecase/get_cart_use_case.dart' as _i67;
+import '../domain/usecase/get_categories_use_case.dart' as _i62;
+import '../domain/usecase/get_menus_use_case.dart' as _i72;
 import '../domain/usecase/get_order_use_case.dart' as _i29;
-import '../domain/usecase/get_primary_delivery_address_use_case.dart' as _i79;
-import '../domain/usecase/get_profile_data_use_case.dart' as _i70;
+import '../domain/usecase/get_primary_delivery_address_use_case.dart' as _i87;
+import '../domain/usecase/get_profile_data_use_case.dart' as _i77;
 import '../domain/usecase/get_promotions_use_case.dart' as _i43;
-import '../domain/usecase/get_restaurants_by_category_id.dart' as _i48;
-import '../domain/usecase/get_restaurants_use_case.dart' as _i49;
-import '../domain/usecase/login_use_case.dart' as _i46;
+import '../domain/usecase/get_restaurant_by_id_use_case.dart' as _i73;
+import '../domain/usecase/get_restaurants_by_category_id.dart' as _i51;
+import '../domain/usecase/get_restaurants_use_case.dart' as _i52;
+import '../domain/usecase/login_use_case.dart' as _i48;
 import '../domain/usecase/make_payment_use_case.dart' as _i30;
 import '../domain/usecase/re_order_use_case.dart' as _i31;
-import '../domain/usecase/register_use_case.dart' as _i47;
-import '../domain/usecase/remove_item_from_cart_use_case.dart' as _i64;
-import '../domain/usecase/update_count_in_cart_use_case.dart' as _i65;
-import '../domain/usecase/update_delivery_address_use_case.dart' as _i80;
-import '../domain/usecase/update_password_use_case.dart' as _i71;
-import '../ui/auth/login/cubit/login_view_model.dart' as _i55;
-import '../ui/auth/register/cubit/register_view_model.dart' as _i58;
-import '../ui/cart/cubit/cart_screen_view_model.dart' as _i83;
-import '../ui/category_details/cubit/category_details_view_model.dart' as _i73;
-import '../ui/change_address/cubit/change_address_view_model.dart' as _i85;
-import '../ui/checkout/cubit/checkout_view_model.dart' as _i86;
-import '../ui/home/home_tab/cubit/home_tab_view_model.dart' as _i87;
-import '../ui/home/orders_tab/cubit/orders_tab_view_model.dart' as _i74;
-import '../ui/home/profile_tab/cubit/profile_view_model.dart' as _i81;
+import '../domain/usecase/register_use_case.dart' as _i49;
+import '../domain/usecase/remove_item_from_cart_use_case.dart' as _i68;
+import '../domain/usecase/update_count_in_cart_use_case.dart' as _i69;
+import '../domain/usecase/update_delivery_address_use_case.dart' as _i88;
+import '../domain/usecase/update_password_use_case.dart' as _i78;
+import '../domain/usecase/update_profile_image_use_case.dart' as _i79;
+import '../domain/usecase/verify_otp_use_case.dart' as _i50;
+import '../ui/auth/change_password/cubit/change_password_view_model.dart'
+    as _i59;
+import '../ui/auth/forget_password/cubit/forget_password_view_model.dart'
+    as _i76;
+import '../ui/auth/login/cubit/login_view_model.dart' as _i60;
+import '../ui/auth/otp/cubit/otp_code_view_model.dart' as _i56;
+import '../ui/auth/register/cubit/register_view_model.dart' as _i63;
+import '../ui/cart/cubit/cart_screen_view_model.dart' as _i91;
+import '../ui/category_details/cubit/category_details_view_model.dart' as _i82;
+import '../ui/change_address/cubit/change_address_view_model.dart' as _i94;
+import '../ui/checkout/cubit/checkout_view_model.dart' as _i93;
+import '../ui/home/home_tab/cubit/home_tab_view_model.dart' as _i95;
+import '../ui/home/orders_tab/cubit/orders_tab_view_model.dart' as _i83;
+import '../ui/home/profile_tab/cubit/profile_view_model.dart' as _i89;
 import '../ui/home/profile_tab/edit_profile/cubit/edit_profile_view_model.dart'
-    as _i82;
+    as _i90;
 import '../ui/home/profile_tab/favourite/cubit/favourite_view_model.dart'
-    as _i69;
+    as _i74;
 import '../ui/home/profile_tab/settings/my_addresses/form_address/cubit/form_address_view_model.dart'
-    as _i84;
+    as _i92;
 import '../ui/home/profile_tab/settings/my_addresses/maps/cubit/maps_cubit.dart'
-    as _i56;
-import '../ui/meal_details/cubit/meal_details_view_model.dart' as _i72;
+    as _i61;
+import '../ui/meal_details/cubit/meal_details_view_model.dart' as _i80;
 import '../ui/menu/cubit/menu_view_model.dart' as _i75;
-import '../ui/order_details/cubit/orders_details_view_model.dart' as _i59;
+import '../ui/order_details/cubit/orders_details_view_model.dart' as _i81;
 import '../ui/utils/stripe_service.dart' as _i13;
 
 extension GetItInjectableX on _i1.GetIt {
@@ -167,118 +177,141 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i43.GetPromotionsUseCase(gh<_i41.HomeRepository>()));
     gh.factory<_i44.ProfileRepository>(() => _i45.ProfileRepositoryImpl(
         profileDataSource: gh<_i39.ProfileDataSource>()));
-    gh.factory<_i46.LoginUseCase>(
-        () => _i46.LoginUseCase(gh<_i22.AuthRepository>()));
-    gh.factory<_i47.RegisterUseCase>(
-        () => _i47.RegisterUseCase(gh<_i22.AuthRepository>()));
-    gh.factory<_i48.GetRestaurantsByCategoryId>(
-        () => _i48.GetRestaurantsByCategoryId(gh<_i41.HomeRepository>()));
-    gh.factory<_i49.GetRestaurantsUsecase>(
-        () => _i49.GetRestaurantsUsecase(gh<_i41.HomeRepository>()));
-    gh.factory<_i50.AddToFavouriteUseCase>(
-        () => _i50.AddToFavouriteUseCase(gh<_i35.FavouriteRepository>()));
-    gh.factory<_i51.CheckFavouriteUseCase>(
-        () => _i51.CheckFavouriteUseCase(gh<_i35.FavouriteRepository>()));
-    gh.factory<_i52.GetAllFavouritesUseCase>(
-        () => _i52.GetAllFavouritesUseCase(gh<_i35.FavouriteRepository>()));
-    gh.factory<_i53.DeliveryAddressRepository>(() =>
-        _i54.DeliveryAddressRepositoryImpl(
+    gh.factory<_i46.ChangePasswordUseCase>(
+        () => _i46.ChangePasswordUseCase(gh<_i22.AuthRepository>()));
+    gh.factory<_i47.ForgetPasswordUseCase>(
+        () => _i47.ForgetPasswordUseCase(gh<_i22.AuthRepository>()));
+    gh.factory<_i48.LoginUseCase>(
+        () => _i48.LoginUseCase(gh<_i22.AuthRepository>()));
+    gh.factory<_i49.RegisterUseCase>(
+        () => _i49.RegisterUseCase(gh<_i22.AuthRepository>()));
+    gh.factory<_i50.VerifyOTPUseCase>(
+        () => _i50.VerifyOTPUseCase(gh<_i22.AuthRepository>()));
+    gh.factory<_i51.GetRestaurantsByCategoryId>(
+        () => _i51.GetRestaurantsByCategoryId(gh<_i41.HomeRepository>()));
+    gh.factory<_i52.GetRestaurantsUsecase>(
+        () => _i52.GetRestaurantsUsecase(gh<_i41.HomeRepository>()));
+    gh.factory<_i53.AddToFavouriteUseCase>(
+        () => _i53.AddToFavouriteUseCase(gh<_i35.FavouriteRepository>()));
+    gh.factory<_i54.CheckFavouriteUseCase>(
+        () => _i54.CheckFavouriteUseCase(gh<_i35.FavouriteRepository>()));
+    gh.factory<_i55.GetAllFavouritesUseCase>(
+        () => _i55.GetAllFavouritesUseCase(gh<_i35.FavouriteRepository>()));
+    gh.factory<_i56.OtpCodeViewModel>(
+        () => _i56.OtpCodeViewModel(gh<_i50.VerifyOTPUseCase>()));
+    gh.factory<_i57.DeliveryAddressRepository>(() =>
+        _i58.DeliveryAddressRepositoryImpl(
             gh<_i18.DeliveryAddressDataSource>()));
-    gh.factory<_i55.LoginViewModel>(
-        () => _i55.LoginViewModel(gh<_i46.LoginUseCase>()));
-    gh.factory<_i56.MapsCubit>(() => _i56.MapsCubit(gh<_i32.MapsRepository>()));
-    gh.factory<_i57.GetCategoriesUsecase>(
-        () => _i57.GetCategoriesUsecase(gh<_i41.HomeRepository>()));
-    gh.factory<_i58.RegisterViewModel>(
-        () => _i58.RegisterViewModel(gh<_i47.RegisterUseCase>()));
-    gh.factory<_i59.OrderDetailsViewModel>(
-        () => _i59.OrderDetailsViewModel(gh<_i29.GetOrderUseCase>()));
-    gh.factory<_i60.AddToCartUseCase>(
-        () => _i60.AddToCartUseCase(gh<_i33.CartRepository>()));
-    gh.factory<_i61.ApplyCouponUseCase>(
-        () => _i61.ApplyCouponUseCase(gh<_i33.CartRepository>()));
-    gh.factory<_i62.DeleteCartUseCase>(
-        () => _i62.DeleteCartUseCase(gh<_i33.CartRepository>()));
-    gh.factory<_i63.GetCartUseCase>(
-        () => _i63.GetCartUseCase(gh<_i33.CartRepository>()));
-    gh.factory<_i64.RemoveItemFromCartUseCase>(
-        () => _i64.RemoveItemFromCartUseCase(gh<_i33.CartRepository>()));
-    gh.factory<_i65.UpdateCountInCartUseCase>(
-        () => _i65.UpdateCountInCartUseCase(gh<_i33.CartRepository>()));
-    gh.factory<_i66.MenusRepo>(
-        () => _i67.MenusRepoImpl(gh<_i37.MenusDataSource>()));
-    gh.factory<_i68.GetMenusUsecase>(
-        () => _i68.GetMenusUsecase(gh<_i66.MenusRepo>()));
-    gh.factory<_i69.FavouriteViewModel>(() => _i69.FavouriteViewModel(
-          gh<_i52.GetAllFavouritesUseCase>(),
-          gh<_i50.AddToFavouriteUseCase>(),
-        ));
-    gh.factory<_i70.GetProfileDataUseCase>(
-        () => _i70.GetProfileDataUseCase(gh<_i44.ProfileRepository>()));
-    gh.factory<_i71.UpdatePasswordUseCase>(
-        () => _i71.UpdatePasswordUseCase(gh<_i44.ProfileRepository>()));
-    gh.factory<_i72.MealDetailsViewModel>(
-        () => _i72.MealDetailsViewModel(gh<_i60.AddToCartUseCase>()));
-    gh.factory<_i73.CategoryDetailsViewModel>(() =>
-        _i73.CategoryDetailsViewModel(gh<_i48.GetRestaurantsByCategoryId>()));
-    gh.factory<_i74.OrdersTabViewModel>(() => _i74.OrdersTabViewModel(
-          gh<_i28.GetAllOrdersUseCase>(),
-          gh<_i31.ReOrderUseCase>(),
-          gh<_i62.DeleteCartUseCase>(),
+    gh.factory<_i59.ChangePasswordViewModel>(
+        () => _i59.ChangePasswordViewModel(gh<_i46.ChangePasswordUseCase>()));
+    gh.factory<_i60.LoginViewModel>(
+        () => _i60.LoginViewModel(gh<_i48.LoginUseCase>()));
+    gh.factory<_i61.MapsCubit>(() => _i61.MapsCubit(gh<_i32.MapsRepository>()));
+    gh.factory<_i62.GetCategoriesUsecase>(
+        () => _i62.GetCategoriesUsecase(gh<_i41.HomeRepository>()));
+    gh.factory<_i63.RegisterViewModel>(
+        () => _i63.RegisterViewModel(gh<_i49.RegisterUseCase>()));
+    gh.factory<_i64.AddToCartUseCase>(
+        () => _i64.AddToCartUseCase(gh<_i33.CartRepository>()));
+    gh.factory<_i65.ApplyCouponUseCase>(
+        () => _i65.ApplyCouponUseCase(gh<_i33.CartRepository>()));
+    gh.factory<_i66.DeleteCartUseCase>(
+        () => _i66.DeleteCartUseCase(gh<_i33.CartRepository>()));
+    gh.factory<_i67.GetCartUseCase>(
+        () => _i67.GetCartUseCase(gh<_i33.CartRepository>()));
+    gh.factory<_i68.RemoveItemFromCartUseCase>(
+        () => _i68.RemoveItemFromCartUseCase(gh<_i33.CartRepository>()));
+    gh.factory<_i69.UpdateCountInCartUseCase>(
+        () => _i69.UpdateCountInCartUseCase(gh<_i33.CartRepository>()));
+    gh.factory<_i70.MenusRepo>(
+        () => _i71.MenusRepoImpl(gh<_i37.MenusDataSource>()));
+    gh.factory<_i72.GetMenusUsecase>(
+        () => _i72.GetMenusUsecase(gh<_i70.MenusRepo>()));
+    gh.factory<_i73.GetRestaurantByIdUseCase>(
+        () => _i73.GetRestaurantByIdUseCase(gh<_i70.MenusRepo>()));
+    gh.factory<_i74.FavouriteViewModel>(() => _i74.FavouriteViewModel(
+          gh<_i55.GetAllFavouritesUseCase>(),
+          gh<_i53.AddToFavouriteUseCase>(),
         ));
     gh.factory<_i75.MenuViewModel>(() => _i75.MenuViewModel(
-          gh<_i68.GetMenusUsecase>(),
-          gh<_i50.AddToFavouriteUseCase>(),
-          gh<_i51.CheckFavouriteUseCase>(),
+          gh<_i72.GetMenusUsecase>(),
+          gh<_i53.AddToFavouriteUseCase>(),
+          gh<_i54.CheckFavouriteUseCase>(),
+          gh<_i73.GetRestaurantByIdUseCase>(),
         ));
-    gh.factory<_i76.AddDeliveryAddressUseCase>(() =>
-        _i76.AddDeliveryAddressUseCase(gh<_i53.DeliveryAddressRepository>()));
-    gh.factory<_i77.DeleteDeliveryAddressUseCase>(() =>
-        _i77.DeleteDeliveryAddressUseCase(
-            gh<_i53.DeliveryAddressRepository>()));
-    gh.factory<_i78.GetAllDeliveryAddressessUseCase>(() =>
-        _i78.GetAllDeliveryAddressessUseCase(
-            gh<_i53.DeliveryAddressRepository>()));
-    gh.factory<_i79.GetPrimaryDeliveryAddressUseCase>(() =>
-        _i79.GetPrimaryDeliveryAddressUseCase(
-            gh<_i53.DeliveryAddressRepository>()));
-    gh.factory<_i80.UpdateDeliveryAddressUseCase>(() =>
-        _i80.UpdateDeliveryAddressUseCase(
-            gh<_i53.DeliveryAddressRepository>()));
-    gh.factory<_i81.ProfileViewModel>(() => _i81.ProfileViewModel(
-          gh<_i71.UpdatePasswordUseCase>(),
-          gh<_i70.GetProfileDataUseCase>(),
+    gh.factory<_i76.ForgetPasswordViewModel>(
+        () => _i76.ForgetPasswordViewModel(gh<_i47.ForgetPasswordUseCase>()));
+    gh.factory<_i77.GetProfileDataUseCase>(
+        () => _i77.GetProfileDataUseCase(gh<_i44.ProfileRepository>()));
+    gh.factory<_i78.UpdatePasswordUseCase>(
+        () => _i78.UpdatePasswordUseCase(gh<_i44.ProfileRepository>()));
+    gh.factory<_i79.UpdateProfileImageUseCase>(
+        () => _i79.UpdateProfileImageUseCase(gh<_i44.ProfileRepository>()));
+    gh.factory<_i80.MealDetailsViewModel>(
+        () => _i80.MealDetailsViewModel(gh<_i64.AddToCartUseCase>()));
+    gh.factory<_i81.OrderDetailsViewModel>(() => _i81.OrderDetailsViewModel(
+          gh<_i29.GetOrderUseCase>(),
+          gh<_i77.GetProfileDataUseCase>(),
         ));
-    gh.factory<_i82.EditProfileViewModel>(
-        () => _i82.EditProfileViewModel(gh<_i70.GetProfileDataUseCase>()));
-    gh.factory<_i83.CartScreenViewModel>(() => _i83.CartScreenViewModel(
-          gh<_i63.GetCartUseCase>(),
-          gh<_i64.RemoveItemFromCartUseCase>(),
-          gh<_i65.UpdateCountInCartUseCase>(),
-          gh<_i62.DeleteCartUseCase>(),
-          gh<_i61.ApplyCouponUseCase>(),
+    gh.factory<_i82.CategoryDetailsViewModel>(() =>
+        _i82.CategoryDetailsViewModel(gh<_i51.GetRestaurantsByCategoryId>()));
+    gh.factory<_i83.OrdersTabViewModel>(() => _i83.OrdersTabViewModel(
+          gh<_i28.GetAllOrdersUseCase>(),
+          gh<_i31.ReOrderUseCase>(),
+          gh<_i66.DeleteCartUseCase>(),
         ));
-    gh.factory<_i84.FormAddressViewModel>(
-        () => _i84.FormAddressViewModel(gh<_i76.AddDeliveryAddressUseCase>()));
-    gh.factory<_i85.ChangeAddressScreenViewModel>(
-        () => _i85.ChangeAddressScreenViewModel(
-              gh<_i76.AddDeliveryAddressUseCase>(),
-              gh<_i77.DeleteDeliveryAddressUseCase>(),
-              gh<_i78.GetAllDeliveryAddressessUseCase>(),
-              gh<_i80.UpdateDeliveryAddressUseCase>(),
-            ));
-    gh.factory<_i86.CheckoutViewModel>(() => _i86.CheckoutViewModel(
+    gh.factory<_i84.AddDeliveryAddressUseCase>(() =>
+        _i84.AddDeliveryAddressUseCase(gh<_i57.DeliveryAddressRepository>()));
+    gh.factory<_i85.DeleteDeliveryAddressUseCase>(() =>
+        _i85.DeleteDeliveryAddressUseCase(
+            gh<_i57.DeliveryAddressRepository>()));
+    gh.factory<_i86.GetAllDeliveryAddressessUseCase>(() =>
+        _i86.GetAllDeliveryAddressessUseCase(
+            gh<_i57.DeliveryAddressRepository>()));
+    gh.factory<_i87.GetPrimaryDeliveryAddressUseCase>(() =>
+        _i87.GetPrimaryDeliveryAddressUseCase(
+            gh<_i57.DeliveryAddressRepository>()));
+    gh.factory<_i88.UpdateDeliveryAddressUseCase>(() =>
+        _i88.UpdateDeliveryAddressUseCase(
+            gh<_i57.DeliveryAddressRepository>()));
+    gh.factory<_i89.ProfileViewModel>(() => _i89.ProfileViewModel(
+          gh<_i78.UpdatePasswordUseCase>(),
+          gh<_i77.GetProfileDataUseCase>(),
+        ));
+    gh.factory<_i90.EditProfileViewModel>(() => _i90.EditProfileViewModel(
+          gh<_i77.GetProfileDataUseCase>(),
+          gh<_i79.UpdateProfileImageUseCase>(),
+        ));
+    gh.factory<_i91.CartScreenViewModel>(() => _i91.CartScreenViewModel(
+          gh<_i67.GetCartUseCase>(),
+          gh<_i68.RemoveItemFromCartUseCase>(),
+          gh<_i69.UpdateCountInCartUseCase>(),
+          gh<_i66.DeleteCartUseCase>(),
+          gh<_i65.ApplyCouponUseCase>(),
+        ));
+    gh.factory<_i92.FormAddressViewModel>(
+        () => _i92.FormAddressViewModel(gh<_i84.AddDeliveryAddressUseCase>()));
+    gh.factory<_i93.CheckoutViewModel>(() => _i93.CheckoutViewModel(
           gh<_i27.CreateOnlineOrderUseCase>(),
           gh<_i26.CreateCashOrderUseCase>(),
           gh<_i30.MakePaymentUseCase>(),
-          gh<_i79.GetPrimaryDeliveryAddressUseCase>(),
+          gh<_i87.GetPrimaryDeliveryAddressUseCase>(),
+          gh<_i77.GetProfileDataUseCase>(),
         ));
-    gh.factory<_i87.HomeTabViewModel>(() => _i87.HomeTabViewModel(
-          gh<_i49.GetRestaurantsUsecase>(),
-          gh<_i57.GetCategoriesUsecase>(),
-          gh<_i79.GetPrimaryDeliveryAddressUseCase>(),
-          gh<_i78.GetAllDeliveryAddressessUseCase>(),
-          gh<_i80.UpdateDeliveryAddressUseCase>(),
+    gh.factory<_i94.ChangeAddressScreenViewModel>(
+        () => _i94.ChangeAddressScreenViewModel(
+              gh<_i84.AddDeliveryAddressUseCase>(),
+              gh<_i85.DeleteDeliveryAddressUseCase>(),
+              gh<_i86.GetAllDeliveryAddressessUseCase>(),
+              gh<_i88.UpdateDeliveryAddressUseCase>(),
+              gh<_i77.GetProfileDataUseCase>(),
+            ));
+    gh.factory<_i95.HomeTabViewModel>(() => _i95.HomeTabViewModel(
+          gh<_i52.GetRestaurantsUsecase>(),
+          gh<_i62.GetCategoriesUsecase>(),
+          gh<_i87.GetPrimaryDeliveryAddressUseCase>(),
+          gh<_i86.GetAllDeliveryAddressessUseCase>(),
+          gh<_i88.UpdateDeliveryAddressUseCase>(),
           gh<_i43.GetPromotionsUseCase>(),
         ));
     return this;

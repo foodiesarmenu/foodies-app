@@ -1,127 +1,139 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:foodies_app/data/api_constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
+
+import '../menu/menu_screen.dart';
 
 class MenuScannerScreen extends StatefulWidget {
-  static const String routeName = "ScanQR";
-
   const MenuScannerScreen({super.key});
 
+  static const String routeName = 'MenuScannerSc';
+
   @override
-  _MenuScannerScreenState createState() => _MenuScannerScreenState();
+  State<MenuScannerScreen> createState() => _MenuScannerScreenState();
 }
 
 class _MenuScannerScreenState extends State<MenuScannerScreen> {
-  String qrCodeResult = "Not Yet Scanned";
-  final Map<String, String> restaurantMenus = {}; // Initially empty
+  bool isFlashOn = false;
+  bool isFrontCamera = false;
+  bool isScanCompleted = false;
+  MobileScannerController cameraController = MobileScannerController();
 
-  Future<void> fetchRestaurantMenu(String restaurantId) async {
-    try {
-      Uri url = Uri.https(
-        ApiConstants.baseUrl,
-        '${ApiConstants.menusApi}$restaurantId',
-      );
-      //final Uri url = Uri.parse('$baseUrl/$restaurantId/menu');
-      final response = await http
-          .get(url, headers: {'Authorization': ApiConstants.authorization});
-
-      if (response.statusCode == 200) {
-        // Check response content type before decoding
-        if (response.headers['content-type']?.startsWith('application/json') ==
-            true) {
-          final Map<String, dynamic> menuData = jsonDecode(response.body);
-          // Extract menu details from menuData (replace with your actual logic)
-          final String menuRoute =
-              '/${menuData['id']}_menu'; // Example menu route based on ID
-          setState(() {
-            // Update state after successful menu data fetch
-            restaurantMenus[restaurantId] = menuRoute;
-          });
-        } else {
-          print(
-              'Unexpected response format: ${response.headers['content-type']}');
-        }
-      } else {
-        // Handle API error
-        print('Error fetching menu data: ${response.statusCode}');
-      }
-    } on Exception catch (error) {
-      // Handle other potential errors (e.g., network issues)
-      print('Error fetching menu data: $error');
-    }
-  }
-
-
-  Future<void> scanQR() async {
-    try {
-      final String scannedCode = (await FlutterBarcodeScanner.scanBarcode(
-        '#2A99CF',
-        'Cancel',
-        true,
-        ScanMode.QR,
-      ));
-      if (!mounted) return;
-
-      // Fetch menu data outside setState
-      await fetchRestaurantMenu(scannedCode);
-
-      setState(() {
-        qrCodeResult = scannedCode;
-        final menuRoute = restaurantMenus[scannedCode];
-        if (menuRoute != null) {
-          Navigator.of(context).pushNamed(menuRoute);
-        } else {
-          // Restaurant not found or API error (handled in fetchRestaurantMenu)
-          qrCodeResult = 'Restaurant not found.';
-        }
-      });
-    } on PlatformException {
-      setState(() {
-        qrCodeResult = "Failed to read QR Code";
-      });
-    }
+  void closeScreen() {
+    isScanCompleted = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Scan QR Code"),),
-      body: Center(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        centerTitle: true,
+        title: Text(
+          "QR Scanner",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                isFlashOn = !isFlashOn;
+              });
+              cameraController.toggleTorch();
+            },
+            icon: Icon(
+              Icons.flash_on,
+              color: isFlashOn ? Colors.white : Colors.black,
+            ),
+          ),
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  isFrontCamera = !isFrontCamera;
+                });
+                cameraController.switchCamera();
+              },
+              icon: Icon(
+                Icons.flip_camera_android,
+                color: isFrontCamera ? Colors.white : Colors.black,
+              )),
+        ],
+      ),
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              "Result",
-              style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              qrCodeResult,
-              style: const TextStyle(fontSize: 20.0),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20.0),
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: ElevatedButton(
-                onPressed: scanQR,
-                child: Text(
-                  "Open Scanner",
-                  style: TextStyle(color: Colors.indigo[900]),
+            Expanded(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Place the QR code in designated area",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
                 ),
-              ),
+                Text(
+                  "Scanning will be started automatically",
+                  style: TextStyle(
+                    color: Colors.black54,
+                  ),
+                )
+              ],
+            )),
+            SizedBox(
+              height: 16,
             ),
+            Expanded(
+                flex: 2,
+                child: Stack(
+                  children: [
+                    MobileScanner(
+                      controller: cameraController,
+                      allowDuplicates: true,
+                      onDetect: (barcode, args) {
+                        if (!isScanCompleted) {
+                          isScanCompleted = true;
+                          String code = barcode.rawValue ?? "---";
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MenuScreen(
+                                restaurantId: code,
+                                fromScanner: true,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    QRScannerOverlay(
+                      overlayColor: Colors.black26,
+                      borderColor: Theme.of(context).primaryColor,
+                      borderRadius: 20,
+                      borderStrokeWidth: 10,
+                      scanAreaWidth: 250,
+                      scanAreaHeight: 250,
+                    )
+                  ],
+                )),
+            Expanded(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Scan properly to see the menu",
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ],
+            )),
           ],
         ),
       ),
     );
   }
-
-
-
 }

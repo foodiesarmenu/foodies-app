@@ -1,28 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/change_address/cubit/change_address_states.dart';
+
 import '../../di/di.dart';
 import '../common/address_details_widget.dart';
+import '../common/custom_app_bar.dart';
 import '../home/profile_tab/settings/my_addresses/maps/map_screen.dart';
 import 'cubit/change_address_view_model.dart';
 
-class ChangeAddressScreen extends StatelessWidget {
+class ChangeAddressScreen extends StatefulWidget {
   ChangeAddressScreen({super.key,this.refreshPrimaryAddress});
   final Function()? refreshPrimaryAddress;
   static const String routeName = '/change_address_screen';
 
-final viewModel = getIt<ChangeAddressScreenViewModel>();
+  @override
+  State<ChangeAddressScreen> createState() => _ChangeAddressScreenState();
+}
+
+class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
+  final viewModel = getIt<ChangeAddressScreenViewModel>();
+
+@override
+  void initState() {
+    super.initState();
+    viewModel.getAllAddresses();
+    viewModel.getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => viewModel..getAllAddresses(),
+      create: (context) => viewModel,
       child: BlocBuilder<ChangeAddressScreenViewModel,ChangeAddressStates>(
         builder: (context, state) {
           return Scaffold(
-              appBar: AppBar(
-                title: const Text('Addresses'),
-              ),
+              appBar: CustomAppBar.buildAppBar(context, 'Addresses'),
               body: (state is GetAllAddressesSuccessState) ?
               SingleChildScrollView(
                 child: Padding(
@@ -36,10 +48,11 @@ final viewModel = getIt<ChangeAddressScreenViewModel>();
                         itemCount: viewModel.addresses.length,
                         itemBuilder: (context, index) {
                           return AddressDetailsWidget(
-                              address: viewModel.addresses[index],
-                            isChangeAddress: true,
-                            refreshAddress : refreshPrimaryAddress,
-                          );
+                                  address: viewModel.addresses[index],
+                                  user: viewModel.user,
+                                  isChangeAddress: true,
+                                  refreshAddress: widget.refreshPrimaryAddress,
+                                );
                         },
                         separatorBuilder: (context, index) {
                           return const SizedBox(
