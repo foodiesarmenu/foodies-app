@@ -12,6 +12,8 @@ abstract class ProfileRepository {
     required String confirmPassword,
   });
 
+  Future<Either<Failures, User>> changeEmail({required String email});
+
   Future<Either<Failures, User>> updateProfileImage({required String image});
 
   Future<Either<Failures, User>> deleteProfilePicture();

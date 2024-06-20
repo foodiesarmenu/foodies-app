@@ -55,11 +55,20 @@ class ApiManager {
   }
 
   Future<RestaurantsResponse> getRestaurants({String? categoryId}) async {
-    String catId = categoryId ?? "";
-    Uri uri = Uri.https(
-      ApiConstants.baseUrl,
-      '${ApiConstants.restaurantsApi}$catId',
-    );
+    Uri uri;
+    String catId = categoryId ?? '';
+    if (catId.isEmpty) {
+      uri = Uri.https(
+        ApiConstants.baseUrl,
+        '${ApiConstants.restaurantsApi}$catId',
+      );
+    } else {
+      uri = Uri.https(
+        ApiConstants.baseUrl,
+        '${ApiConstants.restaurantsApi}/$catId/category',
+      );
+    }
+
     var response = await client.get(
       uri,
       headers: {'Authorization': ApiConstants.authorization},
@@ -890,7 +899,7 @@ class ApiManager {
       String email, String newPassword, String confirmPassword) async {
     var url = Uri.https(
       ApiConstants.baseUrl,
-      ApiConstants.loginApi,
+      ApiConstants.changePasswordApi,
     );
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
@@ -902,16 +911,16 @@ class ApiManager {
         "confirmPassword": confirmPassword,
       };
 
-      var response = await client.patch(url, body: jsonEncode(body));
+      var response = await client.patch(url, body: jsonEncode(body), headers: {
+        'Content-Type': 'application/json',
+      });
 
       var changePasswordResponse =
           LoginResponse.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(changePasswordResponse);
       } else {
-        return Left(ServerError(
-            errorMessage: changePasswordResponse.error ??
-                changePasswordResponse.message));
+        return Left(ServerError(errorMessage: changePasswordResponse.error));
       }
     } else {
       return Left(
@@ -987,6 +996,86 @@ class ApiManager {
         return Right(updateProfileResponse);
       } else {
         return Left(ServerError(errorMessage: updateProfileResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> updateProfile({
+    String? name,
+    String? phone,
+  }) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.updateProfileApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var body;
+      if (name != '' && phone == '') {
+        body = {
+          "name": name,
+        };
+      } else if (name == '' && phone != '') {
+        body = {
+          "phoneNumber": phone,
+        };
+      } else {
+        body = {"name": name, "phoneNumber": phone};
+      }
+
+      var response = await client.patch(url, body: jsonEncode(body), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ApiConstants.authorization,
+      });
+
+      var changeProfileResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(changeProfileResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage:
+                changeProfileResponse.message ?? changeProfileResponse.error));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> changeEmail({
+    required String email,
+  }) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.updateProfileApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var body = {
+        "email": email,
+      };
+
+      var response = await client.patch(url, body: jsonEncode(body), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ApiConstants.authorization,
+      });
+
+      var changeEmailResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(changeEmailResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage:
+                changeEmailResponse.message ?? changeEmailResponse.error));
       }
     } else {
       return Left(

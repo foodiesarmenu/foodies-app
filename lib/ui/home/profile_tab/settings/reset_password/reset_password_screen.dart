@@ -6,8 +6,8 @@ import 'package:foodies_app/ui/common/edit_text_in_profile.dart';
 
 import '../../../../common/custom_app_bar.dart';
 import '../../../../utils/dialog_utils.dart';
-import '../../cubit/profile_states.dart';
-import '../../cubit/profile_view_model.dart';
+import 'cubit/reset_password_states.dart';
+import 'cubit/reset_password_view_model.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   static const String routeName = 'reset-password';
@@ -19,21 +19,20 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  var viewModel = getIt<ProfileViewModel>();
+  var viewModel = getIt<ResetPasswordViewModel>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileViewModel, ProfileStates>(
+    return BlocListener<ResetPasswordViewModel, ResetPasswordStates>(
       bloc: viewModel,
       listener: (context, state) {
-        if (state is ProfileLoadingState) {
+        if (state is ResetPasswordLoadingState) {
           DialogUtils.showLoading(context, state.loadingMessage ?? 'Waiting');
-        } else if (state is UpdatePasswordErrorState) {
+        } else if (state is ResetPasswordErrorState) {
           DialogUtils.hideLoading(context);
-          DialogUtils.showMessage(
-              context, state.errorMessage.errorMessage ?? "Error",
+          DialogUtils.showMessage(context, state.errorMessage,
               title: 'Error', posActionName: 'Ok');
-        } else if (state is UpdatePasswordSuccessState) {
+        } else if (state is ResetPasswordSuccessState) {
           DialogUtils.hideLoading(context);
           DialogUtils.showMessage(
               context,
@@ -89,11 +88,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   isSecured: true,
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
-                      return 'Please enter new password';
+                      return 'Please enter confirm password';
                     }
-                    if (text != viewModel.passwordController.text ||
-                        text.length <= 6) {
-                      return "New password did't match";
+                    if (text != viewModel.passwordNewController.text) {
+                      return 'Password does not match';
                     }
                     return null;
                   },

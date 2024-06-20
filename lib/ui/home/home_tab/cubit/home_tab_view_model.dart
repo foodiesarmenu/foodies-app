@@ -4,6 +4,7 @@ import 'package:foodies_app/domain/usecase/get_primary_delivery_address_use_case
 import 'package:foodies_app/domain/usecase/get_promotions_use_case.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../domain/model/Promotion.dart';
 import '../../../../domain/usecase/get_all_delivery_addressess_use_case.dart';
 import '../../../../domain/usecase/get_categories_use_case.dart';
 import '../../../../domain/usecase/get_restaurants_use_case.dart';
@@ -20,7 +21,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
   UpdateDeliveryAddressUseCase updateDeliveryAddressUseCase;
 
   List<DeliveryAddress> addresses = [];
-
+  List<Promotion>? promotions;
   DeliveryAddress? primaryAddress;
 
   @factoryMethod
@@ -41,7 +42,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
       var restaurants = await getRestaurantsUsecase.invoke();
       var categories = await getCategoriesUsecase.invoke();
       var deliveryAddresses = await getAllDeliveryAddressesUseCase.invoke();
-
+      var promotionsResponse = await getPromotionsUseCase.invoke();
       deliveryAddresses.fold((l) {
         emit(GetAllDeliveryAddressesErrorState(error: l.errorMessage));
       }, (r) {
@@ -53,11 +54,16 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
         emit(GetAllDeliveryAddressesSuccessState(
             allDeliveryAddresses: addresses));
       });
-
-      var promotions = await getPromotionsUseCase.invoke();
-
+      promotionsResponse.fold((l) {
+        emit(GetAllPromotionsErrorState(error: l.errorMessage));
+      }, (r) {
+        promotions = r;
+        emit(GetAllPromotionsSuccessState(promotion: promotions));
+      });
       emit(SuccessState(
-          restaurants, categories, promotions.fold((l) => null, (r) => r)));
+          restaurants: restaurants,
+          categories: categories,
+          promotions: promotions));
     } catch (e) {
       print(e);
       emit(ErrorState(e.toString()));

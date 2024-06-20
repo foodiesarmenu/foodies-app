@@ -33,3 +33,15 @@ class UpdateProfileImageSuccessState extends EditProfileStates {
 
   UpdateProfileImageSuccessState({required this.user});
 }
+
+class UpdateProfileErrorState extends EditProfileStates {
+  String errorMessage;
+
+  UpdateProfileErrorState({required this.errorMessage});
+}
+
+class UpdateProfileSuccessState extends EditProfileStates {
+  User user;
+
+  UpdateProfileSuccessState({required this.user});
+}

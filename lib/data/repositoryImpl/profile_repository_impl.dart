@@ -38,8 +38,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<Either<Failures, User>> updateProfile({String? name, String? phone}) {
-    // TODO: implement updateProfile
-    throw UnimplementedError();
+    return profileDataSource.updateProfile(name: name, phone: phone);
   }
 
   @override
@@ -50,5 +49,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
   @override
   Future<Either<Failures, User>> updateProfileImage({required String image}) {
     return profileDataSource.updateProfileImage(image: image);
+  }
+
+  @override
+  Future<Either<Failures, User>> changeEmail({required String email}) {
+    return profileDataSource.changeEmail(email: email);
   }
 }

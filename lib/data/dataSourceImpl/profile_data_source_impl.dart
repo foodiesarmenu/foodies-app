@@ -42,9 +42,14 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   }
 
   @override
-  Future<Either<Failures, User>> updateProfile({String? name, String? phone}) {
-    // TODO: implement updateProfile
-    throw UnimplementedError();
+  Future<Either<Failures, User>> updateProfile(
+      {String? name, String? phone}) async {
+    var either = await apiManager.updateProfile(name: name, phone: phone);
+    return either.fold((error) {
+      return Left(Failures(errorMessage: error.errorMessage));
+    }, (response) {
+      return Right(response.data!.toUser());
+    });
   }
 
   @override
@@ -61,6 +66,16 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   @override
   Future<Either<Failures, User>> getProfileData() async {
     var either = await apiManager.getProfileData();
+    return either.fold((error) {
+      return Left(Failures(errorMessage: error.errorMessage));
+    }, (response) {
+      return Right(response.data!.toUser());
+    });
+  }
+
+  @override
+  Future<Either<Failures, User>> changeEmail({required String email}) async {
+    var either = await apiManager.changeEmail(email: email);
     return either.fold((error) {
       return Left(Failures(errorMessage: error.errorMessage));
     }, (response) {

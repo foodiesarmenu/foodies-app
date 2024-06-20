@@ -7,16 +7,16 @@ class ApiConstants {
 
   static const String categoriesApi = '/mobile/category';
   static const String restaurantsApi = '/mobile/restaurant';
-  static const String menusApi = '/mobile/restaurant/menu/';
+  static const String menusApi = '/mobile/restaurant/menu';
   static const String promotionApi = '/mobile/promotion';
   static const String addressApi = '/mobile/address';
+  static const String getRestaurantsByCategoryId = '/mobile/address';
 
   static const String registerApi = '/mobile/client';
   static const String loginApi = '/mobile/auth/login';
   static const String forgetPasswordApi = '/mobile/auth/forget-password';
   static const String verifyOTPApi = '/mobile/auth/verify-otp';
   static const String changePasswordApi = '/mobile/auth/change-password';
-
   static const String cartApi = '/mobile/cart';
   static const String applyCouponApi = '/mobile/cart/coupon';
 

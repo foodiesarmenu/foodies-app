@@ -29,10 +29,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return BlocListener(
       listener: (context, state) {
         if (state is ChangePasswordLoadingState) {
-          DialogUtils.showLoading(context, state.loadingMessage ?? 'Waiting');
+          DialogUtils.showLoading(
+              context, state.loadingMessage ?? 'Updating Password...');
         } else if (state is ChangePasswordErrorState) {
           DialogUtils.hideLoading(context);
-          DialogUtils.showMessage(context, state.errorMessage!,
+          DialogUtils.showMessage(context, state.errorMessage ?? 'Error',
               title: 'Error', posActionName: 'Ok');
         } else if (state is ChangePasswordSuccessState) {
           DialogUtils.hideLoading(context);
@@ -99,6 +100,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           if (!ValidationUtils.hasLowerCase(text)) {
                             return 'Missing lowercase letter';
                           }
+
                           return null;
                         },
                       ),

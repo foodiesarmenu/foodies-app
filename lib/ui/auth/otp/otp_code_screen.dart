@@ -62,7 +62,8 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
         } else if (state is OtpCodeSuccessState) {
           DialogUtils.hideLoading(context);
           Navigator.pushNamed(
-              context, ResetPasswordConfirmationScreen.routeName);
+              context, ResetPasswordConfirmationScreen.routeName,
+              arguments: args);
         }
       },
       bloc: viewModel,

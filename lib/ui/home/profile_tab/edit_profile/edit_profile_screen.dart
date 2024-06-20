@@ -25,12 +25,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  TextEditingController fullNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
   TextEditingController genderController = TextEditingController();
   TextEditingController birthDateController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
 
   DateTime? selectedDate;
   DateTime date = DateTime.now();
@@ -70,10 +66,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<EditProfileViewModel, EditProfileStates>(
       listener: (context, state) async {
-        if (state is UpdateProfileImageSuccessState) {
+        if (state is UpdateProfileImageSuccessState ||
+            state is UpdateProfileSuccessState) {
           await args.getProfileData();
           Navigator.pop(context);
         } else if (state is UpdateProfileImageErrorState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else if (state is UpdateProfileErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage),
@@ -96,7 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 appBar: CustomAppBar.buildAppBar(context, 'Edit Profile'),
                 body: SingleChildScrollView(
                   child: Form(
-                    key: formKey,
+                    key: viewModel.formKey,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -179,34 +183,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           const SizedBox(height: 20.0),
                           FormInputField(
                             icon: Icons.person_outlined,
-                            controller: fullNameController,
+                            controller: viewModel.nameController,
                             label: 'Full Name',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             hint: state.user.name ?? 'Yehya Gamal',
-                            validator: (text) {
-                              if (text == null || text.trim().isEmpty) {
-                                return 'Please enter full name';
-                              }
-                              return null;
-                            },
                           ),
                           SizedBox(height: 12.0),
                           FormInputField(
                             icon: Icons.phone_outlined,
-                            controller: phoneController,
+                            controller: viewModel.phoneController,
                             label: 'Phone',
                             hint: state.user.phoneNumber ?? '01000000000',
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             keyboardType: TextInputType.number,
-                            validator: (text) {
-                              if (text == null || text.trim().isEmpty) {
-                                return 'Please enter full name';
-                              }
-                              if (text.length < 9) {
-                                return 'Please enter valid phone number';
-                              }
-                              return null;
-                            },
                           ),
                           SizedBox(height: 12.0),
                           Row(
@@ -229,8 +218,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   backgroundColor:
                                       Theme.of(context).primaryColor,
                                   onPressed: () {
-                                    viewModel.updateProfileImage(
-                                        image: pickedImage!.path);
+                                    if (pickedImage != null) {
+                                      viewModel.updateProfileImage(
+                                          image: pickedImage!.path);
+                                    } else if (viewModel.phoneController.text !=
+                                            '' ||
+                                        viewModel.nameController.text != '') {
+                                      viewModel.updateProfile(
+                                          name: viewModel.nameController.text,
+                                          phone:
+                                              viewModel.phoneController.text);
+                                    } else {
+                                      return null;
+                                    }
                                   },
                                 ),
                               ),

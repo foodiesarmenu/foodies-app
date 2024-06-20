@@ -14,6 +14,8 @@ abstract class ProfileDataSource {
 
   Future<Either<Failures, User>> updateProfileImage({required String image});
 
+  Future<Either<Failures, User>> changeEmail({required String email});
+
   Future<Either<Failures, User>> deleteProfilePicture();
 
   Future<Either<Failures, User>> deleteAccount();

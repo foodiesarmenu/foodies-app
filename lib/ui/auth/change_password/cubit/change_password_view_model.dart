@@ -27,6 +27,7 @@ class ChangePasswordViewModel extends Cubit<ChangePasswordStates> {
           newPassword: newPasswordController.text,
           confirmPassword: confirmPasswordController.text);
       either.fold((error) {
+        print(error.errorMessage);
         emit(ChangePasswordErrorState(errorMessage: error.errorMessage));
       }, (response) {
         emit(ChangePasswordSuccessState(authResult: response));
