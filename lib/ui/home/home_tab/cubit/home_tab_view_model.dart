@@ -60,10 +60,7 @@ class HomeTabViewModel extends Cubit<HomeTabState> {
         promotions = r;
         emit(GetAllPromotionsSuccessState(promotion: promotions));
       });
-      emit(SuccessState(
-          restaurants: restaurants,
-          categories: categories,
-          promotions: promotions));
+      emit(SuccessState(restaurants, categories, promotions));
     } catch (e) {
       print(e);
       emit(ErrorState(e.toString()));

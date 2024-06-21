@@ -17,6 +17,7 @@ class _ARScreenState extends State<ARScreen> {
     super.initState();
   }
 
+  UnityWidgetController? _unityWidgetController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,5 +46,6 @@ class _ARScreenState extends State<ARScreen> {
 
   // Callback that connects the created controller to the unity controller
   void onUnityCreated(controller) {
+    _unityWidgetController = controller;
   }
 }

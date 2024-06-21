@@ -81,7 +81,7 @@ class ApiManager {
   Future<MenusResponse> getMenus({String? restaurantId}) async {
     Uri uri = Uri.https(
       ApiConstants.baseUrl,
-      '${ApiConstants.menusApi}$restaurantId',
+      '${ApiConstants.menusApi}/$restaurantId',
     );
     var response = await client.get(
       uri,

@@ -24,7 +24,7 @@ class SuccessState extends HomeTabState {
   List<Category>? categories;
   List<Promotion>? promotions;
 
-  SuccessState({this.restaurants, this.categories, this.promotions});
+  SuccessState(this.restaurants, this.categories, this.promotions);
 }
 
 class GetAllPromotionsSuccessState extends HomeTabState {

@@ -129,17 +129,22 @@ class _MenuContainerState extends State<MenuContainer> {
 
           //Restaurant Details
           Positioned(
-            top: 200,
-            left: 10,
-            right: 10,
+            top: 180,
+            left: 16,
+            right: 16,
             child: Container(
-              height: 200,
+              height: 180,
               padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey, width: .5),
+                  left: BorderSide(color: Colors.grey, width: .5),
+                  right: BorderSide(color: Colors.grey, width: .5),
+                  bottom: BorderSide(color: Colors.grey, width: .5),
+                ),
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
                 ),
               ),
               child: Column(
@@ -265,7 +270,8 @@ class _MenuContainerState extends State<MenuContainer> {
                             const Text(
                               'Delivery Time',
                               maxLines: 1,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12.0),
                             ),
                             const SizedBox(height: 8.0),
                             Text(
@@ -282,7 +288,8 @@ class _MenuContainerState extends State<MenuContainer> {
                           children: [
                             const Text(
                               'Delivered by',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12.0),
                             ),
                             const SizedBox(height: 8.0),
                             Text(
@@ -332,7 +339,8 @@ class _MenuContainerState extends State<MenuContainer> {
                         indicatorColor: Colors.transparent,
                         isScrollable: true,
                         tabs: widget.menus!
-                            .map((menu) => MealTabItem(
+                            .map(
+                              (menu) => MealTabItem(
                                 menu: menu,
                                 isSelected: widget.menus?.indexOf(menu) ==
                                     selectedIndex,
@@ -342,9 +350,10 @@ class _MenuContainerState extends State<MenuContainer> {
                             });
                             scrollToMenu(selectedMenu.name ?? '');
                           },
-
                         ),
                         ).toList(),
+                        dividerColor: Colors.transparent,
+                        tabAlignment: TabAlignment.start,
                       ),
                     ],
                   ),
