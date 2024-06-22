@@ -221,16 +221,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     if (pickedImage != null) {
                                       viewModel.updateProfileImage(
                                           image: pickedImage!.path);
-                                    } else if (viewModel.phoneController.text !=
-                                            '' ||
+                                    }
+                                    if (viewModel.phoneController.text != '' ||
                                         viewModel.nameController.text != '') {
                                       viewModel.updateProfile(
-                                          name: viewModel.nameController.text,
-                                          phone:
-                                              viewModel.phoneController.text);
-                                    } else {
-                                      return null;
+                                        name: viewModel.nameController.text,
+                                        phone: viewModel.phoneController.text,
+                                      );
                                     }
+                                    return null;
                                   },
                                 ),
                               ),

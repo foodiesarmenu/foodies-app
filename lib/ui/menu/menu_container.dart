@@ -174,9 +174,10 @@ class _MenuContainerState extends State<MenuContainer> {
                               children: [
                                 Expanded(
                                   child: Text(
+                                    maxLines: 1,
                                     widget.restaurant.name ?? "",
                                     style: const TextStyle(
-                                        fontSize: 20.0,
+                                        fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
