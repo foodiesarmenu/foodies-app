@@ -878,7 +878,10 @@ class ApiManager {
         "code": code,
       };
 
-      var response = await client.post(url, body: jsonEncode(requestBody));
+      var response =
+          await client.post(url, body: jsonEncode(requestBody), headers: {
+        'Content-Type': 'application/json',
+      });
 
       var verifyOTPResponse =
           ForgetPasswordResponse.fromJson(jsonDecode(response.body));

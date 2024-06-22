@@ -33,6 +33,15 @@ List<DeliveryAddress> addresses = [] ;
   User? user;
   getAllAddresses() async {
     var getAllAddresses = await getAllDeliveryAddressesUseCase.invoke();
+    var userData = await getProfileDataUseCase.invoke();
+    userData.fold(
+      (l) {
+        emit(GetUserDataErrorState(error: l.errorMessage));
+      },
+      (r) {
+        user = r;
+      },
+    );
     getAllAddresses.fold((l) {
       emit(GetAllAddressesErrorState(error: l.errorMessage));
     }, (r) {
@@ -72,15 +81,4 @@ List<DeliveryAddress> addresses = [] ;
     },);
   }
 
-  getUserData() async {
-    var userData = await getProfileDataUseCase.invoke();
-    userData.fold(
-      (l) {
-        emit(GetUserDataErrorState(error: l.errorMessage));
-      },
-      (r) {
-        user = r;
-      },
-    );
-  }
 }

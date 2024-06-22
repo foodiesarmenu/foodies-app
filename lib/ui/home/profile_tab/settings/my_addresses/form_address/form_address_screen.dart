@@ -64,7 +64,7 @@ var viewModel = getIt<FormAddressViewModel>();
                       isTextFieldEnabled: true,
                       controller: viewModel.firstAddressController = TextEditingController(text: args),
                       label: 'Address',
-                      hint: 'Al Harm, Cairo, Egypt',
+                      hint: '',
                       isSecured: false,
                         validator: (text) {
                           if (text == null || text.trim().isEmpty) {

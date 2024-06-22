@@ -24,7 +24,6 @@ class _ChangeAddressScreenState extends State<ChangeAddressScreen> {
   void initState() {
     super.initState();
     viewModel.getAllAddresses();
-    viewModel.getUserData();
   }
 
   @override

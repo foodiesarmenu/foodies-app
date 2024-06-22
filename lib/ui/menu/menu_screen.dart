@@ -13,12 +13,12 @@ class MenuScreen extends StatefulWidget {
   const MenuScreen(
       {this.restaurantId,
       this.refreshHomeState,
-      this.fromScanner = false,
+      this.isScanner = false,
       super.key});
 
   final Function()? refreshHomeState;
   final String? restaurantId;
-  final bool? fromScanner;
+  final bool? isScanner;
   static const String routeName = 'RestaurantDetailsSc';
 
   @override
@@ -40,7 +40,9 @@ class _MenuScreenState extends State<MenuScreen> {
     setState(() {
       numOfCartItems =
           SharedPreferenceUtils.getData(key: 'numOfCartItems') as int?;
-      widget.refreshHomeState!();
+      if (widget.refreshHomeState != null) {
+        widget.refreshHomeState!();
+      }
     });
   }
 
@@ -66,7 +68,7 @@ class _MenuScreenState extends State<MenuScreen> {
           case Success():
             return Scaffold(
               body: MenuContainer(
-                fromScanner: widget.fromScanner,
+                fromScanner: widget.isScanner,
                 restaurant: state.restaurant ?? Restaurant(),
                 menus: state.menus ?? [],
                 isFavourite: viewModel.isFavourite,
@@ -80,6 +82,7 @@ class _MenuScreenState extends State<MenuScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CartScreen(
+                                        isScanner: widget.isScanner,
                                         refreshMenuState: refreshMenuState)));
                             // Navigator.pushNamed(context, CartScreen.routeName);
                           },

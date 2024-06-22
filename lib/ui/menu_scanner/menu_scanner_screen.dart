@@ -102,7 +102,7 @@ class _MenuScannerScreenState extends State<MenuScannerScreen> {
                             MaterialPageRoute(
                               builder: (context) => MenuScreen(
                                 restaurantId: code,
-                                fromScanner: true,
+                                isScanner: true,
                               ),
                             ),
                           );

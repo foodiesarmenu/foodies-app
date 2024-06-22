@@ -23,7 +23,8 @@ class OtpCodeViewModel extends Cubit<OtpCodeStates> {
 
       String otpCode =
           otpControllers.map((controller) => controller.text).join();
-
+      print(otpCode);
+      print(email);
       var either = await verifyOTPUseCase.invoke(
         email: email,
         code: otpCode,

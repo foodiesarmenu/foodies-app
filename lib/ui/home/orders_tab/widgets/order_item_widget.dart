@@ -66,7 +66,10 @@ class OrderItemWidget extends StatelessWidget {
                   Text('${order?.noOfOrderItems} Items',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.secondary)),
                   //SizedBox(height: 16,),
-                  Text('${order?.orderTotalPrice} EGP',
+                  Text(
+                      order?.totalPriceAfterDiscount != null
+                          ? '${order?.totalPriceAfterDiscount} EGP'
+                          : '${order?.orderTotalPrice} EGP',
                       style: Theme.of(context).textTheme.titleSmall)
                 ],
               ),
@@ -79,8 +82,7 @@ class OrderItemWidget extends StatelessWidget {
             Expanded(
               child: ButtonInProfile(
                 onPressed: () async {
-                  await viewModel
-                  ?.deleteCart();
+                  await viewModel?.deleteCart();
                   viewModel?.reOrder(orderId: order?.id ?? '');
                 },
                 backgroundColor: Theme.of(context).primaryColor,

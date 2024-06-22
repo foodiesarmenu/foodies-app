@@ -135,15 +135,10 @@ class _MenuContainerState extends State<MenuContainer> {
             child: Container(
               height: 180,
               padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey, width: .5),
-                  left: BorderSide(color: Colors.grey, width: .5),
-                  right: BorderSide(color: Colors.grey, width: .5),
-                  bottom: BorderSide(color: Colors.grey, width: .5),
-                ),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey, width: .5),
                 color: Colors.white,
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(16),
                 ),
               ),
@@ -181,7 +176,7 @@ class _MenuContainerState extends State<MenuContainer> {
                                   child: Text(
                                     widget.restaurant.name ?? "",
                                     style: const TextStyle(
-                                        fontSize: 16.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -229,7 +224,7 @@ class _MenuContainerState extends State<MenuContainer> {
                                           .colorScheme
                                           .secondary),
                                 ),
-                                Text('(14.200 Ratings)',
+                                Text('(14.2k Ratings)',
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
