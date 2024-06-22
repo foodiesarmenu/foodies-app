@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/ui/menu/cubit/menu_view_model.dart';
 import 'package:foodies_app/ui/menu/widgets/meal_list.dart';
 import 'package:foodies_app/ui/menu/widgets/meal_tab_item.dart';
+import 'package:foodies_app/ui/order_choice/order_choice_screen.dart';
 
 import '../../domain/model/Menu.dart';
 import '../../domain/model/Restaurant.dart';
@@ -13,12 +14,14 @@ class MenuContainer extends StatefulWidget {
       required this.menus,
       required this.restaurant,
       this.refreshMenuState,
+      this.fromScanner = false,
       super.key});
 
   final Restaurant restaurant;
   final List<Menu>? menus;
   final bool isFavourite;
   final Function()? refreshMenuState;
+  final bool? fromScanner;
 
   @override
   State<MenuContainer> createState() => _MenuContainerState();
@@ -84,8 +87,12 @@ class _MenuContainerState extends State<MenuContainer> {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    widget.refreshMenuState!();
-                    Navigator.pop(context);
+                    if (widget.fromScanner == true) {
+                      Navigator.pushNamed(context, OrderChoiceScreen.routeName);
+                    } else {
+                      widget.refreshMenuState!();
+                      Navigator.pop(context);
+                    }
                   },
                   icon: Icon(
                     Icons.arrow_back,
@@ -98,41 +105,41 @@ class _MenuContainerState extends State<MenuContainer> {
           ),
 
           //Bullets Icon
-          Positioned(
-            right: 20,
-            top: 30,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: Colors.white,
-                ),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.more_horiz,
-                    color: Theme.of(context).primaryColor,
-                    size: 32,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   right: 20,
+          //   top: 30,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(16.0),
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(32),
+          //         color: Colors.white,
+          //       ),
+          //       child: IconButton(
+          //         onPressed: () {},
+          //         icon: Icon(
+          //           Icons.more_horiz,
+          //           color: Theme.of(context).primaryColor,
+          //           size: 32,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
           //Restaurant Details
           Positioned(
-            top: 200,
-            left: 10,
-            right: 10,
+            top: 180,
+            left: 16,
+            right: 16,
             child: Container(
-              height: 200,
+              height: 180,
               padding: const EdgeInsets.all(16.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey, width: .5),
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(16),
                 ),
               ),
               child: Column(
@@ -167,9 +174,10 @@ class _MenuContainerState extends State<MenuContainer> {
                               children: [
                                 Expanded(
                                   child: Text(
+                                    maxLines: 1,
                                     widget.restaurant.name ?? "",
                                     style: const TextStyle(
-                                        fontSize: 16.0,
+                                        fontSize: 18.0,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -217,7 +225,7 @@ class _MenuContainerState extends State<MenuContainer> {
                                           .colorScheme
                                           .secondary),
                                 ),
-                                Text('(14.200 Ratings)',
+                                Text('(14.2k Ratings)',
                                     style: TextStyle(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -244,7 +252,7 @@ class _MenuContainerState extends State<MenuContainer> {
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              'EGP 14.99',
+                              'EGP 0',
                               style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.secondary),
@@ -258,11 +266,12 @@ class _MenuContainerState extends State<MenuContainer> {
                             const Text(
                               'Delivery Time',
                               maxLines: 1,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12.0),
                             ),
                             const SizedBox(height: 8.0),
                             Text(
-                              '25 mins',
+                              '30 mins',
                               style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.secondary),
@@ -275,7 +284,8 @@ class _MenuContainerState extends State<MenuContainer> {
                           children: [
                             const Text(
                               'Delivered by',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12.0),
                             ),
                             const SizedBox(height: 8.0),
                             Text(
@@ -325,7 +335,8 @@ class _MenuContainerState extends State<MenuContainer> {
                         indicatorColor: Colors.transparent,
                         isScrollable: true,
                         tabs: widget.menus!
-                            .map((menu) => MealTabItem(
+                            .map(
+                              (menu) => MealTabItem(
                                 menu: menu,
                                 isSelected: widget.menus?.indexOf(menu) ==
                                     selectedIndex,
@@ -335,9 +346,10 @@ class _MenuContainerState extends State<MenuContainer> {
                             });
                             scrollToMenu(selectedMenu.name ?? '');
                           },
-
                         ),
                         ).toList(),
+                        dividerColor: Colors.transparent,
+                        tabAlignment: TabAlignment.start,
                       ),
                     ],
                   ),

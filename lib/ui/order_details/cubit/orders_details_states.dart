@@ -1,5 +1,7 @@
 import 'package:foodies_app/domain/model/OrderEntity.dart';
+
 import '../../../../../domain/failures.dart';
+import '../../../domain/model/User.dart';
 
 abstract class OrderDetailsStates {}
 
@@ -23,4 +25,14 @@ class GetOrderSuccessState extends OrderDetailsStates {
   GetOrderSuccessState({required this.orderResponse});
 }
 
+class GetUserDataSuccessState extends OrderDetailsStates {
+  User? user;
 
+  GetUserDataSuccessState({this.user});
+}
+
+class GetUserDataErrorState extends OrderDetailsStates {
+  String? error;
+
+  GetUserDataErrorState({this.error});
+}

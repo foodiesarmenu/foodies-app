@@ -1,19 +1,28 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/home/profile_tab/cubit/profile_states.dart';
 import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/settings_screen.dart';
+import 'package:foodies_app/ui/home/profile_tab/voucher/voucher_screen.dart';
 
 import '../../../di/di.dart';
 import 'cubit/profile_view_model.dart';
 import 'edit_profile/edit_profile_screen.dart';
+import 'notifications/notifications_screen.dart';
+import 'offers/offers_screen.dart';
 import 'profile_button.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   static const String routeName = 'profile';
 
   ProfileTab({super.key});
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
   final viewModel = getIt<ProfileViewModel>();
 
   @override
@@ -48,16 +57,27 @@ class ProfileTab extends StatelessWidget {
                                       spreadRadius: 2,
                                       blurRadius: 10,
                                       color: Colors.black.withOpacity(0.1),
-                                      offset: const Offset(0, 10),
+                                      offset: Offset(0, 10),
                                     ),
                                   ],
                                   shape: BoxShape.circle,
-                                  image: const DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image:
-                                          AssetImage('assets/images/7oda.png')),
+                                ),
+                                child: ClipOval(
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    width: 50,
+                                    height: 50,
+                                    imageUrl: state.user.image ?? '',
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.person,
+                                      size: 50,
+                                    ),
+                                  ),
                                 ),
                               ),
+
                               const SizedBox(width: 16),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,25 +96,25 @@ class ProfileTab extends StatelessWidget {
                                         style: TextStyle(fontSize: 16.0),
                                       ),
                                       const SizedBox(width: 15.0),
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons
-                                                .account_balance_wallet_outlined,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            size: 18,
-                                          ),
-                                          const SizedBox(width: 3.0),
-                                          Text(
-                                            'EGP 0.0',
-                                            style: TextStyle(
-                                                fontSize: 14.0,
-                                                color: Theme.of(context)
-                                                    .primaryColor),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     Icon(
+                                      //       Icons
+                                      //           .account_balance_wallet_outlined,
+                                      //       color:
+                                      //           Theme.of(context).primaryColor,
+                                      //       size: 18,
+                                      //     ),
+                                      //     const SizedBox(width: 3.0),
+                                      //     Text(
+                                      //       'EGP 0.0',
+                                      //       style: TextStyle(
+                                      //           fontSize: 14.0,
+                                      //           color: Theme.of(context)
+                                      //               .primaryColor),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ],
@@ -106,7 +126,8 @@ class ProfileTab extends StatelessWidget {
                               IconButton(
                                 icon: const Icon(Icons.notifications_none),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/notification');
+                                  Navigator.pushNamed(
+                                      context, NotificationsScreen.routeName);
                                 },
                               ),
                               Positioned(
@@ -156,7 +177,8 @@ class ProfileTab extends StatelessWidget {
                               ),
                               onPressed: () {
                                 Navigator.pushNamed(
-                                    context, EditProfileScreen.routeName);
+                                    context, EditProfileScreen.routeName,
+                                    arguments: viewModel);
                               },
                               child: Text(
                                 'Edit Profile',
@@ -201,25 +223,34 @@ class ProfileTab extends StatelessWidget {
                       Column(
                         children: [
                           ProfileButton(
-                            buttonText: 'Favourite',
-                            routeName: FavouriteScreen.routeName,
+                            buttonText: 'Favourites',
                             iconData: Icons.favorite_outline_outlined,
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, FavouriteScreen.routeName);
+                            },
                             additionalText: '',
                           ),
-                          ProfileButton(
-                            buttonText: 'Rewards',
-                            routeName: '/Rewards',
-                            iconData: Icons.wallet_giftcard_outlined,
-                            additionalText: '',
-                          ),
+                          // ProfileButton(
+                          //   buttonText: 'Rewards',
+                          //   routeName: '/Rewards',
+                          //   iconData: Icons.wallet_giftcard_outlined,
+                          //   additionalText: '',
+                          // ),
                           ProfileButton(
                               buttonText: 'Offers',
-                              routeName: '/Offers',
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, OffersScreen.routeName);
+                              },
                               additionalText: '',
                               iconData: Icons.local_offer_outlined),
                           ProfileButton(
                             buttonText: 'Vouchers',
-                            routeName: '/Vouchers',
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, VoucherScreen.routeName);
+                            },
                             iconData: Icons.confirmation_num_outlined,
                             additionalText: '',
                           ),

@@ -2,12 +2,16 @@ import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
+import 'package:foodies_app/data/model/response/auth_response/ForgetPasswordResponse.dart';
 import 'package:foodies_app/data/model/response/delivery_address_response/AddressessResponseDto.dart';
 import 'package:foodies_app/data/model/response/favourite_response/FavouriteResponseDto.dart';
 import 'package:foodies_app/data/model/response/profile_response/ProfileResponseDto.dart';
+import 'package:foodies_app/data/model/response/restaurant_response/RestaurantResponse.dart';
 import 'package:foodies_app/domain/model/DeliveryAddress.dart';
+import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:injectable/injectable.dart';
 
 import '../domain/failures.dart';
@@ -23,7 +27,6 @@ import 'model/response/category_response/CategoriesResponse.dart';
 import 'model/response/delivery_address_response/AddressResponseDto.dart';
 import 'model/response/favourite_response/FavouriteDto.dart';
 import 'model/response/menu_response/MenusResponse.dart';
-import 'model/response/online_order_response/OnlineOrderPaymentDto.dart';
 import 'model/response/order_cart_response/OrderResponseDto.dart';
 import 'model/response/order_cart_response/OrdersResponseDto.dart';
 import 'model/response/payment_intent_model_response/PaymentIntentModel.dart';
@@ -52,11 +55,20 @@ class ApiManager {
   }
 
   Future<RestaurantsResponse> getRestaurants({String? categoryId}) async {
-    String catId = categoryId ?? "";
-    Uri uri = Uri.https(
-      ApiConstants.baseUrl,
-      '${ApiConstants.restaurantsApi}$catId',
-    );
+    Uri uri;
+    String catId = categoryId ?? '';
+    if (catId.isEmpty) {
+      uri = Uri.https(
+        ApiConstants.baseUrl,
+        '${ApiConstants.restaurantsApi}$catId',
+      );
+    } else {
+      uri = Uri.https(
+        ApiConstants.baseUrl,
+        '${ApiConstants.restaurantsApi}/$catId/category',
+      );
+    }
+
     var response = await client.get(
       uri,
       headers: {'Authorization': ApiConstants.authorization},
@@ -69,7 +81,7 @@ class ApiManager {
   Future<MenusResponse> getMenus({String? restaurantId}) async {
     Uri uri = Uri.https(
       ApiConstants.baseUrl,
-      '${ApiConstants.menusApi}$restaurantId',
+      '${ApiConstants.menusApi}/$restaurantId',
     );
     var response = await client.get(
       uri,
@@ -139,7 +151,10 @@ class ApiManager {
   }
 
   Future<Either<Failures, OrderResponseDto>> addToCart(
-      {required String mealId, required String restaurantId,required int quantity, required String size}) async {
+      {required String mealId,
+      required String restaurantId,
+      required int quantity,
+      required String size}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.cartApi);
 
     Map<String, dynamic> requestBody = {
@@ -163,7 +178,8 @@ class ApiManager {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': ApiConstants.authorization});
-      var cartResponseDto = OrderResponseDto.fromJson(jsonDecode(response.body));
+      var cartResponseDto =
+          OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(cartResponseDto);
       } else {
@@ -222,31 +238,34 @@ class ApiManager {
 
 
   Future<Either<Failures, OrderResponseDto>> updateCountInCart(
-      {required String mealId, required int quantity,required String size}) async {
+      {required String mealId,
+      required int quantity,
+      required String size}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, '${ApiConstants.cartApi}/$mealId');
     final ConnectivityResult connectivityResult =
         await (Connectivity().checkConnectivity());
 
     Map<String, dynamic> requestBody = {
-        "quantity": quantity,
-        "size": size,
+      "quantity": quantity,
+      "size": size,
     };
 
     print(jsonEncode(requestBody)); // Print the requestBody
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
- //      var mealBody = AddMealRequest(
- //          quantity: quantity.toString(), // Convert quantity to string
- // size: size
- //      );
+      //      var mealBody = AddMealRequest(
+      //          quantity: quantity.toString(), // Convert quantity to string
+      // size: size
+      //      );
       // I am connected to a mobile network or wifi.
       //print('Request Body: ${mealBody.toJson()}'); // Print the request body
       var response = await client.patch(url,
           body: jsonEncode(requestBody),
           headers: {
-        'Content-Type': 'application/json',
-          'Authorization': ApiConstants.authorization});
+            'Content-Type': 'application/json',
+            'Authorization': ApiConstants.authorization
+          });
 
       var cartResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -313,7 +332,7 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, OnlineOrderPaymentDto>> createOnlineOrder(
+  Future<Either<Failures, OrderResponseDto>> createOnlineOrder(
       {required DeliveryAddress deliveryAddress}) async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, ApiConstants.createOnlineOrderApi);
@@ -344,7 +363,7 @@ class ApiManager {
       print(jsonEncode(requestBody));
 
       var onlineResponseDto =
-          OnlineOrderPaymentDto.fromJson(jsonDecode(response.body));
+          OrderResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(onlineResponseDto);
       } else {
@@ -518,8 +537,10 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, OrderResponseDto>> getOrder({required String orderId}) async {
-    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.orderApi}/$orderId');
+  Future<Either<Failures, OrderResponseDto>> getOrder(
+      {required String orderId}) async {
+    Uri url =
+        Uri.https(ApiConstants.baseUrl, '${ApiConstants.orderApi}/$orderId');
     final ConnectivityResult connectivityResult =
     await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
@@ -548,7 +569,8 @@ class ApiManager {
       // I am connected to a mobile network or wifi.
       var response = await client
           .get(url, headers: {'Authorization': ApiConstants.authorization});
-      var ordersResponse = OrdersResponseDto.fromJson(jsonDecode(response.body));
+      var ordersResponse =
+          OrdersResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(ordersResponse);
       } else {
@@ -583,7 +605,8 @@ class ApiManager {
   }
 
   Future<Either<Failures, AddressResponseDto>> getPrimaryAddress() async {
-    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/primary');
+    Uri url =
+        Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/primary');
     final ConnectivityResult connectivityResult =
     await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile ||
@@ -603,19 +626,19 @@ class ApiManager {
           NetworkError(errorMessage: 'Please check your internet connection'));
     }
   }
-  
+
   Future<Either<Failures, AddressResponseDto>> addDeliveryAddress(
       {required DeliveryAddress deliveryAddress}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addressApi);
 
     Map<String, dynamic> requestBody = {
-        "firstAddress": deliveryAddress.firstAddress,
-        "secondAddress": deliveryAddress.secondAddress,
-        "buildingNumber": deliveryAddress.buildingNumber,
-        "streetName": deliveryAddress.streetName,
-        "floorNumber": deliveryAddress.floorNumber,
-        "apartmentNumber": deliveryAddress.apartmentNumber,
-        "note": deliveryAddress.note,
+      "firstAddress": deliveryAddress.firstAddress,
+      "secondAddress": deliveryAddress.secondAddress,
+      "buildingNumber": deliveryAddress.buildingNumber,
+      "streetName": deliveryAddress.streetName,
+      "floorNumber": deliveryAddress.floorNumber,
+      "apartmentNumber": deliveryAddress.apartmentNumber,
+      "note": deliveryAddress.note,
       "isPrimary": deliveryAddress.isPrimary ?? false
     };
 
@@ -648,8 +671,11 @@ class ApiManager {
   }
 
   Future<Either<Failures, AddressResponseDto>> updateDeliveryAddress(
-      {required String addressId,bool? isPrimary,DeliveryAddress? deliveryAddress}) async {
-    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/$addressId');
+      {required String addressId,
+      bool? isPrimary,
+      DeliveryAddress? deliveryAddress}) async {
+    Uri url = Uri.https(
+        ApiConstants.baseUrl, '${ApiConstants.addressApi}/$addressId');
 
     Map<String, dynamic> requestBody = {
       "deliveryAddress": {
@@ -692,7 +718,8 @@ class ApiManager {
     }
   }
 
-  Future<Either<Failures, AddressResponseDto>> deleteDeliveryAddress({required String id}) async {
+  Future<Either<Failures, AddressResponseDto>> deleteDeliveryAddress(
+      {required String id}) async {
     Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addressApi}/$id');
     final ConnectivityResult connectivityResult =
     await (Connectivity().checkConnectivity());
@@ -779,6 +806,279 @@ class ApiManager {
         return Right(orderResponse);
       } else {
         return Left(ServerError(errorMessage: orderResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, OrderResponseDto>> reOrder(
+      {required String orderId}) async {
+    Uri url =
+        Uri.https(ApiConstants.baseUrl, '${ApiConstants.reOrder}/$orderId');
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      // I am connected to a mobile network or wifi.
+      var response = await client
+          .post(url, headers: {'Authorization': ApiConstants.authorization});
+      var orderResponse = OrderResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(orderResponse);
+      } else {
+        return Left(ServerError(errorMessage: orderResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ForgetPasswordResponse>> forgetPassword(
+      String email) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.forgetPasswordApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var response = await client.post(url, body: {"email": email});
+
+      var forgetPasswordResponse =
+          ForgetPasswordResponse.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(forgetPasswordResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage: forgetPasswordResponse.error ??
+                forgetPasswordResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ForgetPasswordResponse>> verifyOTP(
+      String email, String code) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.verifyOTPApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var requestBody = {
+        "email": email,
+        "code": code,
+      };
+
+      var response =
+          await client.post(url, body: jsonEncode(requestBody), headers: {
+        'Content-Type': 'application/json',
+      });
+
+      var verifyOTPResponse =
+          ForgetPasswordResponse.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(verifyOTPResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage:
+                verifyOTPResponse.error ?? verifyOTPResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, LoginResponse>> changePassword(
+      String email, String newPassword, String confirmPassword) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.changePasswordApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var body = {
+        "email": email,
+        "newPassword": newPassword,
+        "confirmPassword": confirmPassword,
+      };
+
+      var response = await client.patch(url, body: jsonEncode(body), headers: {
+        'Content-Type': 'application/json',
+      });
+
+      var changePasswordResponse =
+          LoginResponse.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(changePasswordResponse);
+      } else {
+        return Left(ServerError(errorMessage: changePasswordResponse.error));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, RestaurantResponse>> getRestaurantById(
+      {String? restaurantId}) async {
+    Uri uri = Uri.https(
+      ApiConstants.baseUrl,
+      '${ApiConstants.restaurantsApi}/$restaurantId',
+    );
+
+    var response = await client.get(
+      uri,
+      headers: {'Authorization': ApiConstants.authorization},
+    );
+
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var restaurantResponse =
+          RestaurantResponse.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(restaurantResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage:
+                restaurantResponse.error ?? restaurantResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> updateProfileImage(
+      {required String image}) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.updateProfileApi);
+
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var mimeType = 'image/jpeg'; // Default MIME type
+      // If possible, determine the actual MIME type
+      if (image.endsWith('.png')) {
+        mimeType = 'image/png';
+      } else if (image.endsWith('.jpg') || image.endsWith('.jpeg')) {
+        mimeType = 'image/jpeg';
+      }
+
+      var request = http.MultipartRequest('PATCH', url)
+        ..headers.addAll({
+          'Authorization': ApiConstants.authorization,
+        })
+        ..files.add(await http.MultipartFile.fromPath(
+          'image',
+          image,
+          contentType: MediaType.parse(mimeType),
+        ));
+
+      var streamedResponse = await request.send();
+      var response = await http.Response.fromStream(streamedResponse);
+
+      var updateProfileResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(updateProfileResponse);
+      } else {
+        return Left(ServerError(errorMessage: updateProfileResponse.message));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> updateProfile({
+    String? name,
+    String? phone,
+  }) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.updateProfileApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var body;
+      if (name != '' && phone == '') {
+        body = {
+          "name": name,
+        };
+      } else if (name == '' && phone != '') {
+        body = {
+          "phoneNumber": phone,
+        };
+      } else {
+        body = {"name": name, "phoneNumber": phone};
+      }
+
+      var response = await client.patch(url, body: jsonEncode(body), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ApiConstants.authorization,
+      });
+
+      var changeProfileResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(changeProfileResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage:
+                changeProfileResponse.message ?? changeProfileResponse.error));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'Please check your internet connection'));
+    }
+  }
+
+  Future<Either<Failures, ProfileResponseDto>> changeEmail({
+    required String email,
+  }) async {
+    var url = Uri.https(
+      ApiConstants.baseUrl,
+      ApiConstants.updateProfileApi,
+    );
+    final ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var body = {
+        "email": email,
+      };
+
+      var response = await client.patch(url, body: jsonEncode(body), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': ApiConstants.authorization,
+      });
+
+      var changeEmailResponse =
+          ProfileResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(changeEmailResponse);
+      } else {
+        return Left(ServerError(
+            errorMessage:
+                changeEmailResponse.message ?? changeEmailResponse.error));
       }
     } else {
       return Left(

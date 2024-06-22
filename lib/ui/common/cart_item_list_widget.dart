@@ -19,67 +19,66 @@ class CartItemListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 1,
-      borderRadius: BorderRadius.circular(12),
-      color: Colors.white,
-      child: Container(
+    return Container(
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: .5),
         color: Colors.white,
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text('Order Details',
-                      style: Theme.of(context).textTheme.titleMedium),
-                ),
-                //Clear Cart
-                isCart
-                    ? InkWell(
-                        onTap: () async {
-                          await viewModel?.clearCart();
-                          refreshMenuState!();
-                          Navigator.pop(context);
-                        },
-                        child: Row(
-                          children: [
-                            const Icon(
-                              Icons.delete_outline_outlined,
-                              color: Colors.grey,
-                            ),
-                            Text('Clear Cart',
-                                style: Theme.of(context).textTheme.bodySmall),
-                          ],
-                        ),
-                      )
-                    : Text('Total cart items: ${cart?.noOfOrderItems}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.secondary,
-                            )),
-              ],
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            //Cart Items
-            ListView.separated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: cart?.orderItems?.length ?? 0,
-              itemBuilder: (context, index) => CartItemWidget(
-                  cart: cart?.orderItems?[index],
-                  noOfCartItems: cart?.noOfOrderItems?.toInt(),
-                  isCart: isCart,
-                  cartViewModel: viewModel),
-              separatorBuilder: (context, index) => const Divider(),
-            ),
-          ],
+        borderRadius: const BorderRadius.all(
+          Radius.circular(16),
         ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text('Order Details',
+                    style: Theme.of(context).textTheme.titleMedium),
+              ),
+              //Clear Cart
+              isCart
+                  ? InkWell(
+                      onTap: () async {
+                        await viewModel?.clearCart();
+                        refreshMenuState!();
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.delete_outline_outlined,
+                            color: Colors.grey,
+                          ),
+                          Text('Clear Cart',
+                              style: Theme.of(context).textTheme.bodySmall),
+                        ],
+                      ),
+                    )
+                  : Text('Total cart items: ${cart?.noOfOrderItems}',
+                      style:
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                color: Theme.of(context).colorScheme.secondary,
+                              )),
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          //Cart Items
+          ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: cart?.orderItems?.length ?? 0,
+            itemBuilder: (context, index) => CartItemWidget(
+                cart: cart?.orderItems?[index],
+                noOfCartItems: cart?.noOfOrderItems?.toInt(),
+                isCart: isCart,
+                cartViewModel: viewModel),
+            separatorBuilder: (context, index) => const Divider(),
+          ),
+        ],
       ),
     );
   }

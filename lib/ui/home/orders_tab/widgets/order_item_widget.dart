@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:foodies_app/domain/model/OrderEntity.dart';
 import 'package:intl/intl.dart';
 
-import '../../common/button_in_profile.dart';
+import '../../../common/button_in_profile.dart';
+import '../cubit/orders_tab_view_model.dart';
 
 class OrderItemWidget extends StatelessWidget {
-  OrderItemWidget({super.key, required this.order, this.statusColor});
+  OrderItemWidget(
+      {this.viewModel, super.key, required this.order, this.statusColor});
 
   final OrderEntity? order;
   final Color? statusColor;
-
+  OrdersTabViewModel? viewModel;
   @override
   Widget build(BuildContext context) {
     DateTime dateTime = DateTime.parse(order?.date ?? '');
@@ -64,7 +66,10 @@ class OrderItemWidget extends StatelessWidget {
                   Text('${order?.noOfOrderItems} Items',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.secondary)),
                   //SizedBox(height: 16,),
-                  Text('${order?.orderTotalPrice} EGP',
+                  Text(
+                      order?.totalPriceAfterDiscount != null
+                          ? '${order?.totalPriceAfterDiscount} EGP'
+                          : '${order?.orderTotalPrice} EGP',
                       style: Theme.of(context).textTheme.titleSmall)
                 ],
               ),
@@ -76,7 +81,10 @@ class OrderItemWidget extends StatelessWidget {
           children: [
             Expanded(
               child: ButtonInProfile(
-                onPressed: () {},
+                onPressed: () async {
+                  await viewModel?.deleteCart();
+                  viewModel?.reOrder(orderId: order?.id ?? '');
+                },
                 backgroundColor: Theme.of(context).primaryColor,
                 text: 'Reorder',
                 textColor: Colors.white,
@@ -85,18 +93,18 @@ class OrderItemWidget extends StatelessWidget {
                 height: 40,
               ),
             ),
-            Expanded(
-              child: ButtonInProfile(
-                onPressed: () {},
-                backgroundColor: Colors.white,
-                text: 'Feedback',
-                textColor: Theme.of(context).primaryColor,
-                width: 150,
-                borderColor: Theme.of(context).primaryColor,
-                icon: Icons.feedback_outlined,
-                height: 40,
-              ),
-            ),
+            // Expanded(
+            //   child: ButtonInProfile(
+            //     onPressed: () {},
+            //     backgroundColor: Colors.white,
+            //     text: 'Feedback',
+            //     textColor: Theme.of(context).primaryColor,
+            //     width: 150,
+            //     borderColor: Theme.of(context).primaryColor,
+            //     icon: Icons.feedback_outlined,
+            //     height: 40,
+            //   ),
+            // ),
           ],
         )
       ],

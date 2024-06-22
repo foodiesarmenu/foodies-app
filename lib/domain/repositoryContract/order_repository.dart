@@ -8,7 +8,7 @@ import '../model/OnlineOrder.dart';
 import '../model/OrderEntity.dart';
 
 abstract class OrderRepository {
-  Future<Either<Failures, OnlineOrder>> createOnlineOrder(
+  Future<Either<Failures, OrderEntity>> createOnlineOrder(
       {required DeliveryAddress deliveryAddress});
 
   Future<Either<Failures, OrderEntity>> createCashOrder(
@@ -24,4 +24,6 @@ abstract class OrderRepository {
   Future<Either<Failures, OrderEntity>> getOrder({required String orderId});
 
   Future<Either<Failures, List<OrderEntity>>> getAllOrders();
+
+  Future<Either<Failures, OrderEntity>> reOrder({required String orderId});
 }

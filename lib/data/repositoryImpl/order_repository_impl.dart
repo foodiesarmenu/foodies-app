@@ -28,7 +28,7 @@ class OrderRepositoryImpl extends OrderRepository {
   }
 
   @override
-  Future<Either<Failures, OnlineOrder>> createOnlineOrder(
+  Future<Either<Failures, OrderEntity>> createOnlineOrder(
       {required DeliveryAddress deliveryAddress}) {
     return onlineOrderDataSource.createOnlineOrder(
         deliveryAddress: deliveryAddress);
@@ -72,5 +72,10 @@ class OrderRepositoryImpl extends OrderRepository {
   Future<Either<Failures, OnlineOrder>> updateOrder() {
     // TODO: implement updateOrder
     throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failures, OrderEntity>> reOrder({required String orderId}) {
+    return onlineOrderDataSource.reOrder(orderId: orderId);
   }
 }

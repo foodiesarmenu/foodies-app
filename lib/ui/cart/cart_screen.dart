@@ -5,14 +5,17 @@ import 'package:foodies_app/ui/common/cart_item_list_widget.dart';
 import 'package:foodies_app/ui/common/custom_bottom_navigation_bar.dart';
 
 import '../../di/di.dart';
+import '../../domain/model/OrderEntity.dart';
 import '../checkout/checkout_screen.dart';
 import '../common/payment_details_widget.dart';
 import '../common/restaurant_info_widget.dart';
 import 'cubit/cart_screen_view_model.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({this.refreshMenuState, Key? key}) : super(key: key);
+  const CartScreen({this.isScanner = false, this.refreshMenuState, Key? key})
+      : super(key: key);
   final Function()? refreshMenuState;
+  final bool? isScanner;
   static const String routeName = 'CartSc';
 
   @override
@@ -78,6 +81,9 @@ class _CartScreenState extends State<CartScreen> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
+                    if (widget.refreshMenuState != null) {
+                      widget.refreshMenuState!();
+                    }
                     Navigator.pop(context);
                   },
                 ),
@@ -104,61 +110,62 @@ class _CartScreenState extends State<CartScreen> {
                         height: 4,
                       ),
 
-                      Material(
-                          elevation: 1,
-                          borderRadius: BorderRadius.circular(12),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        margin: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: .5),
                           color: Colors.white,
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            margin: const EdgeInsets.all(8),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextFormField(
-                                        enabled:
-                                            (viewModel.couponApplied == false)
-                                                ? true
-                                                : false,
-                                        controller: viewModel.couponController,
-                                        decoration: InputDecoration(
-                                          prefixIcon: Icon(Icons.local_offer,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
-                                          hintText: 'Enter Promocode',
-                                          hintStyle: TextStyle(fontSize: 14),
-                                          border: InputBorder.none,
-                                        ),
-                                      ),
+                                Expanded(
+                                  child: TextFormField(
+                                    enabled: (viewModel.couponApplied == false)
+                                        ? true
+                                        : false,
+                                    controller: viewModel.couponController,
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.local_offer,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      hintText: 'Enter Promocode',
+                                      hintStyle: TextStyle(fontSize: 14),
+                                      border: InputBorder.none,
                                     ),
-                                    (viewModel.couponController.text.isNotEmpty)
-                                        ? InkWell(
-                                            onTap: () {
-                                              viewModel.applyCoupon();
-                                            },
-                                            child: Text('Submit',
-                                                style: TextStyle(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    fontSize: 14)),
-                                          )
-                                        : Text('Submit',
-                                            style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 14))
-                                  ],
-                                ),
-                                if (viewModel.couponApplied == true)
-                                  Text(
-                                    'Promocode has been applied',
-                                    style: TextStyle(
-                                        color: Colors.green, fontSize: 14),
                                   ),
+                                ),
+                                (viewModel.couponController.text.isNotEmpty)
+                                    ? InkWell(
+                                        onTap: () {
+                                          viewModel.applyCoupon();
+                                        },
+                                        child: Text('Submit',
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                fontSize: 14)),
+                                      )
+                                    : Text('Submit',
+                                        style: TextStyle(
+                                            color: Colors.grey, fontSize: 14))
                               ],
                             ),
-                          )),
+                            if (viewModel.couponApplied == true)
+                              Text(
+                                'Promocode has been applied',
+                                style: TextStyle(
+                                    color: Colors.green, fontSize: 14),
+                              ),
+                          ],
+                        ),
+                      ),
 
                       const SizedBox(
                         height: 16,
@@ -171,7 +178,9 @@ class _CartScreenState extends State<CartScreen> {
               bottomNavigationBar: CustomBottomNavBar(
                 onPressed: () {
                   Navigator.pushNamed(context, CheckoutScreen.routeName,
-                      arguments: state.cart);
+                    arguments: CheckoutArguments(
+                        cart: state.cart, isScanner: widget.isScanner),
+                  );
                 },
                 title: 'Checkout',
                 isCheckOut: true,
@@ -185,4 +194,11 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+}
+
+class CheckoutArguments {
+  final OrderEntity? cart;
+  final bool? isScanner;
+
+  CheckoutArguments({required this.cart, required this.isScanner});
 }

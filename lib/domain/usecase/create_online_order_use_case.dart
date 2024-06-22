@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:foodies_app/domain/model/OrderEntity.dart';
 import 'package:injectable/injectable.dart';
 
 import '../failures.dart';
@@ -13,7 +14,7 @@ class CreateOnlineOrderUseCase {
   @factoryMethod
   CreateOnlineOrderUseCase(this.orderRepository);
 
-  Future<Either<Failures, OnlineOrder>> invoke(
+  Future<Either<Failures, OrderEntity>> invoke(
       {required DeliveryAddress deliveryAddress}) async {
     return await orderRepository.createOnlineOrder(
         deliveryAddress: deliveryAddress);

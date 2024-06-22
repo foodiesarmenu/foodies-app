@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodies_app/ui/common/custom_bottom_navigation_bar.dart';
 import 'package:foodies_app/ui/home/home_screen.dart';
 import 'package:foodies_app/ui/order_details/cubit/orders_details_states.dart';
+
 import '../../di/di.dart';
-import '../common/cart_item_list_widget.dart';
 import '../common/address_details_widget.dart';
+import '../common/cart_item_list_widget.dart';
 import '../common/payment_details_widget.dart';
 import '../common/restaurant_info_widget.dart';
 import 'cubit/orders_details_view_model.dart';
@@ -27,14 +28,13 @@ class _OrderDetailsState extends State<OrderDetails> {
   @override
   void initState() {
     super.initState();
-    viewModel..getOrder(orderId: widget.orderId ?? '');
+    viewModel.getOrder(orderId: widget.orderId ?? '');
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrderDetailsViewModel, OrderDetailsStates>(
       bloc: viewModel,
-
       builder: (context, state) {
 
         if (state is GetOrderLoadingState) {
@@ -62,7 +62,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                       isOrderDetails: true,
                       isOrder: true,
                     ),
-                    AddressDetailsWidget(address: state.orderResponse?.deliveryAddress),
+                    AddressDetailsWidget(
+                      address: state.orderResponse?.deliveryAddress,
+                      user: viewModel.user,
+                    ),
                     CartItemListWidget(
                         cart: state.orderResponse, isCart: false),
                     PaymentDetailsWidget(cart: state.orderResponse),

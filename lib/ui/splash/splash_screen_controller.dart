@@ -30,8 +30,7 @@ class SplashScreenController extends StatelessWidget {
           )
         ],
       ),
-      nextScreen:
-          user != null ? const OrderChoiceScreen() : const LoginScreen(),
+      nextScreen: user != null ? OrderChoiceScreen() : const LoginScreen(),
       splashIconSize: 400,
       backgroundColor: Theme.of(context).primaryColor,
       duration: 3000,

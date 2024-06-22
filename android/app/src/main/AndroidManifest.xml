@@ -4,11 +4,17 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="Foodies">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDwproMFUGZzFhwlDh8YL4ULifz_tK7H-o" />
@@ -37,5 +43,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        android:usesCleartextTraffic="true">
+
     </application>
 </manifest>

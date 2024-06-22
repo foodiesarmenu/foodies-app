@@ -3,9 +3,11 @@ import 'package:injectable/injectable.dart';
 
 import '../../../data/model/request/PaymentIntentInputModel.dart';
 import '../../../domain/model/DeliveryAddress.dart';
+import '../../../domain/model/User.dart';
 import '../../../domain/usecase/create_cash_order_use_case.dart';
 import '../../../domain/usecase/create_online_order_use_case.dart';
 import '../../../domain/usecase/get_primary_delivery_address_use_case.dart';
+import '../../../domain/usecase/get_profile_data_use_case.dart';
 import '../../../domain/usecase/make_payment_use_case.dart';
 import '../../utils/shared_preference_utils.dart';
 import 'checkout_states.dart';
@@ -16,13 +18,19 @@ class CheckoutViewModel extends Cubit<CheckoutStates> {
   CreateCashOrderUseCase createCashOrderUseCase;
   MakePaymentUseCase makePaymentUseCase;
 GetPrimaryDeliveryAddressUseCase getPrimaryDeliveryAddressUseCase;
+  GetProfileDataUseCase getProfileDataUseCase;
+
   @factoryMethod
   CheckoutViewModel(this.createOnlineOrderUseCase, this.createCashOrderUseCase,
-      this.makePaymentUseCase,this.getPrimaryDeliveryAddressUseCase)
+      this.makePaymentUseCase,
+      this.getPrimaryDeliveryAddressUseCase,
+      this.getProfileDataUseCase)
       : super(MakePaymentInitialState());
 
   static CheckoutViewModel get(context) => BlocProvider.of(context);
 DeliveryAddress? address ;
+
+  User? user;
   Future makePayment(
       {required PaymentIntentInputModel paymentIntentInputModel}) async {
     emit(MakePaymentLoadingState());
@@ -42,15 +50,13 @@ DeliveryAddress? address ;
   }
 
   createOnlineOrder({required DeliveryAddress deliveryAddress}) async {
-    emit(CreateOnlineOrderLoadingState(
-        loadingMessage: 'Creating online order...'));
     final either =
         await createOnlineOrderUseCase.invoke(deliveryAddress: deliveryAddress);
     either.fold((failure) {
       emit(CreateOnlineOrderErrorState(errorMessage: failure));
     }, (onlineOrder) {
       emit(CreateOnlineOrderSuccessState(onlineOrderPayment: onlineOrder));
-      SharedPreferenceUtils.saveData(key: 'numOfCartItems', value: 0);
+      SharedPreferenceUtils.removeData(key: 'numOfCartItems');
     });
   }
 
@@ -63,7 +69,7 @@ DeliveryAddress? address ;
         (failure) => emit(CreateCashOrderErrorState(errorMessage: failure)),
         (cashOrder) {
           emit(CreateCashOrderSuccessState(cashOrder: cashOrder));
-      SharedPreferenceUtils.saveData(key: 'numOfCartItems', value: 0);
+      SharedPreferenceUtils.removeData(key: 'numOfCartItems');
     });
   }
 
@@ -76,5 +82,18 @@ DeliveryAddress? address ;
       address = r;
       emit(GetPrimaryDeliveryAddressSuccessState(primaryDeliveryAddress: r));
     },);
+  }
+
+  getUserData() async {
+    var userData = await getProfileDataUseCase.invoke();
+    userData.fold(
+      (l) {
+        emit(GetUserDataErrorState(error: l.errorMessage));
+      },
+      (r) {
+        user = r;
+        emit(GetUserDataSuccessState(user: r));
+      },
+    );
   }
 }

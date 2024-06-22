@@ -52,26 +52,24 @@ class _MealItemState extends State<MealItem> {
               Row(
                 children: [
                   Text(
-                    widget.menus?[widget.menuIndex].meals?[widget.mealIndex].price
-                            .toString() ??
-                        "",
+                    '${widget.menus?[widget.menuIndex].meals?[widget.mealIndex].currency} ${widget.menus?[widget.menuIndex].meals?[widget.mealIndex].price}',
                     style: const TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Text(
-                    widget.menus?[widget.menuIndex].meals?[widget.mealIndex]
-                            .price
-                            .toString() ??
-                        "",
-                    style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  // Text(
+                  //   widget.menus?[widget.menuIndex].meals?[widget.mealIndex]
+                  //           .price
+                  //           .toString() ??
+                  //       "",
+                  //   style: const TextStyle(
+                  //     decoration: TextDecoration.lineThrough,
+                  //     color: Colors.grey,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                 ],
               ),
               const SizedBox(height: 8),
@@ -120,15 +118,22 @@ class _MealItemState extends State<MealItem> {
                       child: Row(
                         children: [
                           Text(
-                            'AR View',
+                            'Explore in AR',
                             style: TextStyle(
                               color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
                             ),
                             maxLines: 2,
                           ),
-                          Icon(
-                            Icons.all_inclusive,
-                            color: Theme.of(context).primaryColor,
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            height: 25,
+                            child: Image.asset(
+                              'assets/icons/ar2.png',
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         ],
                       ),

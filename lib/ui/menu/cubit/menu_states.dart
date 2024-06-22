@@ -1,8 +1,9 @@
 import 'package:foodies_app/domain/failures.dart';
-import 'package:foodies_app/domain/model/Favourite.dart';
 import 'package:foodies_app/domain/model/CheckFavourite.dart';
+import 'package:foodies_app/domain/model/Favourite.dart';
 
 import '../../../domain/model/Menu.dart';
+import '../../../domain/model/Restaurant.dart';
 
 abstract class MenuStates {}
 
@@ -22,8 +23,9 @@ class Error extends MenuStates {
 
 class Success extends MenuStates {
   List<Menu>? menus;
+  Restaurant? restaurant;
 
-  Success(this.menus);
+  Success(this.menus, this.restaurant);
 }
 
 class AddToFavouriteLoadingState extends MenuStates {
@@ -60,4 +62,16 @@ class CheckFavouriteSuccessState extends MenuStates {
   CheckFavourite? favourite;
 
   CheckFavouriteSuccessState({required this.favourite});
+}
+
+class GetRestaurantByIdErrorState extends MenuStates {
+  Failures errorMessage;
+
+  GetRestaurantByIdErrorState({required this.errorMessage});
+}
+
+class GetRestaurantByIdSuccessState extends MenuStates {
+  Restaurant? restaurant;
+
+  GetRestaurantByIdSuccessState({this.restaurant});
 }

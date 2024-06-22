@@ -5,7 +5,6 @@ import 'package:foodies_app/ui/auth/login/login_screen.dart';
 import 'package:foodies_app/ui/auth/login_signup.dart';
 import 'package:foodies_app/ui/auth/otp/otp_code_screen.dart';
 import 'package:foodies_app/ui/auth/register/register_screen.dart';
-import 'package:foodies_app/ui/auth/reset_password/reset_password_screen.dart';
 import 'package:foodies_app/ui/cart/cart_screen.dart';
 import 'package:foodies_app/ui/category_details/category_details.dart';
 import 'package:foodies_app/ui/change_address/change_address_screen.dart';
@@ -17,7 +16,6 @@ import 'package:foodies_app/ui/home/profile_tab/edit_profile/edit_profile_screen
 import 'package:foodies_app/ui/home/profile_tab/favourite/favourite_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/profile_tab.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/change_email_screen/change_email_screen.dart';
-import 'package:foodies_app/ui/home/profile_tab/settings/change_password/change_password_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/form_address/form_address_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/maps/map_screen.dart';
 import 'package:foodies_app/ui/home/profile_tab/settings/my_addresses/my_addresses_screen.dart';
@@ -31,7 +29,12 @@ import 'package:foodies_app/ui/order_details/order_details.dart';
 import 'package:foodies_app/ui/ordering_splash_screen/ordering_splash_screen.dart';
 import 'package:foodies_app/ui/splash/splash_screen_controller.dart';
 
-import '../auth/set_a_new_password/set_a_new_password_screen.dart';
+import '../auth/change_password/change_password_screen.dart';
+import '../auth/reset_password_confirmation/reset_password_confirmation_screen.dart';
+import '../home/profile_tab/notifications/notifications_screen.dart';
+import '../home/profile_tab/offers/offers_screen.dart';
+import '../home/profile_tab/settings/reset_password/reset_password_screen.dart';
+import '../home/profile_tab/voucher/voucher_screen.dart';
 
 class AppRouter {
   static String initialRoute = SplashScreenController.routeName;
@@ -39,13 +42,13 @@ class AppRouter {
   static Map<String, WidgetBuilder> get routes => {
         RegisterScreen.routeName: (_) => RegisterScreen(),
         LoginScreen.routeName: (_) => const LoginScreen(),
-        OrderChoiceScreen.routeName: (_) => const OrderChoiceScreen(),
+        OrderChoiceScreen.routeName: (_) => OrderChoiceScreen(),
         HomeTab.routeName: (_) => const HomeTab(),
         OrdersTab.routeName: (_) => OrdersTab(),
         ProfileTab.routeName: (_) => ProfileTab(),
         SettingsScreen.routeName: (_) => const SettingsScreen(),
         EditProfileScreen.routeName: (_) => const EditProfileScreen(),
-        ChangePasswordScreen.routeName: (_) => const ChangePasswordScreen(),
+        ResetPasswordScreen.routeName: (_) => const ResetPasswordScreen(),
         ChangeEmailScreen.routeName: (_) => const ChangeEmailScreen(),
         MyCardScreen.routeName: (_) => const MyCardScreen(),
         LoginSignupScreen.routeName: (_) => const LoginSignupScreen(),
@@ -65,9 +68,13 @@ class AppRouter {
         ChangeAddressScreen.routeName: (_) => ChangeAddressScreen(),
         FavouriteScreen.routeName: (_) => FavouriteScreen(),
         OtpCodeScreen.routeName: (_) => OtpCodeScreen(),
+        ResetPasswordConfirmationScreen.routeName: (_) =>
+            ResetPasswordConfirmationScreen(),
         ForgetPasswordScreen.routeName: (_) => ForgetPasswordScreen(),
-        ResetPasswordScreen.routeName: (_) => ResetPasswordScreen(),
-        SetANewPasswordScreen.routeName: (_) => SetANewPasswordScreen(),
+        ChangePasswordScreen.routeName: (_) => ChangePasswordScreen(),
         ARScreen.routeName: (_) => ARScreen(),
+        VoucherScreen.routeName: (_) => const VoucherScreen(),
+        OffersScreen.routeName: (_) => const OffersScreen(),
+        NotificationsScreen.routeName: (_) => const NotificationsScreen(),
       };
 }

@@ -38,121 +38,121 @@ class RestaurantInfoWidget extends StatelessWidget {
       default:
         statusColor = Colors.black;
     }
-    return Material(
-      elevation: 1,
-      borderRadius: BorderRadius.circular(12),
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        margin: const EdgeInsets.all(8),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: .5),
         color: Colors.white,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: CachedNetworkImage(
-                    imageUrl: cart?.restaurant?.image ?? "",
-                    height: 60,
-                    width: 60,
-                    fit: BoxFit.fill,
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                            child: CircularProgressIndicator(
-                                value: downloadProgress.progress)),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(16),
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: cart?.restaurant?.image ?? "",
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                          child: CircularProgressIndicator(
+                              value: downloadProgress.progress)),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Your order from',
-                        style: Theme.of(context).textTheme.headlineSmall),
-                    Text(cart?.restaurant?.name ?? "",
-                        style: Theme.of(context).textTheme.titleMedium),
-                  ],
-                ),
-                const Expanded(
-                  // Replaced Spacer with Expanded
-                  child: SizedBox(),
-                ),
-                if (isCart)
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MenuScreen(
-                              restaurant: cart?.restaurant,
-                              refreshHomeState: refreshMenuState),
-                        ),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        const Text('Add Items'),
-                      ],
-                    ),
-                  ),
-                if(isOrder)
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: statusColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(cart?.status ?? "",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: Colors.white,
-                            ),
-                  ),
-                  ),
-              ],
-            ),
-            if (!isCart && !isOrderDetails)
-              const SizedBox(
-                height: 16,
               ),
-            if (!isCart && !isOrderDetails)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Delivery address',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      navigateToChangeAddress!();
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.edit_outlined,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        Text(
-                          'Select',
-                          style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Text('Your order from',
+                      style: Theme.of(context).textTheme.headlineSmall),
+                  Text(cart?.restaurant?.name ?? "",
+                      style: Theme.of(context).textTheme.titleMedium),
                 ],
               ),
-          ],
-        ),
+              const Expanded(
+                // Replaced Spacer with Expanded
+                child: SizedBox(),
+              ),
+              if (isCart)
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MenuScreen(
+                            restaurantId: cart?.restaurant?.id ?? '',
+                            refreshHomeState: refreshMenuState),
+                      ),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      const Text('Add Items'),
+                    ],
+                  ),
+                ),
+              if (isOrder)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: statusColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    cart?.status ?? "",
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
+                ),
+            ],
+          ),
+          if (!isCart && !isOrderDetails)
+            const SizedBox(
+              height: 16,
+            ),
+          if (!isCart && !isOrderDetails)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Delivery address',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+                InkWell(
+                  onTap: () {
+                    navigateToChangeAddress!();
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.edit_outlined,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      Text(
+                        'Select',
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                              color: Theme.of(context).primaryColor,
+                            ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+        ],
       ),
     );
   }

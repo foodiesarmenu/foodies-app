@@ -10,12 +10,14 @@ class CustomBottomNavBar extends StatelessWidget {
       this.isCart = false,
       this.isCheckOut = false,
       this.isMealDetail = false,
+      this.isScanner,
       super.key});
 
   final String? title;
   final String? subTitle;
   final OnButtonPressed onPressed;
   final bool? isCheckOut;
+  final bool? isScanner;
   final bool? isCart;
   final bool? isMealDetail;
 

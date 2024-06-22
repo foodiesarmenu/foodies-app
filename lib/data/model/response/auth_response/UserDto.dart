@@ -17,6 +17,7 @@ class UserDto {
     this.password,
     this.gender,
     this.dateOfBirth,
+    this.image,
   });
 
   UserDto.fromJson(dynamic json) {
@@ -27,6 +28,7 @@ class UserDto {
     password = json['password'];
     gender = json['gender'];
     dateOfBirth = json['dateOfBirth'];
+    image = json['image'];
   }
 
   String? name;
@@ -36,6 +38,7 @@ class UserDto {
   String? password;
   String? gender;
   String? dateOfBirth;
+  String? image;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -46,6 +49,7 @@ class UserDto {
     map['password'] = password;
     map['gender'] = gender;
     map['dateOfBirth'] = dateOfBirth;
+    map['image'] = image;
     return map;
   }
 
@@ -58,6 +62,7 @@ class UserDto {
       password: password,
       dateOfBirth: dateOfBirth,
       gender: gender,
+      image: image,
     );
   }
 }

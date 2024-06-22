@@ -34,30 +34,5 @@ class RestaurantsResponse {
   int? numberOfPages;
   int? numberOfRecords;
 
-  RestaurantsResponse copyWith({
-    bool? success,
-    List<RestaurantDto>? data,
-    int? currentPage,
-    int? numberOfPages,
-    int? numberOfRecords,
-  }) =>
-      RestaurantsResponse(
-        success: success ?? this.success,
-        data: data ?? this.data,
-        currentPage: currentPage ?? this.currentPage,
-        numberOfPages: numberOfPages ?? this.numberOfPages,
-        numberOfRecords: numberOfRecords ?? this.numberOfRecords,
-      );
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['success'] = success;
-    if (data != null) {
-      map['data'] = data?.map((v) => v.toJson()).toList();
-    }
-    map['currentPage'] = currentPage;
-    map['numberOfPages'] = numberOfPages;
-    map['numberOfRecords'] = numberOfRecords;
-    return map;
-  }
 }

@@ -127,7 +127,8 @@ class _HomeTabState extends State<HomeTab> {
                             subtitle: 'Wide range of promotions just for you',
                           ),
                           const SizedBox(height: 8),
-                          PromotionWidget(successState.promotions ?? []),
+                          PromotionWidget(successState.promotions ?? [],
+                              refreshState: widget.refreshHomeState),
                           const Divider(),
                           const SectionTitleWidget(
                             title: 'Restaurants',

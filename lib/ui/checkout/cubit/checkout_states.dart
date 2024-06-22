@@ -1,7 +1,7 @@
 import '../../../domain/failures.dart';
 import '../../../domain/model/DeliveryAddress.dart';
 import '../../../domain/model/OrderEntity.dart';
-import '../../../domain/model/OnlineOrder.dart';
+import '../../../domain/model/User.dart';
 
 abstract class CheckoutStates {}
 
@@ -20,7 +20,7 @@ class CreateOnlineOrderErrorState extends CheckoutStates {
 }
 
 class CreateOnlineOrderSuccessState extends CheckoutStates {
-  OnlineOrder onlineOrderPayment;
+  OrderEntity onlineOrderPayment;
 
   CreateOnlineOrderSuccessState({required this.onlineOrderPayment});
 }
@@ -63,4 +63,16 @@ class GetPrimaryDeliveryAddressErrorState extends CheckoutStates {
   String? error;
 
   GetPrimaryDeliveryAddressErrorState({this.error});
+}
+
+class GetUserDataSuccessState extends CheckoutStates {
+  User? user;
+
+  GetUserDataSuccessState({this.user});
+}
+
+class GetUserDataErrorState extends CheckoutStates {
+  String? error;
+
+  GetUserDataErrorState({this.error});
 }

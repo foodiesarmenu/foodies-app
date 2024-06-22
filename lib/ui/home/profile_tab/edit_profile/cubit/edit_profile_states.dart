@@ -21,3 +21,27 @@ class GetProfileDataSuccessState extends EditProfileStates {
 
   GetProfileDataSuccessState({required this.user});
 }
+
+class UpdateProfileImageErrorState extends EditProfileStates {
+  String errorMessage;
+
+  UpdateProfileImageErrorState({required this.errorMessage});
+}
+
+class UpdateProfileImageSuccessState extends EditProfileStates {
+  User user;
+
+  UpdateProfileImageSuccessState({required this.user});
+}
+
+class UpdateProfileErrorState extends EditProfileStates {
+  String errorMessage;
+
+  UpdateProfileErrorState({required this.errorMessage});
+}
+
+class UpdateProfileSuccessState extends EditProfileStates {
+  User user;
+
+  UpdateProfileSuccessState({required this.user});
+}

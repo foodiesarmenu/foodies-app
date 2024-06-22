@@ -1,4 +1,5 @@
 import '../../../../domain/model/Promotion.dart';
+import '../restaurant_response/RestaurantDto.dart';
 
 /// _id : "661da99bb11c27bad493619c"
 /// title : "الاكيلة"
@@ -25,14 +26,16 @@ class PromotionDto {
     title = json['title'];
     description = json['description'];
     image = json['image'];
-    restaurant = json['restaurant'];
+    restaurant = json['restaurant'] != null
+        ? RestaurantDto.fromJson(json['restaurant'])
+        : null;
   }
 
   String? id;
   String? title;
   String? description;
   String? image;
-  String? restaurant;
+  RestaurantDto? restaurant;
 
   Promotion toPromotion() {
     return Promotion(
@@ -40,7 +43,7 @@ class PromotionDto {
       title: title,
       description: description,
       image: image,
-      restaurant: restaurant,
+      restaurant: restaurant?.toRestaurant(),
     );
   }
 }

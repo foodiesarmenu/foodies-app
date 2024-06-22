@@ -15,6 +15,7 @@ class User {
     this.password,
     this.gender,
     this.dateOfBirth,
+    this.image,
   });
 
   String? name;
@@ -24,4 +25,5 @@ class User {
   String? password;
   String? gender;
   String? dateOfBirth;
+  String? image;
 }

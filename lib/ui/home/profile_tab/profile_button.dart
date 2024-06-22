@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class ProfileButton extends StatelessWidget {
   String buttonText;
-  String routeName;
   String? additionalText;
-  final IconData iconData; // Add a field to store the icon data
+  final IconData iconData;
+  Function()? onPressed;
 
   ProfileButton({
     super.key,
     required this.buttonText,
-    required this.routeName,
+    this.onPressed,
     required this.iconData,
     this.additionalText, // Pass the icon data in the constructor
   });
@@ -30,7 +30,7 @@ class ProfileButton extends StatelessWidget {
                 shadowColor: MaterialStateProperty.all<Color>(
                     Colors.transparent), // Remove shadow
               ),
-              onPressed: () => Navigator.pushNamed(context, routeName),
+              onPressed: () => onPressed!(),
               child: Row(
                 // Use a Row as the child
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
