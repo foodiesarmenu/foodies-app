@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../home/home_screen.dart';
+import '../main_navigation/main_navigation_screen.dart';
 import '../menu_scanner/menu_scanner_screen.dart';
 
 class OrderChoiceScreen extends StatefulWidget {
@@ -13,97 +15,99 @@ class OrderChoiceScreen extends StatefulWidget {
 }
 
 class _OrderChoiceScreenState extends State<OrderChoiceScreen> {
-  String? args;
+  String? username;
 
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute.of(context)?.settings.arguments as String?;
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(flex: 2, child: Image.asset('assets/images/app_logo.png')),
-          Expanded(
-              flex: 3,
-              child: Column(
-                children: [
-                  Text(
-                    'Welcome Back , ${args ?? 'Yehya Gamal'} ',
-                    style: TextStyle(fontSize: 20),
+    username = ModalRoute.of(context)?.settings.arguments as String?;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+        statusBarColor: Colors.white,
+      ),
+      child: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Welcome Back, ${username ?? 'Foodie'}',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  const Text(
-                      'How would you like to order \n your favorite meals today ?',
-                      style: TextStyle(fontSize: 16)),
-                  const SizedBox(
-                    height: 48,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(MenuScannerScreen.routeName);
-                        },
-                        style: ButtonStyle(
-                          side: MaterialStateProperty.all(BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 16.0)),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.store, size: 40),
-                            Text(
-                              'Onsite',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, HomeScreen.routeName);
-                        },
-                        style: ButtonStyle(
-                          side: MaterialStateProperty.all(BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                          ),
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 16.0)),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.book_online, size: 40),
-                            Text(
-                              'Online',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ))
-        ],
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 32.h),
+                const Text(
+                  'How would you like to order\nyour favorite meals today?',
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 48.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildOrderButton(
+                      context,
+                      icon: Icons.store_outlined,
+                      label: 'Onsite',
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(MenuScannerScreen.routeName);
+                      },
+                    ),
+                    _buildOrderButton(
+                      context,
+                      icon: Icons.local_shipping_outlined,
+                      label: 'Online',
+                      onPressed: () {
+                        Navigator.pushNamed(
+                            context, MainNavigationScreen.routeName);
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOrderButton(BuildContext context,
+      {required IconData icon,
+      required String label,
+      required VoidCallback onPressed}) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Theme.of(context).primaryColor,
+            width: 2.0,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+          color: Colors.white, // Background color
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 40.sp, color: Theme.of(context).primaryColor),
+            SizedBox(width: 8.w),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

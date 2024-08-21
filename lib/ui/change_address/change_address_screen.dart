@@ -5,7 +5,7 @@ import 'package:foodies_app/ui/change_address/cubit/change_address_states.dart';
 import '../../di/di.dart';
 import '../common/address_details_widget.dart';
 import '../common/custom_app_bar.dart';
-import '../home/profile_tab/settings/my_addresses/maps/map_screen.dart';
+import '../maps/map_screen.dart';
 import 'cubit/change_address_view_model.dart';
 
 class ChangeAddressScreen extends StatefulWidget {

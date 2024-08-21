@@ -36,307 +36,321 @@ class _MealDetailsState extends State<MealDetails> {
     return BlocProvider<MealDetailsViewModel>(
       create: (context) => viewModel,
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  //Meal Image
-                  Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff123456),
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(
-                          widget.meal?.image ?? "",
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    //Meal Image
+                    Container(
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: const Color(0xff123456),
+                        image: DecorationImage(
+                          image: CachedNetworkImageProvider(
+                            widget.meal?.image ?? "",
+                          ),
+                          fit: BoxFit.fill,
                         ),
-                        fit: BoxFit.fill,
                       ),
                     ),
-                  ),
 
-                  //Back Icon
-                  Positioned(
-                    left: 20,
-                    top: 46,
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            color: Colors.white,
-                          ),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: Icon(
-                              Icons.arrow_back,
-                              color: Theme.of(context).primaryColor,
-                              size: 32,
+                    //Back Icon
+                    Positioned(
+                      left: 20,
+                      top: 30,
+                      child: Row(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(32),
+                              color: Colors.white,
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: .4,
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  //AR Icon
-                  Positioned(
-                    bottom: 30,
-                    right: 20,
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            color: Colors.white,
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, ARScreen.routeName);
-                            },
-                            child: Image.asset(
-                              'assets/icons/ar2.png',
-                              color: Theme.of(context).primaryColor,
-                              height: 32,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    //Meal Name
-                    Text(
-                      widget.meal?.name ?? "",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-
-                    //Meal Description
-                    Text(
-                      widget.meal?.description ?? "",
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-
-                    //Meal Price
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${widget.meal?.currency} ${calculateTotalPrice()}',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    color: Colors.red,
-                                  ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.remove),
+                            child: IconButton(
                               onPressed: () {
-                                setState(() {
-                                  decrementQuantity();
-                                });
+                                Navigator.pop(context);
                               },
+                              icon: Icon(
+                                Icons.arrow_back,
+                                color: Theme.of(context).primaryColor,
+                                size: 32,
+                              ),
                             ),
-                            Text(
-                              '$quantity',
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                setState(() {
-                                  incrementQuantity();
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    //Nutrition Facts
-                    Column(
-                      children: <Widget>[
-                        ExpansionTile(
-                          title: Text(
-                            'Nutrition Facts',
-                            style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          trailing: Icon(customIcon
-                              ? Icons.arrow_drop_down_circle
-                              : Icons.arrow_drop_down),
-                          tilePadding: EdgeInsets.zero,
-                          onExpansionChanged: (bool expanded) {
-                            setState(
-                              () {
-                                customIcon = expanded;
+                        ],
+                      ),
+                    ),
+
+                    //AR Icon
+                    Positioned(
+                      bottom: 30,
+                      right: 20,
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: .4,
+                              ),
+                              borderRadius: BorderRadius.circular(32),
+                              color: Colors.white,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, ARScreen.routeName);
                               },
-                            );
-                          },
-                          children: <Widget>[
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const Text(
-                                'Calories',
+                              child: Image.asset(
+                                'assets/icons/ar_new.png',
+                                color: Theme.of(context).primaryColor,
+                                height: 32,
                               ),
-                              trailing: Text(
-                                widget.meal?.calories.toString() ?? "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                              ),
-                              leadingAndTrailingTextStyle:
-                                  Theme.of(context).textTheme.titleSmall,
                             ),
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const Text('Protein'),
-                              trailing: Text(
-                                widget.meal?.protein.toString() ?? "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                              ),
-                              leadingAndTrailingTextStyle:
-                                  Theme.of(context).textTheme.titleSmall,
-                            ),
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const Text('Fat'),
-                              trailing: Text(
-                                widget.meal?.fat.toString() ?? "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                              ),
-                              leadingAndTrailingTextStyle:
-                                  Theme.of(context).textTheme.titleSmall,
-                            ),
-                            ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const Text('Carbohydrates'),
-                              trailing: Text(
-                                widget.meal?.carbohydrates.toString() ?? "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                              ),
-                              leadingAndTrailingTextStyle:
-                                  Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        )
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //Meal Name
+                      Text(
+                        widget.meal?.name ?? "",
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
 
-                    const SizedBox(
-                      height: 24,
-                    ),
+                      //Meal Description
+                      Text(
+                        widget.meal?.description ?? "",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
 
-                    //Size of Meal
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Choose size of meal:',
-                            style: Theme.of(context).textTheme.titleSmall),
-                        Text(
-                          'Required',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(color: Colors.red),
-                        ),
-                      ],
-                    ),
-                    Text('Choose 1',
-                        style: Theme.of(context).textTheme.bodySmall),
-                    ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: widget.meal?.sizes?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        return RadioListTile(
-                          title: Row(
+                      //Meal Price
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${widget.meal?.currency} ${calculateTotalPrice()}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  color: Colors.red,
+                                ),
+                          ),
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                widget.meal?.sizes?[index].size ?? "",
-                                style: Theme.of(context).textTheme.titleSmall,
+                              IconButton(
+                                icon: Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    decrementQuantity();
+                                  });
+                                },
                               ),
-                              if(widget.meal?.sizes?[index] != widget.meal?.sizes?[0])
-                                Text(
-                                  '${widget.meal?.currency} ${widget.meal?.sizes?[index].price.toString() ?? ""}',
+                              Text(
+                                '$quantity',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    incrementQuantity();
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      //Nutrition Facts
+                      Column(
+                        children: <Widget>[
+                          ExpansionTile(
+                            title: Text(
+                              'Nutrition Facts',
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                            trailing: Icon(customIcon
+                                ? Icons.arrow_drop_down_circle
+                                : Icons.arrow_drop_down),
+                            tilePadding: EdgeInsets.zero,
+                            onExpansionChanged: (bool expanded) {
+                              setState(
+                                () {
+                                  customIcon = expanded;
+                                },
+                              );
+                            },
+                            children: <Widget>[
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: const Text(
+                                  'Calories',
+                                ),
+                                trailing: Text(
+                                  widget.meal?.calories.toString() ?? "",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodySmall
                                       ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
                                 ),
+                                leadingAndTrailingTextStyle:
+                                    Theme.of(context).textTheme.titleSmall,
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: const Text('Protein'),
+                                trailing: Text(
+                                  widget.meal?.protein.toString() ?? "",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                ),
+                                leadingAndTrailingTextStyle:
+                                    Theme.of(context).textTheme.titleSmall,
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: const Text('Fat'),
+                                trailing: Text(
+                                  widget.meal?.fat.toString() ?? "",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                ),
+                                leadingAndTrailingTextStyle:
+                                    Theme.of(context).textTheme.titleSmall,
+                              ),
+                              ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: const Text('Carbohydrates'),
+                                trailing: Text(
+                                  widget.meal?.carbohydrates.toString() ?? "",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                ),
+                                leadingAndTrailingTextStyle:
+                                    Theme.of(context).textTheme.titleSmall,
+                              ),
                             ],
+                          )
+                        ],
+                      ),
+
+                      const SizedBox(
+                        height: 24,
+                      ),
+
+                      //Size of Meal
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Choose size of meal:',
+                              style: Theme.of(context).textTheme.titleSmall),
+                          Text(
+                            'Required',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(color: Colors.red),
                           ),
-                          contentPadding: EdgeInsets.zero,
-                          value: index,
-                          groupValue: _value,
-                          onChanged: (value) {
-                            setState(() {
-                              _value = value;
-                              if (value != null) {
-                                widget.meal?.price =
-                                    widget.meal?.sizes?[value].price;
-                                calculateTotalPrice();
-                              }
-                            });
-                          },
-                          controlAffinity: ListTileControlAffinity.trailing,
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const Divider(
-                          thickness: 2,
-                        );
-                      },
-                    ),
-                  ],
+                        ],
+                      ),
+                      Text('Choose 1',
+                          style: Theme.of(context).textTheme.bodySmall),
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: widget.meal?.sizes?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return RadioListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  widget.meal?.sizes?[index].size ?? "",
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                if (widget.meal?.sizes?[index] !=
+                                    widget.meal?.sizes?[0])
+                                  Text(
+                                    '${widget.meal?.currency} ${widget.meal?.sizes?[index].price.toString() ?? ""}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary),
+                                  ),
+                              ],
+                            ),
+                            contentPadding: EdgeInsets.zero,
+                            value: index,
+                            groupValue: _value,
+                            onChanged: (value) {
+                              setState(() {
+                                _value = value;
+                                if (value != null) {
+                                  widget.meal?.price =
+                                      widget.meal?.sizes?[value].price;
+                                  calculateTotalPrice();
+                                }
+                              });
+                            },
+                            controlAffinity: ListTileControlAffinity.trailing,
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider(
+                            thickness: 2,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: CustomBottomNavBar(

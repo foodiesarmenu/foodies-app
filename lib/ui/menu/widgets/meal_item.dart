@@ -131,7 +131,7 @@ class _MealItemState extends State<MealItem> {
                           Container(
                             height: 25,
                             child: Image.asset(
-                              'assets/icons/ar2.png',
+                              'assets/icons/ar_new.png',
                               color: Theme.of(context).primaryColor,
                             ),
                           ),

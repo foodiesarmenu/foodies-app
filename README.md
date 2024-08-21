@@ -1,16 +1,38 @@
-# foodies_app
+# Foodies - Augmented Reality Meal Ordering Application
 
-A new Flutter project.
+## Overview
 
-## Getting Started
+Foodies is a groundbreaking application that leverages augmented reality (AR) to provide users with
+an immersive meal visualization experience, allowing them to view and order dishes as if they were
+right in front of them. By utilizing advanced technologies such as Instant Neural Graphics
+Primitives (iNGP) and Neural Radiance Fields (NeRF), Foodies takes menu visualization to a new
+level, transforming 2D images or videos into detailed 3D representations.
 
-This project is a starting point for a Flutter application.
+## Key Features
 
-A few resources to get you started if this is your first Flutter project:
+### 📱 Mobile Application Features:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **User Account Management**: Seamlessly sign up, log in, and manage your account within the app.
+- **Password Recovery**: Secure your account with OTP-based verification for password recovery.
+- **QR Code Scanning**: Easily scan QR codes to view restaurant menus.
+- **Restaurant Search**: Quickly find restaurants by name or category.
+- **AR Meal Visualization**: Experience meals in augmented reality and view nutritional facts with
+  Unity integration.
+- **Order Placement**: Effortlessly place orders and apply promo codes in the cart.
+- **Google Maps Integration**: Choose delivery addresses with the convenience of Google Maps.
+- **Online Payments**: Make secure payments using Stripe.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 🛠️ Technical Details
+
+- **Architecture**: The application has been built using MVVM (Model-View-ViewModel) and Clean
+  Architecture, ensuring scalable and maintainable code.
+- **State Management**: BLoC/Cubit is used for efficient state management, making the app responsive
+  and reliable.
+
+## Technologies Used
+
+- **Flutter**: For developing the mobile application.
+- **Augmented Reality**: Unity and AR technologies for meal visualization.
+- **Neural Graphics Primitives**: iNGP and NeRF for 3D model generation from 2D images/videos.
+- **Stripe**: For secure online payments.
+- **Google Maps API**: For location and address selection.

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../di/di.dart';
 import '../../domain/model/Category.dart';
-import '../home/home_tab/widgets/restaurant_list.dart';
+import '../home_tab/widgets/restaurant_list.dart';
 import 'cubit/category_details_view_model.dart';
 
 class CategoryDetails extends StatefulWidget {
@@ -48,7 +49,21 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           case SuccessState():
             return Scaffold(
               appBar: AppBar(
-                title: Text(widget.category?.name ?? ""),
+                title: Text(widget.category?.name ?? "",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w400)),
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).primaryColor,
+                    size: 28.sp,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ),
               body: SingleChildScrollView(
                 child: Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodies_app/ui/cart/cubit/cart_states.dart';
 import 'package:foodies_app/ui/common/cart_item_list_widget.dart';
 import 'package:foodies_app/ui/common/custom_bottom_navigation_bar.dart';
@@ -77,9 +78,18 @@ class _CartScreenState extends State<CartScreen> {
           } else if (state is GetCartSuccessState) {
             return Scaffold(
               appBar: AppBar(
-                title: const Text('Cart'),
+                elevation: 0.0,
+                title: Text('Cart',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w400)),
                 leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).primaryColor,
+                    size: 28.sp,
+                  ),
                   onPressed: () {
                     if (widget.refreshMenuState != null) {
                       widget.refreshMenuState!();
@@ -88,90 +98,93 @@ class _CartScreenState extends State<CartScreen> {
                   },
                 ),
               ),
-              body: SingleChildScrollView(
+              body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 8.0),
-                  child: Column(
-                    children: [
-                      RestaurantInfoWidget(
-                          cart: state.cart,
-                          refreshMenuState: widget.refreshMenuState),
-                      const SizedBox(
-                        height: 4,
-                      ),
-
-                      //Cart Item List
-                      CartItemListWidget(
-                          cart: state.cart,
-                          viewModel: viewModel,
-                          refreshMenuState: widget.refreshMenuState),
-                      const SizedBox(
-                        height: 4,
-                      ),
-
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        margin: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: .5),
-                          color: Colors.white,
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(16),
-                          ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        RestaurantInfoWidget(
+                            cart: state.cart,
+                            refreshMenuState: widget.refreshMenuState),
+                        const SizedBox(
+                          height: 4,
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                    enabled: (viewModel.couponApplied == false)
-                                        ? true
-                                        : false,
-                                    controller: viewModel.couponController,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.local_offer,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                      hintText: 'Enter Promocode',
-                                      hintStyle: TextStyle(fontSize: 14),
-                                      border: InputBorder.none,
+
+                        //Cart Item List
+                        CartItemListWidget(
+                            cart: state.cart,
+                            viewModel: viewModel,
+                            refreshMenuState: widget.refreshMenuState),
+                        const SizedBox(
+                          height: 4,
+                        ),
+
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: .5),
+                            color: Colors.white,
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(16),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      enabled:
+                                          (viewModel.couponApplied == false)
+                                              ? true
+                                              : false,
+                                      controller: viewModel.couponController,
+                                      decoration: InputDecoration(
+                                        prefixIcon: Icon(Icons.local_offer,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        hintText: 'Enter Promocode',
+                                        hintStyle: TextStyle(fontSize: 14),
+                                        border: InputBorder.none,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                (viewModel.couponController.text.isNotEmpty)
-                                    ? InkWell(
-                                        onTap: () {
-                                          viewModel.applyCoupon();
-                                        },
-                                        child: Text('Submit',
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                fontSize: 14)),
-                                      )
-                                    : Text('Submit',
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 14))
-                              ],
-                            ),
-                            if (viewModel.couponApplied == true)
-                              Text(
-                                'Promocode has been applied',
-                                style: TextStyle(
-                                    color: Colors.green, fontSize: 14),
+                                  (viewModel.couponController.text.isNotEmpty)
+                                      ? InkWell(
+                                          onTap: () {
+                                            viewModel.applyCoupon();
+                                          },
+                                          child: Text('Submit',
+                                              style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .primaryColor,
+                                                  fontSize: 14)),
+                                        )
+                                      : Text('Submit',
+                                          style: TextStyle(
+                                              color: Colors.grey, fontSize: 14))
+                                ],
                               ),
-                          ],
+                              if (viewModel.couponApplied == true)
+                                Text(
+                                  'Promocode has been applied',
+                                  style: TextStyle(
+                                      color: Colors.green, fontSize: 14),
+                                ),
+                            ],
+                          ),
                         ),
-                      ),
 
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      PaymentDetailsWidget(cart: state.cart),
-                    ],
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        PaymentDetailsWidget(cart: state.cart),
+                      ],
+                    ),
                   ),
                 ),
               ),

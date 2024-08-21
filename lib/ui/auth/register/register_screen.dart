@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodies_app/ui/utils/validation_utils.dart';
 
 import '../../../di/di.dart';
@@ -42,24 +43,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       },
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Center(
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.sp, vertical: 8.sp),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   //Logo
-                  Image.asset('assets/images/app_logo.png'),
-                  const SizedBox(height: 32),
+                  Image.asset(
+                    'assets/images/app_logo_new.png',
+                    height: 175.h,
+                    width: double.infinity,
+                  ),
 
                   //Register
                   Text(
                     textAlign: TextAlign.start,
                     'Create your account',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 16.h),
 
                   //Form
                   Form(
@@ -78,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12.h),
 
                         FormInputField(
                           icon: Icons.email_outlined,
@@ -94,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12.h),
 
                         FormInputField(
                           icon: Icons.phone_outlined,
@@ -111,7 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12.h),
 
                         FormInputField(
                           icon: Icons.lock_outlined,
@@ -141,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12.h),
 
                         FormInputField(
                           icon: Icons.lock_outlined,
@@ -159,7 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
 
                         //Register Button
                         PrimaryButton(
@@ -169,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                         ),
 
-                        const SizedBox(height: 8),
+                        SizedBox(height: 8.h),
 
                         //Already have Account
                         Row(
@@ -195,13 +199,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 16),
+                        SizedBox(height: 16.h),
 
                         RichText(
                           textAlign: TextAlign.center,
                           text: TextSpan(
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 12.sp,
                               color: Theme.of(context).colorScheme.secondary,
                             ),
                             children: [

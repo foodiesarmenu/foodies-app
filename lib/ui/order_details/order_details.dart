@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodies_app/ui/common/custom_bottom_navigation_bar.dart';
-import 'package:foodies_app/ui/home/home_screen.dart';
+import 'package:foodies_app/ui/main_navigation/main_navigation_screen.dart';
 import 'package:foodies_app/ui/order_details/cubit/orders_details_states.dart';
 
 import '../../di/di.dart';
@@ -47,36 +48,41 @@ class _OrderDetailsState extends State<OrderDetails> {
 
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Order Details'),
-              automaticallyImplyLeading: false,
-            ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                child: Column(
-                  children: [
-                    RestaurantInfoWidget(
-                      cart: state.orderResponse,
-                      isCart: false,
-                      isOrderDetails: true,
-                      isOrder: true,
-                    ),
-                    AddressDetailsWidget(
-                      address: state.orderResponse?.deliveryAddress,
-                      user: viewModel.user,
-                    ),
-                    CartItemListWidget(
-                        cart: state.orderResponse, isCart: false),
-                    PaymentDetailsWidget(cart: state.orderResponse),
-                  ],
+                automaticallyImplyLeading: false,
+                title: Text('Order Details',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.w400))),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
+                  child: Column(
+                    children: [
+                      RestaurantInfoWidget(
+                        cart: state.orderResponse,
+                        isCart: false,
+                        isOrderDetails: true,
+                        isOrder: true,
+                      ),
+                      AddressDetailsWidget(
+                        address: state.orderResponse?.deliveryAddress,
+                        user: viewModel.user,
+                      ),
+                      CartItemListWidget(
+                          cart: state.orderResponse, isCart: false),
+                      PaymentDetailsWidget(cart: state.orderResponse),
+                    ],
+                  ),
                 ),
               ),
             ),
             bottomNavigationBar: CustomBottomNavBar(
               title: 'Go Home',
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, HomeScreen.routeName),
+              onPressed: () => Navigator.pushReplacementNamed(
+                  context, MainNavigationScreen.routeName),
             ),
           );
         }

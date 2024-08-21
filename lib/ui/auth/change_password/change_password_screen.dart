@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../di/di.dart';
 import '../../common/form_input_field.dart';
@@ -43,97 +44,98 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       bloc: viewModel,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Theme.of(context).primaryColor,
+              size: 28.sp,
             ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Form(
-                  key: viewModel.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text('Set a new password',
-                          style: Theme.of(context).textTheme.titleMedium),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        'Create a new password. Ensure it differs from previous ones for security',
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      const SizedBox(height: 32.0),
-                      FormInputField(
-                        icon: Icons.lock_outlined,
-                        isPassword: true,
-                        isEmail: false,
-                        controller: viewModel.newPasswordController,
-                        label: 'Password',
-                        hint: 'Enter your new password',
-                        isSecured: true,
-                        validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
-                            return 'Please enter password';
-                          }
-                          if (!ValidationUtils.hasMinLength(text)) {
-                            return 'Password is too short';
-                          }
-                          if (!ValidationUtils.hasNumber(text)) {
-                            return 'Missing number';
-                          }
-                          if (!ValidationUtils.hasUpperCase(text)) {
-                            return 'Missing uppercase letter';
-                          }
-                          if (!ValidationUtils.hasSpecialCharacter(text)) {
-                            return 'Missing special character';
-                          }
-                          if (!ValidationUtils.hasLowerCase(text)) {
-                            return 'Missing lowercase letter';
-                          }
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Form(
+                    key: viewModel.formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text('Set a new password',
+                            style: Theme.of(context).textTheme.titleMedium),
+                        const SizedBox(height: 8.0),
+                        Text(
+                          'Create a new password. Ensure it differs from previous ones for security',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 32.0),
+                        FormInputField(
+                          icon: Icons.lock_outlined,
+                          isPassword: true,
+                          isEmail: false,
+                          controller: viewModel.newPasswordController,
+                          label: 'Password',
+                          hint: 'Enter your new password',
+                          isSecured: true,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter password';
+                            }
+                            if (!ValidationUtils.hasMinLength(text)) {
+                              return 'Password is too short';
+                            }
+                            if (!ValidationUtils.hasNumber(text)) {
+                              return 'Missing number';
+                            }
+                            if (!ValidationUtils.hasUpperCase(text)) {
+                              return 'Missing uppercase letter';
+                            }
+                            if (!ValidationUtils.hasSpecialCharacter(text)) {
+                              return 'Missing special character';
+                            }
+                            if (!ValidationUtils.hasLowerCase(text)) {
+                              return 'Missing lowercase letter';
+                            }
 
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      FormInputField(
-                        icon: Icons.lock_outlined,
-                        isPassword: true,
-                        isEmail: false,
-                        controller: viewModel.confirmPasswordController,
-                        label: 'Retype Password',
-                        hint: 'Re enter password',
-                        isSecured: true,
-                        validator: (text) {
-                          if (text == null || text.trim().isEmpty) {
-                            return 'Please enter confirm password';
-                          }
-                          if (text != viewModel.newPasswordController.text) {
-                            return 'Password does not match';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 32.0),
-                      PrimaryButton(
-                        text: 'Reset Password',
-                        onPressed: () {
-                          viewModel.changePassword(email: args ?? '');
-                        },
-                      ),
-                    ],
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        FormInputField(
+                          icon: Icons.lock_outlined,
+                          isPassword: true,
+                          isEmail: false,
+                          controller: viewModel.confirmPasswordController,
+                          label: 'Retype Password',
+                          hint: 'Re enter password',
+                          isSecured: true,
+                          validator: (text) {
+                            if (text == null || text.trim().isEmpty) {
+                              return 'Please enter confirm password';
+                            }
+                            if (text != viewModel.newPasswordController.text) {
+                              return 'Password does not match';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 32.0),
+                        PrimaryButton(
+                          text: 'Reset Password',
+                          onPressed: () {
+                            viewModel.changePassword(email: args ?? '');
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

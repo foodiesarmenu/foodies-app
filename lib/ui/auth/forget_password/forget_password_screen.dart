@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../di/di.dart';
 import '../../utils/dialog_utils.dart';
@@ -56,74 +57,76 @@ class ForgetPasswordScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Theme.of(context).primaryColor,
+              size: 28.sp,
             ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
-        body: Form(
-          key: viewModel.formKey,
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IntroTextWidget.buildIntroText(
-                  'What is your email address?',
-                  'Please enter your email address to reset the password.',
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Expanded(
-                  child: TextFormField(
-                    style: TextStyle(height: 1, fontSize: 18, letterSpacing: 2),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.yellow,
+        body: SafeArea(
+          child: Form(
+            key: viewModel.formKey,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IntroTextWidget.buildIntroText(
+                    'What is your email address?',
+                    'Please enter your email address to reset the password.',
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      style:
+                          TextStyle(height: 1, fontSize: 18, letterSpacing: 2),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.yellow,
+                          ),
                         ),
                       ),
-                    ),
-                    controller: viewModel.emailController,
-                    keyboardType: TextInputType.text,
-                    validator: (text) {
-                      if (text == null || text.trim().isEmpty) {
-                        return 'Please enter email';
-                      }
-                      if (!ValidationUtils.isValidEmail(text)) {
-                        return 'Please enter valid email';
-                      }
-                      return null;
-                    },
-                    onSaved: (value) {
-                      // phoneNumber = value!;
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ButtonWidget.buildNextBtn(
-                      () {
-                        viewModel.forgetPassword();
+                      controller: viewModel.emailController,
+                      keyboardType: TextInputType.text,
+                      validator: (text) {
+                        if (text == null || text.trim().isEmpty) {
+                          return 'Please enter email';
+                        }
+                        if (!ValidationUtils.isValidEmail(text)) {
+                          return 'Please enter valid email';
+                        }
+                        return null;
                       },
-                      'Next',
+                      onSaved: (value) {
+                        // phoneNumber = value!;
+                      },
                     ),
-                  ],
-                ),
-                // _buildPhoneNumberSubmitedBloc(),
-              ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ButtonWidget.buildNextBtn(
+                        () {
+                          viewModel.forgetPassword();
+                        },
+                        'Next',
+                      ),
+                    ],
+                  ),
+                  // _buildPhoneNumberSubmitedBloc(),
+                ],
+              ),
             ),
           ),
         ),
