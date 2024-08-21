@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodies_app/ui/auth/login/cubit/login_view_model.dart';
 
 import '../../../di/di.dart';
@@ -41,131 +43,153 @@ class _LoginScreenState extends State<LoginScreen> {
                 arguments: state.authResult.data?.name ?? '');
           }
         },
-        child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    //Logo
-                    Image.asset(
-                      'assets/images/app_logo.png',
-                    ),
+        child: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            statusBarColor: Colors.white,
+          ),
+          child: Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding:
+                    EdgeInsets.symmetric(vertical: 8.sp, horizontal: 16.sp),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      //Logo
+                      Container(
+                        child: Image.asset(
+                          'assets/images/app_logo_new.png',
+                          height: 175.h,
+                          width: double.infinity,
+                        ),
+                      ),
 
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    //Welcome
-                    Text(
-                        textAlign: TextAlign.start,
-                        'Login to your account',
-                        style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    //Form
-                    Form(
-                      key: viewModel.formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          FormInputField(
-                            label: 'Email',
-                            icon: Icons.email_outlined,
-                            controller: viewModel.emailController,
-                            //hint: 'yehya404@gmail.com',
-                            keyboardType: TextInputType.emailAddress,
-                            validator: (text) {
-                              if (text == null || text.trim().isEmpty) {
-                                return 'Please enter email';
-                              }
-                              if (!ValidationUtils.isValidEmail(text)) {
-                                return 'Please enter valid email';
-                              }
-                              return null;
-                            },
-                          ),
+                      // const SizedBox(
+                      //   height: 32,
+                      // ),
+                      //Welcome
+                      Text(
+                          textAlign: TextAlign.start,
+                          'Login',
+                          style: Theme.of(context).textTheme.titleLarge),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Text(
+                          textAlign: TextAlign.start,
+                          'Please sign in to continue',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: Colors.grey)),
+                      SizedBox(
+                        height: 16.h,
+                      ),
 
-                          SizedBox(
-                            height: 16,
-                          ),
-
-                          FormInputField(
-                            icon: Icons.lock_outlined,
-                            controller: viewModel.passwordController,
-                            label: 'Password',
-                            //hint: 'Ehab123@',
-                            isSecured: true,
-                            validator: (text) {
-                              if (text == null || text.trim().isEmpty) {
-                                return 'Please enter password';
-                              }
-                              return null;
-                            },
-                          ),
-
-                          const SizedBox(height: 8),
-
-                          //Forget Password
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context)
-                                    .pushNamed(ForgetPasswordScreen.routeName);
+                      //Form
+                      Form(
+                        key: viewModel.formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            FormInputField(
+                              label: 'Email',
+                              icon: Icons.email_outlined,
+                              controller: viewModel.emailController,
+                              //hint: 'yehya404@gmail.com',
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (text) {
+                                if (text == null || text.trim().isEmpty) {
+                                  return 'Please enter email';
+                                }
+                                if (!ValidationUtils.isValidEmail(text)) {
+                                  return 'Please enter valid email';
+                                }
+                                return null;
                               },
-                              child: Text(
-                                'Forget Password?',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor),
+                            ),
+
+                            SizedBox(
+                              height: 16.h,
+                            ),
+
+                            FormInputField(
+                              icon: Icons.lock_outlined,
+                              controller: viewModel.passwordController,
+                              label: 'Password',
+                              //hint: 'Ehab123@',
+                              isSecured: true,
+                              validator: (text) {
+                                if (text == null || text.trim().isEmpty) {
+                                  return 'Please enter password';
+                                }
+                                return null;
+                              },
+                            ),
+
+                            const SizedBox(height: 8),
+
+                            //Forget Password
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      ForgetPasswordScreen.routeName);
+                                },
+                                child: Text(
+                                  'Forget Password?',
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
+                                ),
                               ),
                             ),
-                          ),
 
-                          const SizedBox(height: 8),
+                            const SizedBox(height: 8),
 
-                          //Login Button
-                          PrimaryButton(
-                            text: 'Login',
-                            onPressed: () {
-                              viewModel.login();
-                            },
-                          ),
+                            //Login Button
+                            PrimaryButton(
+                              text: 'Login',
+                              onPressed: () {
+                                viewModel.login();
+                              },
+                            ),
 
-                          const SizedBox(height: 8),
+                            const SizedBox(height: 8),
 
-                          //Do not have account ?
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Do not have account? ',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .pushNamed(RegisterScreen.routeName);
-                                  },
-                                  child: Text(
-                                    ' Sign up',
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
-                                  )),
-                            ],
-                          ),
+                            //Do not have account ?
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Do not have account? ',
+                                  style: TextStyle(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
+                                ),
+                                InkWell(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .pushNamed(RegisterScreen.routeName);
+                                    },
+                                    child: Text(
+                                      ' Sign up',
+                                      style: TextStyle(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                    )),
+                              ],
+                            ),
 
-                          //Social Connect
-                          // const SocialSignInOptions(),
-                        ],
+                            //Social Connect
+                            // const SocialSignInOptions(),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

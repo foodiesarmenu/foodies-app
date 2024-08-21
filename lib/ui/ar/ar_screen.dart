@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 class ARScreen extends StatefulWidget {
   static const routeName = '/ar_screen';
@@ -18,30 +20,46 @@ class _ARScreenState extends State<ARScreen> {
   }
 
   UnityWidgetController? _unityWidgetController;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          statusBarColor: Colors.white,
+        ),
+        child: Scaffold(
+          key: _scaffoldKey,
       appBar: AppBar(
-        title: const Text('AR View'),
-      ),
-      body: SafeArea(
-        bottom: false,
-        child: WillPopScope(
-          onWillPop: () async {
-            // Pop the category page if Android back button is pressed.
-            return true;
-          },
-          child: Container(
-            color: Theme.of(context).primaryColor,
-            child: UnityWidget(
-              fullscreen: false,
-              onUnityCreated: onUnityCreated,
+            elevation: 0.0,
+            title: Text('AR View',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(fontWeight: FontWeight.w400)),
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).primaryColor,
+                size: 28.sp,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
+      body: SafeArea(
+        bottom: false,
+            child: Container(
+              color: Theme.of(context).primaryColor,
+              child: UnityWidget(
+                fullscreen: false,
+                onUnityCreated: onUnityCreated,
+              ),
         ),
       ),
-    );
+        ));
   }
 
   // Callback that connects the created controller to the unity controller

@@ -47,7 +47,7 @@ class _MenuContainerState extends State<MenuContainer> {
     final index = widget.menus?.indexWhere((menu) => menu.name == menuName);
     if (index != null && index >= 0) {
       _scrollController.animateTo(
-        (index * 400).toDouble(), // Adjust 400 according to your meal list item height
+        (index * 1000).toDouble(),
         duration: Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
@@ -78,13 +78,16 @@ class _MenuContainerState extends State<MenuContainer> {
           Positioned(
             left: 20,
             top: 30,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  color: Colors.white,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                color: Colors.white,
+                border: Border.all(
+                  color: Theme.of(context).primaryColor,
+                  width: .4,
                 ),
+              ),
+              child: Center(
                 child: IconButton(
                   onPressed: () {
                     if (widget.fromScanner == true) {
@@ -103,7 +106,6 @@ class _MenuContainerState extends State<MenuContainer> {
               ),
             ),
           ),
-
           //Bullets Icon
           // Positioned(
           //   right: 20,

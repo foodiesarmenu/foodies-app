@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../di/di.dart';
 import '../../utils/dialog_utils.dart';
@@ -69,102 +70,103 @@ class _OtpCodeScreenState extends State<OtpCodeScreen> {
       bloc: viewModel,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: Colors.black,
+              color: Theme.of(context).primaryColor,
+              size: 28.sp,
             ),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
-        body: Form(
-          key: viewModel.formKey,
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                IntroTextWidget.buildIntroText(
-                  'Verify your email address?',
-                  'Enter your 4 digit code numbers sent to you at ',
-                  //spanText: '$phoneNumber',
-                  spanText: args,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    for (int i = 0; i < 4; i++)
-                      SizedBox(
-                        height: 68,
-                        width: 64,
-                        child: TextFormField(
-                          controller: viewModel.otpControllers[i],
-                          onSaved: (pin1) {},
-                          focusNode: viewModel.focusNodes[i],
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium
-                              ?.copyWith(
+        body: SafeArea(
+          child: Form(
+            key: viewModel.formKey,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 32, vertical: 32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  IntroTextWidget.buildIntroText(
+                    'Verify your email address?',
+                    'Enter your 4 digit code numbers sent to you at ',
+                    //spanText: '$phoneNumber',
+                    spanText: args,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      for (int i = 0; i < 4; i++)
+                        SizedBox(
+                          height: 68,
+                          width: 64,
+                          child: TextFormField(
+                            controller: viewModel.otpControllers[i],
+                            onSaved: (pin1) {},
+                            focusNode: viewModel.focusNodes[i],
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineMedium
+                                ?.copyWith(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold),
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(1),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
+                            autofocus: i == 0,
+                            textInputAction: i < 3
+                                ? TextInputAction.next
+                                : TextInputAction.done,
+                            onChanged: (value) {
+                              if (value.length == 1 && i < 3) {
+                                viewModel.focusNodes[i + 1].requestFocus();
+                              }
+                            },
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(vertical: 8),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly,
-                          ],
-                          autofocus: i == 0,
-                          textInputAction: i < 3
-                              ? TextInputAction.next
-                              : TextInputAction.done,
-                          onChanged: (value) {
-                            if (value.length == 1 && i < 3) {
-                              viewModel.focusNodes[i + 1].requestFocus();
-                            }
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(vertical: 8),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 2,
+                                  width: 2,
+                                ),
                               ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                                width: 2,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2,
+                                ),
                               ),
                             ),
                           ),
                         ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ButtonWidget.buildNextBtn(
+                        () {
+                          viewModel.verifyOTP(email: args);
+                        },
+                        'Verify',
                       ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ButtonWidget.buildNextBtn(
-                      () {
-                        viewModel.verifyOTP(email: args);
-                      },
-                      'Verify',
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

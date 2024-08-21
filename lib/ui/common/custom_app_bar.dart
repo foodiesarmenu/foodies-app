@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar {
   static AppBar buildAppBar(BuildContext context, String title) {
     return AppBar(
       title: Text(
         title,
-        style: const TextStyle(fontSize: 18, letterSpacing: 1, fontWeight: FontWeight.w400),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w400,
+            ),
       ),
       leading: IconButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back,
-          color: Colors.black,
+          color: Theme.of(context).primaryColor,
+          size: 28.sp,
         ),
       ),
     );

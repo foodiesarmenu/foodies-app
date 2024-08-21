@@ -1,0 +1,157 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodies_app/ui/home_tab/widgets/promotion_widget.dart';
+import 'package:foodies_app/ui/my_theme_data.dart';
+
+import '../../../di/di.dart';
+import '../search/search_screen.dart';
+import 'cubit/home_states.dart';
+import 'cubit/home_tab_view_model.dart';
+import 'widgets/app_search_bar.dart';
+import 'widgets/category_list.dart';
+import 'widgets/delivery_address_widget.dart';
+import 'widgets/restaurant_list.dart';
+import 'widgets/section_title_widget.dart';
+
+class HomeTab extends StatefulWidget {
+  static const String routeName = 'HomeSc';
+  final Function()? refreshHomeState;
+
+  const HomeTab({this.refreshHomeState, super.key});
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  var viewModel = getIt<HomeTabViewModel>();
+
+  @override
+  void initState() {
+    viewModel.initPage();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: BlocBuilder<HomeTabViewModel, HomeTabState>(
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case LoadingState:
+              return const Center(child: CircularProgressIndicator());
+            case ErrorState:
+              return Column(
+                children: [
+                  Text((state as ErrorState).errorMessage),
+                  ElevatedButton(
+                    onPressed: () {
+                      viewModel.initPage();
+                    },
+                    child: const Text('Try Again'),
+                  ),
+                ],
+              );
+            case SuccessState:
+              final successState = state as SuccessState;
+              return SafeArea(
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverAppBar(
+                      automaticallyImplyLeading: false,
+                      pinned: false,
+                      floating: false,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      actions: [
+                        Expanded(
+                          child: DeliveryAddressWidget(
+                              homeTabViewModel: viewModel),
+                        ),
+                      ],
+                    ),
+                    SliverAppBar(
+                      automaticallyImplyLeading: false,
+                      pinned: true,
+                      floating: true,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      actions: [
+                        Expanded(
+                          child: AppSearchBar(
+                            onPressed: () {
+                              showSearch(
+                                context: context,
+                                delegate: SearchScreen(
+                                    restaurants: successState.restaurants,
+                                    refreshHomeState: widget.refreshHomeState),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    // SliverPersistentHeader(
+                    //   pinned: false,
+                    //   floating: false,
+                    //   delegate: _SearchAppBarDelegate(
+                    //     child: Container(
+                    //       color: Theme.of(context).primaryColor,
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    //         child: AppSearchBar(
+                    //           onPressed: () {
+                    //             showSearch(
+                    //               context: context,
+                    //               delegate: SearchScreen(),
+                    //             );
+                    //           },
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    SliverPadding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16.sp, vertical: 8.sp),
+                      sliver: SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            const SectionTitleWidget(
+                              title: 'Category',
+                              subtitle: 'Discover different categories',
+                            ),
+                            SizedBox(height: 8.sp),
+                            CategoryList(successState.categories ?? [],
+                                widget.refreshHomeState),
+                            const Divider(),
+                            const SectionTitleWidget(
+                              title: 'Promotions',
+                              subtitle: 'Wide range of promotions just for you',
+                            ),
+                            SizedBox(height: 8.sp),
+                            PromotionWidget(successState.promotions ?? [],
+                                refreshState: widget.refreshHomeState),
+                            const Divider(),
+                            const SectionTitleWidget(
+                              title: 'Restaurants',
+                              subtitle: 'Explore various restaurants',
+                            ),
+                            SizedBox(height: 8.sp),
+                            RestaurantList(successState.restaurants ?? [],
+                                refreshState: widget.refreshHomeState),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
+  }
+}

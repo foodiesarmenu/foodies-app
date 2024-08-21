@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:foodies_app/ui/my_bloc_observer.dart';
 import 'package:foodies_app/ui/my_theme_data.dart';
@@ -15,6 +17,7 @@ Future<void> main() async {
   await SharedPreferenceUtils.init();
   configureDependencies();
   Bloc.observer = MyBlocObserver();
+
   runApp(
       const MyApp());
 }
@@ -25,11 +28,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: MyThemeData.lightMode,
-      initialRoute: AppRouter.initialRoute,
-      routes: AppRouter.routes,
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Color(0xFFFFFFFF),
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ));
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: MyThemeData.lightMode,
+          initialRoute: AppRouter.initialRoute,
+          routes: AppRouter.routes,
+        );
+      },
     );
   }
 }

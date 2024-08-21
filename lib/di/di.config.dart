@@ -98,21 +98,15 @@ import '../ui/cart/cubit/cart_screen_view_model.dart' as _i94;
 import '../ui/category_details/cubit/category_details_view_model.dart' as _i84;
 import '../ui/change_address/cubit/change_address_view_model.dart' as _i98;
 import '../ui/checkout/cubit/checkout_view_model.dart' as _i97;
-import '../ui/home/home_tab/cubit/home_tab_view_model.dart' as _i99;
-import '../ui/home/orders_tab/cubit/orders_tab_view_model.dart' as _i85;
-import '../ui/home/profile_tab/cubit/profile_view_model.dart' as _i93;
-import '../ui/home/profile_tab/edit_profile/cubit/edit_profile_view_model.dart'
-    as _i86;
-import '../ui/home/profile_tab/favourite/cubit/favourite_view_model.dart'
-    as _i74;
-import '../ui/home/profile_tab/settings/change_email_screen/cubit/change_email_view_model.dart'
-    as _i96;
-import '../ui/home/profile_tab/settings/my_addresses/form_address/cubit/form_address_view_model.dart'
-    as _i95;
-import '../ui/home/profile_tab/settings/my_addresses/maps/cubit/maps_cubit.dart'
-    as _i61;
-import '../ui/home/profile_tab/settings/reset_password/cubit/reset_password_view_model.dart'
-    as _i92;
+import '../ui/home_tab/cubit/home_tab_view_model.dart' as _i99;
+import '../ui/orders_tab/cubit/orders_tab_view_model.dart' as _i85;
+import '../ui/profile_tab/cubit/profile_view_model.dart' as _i93;
+import '../ui/edit_profile/cubit/edit_profile_view_model.dart' as _i86;
+import '../ui/favourite/cubit/favourite_view_model.dart' as _i74;
+import '../ui/change_email/cubit/change_email_view_model.dart' as _i96;
+import '../ui/form_address/cubit/form_address_view_model.dart' as _i95;
+import '../ui/maps/cubit/maps_cubit.dart' as _i61;
+import '../ui/reset_password/cubit/reset_password_view_model.dart' as _i92;
 import '../ui/meal_details/cubit/meal_details_view_model.dart' as _i82;
 import '../ui/menu/cubit/menu_view_model.dart' as _i75;
 import '../ui/order_details/cubit/orders_details_view_model.dart' as _i83;

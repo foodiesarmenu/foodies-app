@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../di/di.dart';
@@ -65,43 +66,53 @@ class _MenuScreenState extends State<MenuScreen> {
                     child: const Text('Try Again'))
               ],
             );
+
           case Success():
-            return Scaffold(
-              body: MenuContainer(
-                fromScanner: widget.isScanner,
-                restaurant: state.restaurant ?? Restaurant(),
-                menus: state.menus ?? [],
-                isFavourite: viewModel.isFavourite,
-                refreshMenuState: refreshMenuState,
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarIconBrightness: Brightness.dark,
+                statusBarBrightness: Brightness.light,
+                statusBarColor: Colors.white,
               ),
-              floatingActionButton:
-                  (numOfCartItems != 0 && numOfCartItems != null)
-                      ? FloatingActionButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CartScreen(
-                                        isScanner: widget.isScanner,
-                                        refreshMenuState: refreshMenuState)));
-                            // Navigator.pushNamed(context, CartScreen.routeName);
-                          },
-                          backgroundColor: Colors.white,
-                          child: Badge(
-                            label: Text(
-                              '$numOfCartItems',
-                              style: TextStyle(
+              child: Scaffold(
+                body: SafeArea(
+                  child: MenuContainer(
+                    fromScanner: widget.isScanner,
+                    restaurant: state.restaurant ?? Restaurant(),
+                    menus: state.menus ?? [],
+                    isFavourite: viewModel.isFavourite,
+                    refreshMenuState: refreshMenuState,
+                  ),
+                ),
+                floatingActionButton:
+                    (numOfCartItems != 0 && numOfCartItems != null)
+                        ? FloatingActionButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartScreen(
+                                          isScanner: widget.isScanner,
+                                          refreshMenuState: refreshMenuState)));
+                              // Navigator.pushNamed(context, CartScreen.routeName);
+                            },
+                            backgroundColor: Colors.white,
+                            child: Badge(
+                              label: Text(
+                                '$numOfCartItems',
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              child: Icon(
+                                Icons.shopping_cart,
                                 color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: Icon(
-                              Icons.shopping_cart,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                        )
-                      : null,
+                          )
+                        : null,
+              ),
             );
         }
         return const Scaffold();
