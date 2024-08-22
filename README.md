@@ -28,11 +28,3 @@ level, transforming 2D images or videos into detailed 3D representations.
   Architecture, ensuring scalable and maintainable code.
 - **State Management**: BLoC/Cubit is used for efficient state management, making the app responsive
   and reliable.
-
-## Technologies Used
-
-- **Flutter**: For developing the mobile application.
-- **Augmented Reality**: Unity and AR technologies for meal visualization.
-- **Neural Graphics Primitives**: iNGP and NeRF for 3D model generation from 2D images/videos.
-- **Stripe**: For secure online payments.
-- **Google Maps API**: For location and address selection.
